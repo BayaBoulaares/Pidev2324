@@ -1,0 +1,10 @@
+package edu.esprit.services;
+import edu.esprit.entities.Evenement;
+import java.util.Set;
+public interface IService <T>{
+    public void ajouter(T e);
+    public void modifier(T e);
+    public void supprimer(int id);
+    public T getOneById(int id);
+    public Set<T> getAll();
+}
