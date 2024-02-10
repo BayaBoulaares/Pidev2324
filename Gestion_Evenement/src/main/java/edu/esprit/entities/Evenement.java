@@ -101,11 +101,7 @@ public class Evenement {
         this.Status = Status;
     }
 
-    public enum Status {
-        EN_COURS,
-        TERMINE,
-        ANNULE
-    }
+
 
     @Override
     public String toString() {

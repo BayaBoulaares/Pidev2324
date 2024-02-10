@@ -1,6 +1,7 @@
 package edu.esprit.services;
 
 import edu.esprit.entities.Evenement;
+import edu.esprit.entities.Status;
 import edu.esprit.utils.DataSource;
 
 import java.sql.*;
@@ -22,7 +23,7 @@ public class ServiceEvenement implements IService<Evenement> {
             ps.setDate(4, new java.sql.Date(e.getDate_Debut().getTime()));
             ps.setDate(5, new java.sql.Date(e.getDate_Fin().getTime()));
             ps.setInt(6, e.getNb_Max());
-            ps.setString(7, e.getStatus().toString());
+            ps.setString(7, e.getStatus().name());
             ps.executeUpdate();
             System.out.println("Evenement ajouté avec succès !");
         } catch (SQLException ex) {
@@ -41,7 +42,7 @@ public class ServiceEvenement implements IService<Evenement> {
             ps.setDate(4, new java.sql.Date(e.getDate_Debut().getTime()));
             ps.setDate(5, new java.sql.Date(e.getDate_Fin().getTime()));
             ps.setInt(6, e.getNb_Max());
-            ps.setString(7, e.getStatus().toString());
+            ps.setString(7, e.getStatus().name());
             ps.setInt(8, e.getId_Event()); // Ajout de l'ID de l'événement à modifier dans la clause WHERE
             int rowsAffected = ps.executeUpdate();
             if (rowsAffected > 0) {
@@ -77,8 +78,6 @@ public class ServiceEvenement implements IService<Evenement> {
         }
     }
 
-
-
     @Override
     public Evenement getOneById(int id) {
         Evenement evenement = null;
@@ -95,7 +94,7 @@ public class ServiceEvenement implements IService<Evenement> {
                 Date dateDebut = res.getDate("Date_Debut");
                 Date dateFin = res.getDate("Date_Fin");
                 int nbMax = res.getInt("Nb_Max");
-                Evenement.Status status = Evenement.Status.valueOf(res.getString("Status"));
+                Status status = Status.valueOf(res.getString("Status"));
                 evenement = new Evenement(eventId, nomEvent, description, lieuEvent, dateDebut, dateFin, nbMax, status);
             }
         } catch (SQLException ex) {
@@ -120,7 +119,7 @@ public class ServiceEvenement implements IService<Evenement> {
                 Date dateDebut = res.getDate("Date_Debut");
                 Date dateFin = res.getDate("Date_Fin");
                 int nbMax = res.getInt("Nb_Max");
-                Evenement.Status status = Evenement.Status.valueOf(res.getString("Status"));
+                Status status = Status.valueOf(res.getString("Status"));
                 Evenement e = new Evenement(id, nomEvent, description, lieuEvent, dateDebut, dateFin, nbMax, status);
                 evenements.add(e);
             }
