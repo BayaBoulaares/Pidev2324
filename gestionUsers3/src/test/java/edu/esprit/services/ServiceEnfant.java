@@ -2,8 +2,10 @@ package edu.esprit.services;
 import edu.esprit.entities.Administrateur;
 import edu.esprit.entities.Enfant;
 import edu.esprit.entities.Parent;
+import edu.esprit.entities.Professeur;
 import edu.esprit.utilis.DataSource;
 import java.sql.*;
+import java.util.HashSet;
 import java.util.Set;
 
 public class ServiceEnfant {
@@ -130,7 +132,26 @@ public class ServiceEnfant {
     }
 
 
+    public Set<Enfant> getAll() {
+        Set<Enfant> users = new HashSet<>();
+        String req = "Select * from enfant ";
+        try{
+            PreparedStatement ps = cnx.prepareStatement(req);
+            ResultSet res = ps.executeQuery(req);
+            while(res.next())
+            {
+                System.out.println(res.getString(1));
+                System.out.println(res.getString(2));
+                System.out.println(res.getString(3));
+            }
+        }
+        catch(SQLException e)
+        {
+            System.out.println(e.getMessage());
 
+        }
+        return users ;
+    }
 
 
 }

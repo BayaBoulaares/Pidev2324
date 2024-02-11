@@ -1,6 +1,7 @@
 package edu.esprit.services;
 import edu.esprit.entities.Administrateur;
 import edu.esprit.entities.Parent;
+import edu.esprit.entities.Professeur;
 import edu.esprit.entities.Utilisateur;
 import edu.esprit.utilis.DataSource;
 import java.sql.*;
@@ -134,6 +135,23 @@ public class ServiceAdmin implements IService<Administrateur>{
 
     @Override
     public Set<Administrateur> getAll() {
-        return null;
+        Set<Administrateur> users = new HashSet<>();
+        String req = "Select * from users WHERE `users`.`role`='Adminstrateur'";
+        try{
+            PreparedStatement ps = cnx.prepareStatement(req);
+            ResultSet res = ps.executeQuery(req);
+            while(res.next())
+            {
+                System.out.println(res.getString(1));
+                System.out.println(res.getString(2));
+                System.out.println(res.getString(3));
+            }
+        }
+        catch(SQLException e)
+        {
+            System.out.println(e.getMessage());
+
+        }
+        return users ;
     }
 }

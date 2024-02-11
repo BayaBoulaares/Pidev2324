@@ -58,12 +58,26 @@ public class Main {
         /*ServiceParent sp = new ServiceParent();
         sp.supprimer(80);*/
         //Supprimer Professeur
-        ServiceProfesseur sp =new ServiceProfesseur();
-        sp.supprimer(79);
-
+        /*ServiceProfesseur sp =new ServiceProfesseur();
+        sp.supprimer(79);*/
         // Supprimer Administrateur
         /*ServiceAdmin sa = new ServiceAdmin();
         sa.supprimer(77);*/
+        //GetALL Parent
+        /*ServiceParent sp = new ServiceParent();
+        sp.getAll();*/
+        //GetALL
+        ServiceParent spa = new ServiceParent();
+        Parent pa1 = new Parent("Lina", "Boulaares", "Petite Ariana", "2000-08-13", "kdsjjds", 54703266, "mldsjku");
+        spa.ajouter(pa1);
+        spa.getAll();
+        ServiceEnfant se = new ServiceEnfant();
+        Enfant en = new Enfant("Mariem","Marzouk","11-08-2000",3,pa1);
+        se.ajouter(en,pa1);
+        se.getAll();
+        ServiceProfesseur sp = new ServiceProfesseur();
+        sp.getAll();
+
 
 
 

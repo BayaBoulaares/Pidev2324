@@ -1,11 +1,13 @@
 package edu.esprit.services;
 import edu.esprit.entities.Administrateur;
 import edu.esprit.entities.Parent;
+import edu.esprit.entities.Utilisateur;
 import edu.esprit.utilis.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashSet;
 import java.util.Set;
 
 public class ServiceParent implements IService<Parent>{
@@ -136,6 +138,23 @@ public class ServiceParent implements IService<Parent>{
 
     @Override
     public Set<Parent> getAll() {
-        return null;
+        Set<Parent> users = new HashSet<>();
+        String req = "Select * from users WHERE `users`.`role`='Parent'";
+        try{
+            PreparedStatement ps = cnx.prepareStatement(req);
+            ResultSet res = ps.executeQuery(req);
+            while(res.next())
+            {
+                System.out.println(res.getString(1));
+                System.out.println(res.getString(2));
+                System.out.println(res.getString(3));
+            }
+        }
+        catch(SQLException e)
+        {
+            System.out.println(e.getMessage());
+
+        }
+        return users ;
     }
 }

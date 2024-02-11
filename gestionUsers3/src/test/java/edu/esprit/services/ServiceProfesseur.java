@@ -7,6 +7,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashSet;
 import java.util.Set;
 
 public class ServiceProfesseur implements IService<Professeur>{
@@ -137,6 +138,23 @@ public class ServiceProfesseur implements IService<Professeur>{
 
     @Override
     public Set<Professeur> getAll() {
-        return null;
+        Set<Professeur> users = new HashSet<>();
+        String req = "Select * from users WHERE `users`.`role`='Professeur'";
+        try{
+            PreparedStatement ps = cnx.prepareStatement(req);
+            ResultSet res = ps.executeQuery(req);
+            while(res.next())
+            {
+                System.out.println(res.getString(1));
+                System.out.println(res.getString(2));
+                System.out.println(res.getString(3));
+            }
+        }
+        catch(SQLException e)
+        {
+            System.out.println(e.getMessage());
+
+        }
+        return users ;
     }
 }
