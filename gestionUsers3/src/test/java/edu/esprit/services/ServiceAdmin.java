@@ -84,9 +84,23 @@ public class ServiceAdmin implements IService<Administrateur>{
     }
 
     @Override
-    public void supprimer(int id) {
+    public void supprimer(int idAdministrateur) {
+        String req = "DELETE FROM `users` WHERE `users`.`idU`=? AND `users`.`role`='Administrateur'";
+        try {
+            PreparedStatement ps = cnx.prepareStatement(req);
+            ps.setInt(1, idAdministrateur);
 
+            int rowsAffected = ps.executeUpdate();
+            if (rowsAffected > 0) {
+                System.out.println("Administrateur supprimé !");
+            } else {
+                System.out.println("Aucun administrateur trouvé avec l'ID spécifié.");
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
+
 
     @Override
     public Administrateur getOneById(int id) {

@@ -46,11 +46,25 @@ public class Main {
         pr2.setNom("Seima");
         spr.modifier(pr2);*/
         //Modifier Enfant
-        ServiceEnfant se = new ServiceEnfant();
+        /*ServiceEnfant se = new ServiceEnfant();
         Enfant e2 = se.getOneById(80);
         System.out.println("Parent trouvé : " + e2);
         e2.setNom("Seima");
-        se.modifier(e2);
+        se.modifier(e2);*/
+        //Supprimer Enfant
+        /*ServiceEnfant se = new ServiceEnfant();
+        se.supprimer(80);*/
+        //Supprimer Enfant
+        /*ServiceParent sp = new ServiceParent();
+        sp.supprimer(80);*/
+        //Supprimer Professeur
+        ServiceProfesseur sp =new ServiceProfesseur();
+        sp.supprimer(79);
+
+        // Supprimer Administrateur
+        /*ServiceAdmin sa = new ServiceAdmin();
+        sa.supprimer(77);*/
+
 
 
 

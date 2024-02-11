@@ -112,6 +112,22 @@ public class ServiceEnfant {
         }
         return e;
     }
+    public void supprimer(int id) {
+        String req = "DELETE FROM `enfant` WHERE `enfant`.`idE`=? ";
+        try {
+            PreparedStatement ps = cnx.prepareStatement(req);
+            ps.setInt(1, id);
+
+            int rowsAffected = ps.executeUpdate();
+            if (rowsAffected > 0) {
+                System.out.println("Enfant supprimé !");
+            } else {
+                System.out.println("Aucun Enfant trouvé avec l'ID spécifié.");
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
 
 
 

@@ -86,8 +86,22 @@ public class ServiceParent implements IService<Parent>{
 
     @Override
     public void supprimer(int id) {
+        String req = "DELETE FROM `users` WHERE `users`.`idU`=? AND `users`.`role`='Parent'";
+        try {
+            PreparedStatement ps = cnx.prepareStatement(req);
+            ps.setInt(1, id);
 
+            int rowsAffected = ps.executeUpdate();
+            if (rowsAffected > 0) {
+                System.out.println("Parent supprimé !");
+            } else {
+                System.out.println("Aucun parent trouvé avec l'ID spécifié.");
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
+
 
     @Override
     public Parent getOneById(int id) {

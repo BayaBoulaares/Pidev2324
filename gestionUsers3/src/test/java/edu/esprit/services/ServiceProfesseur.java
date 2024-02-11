@@ -86,8 +86,22 @@ public class ServiceProfesseur implements IService<Professeur>{
 
     @Override
     public void supprimer(int id) {
+        String req = "DELETE FROM `users` WHERE `users`.`idU`=? AND `users`.`role`='Professeur'";
+        try {
+            PreparedStatement ps = cnx.prepareStatement(req);
+            ps.setInt(1, id);
 
+            int rowsAffected = ps.executeUpdate();
+            if (rowsAffected > 0) {
+                System.out.println("Professeur supprimé !");
+            } else {
+                System.out.println("Aucun Professeur trouvé avec l'ID spécifié.");
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
+
 
     @Override
     public Professeur getOneById(int id) {
