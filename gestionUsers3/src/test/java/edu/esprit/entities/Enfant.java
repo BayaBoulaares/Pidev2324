@@ -24,11 +24,19 @@ public class Enfant {
 
     public Enfant(String nom, String prenom, String dateNaissance,int niveau,Parent idp) {
         this.niveau = niveau ;
-        this.idE = idE ;
         this.nom = nom;
         this.prenom = prenom;
         this.dateNaissance = dateNaissance;
         this.idp =  idp ;
+    }
+    public Enfant(int idE,String nom, String prenom, int niveau,String dateNaissance) {
+
+        this.idE = idE ;
+        this.nom = nom;
+        this.prenom = prenom;
+        this.niveau = niveau ;
+        this.dateNaissance = dateNaissance;
+
     }
 
     public int getNiveau() {

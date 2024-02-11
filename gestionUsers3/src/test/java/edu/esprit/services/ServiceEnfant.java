@@ -1,4 +1,5 @@
 package edu.esprit.services;
+import edu.esprit.entities.Administrateur;
 import edu.esprit.entities.Enfant;
 import edu.esprit.entities.Parent;
 import edu.esprit.utilis.DataSource;
@@ -66,8 +67,51 @@ public class ServiceEnfant {
             System.out.println("Les informations de l'administrateur existent déjà dans la base de données : " + ex.getMessage());
         }
     }
+    public void modifier(Enfant e) {
+        String updateEnfantQuery = "UPDATE enfant SET nom = ?, prenom = ?, niveau = ?, dob = ? WHERE idE = ?";
+
+        try {
+            // Mettre à jour les informations de l'enfant
+            PreparedStatement updateEnfantPs = cnx.prepareStatement(updateEnfantQuery);
+            updateEnfantPs.setString(1, e.getNom());
+            updateEnfantPs.setString(2, e.getPrenom());
+            updateEnfantPs.setInt(3, e.getNiveau());
+            updateEnfantPs.setString(4, e.getDateNaissance());
+            updateEnfantPs.setInt(5, e.getIdE()); // Supposons que getIdE() retourne l'ID de l'enfant à mettre à jour
+            updateEnfantPs.executeUpdate();
+
+            System.out.println("Mise à jour de l'enfant effectuée avec succès !");
+        } catch (SQLException ex) {
+            System.out.println("Erreur lors de la mise à jour de l'enfant : " + ex.getMessage());
+        }
+    }
 
 
+    public Enfant getOneById(int id) {
+
+        Enfant e = null;
+
+        String query = "SELECT * FROM enfant WHERE idE = ? ";
+        try (PreparedStatement preparedStatement = cnx.prepareStatement(query)) {
+            preparedStatement.setInt(1, id);
+
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    e = new Enfant(
+                            resultSet.getInt("idE"),
+                            resultSet.getString("nom"),
+                            resultSet.getString("prenom"),
+                            resultSet.getInt("niveau"),
+                            resultSet.getString("dob")
+                    );
+                }
+            }
+        }
+        catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return e;
+    }
 
 
 

@@ -56,7 +56,31 @@ public class ServiceParent implements IService<Parent>{
     }
 
     @Override
-    public void modifier(Parent u) {
+    public void modifier(Parent pa) {
+
+        String req = "UPDATE `pidev2324`.`users` SET `nom`=?, `prenom`=?, `adresse`=?, `dob`=?, `login`=?, `tel`=?, `mdp`=? WHERE `users`.`idU`=?";
+
+        try {
+            PreparedStatement ps = cnx.prepareStatement(req);
+            ps.setString(1, pa.getNom());
+            ps.setString(2, pa.getPrenom());
+            ps.setString(3, pa.getAdresse());
+            ps.setString(4, pa.getDateNaissance());
+            ps.setString(5, pa.getLogin());
+            ps.setInt(6, pa.getTel());
+            ps.setString(7, pa.getMdp());
+            ps.setInt(8, pa.getId()); // Suppose que l'objet Administrateur a une méthode getId() pour récupérer l'identifiant de l'administrateur
+
+            int rowsAffected = ps.executeUpdate();
+            if (rowsAffected > 0) {
+                System.out.println("Parent "+pa.getId()+" mis à jour !");
+            } else {
+                System.out.println("Pas de parent trouvé avec cet ID.");
+            }
+        }
+        catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
 
     }
 
@@ -67,8 +91,34 @@ public class ServiceParent implements IService<Parent>{
 
     @Override
     public Parent getOneById(int id) {
-        return null;
+
+        Parent pa = null;
+
+        String query = "SELECT * FROM users WHERE idU = ? AND role = 'Parent'";
+        try (PreparedStatement preparedStatement = cnx.prepareStatement(query)) {
+            preparedStatement.setInt(1, id);
+
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    pa = new Parent(
+                            resultSet.getInt("idU"),
+                            resultSet.getString("nom"),
+                            resultSet.getString("prenom"),
+                            resultSet.getString("adresse"),
+                            resultSet.getString("dob"),
+                            resultSet.getString("login"),
+                            resultSet.getInt("tel"),
+                            resultSet.getString("mdp")
+                    );
+                }
+            }
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return pa;
     }
+
 
     @Override
     public Set<Parent> getAll() {

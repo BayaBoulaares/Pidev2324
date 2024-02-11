@@ -1,5 +1,6 @@
 package edu.esprit.services;
 import edu.esprit.entities.Administrateur;
+import edu.esprit.entities.Parent;
 import edu.esprit.entities.Utilisateur;
 import edu.esprit.utilis.DataSource;
 import java.sql.*;
@@ -54,7 +55,31 @@ public class ServiceAdmin implements IService<Administrateur>{
 
 
     @Override
-    public void modifier(Administrateur u) {
+    public void modifier(Administrateur a) {
+
+        String req = "UPDATE `pidev2324`.`users` SET `nom`=?, `prenom`=?, `adresse`=?, `dob`=?, `login`=?, `tel`=?, `mdp`=? WHERE `users`.`idU`=?";
+
+        try {
+            PreparedStatement ps = cnx.prepareStatement(req);
+            ps.setString(1, a.getNom());
+            ps.setString(2, a.getPrenom());
+            ps.setString(3, a.getAdresse());
+            ps.setString(4, a.getDateNaissance());
+            ps.setString(5, a.getLogin());
+            ps.setInt(6, a.getTel());
+            ps.setString(7, a.getMdp());
+            ps.setInt(8, a.getId()); // Suppose que l'objet Administrateur a une méthode getId() pour récupérer l'identifiant de l'administrateur
+
+            int rowsAffected = ps.executeUpdate();
+            if (rowsAffected > 0) {
+                System.out.println("Administarteur "+a.getId()+" mis à jour !");
+            } else {
+                System.out.println("Pas de Administarteur trouvé avec cet ID.");
+            }
+        }
+        catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
 
     }
 
@@ -65,7 +90,32 @@ public class ServiceAdmin implements IService<Administrateur>{
 
     @Override
     public Administrateur getOneById(int id) {
-        return null;
+
+        Administrateur a = null;
+
+        String query = "SELECT * FROM users WHERE idU = ? AND role = 'Administrateur'";
+        try (PreparedStatement preparedStatement = cnx.prepareStatement(query)) {
+            preparedStatement.setInt(1, id);
+
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    a = new Administrateur(
+                            resultSet.getInt("idU"),
+                            resultSet.getString("nom"),
+                            resultSet.getString("prenom"),
+                            resultSet.getString("adresse"),
+                            resultSet.getString("dob"),
+                            resultSet.getString("login"),
+                            resultSet.getInt("tel"),
+                            resultSet.getString("mdp")
+                    );
+                }
+            }
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return a;
     }
 
     @Override
