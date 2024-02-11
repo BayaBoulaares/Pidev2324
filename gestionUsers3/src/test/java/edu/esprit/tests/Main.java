@@ -1,0 +1,36 @@
+package edu.esprit.tests;
+
+import edu.esprit.entities.Administrateur;
+import edu.esprit.entities.Enfant;
+import edu.esprit.entities.Parent;
+import edu.esprit.entities.Professeur;
+import edu.esprit.services.ServiceAdmin;
+import edu.esprit.services.ServiceEnfant;
+import edu.esprit.services.ServiceParent;
+import edu.esprit.services.ServiceProfesseur;
+
+public class Main {
+    public static void main(String[] args) {
+        //Ajout Administrateur
+        ServiceAdmin su = new ServiceAdmin();
+        Administrateur admin1 = new Administrateur( "Baya", "Boulaares", "Petite Ariana", "2000-08-12", "12082000", 54703286, "bayaBoulaares");
+        su.ajouter(admin1);
+        //Ajout Professeur
+        ServiceProfesseur sp = new ServiceProfesseur();
+        Professeur pr1 = new Professeur("Aziz", "Hzami", "Petite Ariana", "2000-10-30", "kkkkkkkk", 5470389, "azizHzami","math");
+        sp.ajouter(pr1);
+        //Ajout Parent
+        ServiceParent spa = new ServiceParent();
+        Parent pa1 = new Parent("Lina", "Boulaares", "Petite Ariana", "2000-08-13", "kdsjjds", 54703266, "mldsjku");
+        spa.ajouter(pa1);
+        //Ajout Enfant
+        ServiceEnfant se = new ServiceEnfant();
+        Enfant en = new Enfant("Mariem","Marzouk","11-08-2000",3,pa1);
+        se.ajouter(en,pa1);
+
+
+
+
+    }
+
+}
