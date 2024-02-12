@@ -1,11 +1,11 @@
 package edu.esprit.tests;
 
 import edu.esprit.entities.Evenement;
-import edu.esprit.entities.Fond;
 import edu.esprit.entities.Sponsor;
 import edu.esprit.entities.Status;
 import edu.esprit.services.ServiceEvenement;
 import edu.esprit.services.ServiceSponsor;
+
 import java.util.Date;
 import java.util.Set;
 
@@ -24,10 +24,6 @@ public class Main {
         evenementCulturel.setLieu_Event("Sfax");
         evenementCulturel.setStatus(Status.EN_COURS);
 
-        // Ajout de l'événement
-       // serviceEvenement.ajouter(evenementCulturel);
-        // System.out.println("L'événement culturel a été ajouté avec succès !");
-
         // Création d'un nouvel événement amusant pour les enfants
         Evenement evenementAmusant = new Evenement();
         evenementAmusant.setNom_Event("Journée FunKids");
@@ -37,87 +33,95 @@ public class Main {
         evenementAmusant.setNb_Max(30);
         evenementAmusant.setLieu_Event("Tunis");
         evenementAmusant.setStatus(Status.EN_COURS);
+
         // Création d'une instance de ServiceSponsor pour manipuler les sponsors
         ServiceSponsor serviceSponsor = new ServiceSponsor();
-//Ajout sponsor
-// Récupération de l'événement "Journée FunKids"
-      /*  Evenement evenementFunKids = serviceEvenement.getAll().stream()
+
+        // Ajout de l'événement "Journée FunKids"
+        Evenement evenementFunKids = serviceEvenement.getAll().stream()
                 .filter(e -> e.getNom_Event().equals("Journée FunKids"))
                 .findFirst().orElse(null);
 
         if (evenementFunKids != null) {
-            // Création d'un nouveau sponsor
             Sponsor sponsor = new Sponsor();
             sponsor.setNomSponsor("Super Entreprise");
             sponsor.setDescription_s("Une entreprise leader dans le domaine de la technologie, engagée à soutenir les événements culturels et éducatifs");
-            sponsor.setFond(Sponsor.Fond.ARGENT); // Utilisez le bon type pour Fond
-            sponsor.setEvenement(evenementFunKids); // Associer le sponsor à l'événement "Journée FunKids"
+            sponsor.setFond(Sponsor.Fond.ARGENT);
+            sponsor.setEvenement(evenementFunKids);
 
-            // Ajout du sponsor
-            serviceSponsor.ajouter(sponsor);
+         //   serviceSponsor.ajouter(sponsor);
             System.out.println("Le sponsor a été ajouté avec succès à l'événement 'Journée FunKids' !");
         } else {
             System.out.println("Impossible de trouver l'événement 'Journée FunKids'.");
         }
-*/
-        // Ajout de l'événement amusant pour les enfants
-        //serviceEvenement.ajouter(evenementAmusant);
-        // System.out.println("L'événement amusant pour enfants a été ajouté avec succès !");
-        // Récupération de l'événement ajouté pour le supprimer
-       Evenement evenementASupprimer = serviceEvenement.getAll().stream()
-                .filter(e -> e.getNom_Event().equals("Journée FunKids"))
+
+        // Suppression de l'événement "Journée FunKids"
+       /* Evenement evenementASupprimer = serviceEvenement.getAll().stream()
+                .filter(e -> e.getNom_Event().equals("Evenement culturel"))
                 .findFirst().orElse(null);
 
-       /* // Vérification si l'événement à supprimer a été récupéré avec succès
         if (evenementASupprimer != null) {
-            // Suppression de l'événement amusant pour les enfants
             serviceEvenement.supprimer(evenementASupprimer.getId_Event());
-            System.out.println("L'événement amusant pour enfants a été supprimé avec succès !");
+            System.out.println("L'événement  a été supprimé avec succès !");
         } else {
             System.out.println("Impossible de trouver l'événement à supprimer.");
         }*/
 
-        // Modification de l'événement culturel
-        // Récupération de l'événement ajouté (pour obtenir son ID)
- /*      Evenement evenementModifie = serviceEvenement.getOneById(evenementCulturel.getId_Event());
+        // Modification de l'événement "Journée FunKids"
+        Evenement evenementModifie = serviceEvenement.getOneById(evenementFunKids.getId_Event());
 
-        // Vérifier si l'événement a été récupéré avec succès
         if (evenementModifie != null) {
-            // Modification des détails de l'événement
-            evenementModifie.setDescription("Evenement plein d'activité");
-            evenementModifie.setDate_Fin(new Date(124, 1, 10)); // Modifier la date de fin
-            evenementModifie.setStatus(Status.TERMINE); // Définir l'état à "TERMINÉ"
+            evenementModifie.setDescription("Evenement contenant plein d'activités");
+            evenementModifie.setDate_Fin(new Date(124, 1, 10));
+            evenementModifie.setStatus(Status.ANNULE);
 
-            // Appel de la méthode modifier pour appliquer les modifications dans la base de données
             serviceEvenement.modifier(evenementModifie);
 
-            System.out.println("L'événement culturel a été modifié avec succès !");
+            System.out.println("L'événement 'Journée FunKids' a été modifié avec succès !");
         } else {
-            System.out.println("Impossible de trouver l'événement à modifier.");
+            System.out.println("Impossible de trouver l'événement 'Journée FunKids' à modifier.");
         }
-        // Affichage de la table de base
+
+
+       /* // Affichage de la table des événements
         System.out.println("Table des événements :");
         for (Evenement evenement : serviceEvenement.getAll()) {
             System.out.println(evenement);
         }*/
-// Affichage de tous les sponsors
-        Set<Sponsor> sponsors = serviceSponsor.getAll();
+
+        // Affichage de tous les sponsors
+        /*Set<Sponsor> sponsors = serviceSponsor.getAll();
         System.out.println("Liste des sponsors :");
         for (Sponsor sponsor : sponsors) {
             System.out.println(sponsor);
-        }
-// Modification de la description du sponsor
-        for (Sponsor sponsor : sponsors) {
-            sponsor.setDescription_s("No information found");
-            // Appel de la méthode modifier du service pour appliquer les modifications dans la base de données
-            serviceSponsor.modifier(sponsor);
-        }
+        }*/
 
-// Affichage des sponsors après modification
-        System.out.println("Liste des sponsors après modification de la description :");
+        // Modification de la description des sponsors
+        /*for (Sponsor sponsor : sponsors) {
+            sponsor.setDescription_s("No information found");
+            serviceSponsor.modifier(sponsor);
+        }*/
+
+        // Affichage des sponsors après modification
+        /*System.out.println("Liste des sponsors après modification de la description :");
         for (Sponsor sponsor : serviceSponsor.getAll()) {
             System.out.println(sponsor);
-        }
+        }*/
 
-    }}
+        // Suppression du sponsor associé à l'événement "Journée FunKids"
+        /*if (evenementFunKids != null) {
+            Sponsor sponsorFunKids = serviceSponsor.getAll().stream()
+                    .filter(s -> s.getEvenement().equals(evenementFunKids))
+                    .findFirst().orElse(null);
 
+            if (sponsorFunKids != null) {
+                serviceSponsor.supprimer(sponsorFunKids.getId_Sponsor());
+                System.out.println("Le sponsor associé à l'événement 'Journée FunKids' a été supprimé avec succès !");
+            } else {
+                System.out.println("Aucun sponsor associé à l'événement 'Journée FunKids' trouvé.");
+            }
+        } else {
+            System.out.println("Impossible de trouver l'événement 'Journée FunKids'.");
+        }*/
+    }
+}

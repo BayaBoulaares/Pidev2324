@@ -56,7 +56,7 @@ public class ServiceSponsor implements IService<Sponsor> {
         Connection cnx = DataSource.getInstance().getCnx();
 
         try {
-            String req = "DELETE FROM sponsor WHERE Id_Sponsor=?";
+            String req = "DELETE FROM sponsor WHERE Id_Sopnsor=?";
             PreparedStatement pstmt = cnx.prepareStatement(req);
             pstmt.setInt(1, id);
 
@@ -66,6 +66,7 @@ public class ServiceSponsor implements IService<Sponsor> {
             System.out.println(ex.getMessage());
         }
     }
+
 
     @Override
     public Set<Sponsor> getAll() {
