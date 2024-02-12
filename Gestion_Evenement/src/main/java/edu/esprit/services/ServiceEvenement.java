@@ -7,7 +7,8 @@ import edu.esprit.utils.DataSource;
 import java.sql.*;
 import java.util.HashSet;
 import java.util.Set;
-
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 public class ServiceEvenement implements IService<Evenement> {
 
     Connection cnx = DataSource.getInstance().getCnx();

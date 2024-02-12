@@ -15,7 +15,9 @@ public class Evenement {
 
     public Evenement() {
     }
-
+    public Evenement(int id) {
+        this.Id_Event = id;
+    }
     public Evenement(String Nom_Event, String Description, String Lieu_Event, Date Date_Debut, Date Date_Fin, int Nb_Max, Status Status) {
         this.Nom_Event = Nom_Event;
         this.Description = Description;

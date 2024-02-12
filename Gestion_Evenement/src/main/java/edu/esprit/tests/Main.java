@@ -1,9 +1,11 @@
 package edu.esprit.tests;
 
 import edu.esprit.entities.Evenement;
+import edu.esprit.entities.Fond;
+import edu.esprit.entities.Sponsor;
 import edu.esprit.entities.Status;
 import edu.esprit.services.ServiceEvenement;
-
+import edu.esprit.services.ServiceSponsor;
 import java.util.Date;
 
 public class Main {
@@ -22,8 +24,8 @@ public class Main {
         evenementCulturel.setStatus(Status.EN_COURS);
 
         // Ajout de l'événement
-        serviceEvenement.ajouter(evenementCulturel);
-         System.out.println("L'événement culturel a été ajouté avec succès !");
+       // serviceEvenement.ajouter(evenementCulturel);
+        // System.out.println("L'événement culturel a été ajouté avec succès !");
 
         // Création d'un nouvel événement amusant pour les enfants
         Evenement evenementAmusant = new Evenement();
@@ -33,28 +35,50 @@ public class Main {
         evenementAmusant.setDate_Fin(new Date(124, 1, 18));
         evenementAmusant.setNb_Max(30);
         evenementAmusant.setLieu_Event("Tunis");
-        evenementAmusant.setStatus(Status.EN_COURS); // Définir l'état comme "en cours"
+        evenementAmusant.setStatus(Status.EN_COURS);
+        // Création d'une instance de ServiceSponsor pour manipuler les sponsors
+        ServiceSponsor serviceSponsor = new ServiceSponsor();
+//Ajout sponsor
+// Récupération de l'événement "Journée FunKids"
+        Evenement evenementFunKids = serviceEvenement.getAll().stream()
+                .filter(e -> e.getNom_Event().equals("Journée FunKids"))
+                .findFirst().orElse(null);
+
+        if (evenementFunKids != null) {
+            // Création d'un nouveau sponsor
+            Sponsor sponsor = new Sponsor();
+            sponsor.setNomSponsor("Super Entreprise");
+            sponsor.setDescription_s("Une entreprise leader dans le domaine de la technologie, engagée à soutenir les événements culturels et éducatifs");
+            sponsor.setFond(Sponsor.Fond.ARGENT); // Utilisez le bon type pour Fond
+            sponsor.setEvenement(evenementFunKids); // Associer le sponsor à l'événement "Journée FunKids"
+
+            // Ajout du sponsor
+            serviceSponsor.ajouter(sponsor);
+            System.out.println("Le sponsor a été ajouté avec succès à l'événement 'Journée FunKids' !");
+        } else {
+            System.out.println("Impossible de trouver l'événement 'Journée FunKids'.");
+        }
 
         // Ajout de l'événement amusant pour les enfants
-        // serviceEvenement.ajouter(evenementAmusant);
+        //serviceEvenement.ajouter(evenementAmusant);
         // System.out.println("L'événement amusant pour enfants a été ajouté avec succès !");
         // Récupération de l'événement ajouté pour le supprimer
        Evenement evenementASupprimer = serviceEvenement.getAll().stream()
                 .filter(e -> e.getNom_Event().equals("Journée FunKids"))
                 .findFirst().orElse(null);
 
-        // Vérification si l'événement à supprimer a été récupéré avec succès
+       /* // Vérification si l'événement à supprimer a été récupéré avec succès
         if (evenementASupprimer != null) {
             // Suppression de l'événement amusant pour les enfants
             serviceEvenement.supprimer(evenementASupprimer.getId_Event());
             System.out.println("L'événement amusant pour enfants a été supprimé avec succès !");
         } else {
             System.out.println("Impossible de trouver l'événement à supprimer.");
-        }
+        }*/
 
         // Modification de l'événement culturel
         // Récupération de l'événement ajouté (pour obtenir son ID)
-       Evenement evenementModifie = serviceEvenement.getOneById(evenementCulturel.getId_Event());
+ /*      Evenement evenementModifie = serviceEvenement.getOneById(evenementCulturel.getId_Event());
 
         // Vérifier si l'événement a été récupéré avec succès
         if (evenementModifie != null) {
@@ -74,6 +98,7 @@ public class Main {
         System.out.println("Table des événements :");
         for (Evenement evenement : serviceEvenement.getAll()) {
             System.out.println(evenement);
-        }
+        }*/
+
     }}
 
