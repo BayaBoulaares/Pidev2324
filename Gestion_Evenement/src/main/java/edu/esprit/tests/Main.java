@@ -7,6 +7,7 @@ import edu.esprit.entities.Status;
 import edu.esprit.services.ServiceEvenement;
 import edu.esprit.services.ServiceSponsor;
 import java.util.Date;
+import java.util.Set;
 
 public class Main {
     public static void main(String[] args) {
@@ -40,7 +41,7 @@ public class Main {
         ServiceSponsor serviceSponsor = new ServiceSponsor();
 //Ajout sponsor
 // Récupération de l'événement "Journée FunKids"
-        Evenement evenementFunKids = serviceEvenement.getAll().stream()
+      /*  Evenement evenementFunKids = serviceEvenement.getAll().stream()
                 .filter(e -> e.getNom_Event().equals("Journée FunKids"))
                 .findFirst().orElse(null);
 
@@ -58,7 +59,7 @@ public class Main {
         } else {
             System.out.println("Impossible de trouver l'événement 'Journée FunKids'.");
         }
-
+*/
         // Ajout de l'événement amusant pour les enfants
         //serviceEvenement.ajouter(evenementAmusant);
         // System.out.println("L'événement amusant pour enfants a été ajouté avec succès !");
@@ -99,6 +100,24 @@ public class Main {
         for (Evenement evenement : serviceEvenement.getAll()) {
             System.out.println(evenement);
         }*/
+// Affichage de tous les sponsors
+        Set<Sponsor> sponsors = serviceSponsor.getAll();
+        System.out.println("Liste des sponsors :");
+        for (Sponsor sponsor : sponsors) {
+            System.out.println(sponsor);
+        }
+// Modification de la description du sponsor
+        for (Sponsor sponsor : sponsors) {
+            sponsor.setDescription_s("No information found");
+            // Appel de la méthode modifier du service pour appliquer les modifications dans la base de données
+            serviceSponsor.modifier(sponsor);
+        }
+
+// Affichage des sponsors après modification
+        System.out.println("Liste des sponsors après modification de la description :");
+        for (Sponsor sponsor : serviceSponsor.getAll()) {
+            System.out.println(sponsor);
+        }
 
     }}
 

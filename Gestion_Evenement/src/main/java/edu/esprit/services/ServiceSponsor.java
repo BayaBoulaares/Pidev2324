@@ -36,7 +36,7 @@ public class ServiceSponsor implements IService<Sponsor> {
         Connection cnx = DataSource.getInstance().getCnx();
 
         try {
-            String req = "UPDATE sponsor SET Nom=?, Description=?, Fond=?, Id_Event=? WHERE Id_Sponsor=?";
+            String req = "UPDATE sponsor SET Nom=?, Description=?, Fond=?, Id_Event=? WHERE Id_Sopnsor=?"; // Correction: Utilisation du nom correct de la colonne dans la clause WHERE
             PreparedStatement pstmt = cnx.prepareStatement(req);
             pstmt.setString(1, s.getNomSponsor());
             pstmt.setString(2, s.getDescription_s());
@@ -71,6 +71,7 @@ public class ServiceSponsor implements IService<Sponsor> {
     public Set<Sponsor> getAll() {
         Connection cnx = DataSource.getInstance().getCnx();
         Set<Sponsor> sponsors = new HashSet<>();
+        ServiceEvenement serviceEvenement = new ServiceEvenement();
 
         try {
             String req = "SELECT * FROM sponsor";
@@ -78,7 +79,7 @@ public class ServiceSponsor implements IService<Sponsor> {
             ResultSet rs = pstmt.executeQuery();
 
             while (rs.next()) {
-                int idSponsor = rs.getInt("Id_Sponsor");
+                int idSponsor = rs.getInt("Id_Sopnsor"); // Correction: utilisation du nom correct de la colonne
                 String nomSponsor = rs.getString("Nom");
                 String description = rs.getString("Description");
                 String fondStr = rs.getString("Fond");
@@ -87,8 +88,10 @@ public class ServiceSponsor implements IService<Sponsor> {
                 // Convertir les types String en Enum
                 edu.esprit.entities.Sponsor.Fond fond = edu.esprit.entities.Sponsor.Fond.valueOf(fondStr);
 
+                // Récupérer l'objet Evenement complet de la base de données
+                Evenement evenement = serviceEvenement.getOneById(idEvent);
+
                 // Créer un objet Sponsor
-                Evenement evenement = new Evenement(idEvent); // Vous devez probablement récupérer l'Evenement à partir de la base de données
                 Sponsor sponsor = new Sponsor(idSponsor, nomSponsor, description, fond, evenement);
                 sponsors.add(sponsor);
             }
@@ -98,6 +101,9 @@ public class ServiceSponsor implements IService<Sponsor> {
 
         return sponsors;
     }
+
+
+
 
 
 
