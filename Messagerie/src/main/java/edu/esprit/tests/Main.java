@@ -13,10 +13,10 @@ public class Main {
     public static void main(String[] args) {
         DataSource dataSource = DataSource.getInstance();
         ServiceMessagerie sm = new ServiceMessagerie();
-        Messagerie m = new Messagerie("baya","23/01/2024");
+        Messagerie m = new Messagerie("baya","23/01/2024","aloooo");
         //sm.ajouter(m);
         //String nom = "baya";
-        sm.supprimer(4);
+        //sm.supprimer(4);
         //String nom = "baya";
         //System.out.println(sm.getOneById(m.getId()));
 
@@ -31,13 +31,16 @@ public class Main {
 
          */
 
-        /*Messagerie mt = sm.getOneById(4);
+        Messagerie mt = sm.getOneById(7);
         mt.setNom("mariem");
+        mt.setMessage("bybyyyy");
+
+
         sm.modifier(mt);
-/*
+
 
         //System.out.println(sm.getAll());
-*/
+
 
     }
 
