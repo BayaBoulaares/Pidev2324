@@ -12,7 +12,7 @@ public class ServiceMessagerie implements IServices<Messagerie> {
 
     @Override
     public void ajouter(Messagerie m) {
-        String req = "INSERT INTO `messagerie`(`nom`, `date`) VALUES (?, ?)";
+        String req = "INSERT INTO `messagerie`(`nom`, `date`,`message`) VALUES (?, ?, ?)";
         try {
             PreparedStatement ps = cnx.prepareStatement(req);
             ps.setString(1, m.getNom());
@@ -20,6 +20,8 @@ public class ServiceMessagerie implements IServices<Messagerie> {
             // Use the current date for the 'date' field
             Date currentDate = new Date(System.currentTimeMillis());
             ps.setDate(2, currentDate);
+            ps.setString(3, m.getMessage());
+
 
             ps.executeUpdate();
             System.out.println("Messagerie added!");
@@ -31,12 +33,16 @@ public class ServiceMessagerie implements IServices<Messagerie> {
 
     @Override
     public void modifier(Messagerie m) {
-        String req = "UPDATE messagerie SET nom=?, date=? WHERE id=?";
+        String req = "UPDATE messagerie SET nom=?,message=?, date=?  WHERE id=?";
         try {
             PreparedStatement ps = cnx.prepareStatement(req);
             ps.setString(1, m.getNom());
-            ps.setDate(2, m.getDate());
-            ps.setInt(3,m.getId());
+            Date currentDate = new Date(System.currentTimeMillis());
+
+            ps.setDate(3, currentDate);
+            ps.setInt(4,m.getId());
+            ps.setString(2, m.getMessage());
+
             ps.executeUpdate();
             System.out.println("Messagerie updated!");
         } catch (SQLException e) {
@@ -75,7 +81,9 @@ public class ServiceMessagerie implements IServices<Messagerie> {
 
                 String nom = res.getString("nom");
                 Date date = res.getDate("date");
-                 m = new Messagerie( id, nom, date);
+                String message = res.getString("message");
+
+                m = new Messagerie( id, nom, date,message);
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -99,7 +107,8 @@ public class ServiceMessagerie implements IServices<Messagerie> {
                 int id = res.getInt("id");
                 String nom = res.getString("nom");
                 Date date = res.getDate(3);
-                Messagerie m = new Messagerie(id, nom, date);
+                String message = res.getString("message");
+                Messagerie m = new Messagerie(id, nom, date, message);
                 messageries.add(m);
             }
         } catch (SQLException e) {
