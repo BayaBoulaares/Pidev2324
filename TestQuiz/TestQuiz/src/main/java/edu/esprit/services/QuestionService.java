@@ -1,7 +1,7 @@
 package edu.esprit.services;
 
 import edu.esprit.entities.Question;
-import edu.esprit.entities.Reponse;
+import edu.esprit.entities.Quiz;
 import edu.esprit.utils.DataSource;
 
 import java.sql.*;
@@ -9,25 +9,36 @@ import java.util.HashSet;
 
 public class QuestionService implements IServices<Question> {
 
-    Connection cnx = DataSource.getInstance().getCnx();
+    private final Connection connection;
+
+    public QuestionService() {
+        connection = DataSource.getInstance().getCnx();
+    }
 
     @Override
     public void add(Question question) {
-        String query = "INSERT INTO question (question_text, correct_answer) VALUES (?, ?)";
-        try (PreparedStatement preparedStatement = cnx.prepareStatement(query)) {
+        String query = "INSERT INTO question (questionText, correctAnswer) VALUES (?, ?)";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
             preparedStatement.setString(1, question.getQuestionText());
             preparedStatement.setString(2, question.getCorrectAnswer());
             preparedStatement.executeUpdate();
+
+            ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
+            if (generatedKeys.next()) {
+                question.setIdq(generatedKeys.getInt(1));
+            } else {
+                throw new SQLException("Failed to add question, no ID obtained.");
+            }
             System.out.println("Question added successfully: " + question);
         } catch (SQLException e) {
-            System.err.println("Error adding question: " + e.getMessage());
+            throw new RuntimeException("Error adding question: " + e.getMessage());
         }
     }
 
     @Override
     public void update(Question question) {
-        String query = "UPDATE question SET question_text = ?, correct_answer = ? WHERE idq = ?";
-        try (PreparedStatement preparedStatement = cnx.prepareStatement(query)) {
+        String query = "UPDATE question SET questionText = ?, correctAnswer = ? WHERE idq = ?";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setString(1, question.getQuestionText());
             preparedStatement.setString(2, question.getCorrectAnswer());
             preparedStatement.setInt(3, question.getIdq());
@@ -37,46 +48,45 @@ public class QuestionService implements IServices<Question> {
             }
             System.out.println("Question updated successfully: " + question);
         } catch (SQLException e) {
-            System.err.println("Error updating question: " + e.getMessage());
+            throw new RuntimeException("Error updating question: " + e.getMessage());
         }
     }
 
     @Override
-    public void delete(int idq) {
+    public void delete(int id) {
         String query = "DELETE FROM question WHERE idq = ?";
-        try (PreparedStatement preparedStatement = cnx.prepareStatement(query)) {
-            preparedStatement.setInt(1, idq);
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setInt(1, id);
             int rowsAffected = preparedStatement.executeUpdate();
             if (rowsAffected == 0) {
-                throw new SQLException("No question found with ID: " + idq);
+                throw new SQLException("No question found with ID: " + id);
             }
-            System.out.println("Question with ID " + idq + " deleted successfully.");
+            System.out.println("Question deleted successfully with ID: " + id);
         } catch (SQLException e) {
-            System.err.println("Error deleting question: " + e.getMessage());
+            throw new RuntimeException("Error deleting question: " + e.getMessage());
         }
     }
 
     @Override
-    public Question getByIdq(int idq) {
+    public Question getById(int id) {
         String query = "SELECT * FROM question WHERE idq = ?";
-        try (PreparedStatement preparedStatement = cnx.prepareStatement(query)) {
-            preparedStatement.setInt(1, idq);
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setInt(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
-                String questionText = resultSet.getString("question_text");
-                String correctAnswer = resultSet.getString("correct_answer");
-                return new Question(questionText, correctAnswer);
+                String questionText = resultSet.getString("questionText");
+                String correctAnswer = resultSet.getString("correctAnswer");
+                return new Question();
             } else {
-                throw new SQLException("No question found with ID: " + idq);
+                throw new SQLException("No question found with ID: " + id);
             }
         } catch (SQLException e) {
-            System.err.println("Error retrieving question by ID: " + e.getMessage());
-            return null;
+            throw new RuntimeException("Error getting question by ID: " + e.getMessage());
         }
     }
 
     @Override
-    public Reponse getById(int id) {
+    public Quiz getByIdqz(int idqz) {
         return null;
     }
 
@@ -84,22 +94,28 @@ public class QuestionService implements IServices<Question> {
     public HashSet<Question> getAll() {
         HashSet<Question> questions = new HashSet<>();
         String query = "SELECT * FROM question";
-        try (Statement statement = cnx.createStatement();
+        try (Statement statement = connection.createStatement();
              ResultSet resultSet = statement.executeQuery(query)) {
             while (resultSet.next()) {
-                //int id = resultSet.getInt("id");
-                String questionText = resultSet.getString("question_text");
-                String correctAnswer = resultSet.getString("correct_answer");
-                questions.add(new Question(questionText, correctAnswer));
+                int idq = resultSet.getInt("idq");
+                String questionText = resultSet.getString("questionText");
+                String correctAnswer = resultSet.getString("correctAnswer");
+                Question question = new Question();
+                questions.add(question);
             }
+            return questions;
         } catch (SQLException e) {
-            System.err.println("Error retrieving all questions: " + e.getMessage());
+            throw new RuntimeException("Error getting all questions: " + e.getMessage());
         }
-        return questions;
     }
 
     @Override
-    public Reponse getByIdrep(int id) {
+    public Question getByIdq(int idq) {
+        return (Quiz) getById(idq);
+    }
+
+    @Override
+    public Quiz getByIdrep(int id) {
         return null;
     }
 }

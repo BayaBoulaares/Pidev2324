@@ -1,5 +1,7 @@
 package edu.esprit.services;
 
+import edu.esprit.entities.Question;
+import edu.esprit.entities.Quiz;
 import edu.esprit.entities.Reponse;
 import edu.esprit.utils.DataSource;
 
@@ -15,25 +17,32 @@ public class ReponseService implements IServices<Reponse> {
     }
 
     @Override
-    public void add(Reponse r) {
-        String req = "INSERT INTO reponse (idq, ReponseCorrecte, reponseIncorrecte) VALUES (?, ?, ?)";
-        try {
-            PreparedStatement ps = connection.prepareStatement(req);
-            ps.setInt(1, r.getIdq());
-            ps.setString(2, r.getReponseCorrecte());
-            ps.setString(3, r.getReponseIncorrecte());
-            ps.executeUpdate();
-            System.out.println("Reponse added!");
+    public void add(Reponse reponse) {
+        String query = "INSERT INTO reponse (idq, reponseCorrecte, reponseIncorrecte) VALUES (?, ?, ?)";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
+            preparedStatement.setInt(1, reponse.getQuestion().getIdq());
+            preparedStatement.setString(2, reponse.getReponseCorrecte());
+            preparedStatement.setString(3, reponse.getReponseIncorrecte());
+            preparedStatement.executeUpdate();
+
+            ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
+            if (generatedKeys.next()) {
+                reponse.setIdrep(generatedKeys.getInt(1));
+            } else {
+                throw new SQLException("Failed to add reponse, no ID obtained.");
+            }
+            System.out.println("Reponse added successfully: " + reponse);
         } catch (SQLException e) {
             throw new RuntimeException("Error adding reponse: " + e.getMessage());
         }
     }
 
+
     @Override
     public void update(Reponse reponse) {
         String query = "UPDATE reponse SET idq = ?, reponseCorrecte = ?, reponseIncorrecte = ? WHERE idrep = ?";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-            preparedStatement.setInt(1, reponse.getIdq());
+            preparedStatement.setInt(1, reponse.getQuestion().getIdq());
             preparedStatement.setString(2, reponse.getReponseCorrecte());
             preparedStatement.setString(3, reponse.getReponseIncorrecte());
             preparedStatement.setInt(4, reponse.getIdrep());
@@ -63,11 +72,6 @@ public class ReponseService implements IServices<Reponse> {
     }
 
     @Override
-    public Reponse getByIdq(int idq) {
-        return null;
-    }
-
-    @Override
     public Reponse getById(int id) {
         String query = "SELECT * FROM reponse WHERE idrep = ?";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
@@ -77,13 +81,22 @@ public class ReponseService implements IServices<Reponse> {
                 int idq = resultSet.getInt("idq");
                 String reponseCorrect = resultSet.getString("reponseCorrecte");
                 String reponseIncorrect = resultSet.getString("reponseIncorrecte");
-                return new Reponse(id, reponseCorrect, reponseIncorrect);
+
+                // Fetch the associated question
+                Question question = new QuestionService().getByIdq(idq);
+
+                return new Reponse();
             } else {
                 throw new SQLException("No reponse found with ID: " + id);
             }
         } catch (SQLException e) {
             throw new RuntimeException("Error getting reponse by ID: " + e.getMessage());
         }
+    }
+
+    @Override
+    public Quiz getByIdqz(int idqz) {
+        return null;
     }
 
     @Override
@@ -95,9 +108,13 @@ public class ReponseService implements IServices<Reponse> {
             while (resultSet.next()) {
                 int idrep = resultSet.getInt("idrep");
                 int idq = resultSet.getInt("idq");
-                String reponseCorrect = resultSet.getString("reponseCorrecte");
-                String reponseIncorrect = resultSet.getString("reponseIncorrecte");
-                Reponse reponse = new Reponse(idrep, reponseCorrect, reponseIncorrect);
+                String reponseCorrecte = resultSet.getString("reponseCorrecte");
+                String reponseIncorrecte = resultSet.getString("reponseIncorrecte");
+
+                // Fetch the associated question
+                Quiz question = (Quiz) new QuestionService().getByIdq(idq);
+
+                Reponse reponse = new Reponse();
                 reponses.add(reponse);
             }
             return reponses;
@@ -106,8 +123,35 @@ public class ReponseService implements IServices<Reponse> {
         }
     }
 
+
+
     @Override
-    public Reponse getByIdrep(int id) {
+    public Question getByIdq(int idq) {
+        String query = "SELECT * FROM reponse WHERE idq = ?";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setInt(1, idq);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                int idrep = resultSet.getInt("idrep");
+                String reponseCorrecte = resultSet.getString("reponseCorrecte");
+                String reponseIncorrecte = resultSet.getString("reponseIncorrecte");
+
+                // Fetch the associated question
+                int questionId = resultSet.getInt("idq");
+                QuestionService questionService = new QuestionService(); // Instantiate QuestionService
+                Question question = questionService.getByIdq(questionId);
+
+                return new Reponse().getQuestion();
+            } else {
+                throw new SQLException("No reponse found with Question ID: " + idq);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Error getting reponse by Question ID: " + e.getMessage());
+        }
+    }
+
+    @Override
+    public Quiz getByIdrep(int id) {
         return null;
     }
 

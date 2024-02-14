@@ -7,11 +7,13 @@ public class Question {
     private String questionText;
     private String correctAnswer;
 
-    public Question(String questionText, String correctAnswer) {
+    public Question() {
         this.idq = idq;
         this.questionText = questionText;
         this.correctAnswer = correctAnswer;
     }
+
+    // Getters and setters...
 
     public int getIdq() {
         return idq;
@@ -40,7 +42,7 @@ public class Question {
     @Override
     public String toString() {
         return "Question{" +
-                "id=" + idq +
+                "idq=" + idq +
                 ", questionText='" + questionText + '\'' +
                 ", correctAnswer='" + correctAnswer + '\'' +
                 '}';

@@ -4,13 +4,13 @@ import java.util.Objects;
 
 public class Reponse {
     private int idrep;
-    private int idq; // Foreign key referencing id column of Question table
+    private Question question; // Foreign key referencing Question table
     private String reponseCorrecte;
     private String reponseIncorrecte;
 
-    public Reponse(int idrep, String reponseCorrecte, String reponseIncorrecte) {
-        this.idrep = idrep;
-        this.idq = idq;
+    public Reponse() {
+        this.idrep = this.idrep;
+        this.question = question;
         this.reponseCorrecte = reponseCorrecte;
         this.reponseIncorrecte = reponseIncorrecte;
     }
@@ -25,12 +25,12 @@ public class Reponse {
         this.idrep = idrep;
     }
 
-    public int getIdq() {
-        return idq;
+    public Question getQuestion() {
+        return question;
     }
 
-    public void setIdq(int idq) {
-        this.idq = idq;
+    public void setQuestion(Question question) {
+        this.question = question;
     }
 
     public String getReponseCorrecte() {
@@ -53,7 +53,7 @@ public class Reponse {
     public String toString() {
         return "Reponse{" +
                 "idrep=" + idrep +
-                ", idq=" + idq +
+                ", question=" + question +
                 ", reponseCorrecte='" + reponseCorrecte + '\'' +
                 ", reponseIncorrecte='" + reponseIncorrecte + '\'' +
                 '}';
