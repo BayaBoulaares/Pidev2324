@@ -1,6 +1,7 @@
 package edu.esprit.services;
 
 import edu.esprit.entities.Evenement;
+import edu.esprit.entities.Fond;
 import edu.esprit.entities.Sponsor;
 import edu.esprit.utils.DataSource;
 
@@ -8,13 +9,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Set;
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ServiceSponsor implements IService<Sponsor> {
 
     @Override
-    public void ajouter(Sponsor s) {
+    public void ajouter(Sponsor s) throws SQLException {
         Connection cnx = DataSource.getInstance().getCnx();
 
         try {
@@ -32,7 +33,7 @@ public class ServiceSponsor implements IService<Sponsor> {
     }
 
     @Override
-    public void modifier(Sponsor s) {
+    public void modifier(Sponsor s) throws SQLException {
         Connection cnx = DataSource.getInstance().getCnx();
 
         try {
@@ -52,7 +53,7 @@ public class ServiceSponsor implements IService<Sponsor> {
     }
 
     @Override
-    public void supprimer(int id) {
+    public void supprimer(int id) throws SQLException {
         Connection cnx = DataSource.getInstance().getCnx();
 
         try {
@@ -69,9 +70,9 @@ public class ServiceSponsor implements IService<Sponsor> {
 
 
     @Override
-    public Set<Sponsor> getAll() {
+    public List<Sponsor> getAll() throws SQLException {
         Connection cnx = DataSource.getInstance().getCnx();
-        Set<Sponsor> sponsors = new HashSet<>();
+        List<Sponsor> sponsors = new ArrayList<>();
         ServiceEvenement serviceEvenement = new ServiceEvenement();
 
         try {
@@ -87,7 +88,7 @@ public class ServiceSponsor implements IService<Sponsor> {
                 int idEvent = rs.getInt("Id_Event");
 
                 // Convertir les types String en Enum
-                edu.esprit.entities.Sponsor.Fond fond = edu.esprit.entities.Sponsor.Fond.valueOf(fondStr);
+                Fond fond = Fond.valueOf(fondStr);
 
                 // Récupérer l'objet Evenement complet de la base de données
                 Evenement evenement = serviceEvenement.getOneById(idEvent);
@@ -103,13 +104,8 @@ public class ServiceSponsor implements IService<Sponsor> {
         return sponsors;
     }
 
-
-
-
-
-
     @Override
-    public Sponsor getOneById(int id) {
+    public Sponsor getOneById(int id) throws SQLException {
         Connection cnx = DataSource.getInstance().getCnx();
         Sponsor sponsor = null;
 
@@ -127,7 +123,7 @@ public class ServiceSponsor implements IService<Sponsor> {
                 int idEvent = rs.getInt("Id_Event");
 
                 // Convertir les types String en Enum
-                edu.esprit.entities.Sponsor.Fond fond = edu.esprit.entities.Sponsor.Fond.valueOf(fondStr);
+                Fond fond = Fond.valueOf(fondStr);
 
                 // Créer un objet Sponsor
                 Evenement evenement = new Evenement(idEvent); // Vous devez probablement récupérer l'Evenement à partir de la base de données
@@ -139,7 +135,5 @@ public class ServiceSponsor implements IService<Sponsor> {
 
         return sponsor;
     }
-
-
 
 }

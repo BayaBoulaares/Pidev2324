@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane prefHeight="535.0" prefWidth="798.0" stylesheets="@Design.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.AfficherEvenement">
+
+    <top>
+        <VBox alignment="CENTER">
+            <Label text="Liste des événements" textFill="#000044" style="-fx-font-size: 24px;" />
+        </VBox>
+    </top>
+
+    <left>
+        <VBox fx:id="navBar" prefHeight="535.0" prefWidth="162.0" spacing="10">
+            <Label styleClass="navTitle" text="Auto+Learn" textFill="#fffdfd">
+                <font>
+                    <Font name="Arial Rounded MT Bold" size="22.0" />
+                </font>
+            </Label>
+            <Label text="Accueil" textFill="WHITE" />
+            <Label text="Utilisateurs" textFill="WHITE" />
+            <Label text="Documents" textFill="WHITE" />
+            <Label text="Événements" textFill="WHITE" />
+            <Label text="Messagerie" textFill="WHITE" />
+            <Label text="Réservations" textFill="WHITE" />
+            <Label text="Profil" textFill="WHITE" />
+        </VBox>
+    </left>
+
+    <center>
+        <ScrollPane>
+            <VBox fx:id="eventVBox" prefHeight="535.0" prefWidth="636.0" BorderPane.alignment="CENTER">
+                <children>
+                    <Button layoutX="729.0" layoutY="551.0" mnemonicParsing="false" onAction="#Retour" style="-fx-background-color: white; -fx-font-size: 14px; -fx-text-fill: turquoise; -fx-border-color: turquoise;-fx-background-radius: 5px;" text="Retour" />
+                </children>
+            </VBox>
+        </ScrollPane>
+    </center>
+
+</BorderPane>

@@ -1,5 +1,6 @@
 package edu.esprit.entities;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.Objects;
 
@@ -38,6 +39,8 @@ public class Evenement {
         this.Nb_Max = Nb_Max;
         this.Status = Status;
     }
+
+
 
     public int getId_Event() {
         return Id_Event;
@@ -126,8 +129,5 @@ public class Evenement {
         return Id_Event == evenement.Id_Event;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(Id_Event);
-    }
+
 }

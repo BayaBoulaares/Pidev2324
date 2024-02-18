@@ -5,16 +5,15 @@ import edu.esprit.entities.Status;
 import edu.esprit.utils.DataSource;
 
 import java.sql.*;
-import java.util.HashSet;
-import java.util.Set;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
+
 public class ServiceEvenement implements IService<Evenement> {
 
     Connection cnx = DataSource.getInstance().getCnx();
 
     @Override
-    public void ajouter(Evenement e) {
+    public void ajouter(Evenement e) throws SQLException {
         String req = "INSERT INTO `evenement`(`Nom_Event`, `Description`, `Lieu_Event`, `Date_Debut`, `Date_Fin`, `Nb_Max`, `Status`) VALUES (?,?,?,?,?,?,?)";
         try {
             PreparedStatement ps = cnx.prepareStatement(req);
@@ -29,11 +28,12 @@ public class ServiceEvenement implements IService<Evenement> {
             System.out.println("Evenement ajouté avec succès !");
         } catch (SQLException ex) {
             System.out.println("Erreur lors de l'ajout de l'événement : " + ex.getMessage());
+            throw ex; // Re-lancer l'exception pour être gérée au niveau supérieur si nécessaire
         }
     }
 
     @Override
-    public void modifier(Evenement e) {
+    public void modifier(Evenement e) throws SQLException {
         try {
             String req = "UPDATE evenement SET Nom_Event = ?, Description = ?, Lieu_Event = ?, Date_Debut = ?, Date_Fin = ?, Nb_Max = ?, Status = ? WHERE ID_Event = ?";
             PreparedStatement ps = cnx.prepareStatement(req);
@@ -44,7 +44,7 @@ public class ServiceEvenement implements IService<Evenement> {
             ps.setDate(5, new java.sql.Date(e.getDate_Fin().getTime()));
             ps.setInt(6, e.getNb_Max());
             ps.setString(7, e.getStatus().name());
-            ps.setInt(8, e.getId_Event()); // Ajout de l'ID de l'événement à modifier dans la clause WHERE
+            ps.setInt(8, e.getId_Event());
             int rowsAffected = ps.executeUpdate();
             if (rowsAffected > 0) {
                 System.out.println("Evenement modifié avec succès !");
@@ -53,34 +53,34 @@ public class ServiceEvenement implements IService<Evenement> {
             }
         } catch (SQLException ex) {
             System.out.println("Erreur lors de la modification de l'événement : " + ex.getMessage());
+            throw ex; // Re-lancer l'exception pour être gérée au niveau supérieur si nécessaire
         }
     }
 
     @Override
-    public void supprimer(int id) {
-        Connection cnx = DataSource.getInstance().getCnx();
-
+    public void supprimer(int id) throws SQLException {
         try {
             String req = "DELETE FROM evenement WHERE ID_Event=?";
             PreparedStatement pstmt = cnx.prepareStatement(req);
-            pstmt.setInt(1, id); // Utilisez l'identifiant passé en paramètre
+            pstmt.setInt(1, id);
 
             pstmt.executeUpdate();
             System.out.println("Evenement supprimé avec succès");
         } catch (SQLException ex) {
             System.out.println("Erreur lors de la suppression de l'événement : " + ex.getMessage());
+            throw ex; // Re-lancer l'exception pour être gérée au niveau supérieur si nécessaire
         } finally {
-            try {
-                // Fermer la connexion après utilisation
-                cnx.close();
+          /*  try {
+                // Fermeture de la connexion après utilisation
+               // cnx.close();
             } catch (SQLException e) {
                 System.out.println("Erreur lors de la fermeture de la connexion : " + e.getMessage());
-            }
+            }*/
         }
     }
 
     @Override
-    public Evenement getOneById(int id) {
+    public Evenement getOneById(int id) throws SQLException {
         Evenement evenement = null;
         try {
             String req = "SELECT * FROM evenement WHERE ID_Event = ?";
@@ -100,16 +100,16 @@ public class ServiceEvenement implements IService<Evenement> {
             }
         } catch (SQLException ex) {
             System.out.println("Erreur lors de la récupération de l'événement : " + ex.getMessage());
+            throw ex; // Re-lancer l'exception pour être gérée au niveau supérieur si nécessaire
         }
         return evenement;
     }
 
     @Override
-    public Set<Evenement> getAll() {
-        Set<Evenement> evenements = new HashSet<>();
-
-        String req = "SELECT * FROM evenement";
+    public List<Evenement> getAll() throws SQLException {
+        List<Evenement> evenements = new ArrayList<>();
         try {
+            String req = "SELECT * FROM evenement";
             Statement st = cnx.createStatement();
             ResultSet res = st.executeQuery(req);
             while (res.next()) {
@@ -126,6 +126,7 @@ public class ServiceEvenement implements IService<Evenement> {
             }
         } catch (SQLException ex) {
             System.out.println("Erreur lors de la récupération des événements : " + ex.getMessage());
+            throw ex; // Re-lancer l'exception pour être gérée au niveau supérieur si nécessaire
         }
         return evenements;
     }

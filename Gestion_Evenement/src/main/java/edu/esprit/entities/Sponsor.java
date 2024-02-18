@@ -69,7 +69,5 @@ public class Sponsor {
                 '}';
     }
 
-    public enum Fond {
-        MATERIEL, ARGENT
-    }
+
 }

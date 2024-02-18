@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.collections.FXCollections?>
+<?import java.lang.String?>
+<AnchorPane prefHeight="612.0" prefWidth="819.0" stylesheets="@Design.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.ModifierEvenement">
+    <VBox fx:id="navBar" prefHeight="613.0" prefWidth="174.0" spacing="10" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <Label styleClass="navTitle" text="Auto+Learn">
+            <font>
+                <Font name="Arial Rounded MT Bold" size="18.0" />
+            </font>
+        </Label>
+        <Label fx:id="firstLabel" text="Accueil" textFill="#ece7e7" />
+        <Label text="Utilisateurs" textFill="WHITE" />
+        <Label text="Documents" textFill="WHITE" />
+        <Label text="Événements" textFill="WHITE" />
+        <Label text="Messagerie" textFill="WHITE" />
+        <Label text="Réservations" textFill="WHITE" />
+        <Label fx:id="lastLabel" text="Profil" textFill="WHITE" />
+    </VBox>
+    <Text fill="#020269" layoutX="387.0" layoutY="48.0" text="Modifier cette Événement!" />
+    <Label layoutX="192.0" layoutY="108.0" text="Nom d'événement*" textFill="#020269" />
+    <TextField fx:id="eventName" layoutX="316.0" layoutY="102.0" prefHeight="32.0" prefWidth="160.0" promptText="Saisir Nom d'événement" />
+    <DatePicker fx:id="eventStartDate" layoutX="617.0" layoutY="102.0" promptText="Choisir Date début" />
+    <Label layoutX="534.0" layoutY="108.0" text="Date début*" textFill="#020269" />
+    <TextField fx:id="eventLocation" layoutX="606.0" layoutY="207.0" prefHeight="34.0" prefWidth="160.0" promptText="Choisir Lieu " />
+    <Label layoutX="555.0" layoutY="214.0" text="Lieu*" textFill="#020269" />
+    <DatePicker fx:id="eventEndDate" layoutX="307.0" layoutY="208.0" promptText="Choisir Date fin " />
+    <Label layoutX="210.0" layoutY="214.0" text="Date fin*" textFill="#020269" />
+    <Label layoutX="548.0" layoutY="302.0" text="Status*" textFill="#020269" />
+    <Button layoutX="427.0" layoutY="534.0" mnemonicParsing="false" onAction="#saveEventData" style="-fx-background-color: turquoise; -fx-font-size: 14px; -fx-text-fill: white; -fx-background-radius: 5px;" text="Enregistrer" />
+    <Label layoutX="298.0" layoutY="388.0" prefHeight="22.0" prefWidth="82.0" text="Description *" textFill="#020269" />
+    <ComboBox fx:id="eventType" layoutX="626.0" layoutY="296.0" prefHeight="22.0" prefWidth="115.0" promptText="Status*">
+        <items>
+            <FXCollections fx:factory="observableArrayList">
+                <String fx:value="EN_COURS" />
+                <String fx:value="TERMINE" />
+                <String fx:value="ANNULE" />
+            </FXCollections>
+        </items>
+    </ComboBox>
+    <TextField fx:id="maxNumber" layoutX="298.0" layoutY="299.0" promptText="Donner Nombre max" />
+    <TextArea fx:id="eventDescription" layoutX="411.0" layoutY="388.0" prefHeight="73.0" prefWidth="348.0" promptText="Description" />
+    <Label layoutX="195.0" layoutY="304.0" text="Nombre max*" textFill="#020269" />
+
+</AnchorPane>
