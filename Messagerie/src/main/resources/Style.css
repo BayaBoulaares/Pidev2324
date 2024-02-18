@@ -1,0 +1,95 @@
+.root {
+    -fx-font-family: "DM Sans";
+}
+
+#navBar {
+    -fx-background-color: #30d5c8;
+    -fx-padding: 10px;
+    -fx-spacing: 20px;
+    -fx-background-radius: 0% 5% 5% 0; /* Ajoute un demi-cercle en haut et en bas */
+}
+
+#navBar > Label {
+    -fx-text-fill: #ffffff; /* Définit la couleur du texte en blanc pour tous les labels à l'intérieur de navBar */
+}
+
+#firstLabel {
+    -fx-background-radius: 0 0 0 5%; /* Ajoute un demi-cercle en bas pour le premier élément */
+}
+
+#lastLabel {
+    -fx-background-radius: 0 0 5% 0; /* Ajoute un demi-cercle en bas pour le dernier élément */
+}
+
+.center .label {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #020269; /* Couleur bleue pour les labels */
+}
+
+.center .button {
+    -fx-background-color: #30d5c8;
+    -fx-text-fill: white;
+    -fx-padding: 10px;
+    -fx-border-radius: 50%; /* Rend le bouton circulaire */
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-transition: all 0.3s ease; /* Transition d'animation */
+}
+
+.button:hover {
+    -fx-background-color: #27b9a9;
+    -fx-scale-x: 1.1; /* Effet d'échelle */
+    -fx-scale-y: 1.1;
+}
+
+.text-field, .date-picker, .combo-box, .text-area {
+    -fx-background-color: white;
+    -fx-border-color: #ccc;
+    -fx-border-width: 1px;
+    -fx-border-radius: 5px;
+    -fx-font-family: "DM Sans";
+    -fx-font-size: 14px;
+}
+
+.date-picker {
+    -fx-pref-width: 150px;
+}
+
+.text-area {
+    -fx-pref-height: 100px;
+}
+
+/* CSS supplémentaire pour l'animation du bouton */
+
+.blob-btn {
+    -fx-border-width: 2px;
+    -fx-border-color: #27b9a9;
+    -fx-background-color: transparent;
+    -fx-text-fill: #0505A9;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-padding: 20px 46px;
+    -fx-cursor: hand;
+}
+
+.blob-btn:hover {
+    -fx-text-fill: #ffffff;
+    -fx-background-color: #27b9a9;
+}
+
+.blob-btn:pressed {
+    -fx-border-color: #ffffff;
+    -fx-text-fill: #ffffff;
+}
+
+.eventBox {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #48e0d4;
+    -fx-border-width: 1px;
+    -fx-border-radius: 5px;
+    -fx-padding: 10px;
+    -fx-spacing: 10px;
+    -fx-pref-width: 300px;
+    -fx-max-width: 300px;
+}

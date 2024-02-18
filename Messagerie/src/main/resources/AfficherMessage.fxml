@@ -4,14 +4,14 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.AfficherMessage">
-   <children>
-      <TableView fx:id="TableView" layoutX="48.0" layoutY="100.0" prefHeight="200.0" prefWidth="524.0">
-        <columns>
-          <TableColumn fx:id="Nom" prefWidth="75.0" text="Nom" />
-            <TableColumn fx:id="Message" prefWidth="75.0" text="Mesasge" />
-            <TableColumn fx:id="Date" prefWidth="75.0" text="Date" />
-        </columns>
-      </TableView>
-   </children>
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.AfficherMessage" stylesheets="Style.css">
+    <children>
+        <TableView fx:id="TableView" layoutX="48.0" layoutY="100.0" prefHeight="200.0" prefWidth="524.0">
+            <columns>
+                <TableColumn fx:id="Nom" prefWidth="75.0" text="Nom" />
+                <TableColumn fx:id="Message" prefWidth="75.0" text="Message" />
+                <TableColumn fx:id="Date" prefWidth="75.0" text="Date" />
+            </columns>
+        </TableView>
+    </children>
 </AnchorPane>
