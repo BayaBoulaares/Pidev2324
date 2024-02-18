@@ -1,17 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.AfficherMessage" stylesheets="Style.css">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" stylesheets="Style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.AfficherMessage">
     <children>
-        <TableView fx:id="TableView" layoutX="48.0" layoutY="100.0" prefHeight="200.0" prefWidth="524.0">
+        <TableView fx:id="TableView" layoutX="33.0" layoutY="36.0" onMouseClicked="#mouceClicked" prefHeight="200.0" prefWidth="524.0">
             <columns>
                 <TableColumn fx:id="Nom" prefWidth="75.0" text="Nom" />
                 <TableColumn fx:id="Message" prefWidth="75.0" text="Message" />
                 <TableColumn fx:id="Date" prefWidth="75.0" text="Date" />
             </columns>
         </TableView>
+      <Label layoutX="51.0" layoutY="246.0" text="Nom" />
+      <Label layoutX="51.0" layoutY="284.0" text="Message" />
+      <Label layoutX="51.0" layoutY="343.0" text="Date" />
+      <TextField fx:id="NomID" layoutX="133.0" layoutY="242.0" promptText="Nom" />
+      <TextField fx:id="MeesageID" layoutX="133.0" layoutY="293.0" promptText="Message" />
+      <DatePicker fx:id="DateID" layoutX="121.0" layoutY="339.0" promptText="Date" />
+      <Button fx:id="Modifier" layoutX="430.0" layoutY="242.0" mnemonicParsing="false" onAction="#modifiermessage" text="modofier" />
+      <Button fx:id="Supprimer" layoutX="430.0" layoutY="293.0" mnemonicParsing="false" onAction="#supprimermessage" text="supprimer" />
     </children>
 </AnchorPane>

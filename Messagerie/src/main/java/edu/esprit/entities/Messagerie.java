@@ -1,5 +1,6 @@
 package edu.esprit.entities;
 
+import java.time.LocalDate;
 import java.util.Objects;
 import java.sql.Date;
 

@@ -13,13 +13,13 @@ import java.io.IOException;
 public class MainFx extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader loader= new FXMLLoader(getClass().getResource("/ModifierMessage.fxml"));
+        FXMLLoader loader= new FXMLLoader(getClass().getResource("/AfficherMessage.fxml"));
         Parent root=loader.load();
         Scene scene=new Scene(root);
         stage.setScene(scene);
         //scene.getStylesheets().add(getClass().getResource("Style.css").toExternalForm());
 
-        stage.setTitle("Modifier");
+        stage.setTitle("Afficher");
         stage.show();
     }
 
