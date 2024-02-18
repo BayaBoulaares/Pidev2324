@@ -11,9 +11,9 @@ public class ServiceMessagerie implements IServices<Messagerie> {
     Connection cnx = DataSource.getInstance().getCnx();
 
     @Override
-    public void ajouter(Messagerie m) {
+    public void ajouter(Messagerie m) throws SQLException{
         String req = "INSERT INTO `messagerie`(`nom`, `date`,`message`) VALUES (?, ?, ?)";
-        try {
+
             PreparedStatement ps = cnx.prepareStatement(req);
             ps.setString(1, m.getNom());
 
@@ -25,9 +25,7 @@ public class ServiceMessagerie implements IServices<Messagerie> {
 
             ps.executeUpdate();
             System.out.println("Messagerie added!");
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
+
     }
 
 
@@ -94,12 +92,12 @@ public class ServiceMessagerie implements IServices<Messagerie> {
 
 
     @Override
-    public HashSet<Messagerie> getAll() {
+    public HashSet<Messagerie> getAll() throws SQLException {
         Connection cnx =DataSource.getInstance().getCnx();
         HashSet<Messagerie> messageries = new HashSet<>();
 
 
-        try {
+
             String req = "SELECT * FROM messagerie";
             Statement st = cnx.createStatement();
             ResultSet res = st.executeQuery(req);
@@ -111,9 +109,8 @@ public class ServiceMessagerie implements IServices<Messagerie> {
                 Messagerie m = new Messagerie(id, nom, date, message);
                 messageries.add(m);
             }
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
+
+
 
         return messageries;
     }
