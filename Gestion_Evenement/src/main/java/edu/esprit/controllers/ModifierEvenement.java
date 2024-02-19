@@ -1,4 +1,5 @@
 package edu.esprit.controllers;
+
 import edu.esprit.entities.Evenement;
 import edu.esprit.entities.Status;
 import edu.esprit.services.ServiceEvenement;
@@ -33,6 +34,18 @@ public class ModifierEvenement {
     // Ajoutez un champ pour stocker l'ID de l'événement
     private int idEvenement;
 
+    // Interface de rappel pour informer AfficherEvenement que la modification est terminée
+    public interface ModificationCallback {
+        void onModificationComplete();
+    }
+
+    private ModificationCallback modificationCallback;
+
+    // Méthode pour définir le callback
+    public void setModificationCallback(ModificationCallback callback) {
+        this.modificationCallback = callback;
+    }
+
     @FXML
     public void setEventData(Evenement evenement) {
         // Mettez à jour l'ID de l'événement
@@ -58,7 +71,8 @@ public class ModifierEvenement {
     @FXML
     private void saveEventData(ActionEvent event) {
         try {
-            // Récupérer les données modifiées depuis les champs
+            // Récupére
+            // r les données modifiées depuis les champs
             String nomEvenement = eventName.getText();
             LocalDate dateDebut = eventStartDate.getValue();
             LocalDate dateFin = eventEndDate.getValue();
@@ -107,6 +121,5 @@ public class ModifierEvenement {
             alert.showAndWait();
         }
     }
+
 }
-
-

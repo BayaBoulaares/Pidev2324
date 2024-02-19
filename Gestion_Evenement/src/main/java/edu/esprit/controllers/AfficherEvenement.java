@@ -15,13 +15,14 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-
+import javafx.event.ActionEvent;
 import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 
 public class AfficherEvenement {
 
@@ -31,25 +32,32 @@ public class AfficherEvenement {
     private final ServiceEvenement serviceEvenement = new ServiceEvenement();
     private final Map<Integer, Boolean> displayedEvents = new HashMap<>();
 
+
     @FXML
     void initialize() {
         try {
-            List<Evenement> allEvents = serviceEvenement.getAll(); // Store all events in a variable
-            HBox eventPairBox = new HBox();
-            eventPairBox.setSpacing(30); // Set horizontal spacing between events
+            // Effacer la VBox avant de rafraîchir les événements
+            eventVBox.getChildren().clear();
 
-            for (Evenement evenement : allEvents) {
-                if (!displayedEvents.containsKey(evenement.getId_Event())) {
-                    VBox eventBox = createEventBox(evenement);
-                    eventPairBox.getChildren().add(eventBox); // Add each event to the HBox
-                    displayedEvents.put(evenement.getId_Event(), true); // Mark event as already displayed
-                }
-            }
-
-            eventVBox.getChildren().add(eventPairBox);
+            List<Evenement> allEvents = serviceEvenement.getAll();
+            displayEvents(allEvents);
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+    private void displayEvents(List<Evenement> events) {
+        HBox eventPairBox = new HBox();
+        eventPairBox.setSpacing(30);
+
+        for (Evenement evenement : events) {
+            if (!displayedEvents.containsKey(evenement.getId_Event())) {
+                VBox eventBox = createEventBox(evenement);
+                eventPairBox.getChildren().add(eventBox);
+                displayedEvents.put(evenement.getId_Event(), true);
+            }
+        }
+
+        eventVBox.getChildren().add(eventPairBox);
     }
 
     private VBox createEventBox(Evenement evenement) {
@@ -93,15 +101,12 @@ public class AfficherEvenement {
         statusLabel.getStyleClass().add("status");
         eventBox.getChildren().add(statusLabel);
 
-        // Button Modifier
         Button modifierButton = new Button("Modifier");
         modifierButton.getStyleClass().add("action-button");
         modifierButton.setStyle("-fx-background-color: turquoise; -fx-text-fill: white;-fx-background-radius: 5px; -fx-border-color: turquoise;");
         modifierButton.setOnAction(event -> handleModifierEvent(evenement));
         eventBox.getChildren().add(modifierButton);
 
-
-        // Button Supprimer
         Button supprimerButton = new Button("Supprimer");
         supprimerButton.getStyleClass().add("action-button");
         supprimerButton.setStyle("-fx-background-color: white; -fx-text-fill:turquoise;-fx-background-radius: 5px; -fx-border-color: turquoise;");
@@ -111,39 +116,31 @@ public class AfficherEvenement {
         return eventBox;
     }
 
-
     private void handleSupprimerEvent(Evenement evenement) {
         try {
-            // Utiliser le service pour supprimer l'événement de la base de données
             serviceEvenement.supprimer(evenement.getId_Event());
 
-            // Afficher un message d'information pour indiquer que la suppression a réussi
             Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
             successAlert.setTitle("Succès");
             successAlert.setHeaderText(null);
             successAlert.setContentText("Événement supprimé avec succès !");
             successAlert.show();
 
-            // Rafraîchir l'affichage en enlevant l'événement supprimé de l'affichage
-            Platform.runLater(() -> {
-                eventVBox.getChildren().clear(); // Effacer tous les événements affichés actuellement
+            // Clear the VBox
+            eventVBox.getChildren().clear();
 
-                // Recharger la liste des événements depuis la base de données et les afficher à nouveau
-                List<Evenement> allEvents = null;
-                try {
-                    allEvents = serviceEvenement.getAll();
-                    for (Evenement event : allEvents) {
-                        VBox eventBox = createEventBox(event);
-                        eventVBox.getChildren().add(eventBox);
-                    }
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            });
-
+            // Repopulate the VBox with the updated list of events from the database
+            List<Evenement> updatedEvents = serviceEvenement.getAll();
+            HBox hbox = new HBox();
+            hbox.setSpacing(20);
+            for (Evenement updatedEvent : updatedEvents) {
+                // Add each event to the HBox
+                hbox.getChildren().add(createEventBox(updatedEvent));
+            }
+            // Add the HBox to the VBox
+            eventVBox.getChildren().add(hbox);
         } catch (SQLException e) {
             e.printStackTrace();
-            // Gérer les erreurs de suppression de l'événement
             Alert errorAlert = new Alert(Alert.AlertType.ERROR);
             errorAlert.setTitle("Erreur");
             errorAlert.setContentText("Une erreur s'est produite : " + e.getMessage());
@@ -152,50 +149,57 @@ public class AfficherEvenement {
     }
 
 
-    @FXML
-    private void Retour() {
-        try {
-            // Load the FXML file of the add page
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("Ajout_Evenement.fxml"));
-            Parent root = loader.load();
-
-            // Get the controller of the add page
-            AjoutEvenement controller = loader.getController();
-
-            // Create a new window (stage)
-            Stage stage = new Stage();
-
-            // Set the scene with the content loaded from the FXML file
-            Scene scene = new Scene(root);
-
-            // Set the scene for the window (stage)
-            stage.setScene(scene);
-
-            // Show the window (stage)
-            stage.show();
-
-            // Close the current window (display page)
-            Stage currentStage = (Stage) eventVBox.getScene().getWindow();
-            currentStage.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-
     private void handleModifierEvent(Evenement evenement) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Modifier_Evenement.fxml"));
             Parent root = loader.load();
-
             ModifierEvenement controller = loader.getController();
             controller.setEventData(evenement);
-
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
             stage.show();
+
+            // Add a listener to refresh the list when the modification window is closed
+            stage.setOnHidden(windowEvent -> {
+                eventVBox.getChildren().clear();
+                try {
+                    List<Evenement> updatedEvents = serviceEvenement.getAll();
+                    HBox hbox = new HBox();
+                    hbox.setSpacing(20);
+                    for (Evenement updatedEvent : updatedEvents) {
+                        // Create an HBox for each event
+                        hbox.getChildren().add(createEventBox(updatedEvent));
+                    }
+                    // Add the HBox to the VBox
+                    eventVBox.getChildren().add(hbox);
+                } catch (SQLException ex) {
+                    System.out.println("Error refreshing event list: " + ex.getMessage());
+                    // Handle the exception appropriately, such as displaying an error message
+                }
+            });
         } catch (IOException e) {
             e.printStackTrace();
+            // Handle the IOException appropriately, such as displaying an error message
+        }
+    }
+
+
+    @FXML
+    void rafraichir(ActionEvent event) {
+        try {
+            // Effacer la VBox avant de rafraîchir les événements
+            eventVBox.getChildren().clear();
+
+            // Appeler la méthode initialize pour récupérer et afficher à nouveau les événements
+            List<Evenement> allEvents = serviceEvenement.getAll();
+            displayEvents(allEvents);
+        } catch (Exception e) {
+            e.printStackTrace();
+            Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+            errorAlert.setTitle("Erreur");
+            errorAlert.setContentText("Une erreur s'est produite lors du rafraîchissement des événements : " + e.getMessage());
+            errorAlert.showAndWait();
         }
     }
 }
+

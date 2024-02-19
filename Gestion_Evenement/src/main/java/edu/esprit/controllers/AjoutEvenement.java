@@ -1,5 +1,4 @@
 package edu.esprit.controllers;
-
 import edu.esprit.entities.Evenement;
 import edu.esprit.entities.Status;
 import edu.esprit.services.ServiceEvenement;
@@ -9,9 +8,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
-
 import java.io.IOException;
 import java.sql.SQLException;
+import java.time.LocalDate;
 
 public class AjoutEvenement {
 
@@ -44,14 +43,40 @@ public class AjoutEvenement {
     @FXML
     void ajouter(ActionEvent event) {
         try {
+            String nomEvenement = eventName.getText();
+            String lieuEvenement = eventLocation.getText();
+            LocalDate dateDebut = eventStartDate.getValue();
+            LocalDate dateFin = eventEndDate.getValue();
+            String maxParticipantsText = maxNumber.getText();
+            String descriptionEvenement = eventDescription.getText();
+            String typeEvenement = eventType.getValue();
+
+            if (nomEvenement.isEmpty() || lieuEvenement.isEmpty() || dateDebut == null ||
+                    dateFin == null || maxParticipantsText.isEmpty() || descriptionEvenement.isEmpty() ||
+                    typeEvenement == null) {
+                afficherAlerte("Veuillez remplir tous les champs !");
+                return;
+            }
+
+            if (nomEvenement.length() > 22) {
+                afficherAlerte("Le nom de l'événement ne peut pas dépasser 22caractères !");
+                return;
+            }
+
+            if (contientChiffres(nomEvenement)) {
+                afficherAlerte("Le nom de l'événement ne peut pas contenir de chiffres !");
+                return;
+            }
+
+            // Le reste de votre logique d'ajout d'événement ici...
             Evenement nouvelEvenement = new Evenement();
-            nouvelEvenement.setNom_Event(eventName.getText());
-            nouvelEvenement.setLieu_Event(eventLocation.getText());
-            nouvelEvenement.setDate_Debut(java.sql.Date.valueOf(eventStartDate.getValue()));
-            nouvelEvenement.setDate_Fin(java.sql.Date.valueOf(eventEndDate.getValue()));
-            nouvelEvenement.setNb_Max(Integer.parseInt(maxNumber.getText()));
-            nouvelEvenement.setDescription(eventDescription.getText());
-            nouvelEvenement.setStatus(Status.valueOf(eventType.getValue().toUpperCase()));
+            nouvelEvenement.setNom_Event(nomEvenement);
+            nouvelEvenement.setLieu_Event(lieuEvenement);
+            nouvelEvenement.setDate_Debut(java.sql.Date.valueOf(dateDebut));
+            nouvelEvenement.setDate_Fin(java.sql.Date.valueOf(dateFin));
+            nouvelEvenement.setNb_Max(Integer.parseInt(maxParticipantsText));
+            nouvelEvenement.setDescription(descriptionEvenement);
+            nouvelEvenement.setStatus(Status.valueOf(typeEvenement.toUpperCase()));
 
             serviceEvenement.ajouter(nouvelEvenement);
 
@@ -63,25 +88,38 @@ public class AjoutEvenement {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherEvenement.fxml"));
             Parent root = loader.load();
             eventName.getScene().setRoot(root);
+
         } catch (SQLException | IOException e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Erreur");
-            alert.setContentText("Une erreur s'est produite : " + e.getMessage());
-            alert.showAndWait();
+            afficherAlerte("Une erreur s'est produite : " + e.getMessage());
         }
     }
 
     @FXML
     void afficherEvenements(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Afficher_Evenement.fxml"));
-        Parent root = loader.load();
-        AfficherEvenement controller = loader.getController();
-        controller.initialize();
+        Parent root = FXMLLoader.load(getClass().getResource("/Afficher_Evenement.fxml"));
 
         // Set the root of the scene to the loaded FXML root
         ((Node) event.getSource()).getScene().setRoot(root);
     }
 
 
+    private boolean contientChiffres(String str) {
+        for (char c : str.toCharArray()) {
+            if (Character.isDigit(c)) {
+                return true;
+            }
+        }
+        return false;
+    }
 
+    private void afficherAlerte(String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Erreur");
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
 }
+
+
+
+
