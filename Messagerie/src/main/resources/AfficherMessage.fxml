@@ -7,23 +7,41 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" stylesheets="Style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.AfficherMessage">
+<AnchorPane prefHeight="813.0" prefWidth="937.0" stylesheets="Style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.AfficherMessage">
+
     <children>
-        <TableView fx:id="TableView" layoutX="33.0" layoutY="36.0" onMouseClicked="#mouceClicked" prefHeight="200.0" prefWidth="524.0">
+        <VBox fx:id="navBar" prefHeight="813.0" prefWidth="272.0" spacing="10" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <Label prefHeight="49.0" prefWidth="191.0" styleClass="navTitle" text="Auto+Learn">
+            <font>
+                <Font name="Arial Rounded MT Bold" size="18.0" />
+            </font>
+        </Label>
+        <Label fx:id="firstLabel" text="Accueil" textFill="#ece7e7" />
+        <Label text="Utilisateurs" textFill="WHITE" />
+        <Label text="Documents" textFill="WHITE" />
+        <Label text="Événements" textFill="WHITE" />
+        <Label text="Messagerie" textFill="WHITE" />
+        <Label text="Réservations" textFill="WHITE" />
+        <Label fx:id="lastLabel" text="Profil" textFill="WHITE" />
+    </VBox>
+
+        <TableView fx:id="TableView" layoutX="500.0" layoutY="55.0" onMouseClicked="#mouceClicked" prefHeight="200.0" prefWidth="324.0">
             <columns>
                 <TableColumn fx:id="Nom" prefWidth="75.0" text="Nom" />
                 <TableColumn fx:id="Message" prefWidth="75.0" text="Message" />
                 <TableColumn fx:id="Date" prefWidth="75.0" text="Date" />
             </columns>
         </TableView>
-      <Label layoutX="51.0" layoutY="246.0" text="Nom" />
-      <Label layoutX="51.0" layoutY="284.0" text="Message" />
-      <Label layoutX="51.0" layoutY="343.0" text="Date" />
-      <TextField fx:id="NomID" layoutX="133.0" layoutY="242.0" promptText="Nom" />
-      <TextField fx:id="MeesageID" layoutX="133.0" layoutY="293.0" promptText="Message" />
-      <DatePicker fx:id="DateID" layoutX="121.0" layoutY="339.0" promptText="Date" />
-      <Button fx:id="Modifier" layoutX="430.0" layoutY="242.0" mnemonicParsing="false" onAction="#modifiermessage" text="modofier" />
-      <Button fx:id="Supprimer" layoutX="430.0" layoutY="293.0" mnemonicParsing="false" onAction="#supprimermessage" text="supprimer" />
+      <Label layoutX="503.0" layoutY="398.0" text="Nom" />
+      <Label layoutX="493.0" layoutY="497.0" text="Message" />
+      <Label layoutX="508.0" layoutY="577.0" text="Date" />
+      <TextField fx:id="NomID" layoutX="635.0" layoutY="391.0" promptText="Nom" />
+      <TextField fx:id="MeesageID" layoutX="635.0" layoutY="493.0" promptText="Message" />
+      <DatePicker fx:id="DateID" layoutX="623.0" layoutY="573.0" promptText="Date" />
+      <Button fx:id="Modifier" layoutX="774.0" layoutY="294.0" mnemonicParsing="false" onAction="#modifiermessage" text="modofier" />
+      <Button fx:id="Supprimer" layoutX="674.0" layoutY="294.0" mnemonicParsing="false" onAction="#supprimermessage" text="supprimer" />
     </children>
 </AnchorPane>

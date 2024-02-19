@@ -6,15 +6,34 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.AjouterMessage">
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<AnchorPane prefHeight="813.0" prefWidth="937.0" stylesheets="Style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.AjouterMessage">
+
    <children>
-      <TextField fx:id="NomId" layoutX="192.0" layoutY="112.0" promptText="NOM" />
-      <TextField fx:id="MessageId" layoutX="192.0" layoutY="175.0" promptText="MESSAGE" />
-      <Button layoutX="166.0" layoutY="284.0" mnemonicParsing="false" onAction="#Afficher" text="Afficher" />
-      <Button layoutX="65.0" layoutY="284.0" mnemonicParsing="false" onAction="#Ajouter" text="Ajouter" />
-      <Label layoutX="51.0" layoutY="116.0" text="Nom" />
-      <Label layoutX="51.0" layoutY="192.0" text="Message" />
-      <DatePicker fx:id="DateId" layoutX="390.0" layoutY="259.0" promptText="DATE" />
+      <VBox fx:id="navBar" prefHeight="813.0" prefWidth="272.0" spacing="10" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <Label prefHeight="49.0" prefWidth="191.0" styleClass="navTitle" text="Auto+Learn">
+            <font>
+               <Font name="Arial Rounded MT Bold" size="18.0" />
+            </font>
+         </Label>
+         <Label fx:id="firstLabel" text="Accueil" textFill="#ece7e7" />
+         <Label text="Utilisateurs" textFill="WHITE" />
+         <Label text="Documents" textFill="WHITE" />
+         <Label text="Événements" textFill="WHITE" />
+         <Label text="Messagerie" textFill="WHITE" />
+         <Label text="Réservations" textFill="WHITE" />
+         <Label fx:id="lastLabel" text="Profil" textFill="WHITE" />
+      </VBox>
+      <TextField fx:id="NomId" layoutX="688.0" layoutY="121.0" promptText="NOM" />
+      <TextField fx:id="MessageId" layoutX="650.0" layoutY="210.0" prefHeight="141.0" prefWidth="226.0" promptText="MESSAGE" />
+      <Button layoutX="794.0" layoutY="750.0" mnemonicParsing="false" onAction="#Afficher" text="Afficher" />
+      <Button layoutX="707.0" layoutY="750.0" mnemonicParsing="false" onAction="#Ajouter" text="Ajouter" />
+      <Label layoutX="436.0" layoutY="125.0" text="Nom" />
+      <Label layoutX="426.0" layoutY="272.0" text="Message" />
+      <DatePicker fx:id="DateId" layoutX="676.0" layoutY="412.0" promptText="DATE" />
+      <Label layoutX="449.0" layoutY="424.0" text="Date" />
    </children>
+
 
 </AnchorPane>

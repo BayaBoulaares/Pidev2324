@@ -60,7 +60,7 @@
     -fx-pref-height: 100px;
 }
 
-/* CSS supplémentaire pour l'animation du bouton */
+CSS supplémentaire pour l'animation du bouton
 
 .blob-btn {
     -fx-border-width: 2px;
@@ -92,4 +92,3 @@
     -fx-spacing: 10px;
     -fx-pref-width: 300px;
     -fx-max-width: 300px;
-}

@@ -11,40 +11,43 @@ public class ServiceMessagerie implements IServices<Messagerie> {
     Connection cnx = DataSource.getInstance().getCnx();
 
     @Override
-    public void ajouter(Messagerie m) throws SQLException{
-        String req = "INSERT INTO `messagerie`(`nom`, `date`,`message`) VALUES (?, ?, ?)";
+    public void ajouter(Messagerie m) throws SQLException {
+        if (m != null && m.getNom() != null && m.getMessage() != null) {
+            String req = "INSERT INTO `messagerie`(`nom`, `date`,`message`) VALUES (?, ?, ?)";
+            try (PreparedStatement ps = cnx.prepareStatement(req)) {
+                ps.setString(1, m.getNom());
+                ps.setDate(2, new Date(System.currentTimeMillis()));
+                String validatedMessage = m.getMessage().substring(0, 1).toUpperCase() + m.getMessage().substring(1);
+                ps.setString(3, validatedMessage);
 
-            PreparedStatement ps = cnx.prepareStatement(req);
-            ps.setString(1, m.getNom());
-
-            // Use the current date for the 'date' field
-            Date currentDate = new Date(System.currentTimeMillis());
-            ps.setDate(2, currentDate);
-            ps.setString(3, m.getMessage());
-
-
-            ps.executeUpdate();
-            System.out.println("Messagerie added!");
+                ps.executeUpdate();
+                System.out.println("Messagerie added!");
+            } catch (SQLException e) {
+                System.out.println("Error adding Messagerie: " + e.getMessage());
+            }
+        } else {
+            System.out.println("Invalid Messagerie object provided.");
+        }
 
     }
 
 
     @Override
     public void modifier(Messagerie m) {
-        String req = "UPDATE messagerie SET nom=?,message=?, date=?  WHERE id=?";
-        try {
-            PreparedStatement ps = cnx.prepareStatement(req);
-            ps.setString(1, m.getNom());
-            Date currentDate = new Date(System.currentTimeMillis());
-
-            ps.setDate(3, currentDate);
-            ps.setInt(4,m.getId());
-            ps.setString(2, m.getMessage());
-
-            ps.executeUpdate();
-            System.out.println("Messagerie updated!");
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
+        if (m != null && m.getNom() != null && m.getMessage() != null) {
+            String req = "UPDATE messagerie SET nom=?,message=?, date=?  WHERE id=?";
+            try (PreparedStatement ps = cnx.prepareStatement(req)) {
+                ps.setString(1, m.getNom());
+                ps.setString(2, m.getMessage());
+                ps.setDate(3, new Date(System.currentTimeMillis()));
+                ps.setInt(4, m.getId());
+                ps.executeUpdate();
+                System.out.println("Messagerie updated!");
+            } catch (SQLException e) {
+                System.out.println("Error updating Messagerie: " + e.getMessage());
+            }
+        } else {
+            System.out.println("Invalid Messagerie object provided.");
         }
     }
 

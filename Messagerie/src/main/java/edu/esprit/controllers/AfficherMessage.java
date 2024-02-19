@@ -55,9 +55,15 @@ public class AfficherMessage {
     void initialize() {
         try {
             List<Messagerie> messagerieList = new ArrayList<>(ps.getAll());
-            ObservableList<Messagerie> observableList = FXCollections.observableList(messagerieList);
-            TableView.setItems(observableList);
+
+            if (messagerieList.isEmpty()) {
+                showAlert("Aucune donnée à afficher.");
+            } else {
+                ObservableList<Messagerie> observableList = FXCollections.observableList(messagerieList);
+                TableView.setItems(observableList);
+            }
         } catch (SQLException e) {
+            showAlert("Erreur lors du chargement des données : " + e.getMessage());
             e.printStackTrace(); // Handle the exception properly in your application
         }
 
@@ -70,12 +76,14 @@ public class AfficherMessage {
     public void mouceClicked(javafx.scene.input.MouseEvent mouseEvent) {
         try {
             Messagerie messagerie = TableView.getSelectionModel().getSelectedItem();
-            if (messagerie != null) {
-                messagerie = new Messagerie(messagerie.getId(), messagerie.getNom(), messagerie.getDate(), messagerie.getMessage());
-                this.messagerie = messagerie;
+            if (messagerie != null && messagerie.getNom() != null && messagerie.getDate() != null && messagerie.getMessage() != null) {
+                this.messagerie = new Messagerie(messagerie.getId(), messagerie.getNom(), messagerie.getDate(), messagerie.getMessage());
                 NomID.setText(messagerie.getNom());
                 MeesageID.setText(messagerie.getMessage());
                 DateID.setValue(messagerie.getDate().toLocalDate());
+            } else {
+                // Display an alert or handle the situation when the selected Messagerie or its attributes are null
+                showAlert("Invalid Messagerie data selected.");
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -85,27 +93,74 @@ public class AfficherMessage {
     @FXML
     void modifiermessage(ActionEvent event) {
         try {
-            ServiceMessagerie ps = new ServiceMessagerie();
-            messagerie = new Messagerie(messagerie.getId(), NomID.getText(), MeesageID.getText());
-            ps.modifier(messagerie);
-            initialize();
-                } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+            if (validateInput()) {
+                ServiceMessagerie ps = new ServiceMessagerie();
+                messagerie = new Messagerie(messagerie.getId(), NomID.getText(), MeesageID.getText());
+                // Vérifier si le message commence par une majuscule
+                if (!MeesageID.getText().isEmpty() && !Character.isUpperCase(MeesageID.getText().charAt(0))) {
+                    showAlert("Le message doit commencer par une majuscule.");
+                    return;
+                }
 
-
-
-
-    void supprimermessage(javafx.event.ActionEvent event) {
-        try {
-            ServiceMessagerie ps = new ServiceMessagerie();
-            if (messagerie != null) {
-                ps.supprimer(messagerie.getId());
+                ps.modifier(messagerie);
                 initialize();
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
+    private boolean validateInput() {
+        String nom = NomID.getText();
+        String message = MeesageID.getText();
+
+        if (nom.isEmpty() || message.isEmpty()) {
+            showAlert("Veuillez remplir tous les champs.");
+            return false;
+        }
+
+        // Valider le format du nom (uniquement des lettres et des espaces)
+        if (!nom.matches("^[a-zA-Z]+(\\s[a-zA-Z]+)?$")) {
+            showAlert("Le nom doit contenir uniquement des lettres et des espaces.");
+            return false;
+        }
+
+        // Vous pouvez ajouter d'autres validations selon vos besoins
+
+        return true;
+    }
+
+    private void showAlert(String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Erreur de saisie");
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+
+
+    @FXML
+    void supprimermessage(javafx.event.ActionEvent event) {
+        try {
+            if (validateSelection()) {
+                ServiceMessagerie ps = new ServiceMessagerie();
+                if (messagerie != null) {
+                    ps.supprimer(messagerie.getId());
+                    initialize();
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private boolean validateSelection() {
+        if (TableView.getSelectionModel().getSelectedItem() == null) {
+            showAlert("Veuillez sélectionner un élément à supprimer.");
+            return false;
+        }
+        return true;
+    }
+
+
 }
