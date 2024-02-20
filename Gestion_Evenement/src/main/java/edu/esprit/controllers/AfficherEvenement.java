@@ -1,8 +1,6 @@
 package edu.esprit.controllers;
-
 import edu.esprit.entities.Evenement;
 import edu.esprit.services.ServiceEvenement;
-import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -15,9 +13,11 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import javafx.event.ActionEvent;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.URL;
+import java.nio.file.Paths;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
@@ -45,6 +45,7 @@ public class AfficherEvenement {
             e.printStackTrace();
         }
     }
+    @FXML
     private void displayEvents(List<Evenement> events) {
         HBox eventPairBox = new HBox();
         eventPairBox.setSpacing(30);
@@ -113,6 +114,11 @@ public class AfficherEvenement {
         supprimerButton.setOnAction(event -> handleSupprimerEvent(evenement));
         eventBox.getChildren().add(supprimerButton);
 
+        Button AjouterSponsorsButton = new Button("Ajouter Sponsors");
+        AjouterSponsorsButton.getStyleClass().add("action-button");
+        AjouterSponsorsButton.setStyle("-fx-background-color: #ffffff; -fx-text-fill: #02024b;-fx-background-radius: 5px; -fx-border-color: #a6b0af;");
+        AjouterSponsorsButton.setOnAction(event -> AjouterSponsors(evenement));
+        eventBox.getChildren().add(AjouterSponsorsButton);
         return eventBox;
     }
 
@@ -179,27 +185,79 @@ public class AfficherEvenement {
             });
         } catch (IOException e) {
             e.printStackTrace();
-            // Handle the IOException appropriately, such as displaying an error message
+
         }
     }
 
 
     @FXML
-    void rafraichir(ActionEvent event) {
+    private void handleConsulterSponsors() {
         try {
-            // Effacer la VBox avant de rafraîchir les événements
-            eventVBox.getChildren().clear();
-
-            // Appeler la méthode initialize pour récupérer et afficher à nouveau les événements
-            List<Evenement> allEvents = serviceEvenement.getAll();
-            displayEvents(allEvents);
-        } catch (Exception e) {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Afficher_Sponsor.fxml"));
+            Parent root = loader.load();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
             e.printStackTrace();
-            Alert errorAlert = new Alert(Alert.AlertType.ERROR);
-            errorAlert.setTitle("Erreur");
-            errorAlert.setContentText("Une erreur s'est produite lors du rafraîchissement des événements : " + e.getMessage());
-            errorAlert.showAndWait();
+            // Gérer l'exception appropriée, par exemple en affichant un message d'erreur
         }
     }
+
+
+
+    private void AjouterSponsors(Evenement evenement) {
+        try {
+            URL url = getClass().getResource("/Ajout_Sponsor.fxml");
+            FXMLLoader loader = new FXMLLoader(url);
+            Parent root = loader.load();
+            AjoutSponsor ajoutSponsorController = loader.getController();
+            if (ajoutSponsorController != null) {
+                ajoutSponsorController.setEvenement(evenement);
+                Stage stage = new Stage();
+                stage.setScene(new Scene(root));
+                stage.showAndWait(); // Change this line to make sure the stage is closed before continuing
+                if (ajoutSponsorController.getEvenement() != null) {
+                    // Handle the event here or refresh your UI
+                }
+            } else {
+                afficherAlerte("Erreur: Contrôleur introuvable pour la fenêtre Ajout Sponsor.");
+            }
+        } catch (IOException e) {
+            afficherAlerte("Erreur lors du chargement de la fenêtre Ajout Sponsor : " + e.getMessage());
+        }
+    }
+
+
+    private void afficherAlerte(String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Erreur");
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+
+    @FXML
+    private void handleRetour() {
+        try {
+            // Charger la vue de la page d'ajout d'événement
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Ajout_Evenement.fxml"));
+            Parent root = loader.load();
+
+            // Créer une nouvelle scène
+            Scene scene = new Scene(root);
+
+            // Obtenir la référence de la scène actuelle
+            Stage stage = (Stage) eventVBox.getScene().getWindow();
+
+            // Mettre à jour la scène avec la nouvelle vue
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            // Gérer l'exception, par exemple afficher une alerte
+        }
+    }
+
 }
+
 

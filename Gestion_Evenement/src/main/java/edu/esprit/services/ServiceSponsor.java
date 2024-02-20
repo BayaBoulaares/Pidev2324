@@ -5,10 +5,7 @@ import edu.esprit.entities.Fond;
 import edu.esprit.entities.Sponsor;
 import edu.esprit.utils.DataSource;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -135,5 +132,41 @@ public class ServiceSponsor implements IService<Sponsor> {
 
         return sponsor;
     }
+
+    public List<Sponsor> getByEventName(String eventName) {
+        Connection cnx = DataSource.getInstance().getCnx();
+        List<Sponsor> sponsors = new ArrayList<>();
+        ServiceEvenement serviceEvenement = new ServiceEvenement();
+
+        try {
+            String req = "SELECT s.* FROM sponsor s JOIN evenement e ON s.Id_Event = e.Id_Event WHERE e.Nom_Event = ?";
+            PreparedStatement pstmt = cnx.prepareStatement(req);
+            pstmt.setString(1, eventName);
+            ResultSet rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                int idSponsor = rs.getInt("Id_Sopnsor");  // Corrected column name
+                String nomSponsor = rs.getString("Nom");
+                String description = rs.getString("Description");
+                String fondStr = rs.getString("Fond");
+                int idEvent = rs.getInt("Id_Event");
+
+                // Convertir les types String en Enum
+                Fond fond = Fond.valueOf(fondStr);
+
+                // Récupérer l'objet Evenement complet de la base de données
+                Evenement evenement = serviceEvenement.getOneById(idEvent);
+
+                // Créer un objet Sponsor
+                Sponsor sponsor = new Sponsor(idSponsor, nomSponsor, description, fond, evenement);
+                sponsors.add(sponsor);
+            }
+        } catch (SQLException ex) {
+            System.out.println("Erreur lors de la récupération des sponsors par nom d'événement : " + ex.getMessage());
+        }
+
+        return sponsors;
+    }
+
 
 }

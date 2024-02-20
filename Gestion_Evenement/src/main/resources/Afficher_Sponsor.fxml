@@ -2,19 +2,25 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<?import javafx.scene.layout.HBox?>
-<BorderPane prefHeight="535.0" prefWidth="798.0" stylesheets="@Design.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.AfficherEvenement">
+<BorderPane prefHeight="535.0" prefWidth="798.0" stylesheets="@Design.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.AfficherSponsor">
 
     <top>
-        <VBox alignment="CENTER">
-            <Label text="Liste des événements" textFill="#000044" style="-fx-font-size: 24px;" />
-        </VBox>
+        <HBox alignment="CENTER_RIGHT" spacing="10">
+            <!-- Add the search field -->
+            <TextField fx:id="searchField" promptText="Rechercher par nom d'événement" />
+            <Button text="Rechercher" style="-fx-background-color: white; -fx-text-fill: turquoise; -fx-background-radius: 5px; -fx-border-color: turquoise;" onAction="#searchSponsor" />
+        </HBox>
     </top>
-
+    <VBox alignment="CENTER">
+        <Label text="Liste des Sponsors" textFill="#000044" style="-fx-font-size: 24px;" />
+    </VBox>
     <left>
+        <!-- Navigation Bar -->
         <VBox fx:id="navBar" prefHeight="535.0" prefWidth="162.0" spacing="10">
             <Label styleClass="navTitle" text="Auto+Learn" textFill="#fffdfd">
                 <font>
@@ -32,18 +38,12 @@
     </left>
 
     <center>
+        <!-- Sponsor Details Section -->
         <ScrollPane>
-            <VBox fx:id="eventVBox" prefHeight="535.0" prefWidth="636.0" BorderPane.alignment="CENTER">
+            <VBox fx:id="sponsorVBox" prefHeight="535.0" prefWidth="636.0" BorderPane.alignment="CENTER">
+
             </VBox>
         </ScrollPane>
     </center>
-
-    <bottom>
-        <HBox alignment="CENTER">
-            <Button text="Retour" style="-fx-background-color: white; -fx-text-fill:turquoise;-fx-background-radius: 5px; -fx-border-color: turquoise;-fx-padding: 10px 20px;" onAction="#handleRetour" />
-            <Button text="Consulter Sponsors" styleClass="consulter-sponsors-btn"  onAction="#handleConsulterSponsors" />
-        </HBox>
-    </bottom>
-
 
 </BorderPane>

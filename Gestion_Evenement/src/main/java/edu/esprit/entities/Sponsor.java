@@ -17,7 +17,13 @@ public class Sponsor {
         this.fond = fond;
         this.evenement = evenement;
     }
+    public Sponsor(int id_Sponsor, String nomSponsor, String description_s, Fond fond) {
+        this.Id_Sponsor = id_Sponsor;
+        this.NomSponsor = nomSponsor;
+        this.Description_s = description_s;
+        this.fond = fond;
 
+    }
     public int getId_Sponsor() {
         return Id_Sponsor;
     }
