@@ -1,10 +1,10 @@
 package edu.esprit.controllers;
 
+import java.awt.*;
+import java.awt.event.ActionListener;
 import java.io.IOException;
-import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.util.ResourceBundle;
 
 import edu.esprit.entities.Messagerie;
 import edu.esprit.services.ServiceMessagerie;
@@ -52,11 +52,14 @@ public class AjouterMessage {
                 }
 
                 ps.ajouter(new Messagerie(NomId.getText(), String.valueOf(DateId.getValue()), MessageId.getText()));
+
+                showNotification();
+
+
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Validation");
                 alert.setContentText("Message added successfully");
                 alert.showAndWait();
-
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherMessage.fxml"));
                 Parent root = loader.load();
 
@@ -103,5 +106,36 @@ public class AjouterMessage {
             currentScene.setRoot(root);
         }
     }
+
+    private void showNotification() {
+        if (SystemTray.isSupported()) {
+            try {
+                SystemTray tray = SystemTray.getSystemTray();
+
+                // Use the correct path
+                Image icon = Toolkit.getDefaultToolkit().getImage("C:\\Users\\omarh\\IdeaProjects\\Messagerie\\src\\image\\images.png");
+
+                TrayIcon trayIcon = new TrayIcon(icon, "Notification");
+                trayIcon.setImageAutoSize(true);
+
+                trayIcon.addActionListener(e -> {
+                    // Handle the tray icon click event if needed
+                });
+
+                tray.add(trayIcon);
+                trayIcon.displayMessage("Success", "Message successfully", TrayIcon.MessageType.INFO);
+            } catch (AWTException e) {
+                e.printStackTrace();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+
+
 }
+
+
+
 
