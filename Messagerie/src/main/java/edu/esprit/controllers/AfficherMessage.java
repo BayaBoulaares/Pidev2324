@@ -7,14 +7,20 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 
+import java.awt.*;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
+
+import static java.awt.SystemColor.text;
 
 public class AfficherMessage {
 
@@ -50,6 +56,7 @@ public class AfficherMessage {
 
     public final ServiceMessagerie ps = new ServiceMessagerie();
     private Messagerie messagerie;
+    private static final List<String> BAD_WORDS = Arrays.asList("Shit", "Sick", "Dump");
 
     @FXML
     void initialize() {
@@ -60,6 +67,13 @@ public class AfficherMessage {
                 showAlert("Aucune donnée à afficher.");
             } else {
                 ObservableList<Messagerie> observableList = FXCollections.observableList(messagerieList);
+
+                // Censor bad words before displaying them
+                observableList.forEach(messagerie -> {
+                    messagerie.setNom(censorBadWords(messagerie.getNom()));
+                    messagerie.setMessage(censorBadWords(messagerie.getMessage()));
+                });
+
                 TableView.setItems(observableList);
             }
         } catch (SQLException e) {
@@ -70,7 +84,19 @@ public class AfficherMessage {
         Nom.setCellValueFactory(new PropertyValueFactory<>("nom"));
         Date.setCellValueFactory(new PropertyValueFactory<>("date"));
         Message.setCellValueFactory(new PropertyValueFactory<>("message"));
+        // Add this method for censoring bad words
+
+
     }
+
+    private String censorBadWords(String text) {
+        for (String badWord : BAD_WORDS) {
+            // Replace bad words with ****
+            text = text.replaceAll("(?i)" + badWord, "****");
+        }
+        return text;
+    }
+
 
     @FXML
     public void mouceClicked(javafx.scene.input.MouseEvent mouseEvent) {
@@ -103,6 +129,8 @@ public class AfficherMessage {
                 }
 
                 ps.modifier(messagerie);
+                showNotification1();
+
                 initialize();
             }
         } catch (Exception e) {
@@ -146,6 +174,8 @@ public class AfficherMessage {
                 ServiceMessagerie ps = new ServiceMessagerie();
                 if (messagerie != null) {
                     ps.supprimer(messagerie.getId());
+                    showNotification2();
+
                     initialize();
                 }
             }
@@ -161,6 +191,53 @@ public class AfficherMessage {
         }
         return true;
     }
+    private void showNotification1() {
+        if (SystemTray.isSupported()) {
+            try {
+                SystemTray tray = SystemTray.getSystemTray();
 
+                // Use the correct path
+                Image icon = Toolkit.getDefaultToolkit().getImage("C:\\Users\\omarh\\IdeaProjects\\Messagerie\\src\\image\\images.png");
+
+                TrayIcon trayIcon = new TrayIcon(icon, "Notification");
+                trayIcon.setImageAutoSize(true);
+
+                trayIcon.addActionListener(e -> {
+                    // Handle the tray icon click event if needed
+                });
+
+                tray.add(trayIcon);
+                trayIcon.displayMessage("Success", "Modifier successfully", TrayIcon.MessageType.INFO);
+            } catch (AWTException e) {
+                e.printStackTrace();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+    private void showNotification2() {
+        if (SystemTray.isSupported()) {
+            try {
+                SystemTray tray = SystemTray.getSystemTray();
+
+                // Use the correct path
+                Image icon = Toolkit.getDefaultToolkit().getImage("C:\\Users\\omarh\\IdeaProjects\\Messagerie\\src\\image\\images.png");
+
+                TrayIcon trayIcon = new TrayIcon(icon, "Notification");
+                trayIcon.setImageAutoSize(true);
+
+                trayIcon.addActionListener(e -> {
+                    // Handle the tray icon click event if needed
+                });
+
+                tray.add(trayIcon);
+                trayIcon.displayMessage("Success", "Supprimer successfully", TrayIcon.MessageType.INFO);
+            } catch (AWTException e) {
+                e.printStackTrace();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
 }
