@@ -1,9 +1,9 @@
 package edu.esprit.services;
 
 import edu.esprit.entities.Matiere;
+import edu.esprit.entities.ExistanteException;
 import edu.esprit.utils.DataSource;
 
-import java.beans.Statement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -12,10 +12,10 @@ import java.util.ArrayList;
 
 public class SeviceMatiere implements IService<Matiere> {
     @Override
-    public void ajouter(Matiere v) {
+    public void ajouter(Matiere v) throws SQLException , ExistanteException {
         Connection cnx = DataSource.getInstance().getCnx();
+        if (!matiereExists(v.getNommatiere())) {
 
-        try {
             String req = "INSERT INTO matiere(nom_matiere, description) VALUES (?, ?)";
             PreparedStatement pstmt = cnx.prepareStatement(req);
             pstmt.setString(1, v.getNommatiere());
@@ -23,16 +23,28 @@ public class SeviceMatiere implements IService<Matiere> {
 
             pstmt.executeUpdate();
             System.out.println("Matiere ajoutee avec succes");
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
+        } else {
+            System.out.println("Matiere avec le meme nom existe deja");
+            throw new ExistanteException("Matiere  existe déjà");
         }
+
+    }
+    private boolean matiereExists(String nomMatiere) throws SQLException {
+        Connection cnx = DataSource.getInstance().getCnx();
+        String req = "SELECT * FROM matiere WHERE nom_matiere=?";
+        PreparedStatement pstmt = cnx.prepareStatement(req);
+        pstmt.setString(1, nomMatiere);
+        ResultSet rs = pstmt.executeQuery();
+
+        // Si une ligne est renvoyée, la matière existe déjà
+        return rs.next();
     }
 
     @Override
-    public void modifier(Matiere v) {
+    public void modifier(Matiere v)  throws SQLException{
         Connection cnx = DataSource.getInstance().getCnx();
 
-        try {
+
             String req = "UPDATE matiere SET nom_matiere=?, description=? WHERE id=?";
             PreparedStatement pstmt = cnx.prepareStatement(req);
             pstmt.setString(1, v.getNommatiere());
@@ -41,60 +53,52 @@ public class SeviceMatiere implements IService<Matiere> {
 
             pstmt.executeUpdate();
             System.out.println("Matiere modifiee avec succes");
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-        }
+
 
     }
 
     @Override
-    public void supprimer(int id) {
+    public void supprimer(int id) throws SQLException {
         Connection cnx = DataSource.getInstance().getCnx();
 
-        try {
+
             String req = "DELETE FROM matiere WHERE id=?";
             PreparedStatement pstmt = cnx.prepareStatement(req);
             pstmt.setInt(1, id); // Utilisez l'identifiant passé en paramètre
 
             pstmt.executeUpdate();
             System.out.println("Matiere supprimee avec succes");
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-        }
+
 
     }
 
     @Override
-    public ArrayList<Matiere> getAll() {
+    public ArrayList<Matiere> getAll()  throws SQLException {
         Connection cnx = DataSource.getInstance().getCnx();
         ArrayList<Matiere> matieres = new ArrayList<>();
 
-        try {
-            String req = "SELECT * FROM matiere";
-            PreparedStatement pstmt = cnx.prepareStatement(req);
-            ResultSet rs = pstmt.executeQuery();
+        String req = "SELECT * FROM matiere";
+        PreparedStatement pstmt = cnx.prepareStatement(req);
+        ResultSet rs = pstmt.executeQuery();
 
-            while (rs.next()) {
-                int id = rs.getInt("id");
-                String nomMatiere = rs.getString("nom_matiere");
-                String description = rs.getString("description");
+        while (rs.next()) { // Move the cursor to the next row
+            int id = rs.getInt("id");
+            String nomMatiere = rs.getString("nom_matiere");
+            String description = rs.getString("description");
 
-                Matiere matiere = new Matiere(id, nomMatiere, description);
-                matieres.add(matiere);
-            }
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
+            Matiere matiere = new Matiere(id, nomMatiere, description);
+            matieres.add(matiere);
         }
 
         return matieres;
     }
 
     @Override
-    public Matiere getOne(int id) {
+    public Matiere getOne(int id)  throws SQLException {
         Connection cnx = DataSource.getInstance().getCnx();
         Matiere matiere = null;
 
-        try {
+
             String req = "SELECT * FROM matiere WHERE id=?";
             PreparedStatement pstmt = cnx.prepareStatement(req);
             pstmt.setInt(1, id);
@@ -106,9 +110,39 @@ public class SeviceMatiere implements IService<Matiere> {
 
                 matiere = new Matiere(id, nomMatiere, description);
             }
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-        }
+
         return matiere;
+    }
+    public  Matiere test(Matiere mat ) throws SQLException{
+        ArrayList<Matiere> matiers = new ArrayList<>();
+
+        matiers=getAll();
+        for(Matiere  ma :matiers)
+        {
+            if ( ma != null && ma.equals(mat)) return mat;
+        }
+        return null;
+
+    }
+    public ArrayList<Matiere> getMatiereByAlphabet(String alphabet) throws SQLException {
+        Connection cnx = DataSource.getInstance().getCnx();
+        ArrayList<Matiere> matieresByAlphabet = new ArrayList<>();
+
+        // Utiliser une requête SQL pour récupérer les matières par l'alphabet
+        String req = "SELECT * FROM matiere WHERE UPPER(SUBSTRING(nom_matiere, 1, 1)) = ?";
+        PreparedStatement pstmt = cnx.prepareStatement(req);
+        pstmt.setString(1, alphabet.toUpperCase()); // Convertir la lettre en majuscule pour correspondance
+        ResultSet rs = pstmt.executeQuery();
+
+        while (rs.next()) {
+            int id = rs.getInt("id");
+            String nomMatiere = rs.getString("nom_matiere");
+            String description = rs.getString("description");
+
+            Matiere matiere = new Matiere(id, nomMatiere, description);
+            matieresByAlphabet.add(matiere);
+        }
+
+        return matieresByAlphabet;
     }
 }

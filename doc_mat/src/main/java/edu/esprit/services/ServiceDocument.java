@@ -1,9 +1,6 @@
 package edu.esprit.services;
 
-import edu.esprit.entities.Document;
-import edu.esprit.entities.Matiere;
-import edu.esprit.entities.Niveau;
-import edu.esprit.entities.Type;
+import edu.esprit.entities.*;
 import edu.esprit.utils.DataSource;
 
 import java.sql.Connection;
@@ -13,11 +10,23 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class ServiceDocument implements IService<Document> {
+
+    private boolean docExists(String url, String titre) throws SQLException {
+        Connection cnx = DataSource.getInstance().getCnx();
+        String req = "SELECT * FROM document WHERE titre=? AND  url=?";
+        PreparedStatement pstmt = cnx.prepareStatement(req);
+        pstmt.setString(1, titre);
+        pstmt.setString(2, url);
+        ResultSet rs = pstmt.executeQuery();
+
+        // Si une ligne est renvoyée, la matière existe déjà
+        return rs.next();
+    }
     @Override
-    public void ajouter(Document v) {
+    public void ajouter(Document v) throws SQLException , ExistanteException  {
         Connection cnx = DataSource.getInstance().getCnx();
 
-        try {
+        if (!docExists(v.getUrl(), v.getTitre())) {
             String req = "INSERT INTO document(titre,type,url,niveau,date,id_mat) VALUES (?, ?,?,?,?,?)";
             PreparedStatement pstmt = cnx.prepareStatement(req);
             pstmt.setString(1, v.getTitre());
@@ -27,62 +36,168 @@ public class ServiceDocument implements IService<Document> {
             pstmt.setDate(5, v.getDate());
             pstmt.setInt(6, v.getMat().getId());
             pstmt.executeUpdate();
-            System.out.println("Document ajoutee avec succes");
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-        }
+        } else {
+            throw new ExistanteException("document existe déjà");}
 
     }
     @Override
-    public void modifier(Document v) {
+    public void modifier(Document v) throws SQLException {
         Connection cnx = DataSource.getInstance().getCnx();
 
-        try {
-            String req = "UPDATE document SET titre=?, type=?, url=?, niveau=?, date=?, id_mat=? WHERE id_doc=?";
-            PreparedStatement pstmt = cnx.prepareStatement(req);
-            pstmt.setString(1, v.getTitre());
-            pstmt.setString(2, v.getType().toString());
-            pstmt.setString(3, v.getUrl());
-            pstmt.setString(4, v.getNiveau().toString());
-            pstmt.setDate(5, v.getDate());
-            pstmt.setInt(6, v.getMat().getId());
-            pstmt.setInt(7, v.getId());
 
-            pstmt.executeUpdate();
-            System.out.println("Document modifié avec succès");
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-        }
+        String req = "UPDATE document SET titre=?, type=?, url=?, niveau=?, date=? WHERE id_doc=?";
+        PreparedStatement pstmt = cnx.prepareStatement(req);
+        pstmt.setString(1, v.getTitre());
+        pstmt.setString(2, v.getType().toString());
+        pstmt.setString(3, v.getUrl());
+        pstmt.setString(4, v.getNiveau().toString());
+        pstmt.setDate(5, v.getDate());
+
+        pstmt.setInt(6, v.getId());
+
+        pstmt.executeUpdate();
+
 
     }
 
     @Override
-    public void supprimer(int id){
+    public void supprimer(int id) throws  SQLException{
         Connection cnx = DataSource.getInstance().getCnx();
 
-        try {
-            String req = "DELETE FROM document WHERE id_doc=?";
-            PreparedStatement pstmt = cnx.prepareStatement(req);
-            pstmt.setInt(1, id);
 
-            pstmt.executeUpdate();
-            System.out.println("Document supprimé avec succès");
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-        }
+        String req = "DELETE FROM document WHERE id_doc=?";
+        PreparedStatement pstmt = cnx.prepareStatement(req);
+        pstmt.setInt(1, id);
+
+        pstmt.executeUpdate();
+        System.out.println("Document supprimé avec succès");
+
 
     }
 
+
     @Override
-    public ArrayList<Document> getAll() {
+    public ArrayList<Document> getAll()  throws SQLException {
         Connection cnx = DataSource.getInstance().getCnx();
         ArrayList<Document> documents = new ArrayList<>();
 
+
+        String req = "SELECT * FROM document";
+        PreparedStatement pstmt = cnx.prepareStatement(req);
+        ResultSet rs = pstmt.executeQuery();
+
+        while (rs.next()) {
+            int id = rs.getInt("id_doc");
+            String titre = rs.getString("titre");
+            String typeStr = rs.getString("type");
+            String url = rs.getString("url");
+            String niveauStr = rs.getString("niveau");
+            java.sql.Date date = rs.getDate("date");
+            int id_mat = rs.getInt("id_mat");
+
+            // Convertir les types String en Enum
+            Type type = Type.valueOf(typeStr);
+            Niveau niveau = Niveau.valueOf(niveauStr);
+          SeviceMatiere ms=new SeviceMatiere();
+             // Créer un objet Document
+            Matiere matiere = ms.getOne(id_mat); // Vous devez probablement récupérer la Matiere à partir de la base de données
+            Document document = new Document(id, titre, type, url, niveau, date, matiere);
+            documents.add(document);
+        }
+
+
+        return documents;
+    }
+
+    @Override
+    public Document getOne(int id)  throws SQLException{
+        Connection cnx = DataSource.getInstance().getCnx();
+        Document document = null;
+
+
+        String req = "SELECT * FROM document WHERE id_doc=?";
+        PreparedStatement pstmt = cnx.prepareStatement(req);
+        pstmt.setInt(1, id);
+        ResultSet rs = pstmt.executeQuery();
+
+        if (rs.next()) {
+            String titre = rs.getString("titre");
+            String typeStr = rs.getString("type");
+            String url = rs.getString("url");
+            String niveauStr = rs.getString("niveau");
+            java.sql.Date date = rs.getDate("date");
+            int id_mat = rs.getInt("id_mat");
+
+            // Convertir les types String en Enum
+            Type type = Type.valueOf(typeStr);
+            Niveau niveau = Niveau.valueOf(niveauStr);
+
+            SeviceMatiere ms=new SeviceMatiere();
+            // Créer un objet Document
+            Matiere matiere = ms.getOne(id_mat); // Vous devez probablement récupérer la Matiere à partir de la base de données
+            document = new Document(id, titre, type, url, niveau, date, matiere);
+        }
+
+
+        return document;
+    }
+    public ArrayList<Document> getByLevel(Niveau niveau) throws SQLException {
+        Connection cnx = DataSource.getInstance().getCnx();
+        ArrayList<Document> documents = new ArrayList<>();
+
+        String req = "SELECT * FROM document WHERE niveau=?";
+        PreparedStatement pstmt = cnx.prepareStatement(req);
+        pstmt.setString(1, niveau.toString());
+        ResultSet rs = pstmt.executeQuery();
+
+        while (rs.next()) {
+            int id = rs.getInt("id_doc");
+            String titre = rs.getString("titre");
+            String typeStr = rs.getString("type");
+            String url = rs.getString("url");
+            java.sql.Date date = rs.getDate("date");
+            int id_mat = rs.getInt("id_mat");
+
+            // Convertir les types String en Enum
+            Type type = Type.valueOf(typeStr);
+
+            SeviceMatiere ms=new SeviceMatiere();
+            // Créer un objet Document
+            Matiere matiere = ms.getOne(id_mat); // Vous devez probablement récupérer la Matiere à partir de la base de données
+            Document document = new Document(id, titre, type, url, niveau, date, matiere);
+            documents.add(document);
+        }
+
+        return documents;
+    }
+    public int getDocumentCountPerMatiere(Matiere mat)  {
+        Connection cnx = DataSource.getInstance().getCnx();
+        int uniqueMatiereCount = 0;
         try {
-            String req = "SELECT * FROM document";
-            PreparedStatement pstmt = cnx.prepareStatement(req);
+
+
+        String req = "SELECT COUNT(*) as doc_count FROM document WHERE id_mat=?";
+        try (PreparedStatement pstmt = cnx.prepareStatement(req)) {
+            pstmt.setInt(1, mat.getId());
             ResultSet rs = pstmt.executeQuery();
 
+            if (rs.next()) {
+                uniqueMatiereCount = rs.getInt("doc_count");
+            }
+        }  } catch (SQLException e)
+        {
+            System.out.println(e.getMessage());
+        }
+
+        return uniqueMatiereCount;
+    }
+
+    public ArrayList<Document> getAllDate() throws SQLException {
+        Connection cnx = DataSource.getInstance().getCnx();
+        ArrayList<Document> documents = new ArrayList<>();
+
+        String req = "SELECT * FROM document ORDER BY date DESC"; // Added ORDER BY clause for sorting by date
+        try (PreparedStatement pstmt = cnx.prepareStatement(req); ResultSet rs = pstmt.executeQuery()) {
             while (rs.next()) {
                 int id = rs.getInt("id_doc");
                 String titre = rs.getString("titre");
@@ -95,50 +210,15 @@ public class ServiceDocument implements IService<Document> {
                 // Convertir les types String en Enum
                 Type type = Type.valueOf(typeStr);
                 Niveau niveau = Niveau.valueOf(niveauStr);
+                SeviceMatiere ms = new SeviceMatiere();
 
                 // Créer un objet Document
-                Matiere matiere = new Matiere(id_mat); // Vous devez probablement récupérer la Matiere à partir de la base de données
+                Matiere matiere = ms.getOne(id_mat); // Vous devez probablement récupérer la Matiere à partir de la base de données
                 Document document = new Document(id, titre, type, url, niveau, date, matiere);
                 documents.add(document);
             }
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
         }
 
         return documents;
-    }
-
-    @Override
-    public Document getOne(int id) {
-        Connection cnx = DataSource.getInstance().getCnx();
-        Document document = null;
-
-        try {
-            String req = "SELECT * FROM document WHERE id_doc=?";
-            PreparedStatement pstmt = cnx.prepareStatement(req);
-            pstmt.setInt(1, id);
-            ResultSet rs = pstmt.executeQuery();
-
-            if (rs.next()) {
-                String titre = rs.getString("titre");
-                String typeStr = rs.getString("type");
-                String url = rs.getString("url");
-                String niveauStr = rs.getString("niveau");
-                java.sql.Date date = rs.getDate("date");
-                int id_mat = rs.getInt("id_mat");
-
-                // Convertir les types String en Enum
-                Type type = Type.valueOf(typeStr);
-                Niveau niveau = Niveau.valueOf(niveauStr);
-
-                // Créer un objet Document
-                Matiere matiere = new Matiere(id_mat); // Vous devez probablement récupérer la Matiere à partir de la base de données
-                document = new Document(id, titre, type, url, niveau, date, matiere);
-            }
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-        }
-
-        return document;
     }
 }

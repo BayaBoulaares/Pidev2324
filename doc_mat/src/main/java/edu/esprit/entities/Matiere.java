@@ -1,6 +1,8 @@
 package edu.esprit.entities;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Objects;
+
 public class Matiere {
      private int id;
    private String nommatiere;
@@ -54,5 +56,18 @@ public class Matiere {
                 ", description='" + description + '\'' +
               +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Matiere matiere = (Matiere) o;
+        return Objects.equals(nommatiere, matiere.nommatiere);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(nommatiere);
     }
 }

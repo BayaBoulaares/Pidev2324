@@ -1,0 +1,234 @@
+package edu.esprit.controller;
+
+import edu.esprit.entities.Document;
+import edu.esprit.entities.Matiere;
+import edu.esprit.entities.Niveau;
+import edu.esprit.services.ServiceDocument;
+import edu.esprit.services.SeviceMatiere;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
+
+import java.io.IOException;
+import java.sql.SQLException;
+import java.util.List;
+
+public class AfficherDocument {
+    @FXML
+    private ComboBox<Niveau> idl;
+
+    @FXML
+    private TableView<Document> idtab;
+
+    @FXML
+    private TableColumn<Document, Integer> idDate;
+
+    @FXML
+    private TableColumn<Document, String> idType;
+
+    @FXML
+    private TableColumn<Document, String> idniveau;
+
+    @FXML
+    private TableColumn<Document, String> idtitre;
+
+    @FXML
+    private TableColumn<Document, String> idurl;
+
+    @FXML
+    private TableColumn<Document, Document> idactions;
+
+    @FXML
+    private Button idretour;
+
+    private ServiceDocument serviceDocument = new ServiceDocument();
+    Matiere matiere = new Matiere();
+
+    @FXML
+    private void initialize() {
+        // Configure les colonnes du TableView
+        idDate.setCellValueFactory(new PropertyValueFactory<>("date"));
+        idType.setCellValueFactory(new PropertyValueFactory<>("type"));
+        idniveau.setCellValueFactory(new PropertyValueFactory<>("niveau"));
+        idtitre.setCellValueFactory(new PropertyValueFactory<>("titre"));
+        idurl.setCellValueFactory(new PropertyValueFactory<>("url"));
+
+        // Configure la colonne "Actions" avec des boutons "Modifier" et "Supprimer"
+        configureActionsColumn();
+
+
+
+        // Configure the ComboBox
+        idl.getItems().setAll(Niveau.values());
+        // Add "Tous les niveaux" as a separate item
+       idl.getItems().add(null);
+
+        idl.setOnAction(event -> handleLevelSelection());
+        // Charge les données dans le TableView
+        loadDocumentData();
+    }
+
+    private void handleLevelSelection() {
+        loadDocumentData();
+    }
+
+    public void setMatToShow(Matiere me) {
+        System.out.println(me);
+        matiere = me;
+        System.out.println("********************");
+        System.out.println(matiere);
+        loadDocumentData();
+    }
+
+    public boolean test() throws SQLException {
+        SeviceMatiere sm = new SeviceMatiere();
+        List<Document> documents = serviceDocument.getAll();
+        for (Document doc : documents) {
+            System.out.println("a1********************");
+            System.out.println(doc.getMat());
+            Matiere me = sm.getOne(doc.getMat().getId());
+            if (me != null) {
+                if (me.equals(matiere)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    private void loadDocumentData() {
+        try {
+            System.out.println("-------- -----------------------------");
+            System.out.println(test());
+            if (test()) {
+                Niveau selectedLevel = idl.getValue();
+                ObservableList<Document> documentList;
+
+                if (selectedLevel != null &&  selectedLevel.equals(Niveau.LEVEL_1)) {
+                    documentList = FXCollections.observableArrayList(serviceDocument.getByLevel(selectedLevel));
+                } else  if (selectedLevel != null && selectedLevel.equals(Niveau.LEVEL_2))  {
+                    documentList = FXCollections.observableArrayList(serviceDocument.getByLevel(selectedLevel));
+                } else   if (selectedLevel != null && selectedLevel.equals(Niveau.LEVEL_3))
+                {documentList = FXCollections.observableArrayList(serviceDocument.getByLevel(selectedLevel));}
+                else { documentList = FXCollections.observableArrayList(serviceDocument.getAll());}
+
+                idtab.setItems(documentList);
+            } else {
+                idtab.setItems(FXCollections.emptyObservableList());
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void configureActionsColumn() {
+        idactions.setCellValueFactory(param -> {
+            ObjectProperty<Document> property = new SimpleObjectProperty<>(param.getValue());
+            return property;
+        });
+        idactions.setCellFactory(column -> new TableCell<>() {
+            final Button editButton = new Button("Modifier");
+            final Button deleteButton = new Button("Supprimer");
+
+            {
+                editButton.setOnAction(event -> onEditButtonClicked(getItem()));
+                deleteButton.setOnAction(event -> onDeleteButtonClicked(getItem()));
+
+                editButton.setStyle("-fx-background-color: #4CAF50; -fx-text-fill: white;");
+                deleteButton.setStyle("-fx-background-color: #f44336; -fx-text-fill: white;");
+
+                editButton.setMaxWidth(Double.MAX_VALUE);
+                deleteButton.setMaxWidth(Double.MAX_VALUE);
+            }
+
+            @Override
+            protected void updateItem(Document item, boolean empty) {
+                super.updateItem(item, empty);
+                if (item == null || empty) {
+                    setGraphic(null);
+                } else {
+                    setGraphic(new javafx.scene.layout.HBox(editButton, deleteButton));
+                }
+            }
+        });
+    }
+
+    private void onEditButtonClicked(Document document) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ModifierDocument.fxml"));
+            Parent root = loader.load();
+
+            ModiffierDocument modifierdocument = loader.getController();
+            modifierdocument.setDocumentToModify(document);
+
+            idretour.getScene().setRoot(root);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void onDeleteButtonClicked(Document document) {
+        try {
+            serviceDocument.supprimer(document.getId());
+            loadDocumentData();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void retourMatiere(ActionEvent actionEvent) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherMatiere.fxml"));
+            Parent root = (Parent) loader.load();
+            this.idretour.getScene().setRoot(root);
+        } catch (IOException e) {
+            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Erreur de chargement", "Impossible de charger la page d'affichage");
+        }
+    }
+
+    @FXML
+    private void showAlert(Alert.AlertType alertType, String title, String content) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setContentText(content);
+        alert.showAndWait();
+    }
+
+    public void trier(ActionEvent actionEvent) {
+        try {
+            System.out.println("-------- -----------------------------");
+            System.out.println(test());
+            if (test()) {
+                Niveau selectedLevel = idl.getValue();
+                ObservableList<Document> documentList;
+
+                if (selectedLevel != null &&  selectedLevel.equals(Niveau.LEVEL_1)) {
+                    documentList = FXCollections.observableArrayList(serviceDocument.getByLevel(selectedLevel));
+                } else  if (selectedLevel != null && selectedLevel.equals(Niveau.LEVEL_2))  {
+                    documentList = FXCollections.observableArrayList(serviceDocument.getByLevel(selectedLevel));
+                } else   if (selectedLevel != null && selectedLevel.equals(Niveau.LEVEL_3))
+                {documentList = FXCollections.observableArrayList(serviceDocument.getByLevel(selectedLevel));}
+                else { documentList = FXCollections.observableArrayList(serviceDocument.getAllDate());}
+
+                idtab.setItems(documentList);
+            } else {
+                idtab.setItems(FXCollections.emptyObservableList());
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+}

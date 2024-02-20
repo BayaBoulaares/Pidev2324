@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="419.0" prefWidth="617.0" style="-fx-background-color: #FAFEFC;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controller.AjouterDocument">
+   <children>
+      <VBox layoutX="-32.0" prefHeight="419.0" prefWidth="178.0" style="-fx-background-color: #27DEC1; -fx-background-radius: 15;">
+         <children>
+            <Label prefHeight="47.0" prefWidth="184.0" text="                Auti-Learn" textFill="WHITE" wrapText="true">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </Label>
+            <AnchorPane />
+            <AnchorPane>
+               <children>
+                  <Button layoutX="27.0" layoutY="12.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="154.0" style="-fx-background-color: transparent;" text="    Acceuil" textFill="WHITE" />
+               </children>
+            </AnchorPane>
+            <AnchorPane>
+               <children>
+                  <Button mnemonicParsing="false" prefHeight="38.0" prefWidth="175.0" style="-fx-background-color: transparent;" text="               Utilisateurs" textFill="WHITE" />
+               </children>
+            </AnchorPane>
+            <AnchorPane />
+            <AnchorPane prefHeight="37.0" prefWidth="193.0">
+               <children>
+                  <Button layoutX="14.0" layoutY="-1.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="162.0" style="-fx-background-color: transparent;" text="     Matieres" textFill="WHITE" />
+               </children>
+            </AnchorPane>
+            <AnchorPane prefHeight="27.0" prefWidth="170.0">
+               <children>
+                  <Button layoutX="10.0" layoutY="11.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="154.0" style="-fx-background-color: transparent;" text="               Messagerie" textFill="WHITE" />
+               </children>
+            </AnchorPane>
+            <AnchorPane />
+            <AnchorPane />
+            <AnchorPane>
+               <children>
+                  <Button layoutX="14.0" layoutY="2.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="168.0" style="-fx-background-color: transparent;" text="          Reclamation" textFill="WHITE" />
+               </children>
+            </AnchorPane>
+            <AnchorPane />
+            <AnchorPane>
+               <children>
+                  <AnchorPane layoutY="16.0">
+                     <children>
+                        <Button layoutX="26.0" layoutY="-16.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="154.0" style="-fx-background-color: transparent;" text="      Evenements" textFill="WHITE" />
+                        <Button layoutX="27.0" layoutY="17.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="154.0" style="-fx-background-color: transparent;" text="      Questionnaire" textFill="WHITE" />
+                     </children>
+                  </AnchorPane>
+               </children>
+            </AnchorPane>
+         </children>
+      </VBox>
+      <Label layoutX="164.0" layoutY="14.0" text="Pages / Acceuil" textFill="#a3aed0">
+         <font>
+            <Font name="System Bold" size="7.0" />
+         </font>
+      </Label>
+      <Label layoutX="161.0" layoutY="25.0" prefHeight="47.0" prefWidth="123.0" text="Document !" textFill="#2b3674">
+         <font>
+            <Font name="System Bold" size="22.0" />
+         </font>
+      </Label>
+      <Label layoutX="183.0" layoutY="124.0" text="Titre *" textFill="#2b3674">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </Label>
+      <TextField fx:id="idtt" layoutX="182.0" layoutY="152.0" prefHeight="18.0" prefWidth="199.0" promptText="Titre" style="-fx-background-radius: 10;" />
+      <Line endX="251.5999755859375" endY="1.52587890625E-5" layoutX="330.0" layoutY="110.0" startX="-147.99998474121094" startY="1.52587890625E-5" stroke="#a3aed0" />
+      <Button layoutX="202.0" layoutY="83.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="80.0" style="-fx-background-color: transparent;" text="Ajouter" textFill="#27dec1" />
+      <Button layoutX="339.0" layoutY="83.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="80.0" style="-fx-background-color: transparent;" text="Consulter" textFill="#a3aed0" />
+      <Button layoutX="478.0" layoutY="83.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="80.0" style="-fx-background-color: transparent;" text="Statistique" textFill="#a3aed0" />
+      <Line endX="17.39996337890625" endY="1.52587890625E-5" layoutX="281.0" layoutY="110.0" startX="-100.0" stroke="#27dec1" />
+      <Button layoutX="448.0" layoutY="375.0" mnemonicParsing="false" onAction="#ajouterDocument" prefHeight="30.0" prefWidth="80.0" style="-fx-background-color: #27DEC1; -fx-background-radius: 5;" text="confirmer" textFill="WHITE" />
+      <Button layoutX="542.0" layoutY="377.0" mnemonicParsing="false" onAction="#RetourMatiere" prefHeight="14.0" prefWidth="53.0" style="-fx-background-color: transparent; -fx-background-radius: 5; -fx-border-color: #27DEC1; -fx-border-radius: 5;" text="Retour" textFill="#27dec1" />
+      <ComboBox fx:id="idtype" layoutX="182.0" layoutY="210.0" opacity="0.47" prefHeight="26.0" prefWidth="199.0" style="-fx-background-radius: 10; -fx-background-color: transparent; -fx-border-color: a3aed0; -fx-border-radius: 10;" />
+      <Label layoutX="183.0" layoutY="190.0" text="Type *" textFill="#2b3674">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </Label>
+      <Label layoutX="182.0" layoutY="244.0" text="Url *" textFill="#2b3674">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </Label>
+      <Label layoutX="176.0" layoutY="296.0" text="Niveau *" textFill="#2b3674">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </Label>
+      <ComboBox fx:id="idniveau" layoutX="182.0" layoutY="315.0" prefHeight="26.0" prefWidth="199.0" style="-fx-background-radius: 10; -fx-background-color: transparent; -fx-border-color: a3aed0; -fx-border-radius: 10;" />
+      <Button fx:id="idurl" layoutX="394.0" layoutY="270.0" mnemonicParsing="false" onAction="#choisirFichier" prefHeight="19.0" prefWidth="68.0" style="-fx-border-radius: 10; -fx-background-radius: 10; -fx-background-color: #27DEC1;" text="Url" textFill="#a3aed0" />
+      <TextField fx:id="idurt" editable="false" layoutX="182.0" layoutY="270.0" prefHeight="18.0" prefWidth="199.0" promptText="Url" style="-fx-background-radius: 10;" />
+   </children>
+</AnchorPane>
