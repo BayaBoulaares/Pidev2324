@@ -6,12 +6,18 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 
 import java.awt.*;
+import java.io.IOException;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -53,10 +59,12 @@ public class AfficherMessage {
 
     @FXML
     private Button Supprimer;
+    @FXML
+    private Button Goback;
 
     public final ServiceMessagerie ps = new ServiceMessagerie();
     private Messagerie messagerie;
-    private static final List<String> BAD_WORDS = Arrays.asList("Shit", "Sick", "Dump");
+    private static final List<String> BAD_WORDS = Arrays.asList("Sick", "Bad", "Dump");
 
     @FXML
     void initialize() {
@@ -85,8 +93,6 @@ public class AfficherMessage {
         Date.setCellValueFactory(new PropertyValueFactory<>("date"));
         Message.setCellValueFactory(new PropertyValueFactory<>("message"));
         // Add this method for censoring bad words
-
-
     }
 
     private String censorBadWords(String text) {
@@ -119,22 +125,46 @@ public class AfficherMessage {
     @FXML
     void modifiermessage(ActionEvent event) {
         try {
-            if (validateInput()) {
-                ServiceMessagerie ps = new ServiceMessagerie();
-                messagerie = new Messagerie(messagerie.getId(), NomID.getText(), MeesageID.getText());
-                // Vérifier si le message commence par une majuscule
-                if (!MeesageID.getText().isEmpty() && !Character.isUpperCase(MeesageID.getText().charAt(0))) {
-                    showAlert("Le message doit commencer par une majuscule.");
-                    return;
+            if (validateSelection1()) {
+                if (validateInput()) {
+                    ServiceMessagerie ps = new ServiceMessagerie();
+                    messagerie = new Messagerie(messagerie.getId(), NomID.getText(), MeesageID.getText());
+
+                    // Vérifier si le message commence par une majuscule
+                    if (!MeesageID.getText().isEmpty() && !Character.isUpperCase(MeesageID.getText().charAt(0))) {
+                        showAlert("Le message doit commencer par une majuscule.");
+                        return;
+                    }
+
+                    ps.modifier(messagerie);
+                    showNotification1();
+
+                    // After modifying the data, update the TableView
+                    updateTableView();
+
+                    initialize(); // You may not need to call initialize() again, depending on your requirements
                 }
-
-                ps.modifier(messagerie);
-                showNotification1();
-
-                initialize();
             }
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    private void updateTableView() {
+        try {
+            List<Messagerie> messagerieList = new ArrayList<>(ps.getAll());
+            ObservableList<Messagerie> observableList = FXCollections.observableList(messagerieList);
+
+            // Censor bad words before displaying them
+            observableList.forEach(messagerie -> {
+                messagerie.setNom(censorBadWords(messagerie.getNom()));
+                messagerie.setMessage(censorBadWords(messagerie.getMessage()));
+            });
+
+            TableView.setItems(observableList);
+        } catch (SQLException e) {
+            showAlert("Erreur lors de la mise à jour du TableView : " + e.getMessage());
+            e.printStackTrace(); // Handle the exception properly in your application
         }
     }
 
@@ -191,6 +221,13 @@ public class AfficherMessage {
         }
         return true;
     }
+    private boolean validateSelection1() {
+        if (TableView.getSelectionModel().getSelectedItem() == null) {
+            showAlert("Veuillez sélectionner un élément à modifier.");
+            return false;
+        }
+        return true;
+    }
     private void showNotification1() {
         if (SystemTray.isSupported()) {
             try {
@@ -237,6 +274,28 @@ public class AfficherMessage {
             } catch (Exception e) {
                 e.printStackTrace();
             }
+        }
+    }
+
+
+    @FXML
+    void Goback(ActionEvent event) {
+        try {
+            // Load the Ajouter interface FXML file
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AjouterMessage.fxml"));
+            Parent ajouterInterface = loader.load();
+
+            // Create a new scene
+            Scene ajouterScene = new Scene(ajouterInterface);
+
+            // Get the current stage
+            Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+            // Set the scene and show the stage
+            currentStage.setScene(ajouterScene);
+            currentStage.show();
+        } catch (IOException e) {
+            e.printStackTrace(); // Handle the exception properly in your application
         }
     }
 
