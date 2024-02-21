@@ -66,6 +66,7 @@ public class AfficherMessage {
     private Messagerie messagerie;
     private static final List<String> BAD_WORDS = Arrays.asList("Sick", "Bad", "Dump");
 
+
     @FXML
     void initialize() {
         try {
@@ -78,9 +79,19 @@ public class AfficherMessage {
 
                 // Censor bad words before displaying them
                 observableList.forEach(messagerie -> {
-                    messagerie.setNom(censorBadWords(messagerie.getNom()));
-                    messagerie.setMessage(censorBadWords(messagerie.getMessage()));
+                    String censoredNom = censorBadWords(messagerie.getNom());
+                    String censoredMessage = censorBadWords(messagerie.getMessage());
+
+
+                    messagerie.setNom(censoredNom);
+                    messagerie.setMessage(censoredMessage);
+
+                    // If the original message is different from the censored message, show the notification
+                    if (!messagerie.getMessage().equals(censoredMessage)) {
+                        showNotification3();
+                    }
                 });
+
 
                 TableView.setItems(observableList);
             }
@@ -93,6 +104,30 @@ public class AfficherMessage {
         Date.setCellValueFactory(new PropertyValueFactory<>("date"));
         Message.setCellValueFactory(new PropertyValueFactory<>("message"));
         // Add this method for censoring bad words
+    }
+    private void showNotification3() {
+        if (SystemTray.isSupported()) {
+            try {
+                SystemTray tray = SystemTray.getSystemTray();
+
+                // Use the correct path
+                Image icon = Toolkit.getDefaultToolkit().getImage("C:\\Users\\omarh\\IdeaProjects\\Messagerie\\src\\image\\images.png");
+
+                TrayIcon trayIcon = new TrayIcon(icon, "Notification");
+                trayIcon.setImageAutoSize(true);
+
+                trayIcon.addActionListener(e -> {
+                    // Handle the tray icon click event if needed
+                });
+
+                tray.add(trayIcon);
+                trayIcon.displayMessage("Warning", "Your message will not be shown because it contains bad words.", TrayIcon.MessageType.WARNING);
+            } catch (AWTException e) {
+                e.printStackTrace();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     private String censorBadWords(String text) {
@@ -137,7 +172,13 @@ public class AfficherMessage {
                     }
 
                     ps.modifier(messagerie);
-                    showNotification1();
+                    // Check if the message has been modified
+                    String censoredMessage = censorBadWords(messagerie.getMessage());
+                    if (!messagerie.getMessage().equals(censoredMessage)) {
+                        showNotification3();
+                    } else {
+                        showNotification1();
+                    }
 
                     // After modifying the data, update the TableView
                     updateTableView();

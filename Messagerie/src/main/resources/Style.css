@@ -27,12 +27,58 @@
 }
 
 .label:hover {
-    -fx-background-color: #37474f; /* Darker background on hover */
+    -fx-background-color: white; /* Darker background on hover */
 }
 
-/* Table View Styles */
-.table-view {
-    -fx-background-color: #ffffff;
+/* Vbox Label Styles */
+#navBar .label {
+    -fx-background-color: transparent; /* Set the default background color to transparent */
+}
+
+#navBar .label:hover {
+    -fx-background-color: #37474f; /* Change the background color on hover */
+}
+
+/* Custom TableView Styles */
+.custom-table-view {
+    -fx-background-color: #30d5c8; /* Background color for the TableView */
+}
+
+.custom-table-view .column-header-background {
+    -fx-background-color: white; /* Darker background color for column headers */
+}
+
+.custom-table-view .column-header, .custom-table-view .column-header .label {
+    -fx-background-color: #30d5c8; /* Background color for TableColumn headers */
+    -fx-text-fill: #000000; /* Text color for column headers (set to black) */
+    -fx-font-size: 14px; /* Font size for column headers */
+}
+
+.custom-table-view .column-header:hover, .custom-table-view .column-header:hover .label {
+    -fx-background-color: #37474f; /* Background color for TableColumn headers on hover */
+}
+
+.custom-table-view .table-cell {
+    -fx-background-color: #30d5c8; /* Background color for the content area of the TableColumn */
+    -fx-text-fill: #000000; /* Text color for table cells (set to black) */
+    -fx-font-size: 14px; /* Font size for table cells */
+}
+
+.custom-table-view .table-cell:hover {
+    -fx-background-color: white; /* Background color for TableColumn content on hover */
+}
+
+.custom-table-view .table-row-cell {
+    -fx-background-color: #f4f4f4; /* Background color for table rows */
+}
+
+.custom-table-view .table-row-cell:odd {
+    -fx-background-color: #e0e0e0; /* Alternate background color for odd rows */
+}
+
+.custom-table-view .table-row-cell:selected {
+    -fx-background-color: #30d5c8; /* Background color for selected rows */
+    -fx-text-fill: white; /* Text color for selected rows */
 }
 
 /* Info Label Styles */
@@ -64,7 +110,7 @@
 }
 
 .action-button:hover, #Goback:hover {
-    -fx-background-color: #27b9a9;
+    -fx-background-color: #ff1744;
     -fx-scale-x: 1.1;
     -fx-scale-y: 1.1;
 }

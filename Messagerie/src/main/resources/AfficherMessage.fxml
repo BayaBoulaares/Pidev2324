@@ -13,7 +13,7 @@
 
     <children>
 
-        <TableView fx:id="TableView" layoutX="292.0" layoutY="16.0" onMouseClicked="#mouceClicked" prefHeight="287.0" prefWidth="625.0" styleClass="table-view">
+        <TableView fx:id="TableView" layoutX="292.0" layoutY="16.0" onMouseClicked="#mouceClicked" prefHeight="287.0" prefWidth="625.0" styleClass="custom-table-view">
             <columns>
                 <TableColumn fx:id="Nom" prefWidth="150.0" text="Nom" />
                 <TableColumn fx:id="Message" minWidth="0.0" prefWidth="277.0" text="Message" />
@@ -31,7 +31,7 @@
 
         <Button fx:id="Modifier" layoutX="733.0" layoutY="314.0" mnemonicParsing="false" onAction="#modifiermessage" prefHeight="63.0" prefWidth="135.0" styleClass="action-button" text="Modifier" />
         <Button fx:id="Supprimer" layoutX="576.0" layoutY="314.0" mnemonicParsing="false" onAction="#supprimermessage" prefHeight="63.0" prefWidth="135.0" styleClass="action-button" text="Supprimer" />
-      <Button fx:id="Goback" layoutY="750.0" mnemonicParsing="false" onAction="#Goback" prefHeight="63.0" prefWidth="135.0" text="&lt;- Go Back" />
+        <Button fx:id="Goback" layoutY="750.0" mnemonicParsing="false" onAction="#Goback" prefHeight="63.0" prefWidth="135.0" text="&lt;- Go Back" />
         <VBox fx:id="navBar" prefHeight="750.0" prefWidth="272.0" spacing="10" styleClass="side-bar" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
             <Label prefHeight="49.0" prefWidth="191.0" styleClass="navTitle" text="Auto+Learn" />
             <Label fx:id="firstLabel" text="Accueil" />
