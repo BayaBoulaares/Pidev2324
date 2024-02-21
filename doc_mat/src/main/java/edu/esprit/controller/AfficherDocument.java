@@ -12,15 +12,25 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Bounds;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.skin.TableHeaderRow;
+import javafx.scene.control.skin.TableViewSkin;
+import javafx.scene.input.MouseEvent;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.List;
 
 public class AfficherDocument {
+    @FXML
+    private Button idaj;
+    @FXML
+    private DatePicker datePicker;
     @FXML
     private ComboBox<Niveau> idl;
 
@@ -47,6 +57,7 @@ public class AfficherDocument {
 
     @FXML
     private Button idretour;
+    private int currentStep = 0;
 
     private ServiceDocument serviceDocument = new ServiceDocument();
     Matiere matiere = new Matiere();
@@ -87,37 +98,25 @@ public class AfficherDocument {
         loadDocumentData();
     }
 
-    public boolean test() throws SQLException {
-        SeviceMatiere sm = new SeviceMatiere();
-        List<Document> documents = serviceDocument.getAll();
-        for (Document doc : documents) {
-            System.out.println("a1********************");
-            System.out.println(doc.getMat());
-            Matiere me = sm.getOne(doc.getMat().getId());
-            if (me != null) {
-                if (me.equals(matiere)) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
+
 
     private void loadDocumentData() {
         try {
-            System.out.println("-------- -----------------------------");
-            System.out.println(test());
-            if (test()) {
+
+
+            if (matiere != null) {
                 Niveau selectedLevel = idl.getValue();
                 ObservableList<Document> documentList;
 
-                if (selectedLevel != null &&  selectedLevel.equals(Niveau.LEVEL_1)) {
-                    documentList = FXCollections.observableArrayList(serviceDocument.getByLevel(selectedLevel));
-                } else  if (selectedLevel != null && selectedLevel.equals(Niveau.LEVEL_2))  {
-                    documentList = FXCollections.observableArrayList(serviceDocument.getByLevel(selectedLevel));
-                } else   if (selectedLevel != null && selectedLevel.equals(Niveau.LEVEL_3))
-                {documentList = FXCollections.observableArrayList(serviceDocument.getByLevel(selectedLevel));}
-                else { documentList = FXCollections.observableArrayList(serviceDocument.getAll());}
+                if (selectedLevel != null && selectedLevel.equals(Niveau.LEVEL_1)) {
+                    documentList = FXCollections.observableArrayList(serviceDocument.getByLevel(selectedLevel, matiere));
+                } else if (selectedLevel != null && selectedLevel.equals(Niveau.LEVEL_2)) {
+                    documentList = FXCollections.observableArrayList(serviceDocument.getByLevel(selectedLevel, matiere));
+                } else if (selectedLevel != null && selectedLevel.equals(Niveau.LEVEL_3)) {
+                    documentList = FXCollections.observableArrayList(serviceDocument.getByLevel(selectedLevel, matiere));
+                } else {
+                    documentList = FXCollections.observableArrayList(serviceDocument.getAllByMatiere(matiere));
+                }
 
                 idtab.setItems(documentList);
             } else {
@@ -143,11 +142,11 @@ public class AfficherDocument {
                 editButton.setOnAction(event -> onEditButtonClicked(getItem()));
                 deleteButton.setOnAction(event -> onDeleteButtonClicked(getItem()));
 
-                editButton.setStyle("-fx-background-color: #4CAF50; -fx-text-fill: white;");
-                deleteButton.setStyle("-fx-background-color: #f44336; -fx-text-fill: white;");
+                editButton.setStyle("-fx-background-color: transparent; -fx-text-fill:#a3aed0; ");
+                deleteButton.setStyle("-fx-background-color:transparent; -fx-text-fill: #a3aed0; ");
 
-                editButton.setMaxWidth(Double.MAX_VALUE);
-                deleteButton.setMaxWidth(Double.MAX_VALUE);
+                editButton.setMaxWidth(200);
+                deleteButton.setMaxWidth(200);
             }
 
             @Override
@@ -206,19 +205,18 @@ public class AfficherDocument {
 
     public void trier(ActionEvent actionEvent) {
         try {
-            System.out.println("-------- -----------------------------");
-            System.out.println(test());
-            if (test()) {
+
+            if (matiere != null) {
                 Niveau selectedLevel = idl.getValue();
                 ObservableList<Document> documentList;
 
                 if (selectedLevel != null &&  selectedLevel.equals(Niveau.LEVEL_1)) {
-                    documentList = FXCollections.observableArrayList(serviceDocument.getByLevel(selectedLevel));
+                    documentList = FXCollections.observableArrayList(serviceDocument.getByLevel(selectedLevel,matiere));
                 } else  if (selectedLevel != null && selectedLevel.equals(Niveau.LEVEL_2))  {
-                    documentList = FXCollections.observableArrayList(serviceDocument.getByLevel(selectedLevel));
+                    documentList = FXCollections.observableArrayList(serviceDocument.getByLevel(selectedLevel,matiere));
                 } else   if (selectedLevel != null && selectedLevel.equals(Niveau.LEVEL_3))
-                {documentList = FXCollections.observableArrayList(serviceDocument.getByLevel(selectedLevel));}
-                else { documentList = FXCollections.observableArrayList(serviceDocument.getAllDate());}
+                {documentList = FXCollections.observableArrayList(serviceDocument.getByLevel(selectedLevel,matiere));}
+                else { documentList = FXCollections.observableArrayList(serviceDocument. getAllTitle());}
 
                 idtab.setItems(documentList);
             } else {
@@ -230,5 +228,48 @@ public class AfficherDocument {
             e.printStackTrace();
         }
 
+    }
+
+    public void rechercheDate(ActionEvent actionEvent) {
+        try {
+            // Récupérer la date sélectionnée dans le DatePicker
+            LocalDate selectedDate = datePicker.getValue();
+
+            // Vérifier si une date est sélectionnée
+            if (selectedDate != null) {
+                // Convertir LocalDate en java.sql.Date
+                java.sql.Date sqlDate = java.sql.Date.valueOf(selectedDate);
+
+                // Appeler la méthode de service pour obtenir les documents pour une date spécifique
+                ObservableList<Document> documentList = FXCollections.observableArrayList(serviceDocument.getByDate(sqlDate));
+                idtab.setItems(documentList);
+            } else {
+                // Si aucune date n'est sélectionnée, afficher tous les documents
+                loadDocumentData();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void retourAjouterDoc(ActionEvent actionEvent) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AjouterDocument.fxml"));
+            Parent root = loader.load();
+
+            // Accéder au contrôleur du formulaire de modification
+            AjouterDocument ajouterdoc= loader.getController();
+
+            if( matiere!=null)
+            // Appeler la méthode pour passer la matière à modifier
+            { ajouterdoc.setMatToAdd(matiere);}
+
+            // Changer la scène pour afficher le formulaire de modification
+            idaj.getScene().setRoot(root);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -141,13 +141,14 @@ public class ServiceDocument implements IService<Document> {
 
         return document;
     }
-    public ArrayList<Document> getByLevel(Niveau niveau) throws SQLException {
+    public ArrayList<Document> getByLevel(Niveau niveau , Matiere mat) throws SQLException {
         Connection cnx = DataSource.getInstance().getCnx();
         ArrayList<Document> documents = new ArrayList<>();
 
-        String req = "SELECT * FROM document WHERE niveau=?";
+        String req = "SELECT * FROM document WHERE niveau=? AND  id_mat=?";
         PreparedStatement pstmt = cnx.prepareStatement(req);
         pstmt.setString(1, niveau.toString());
+        pstmt.setInt(2,mat.getId());
         ResultSet rs = pstmt.executeQuery();
 
         while (rs.next()) {
@@ -192,11 +193,11 @@ public class ServiceDocument implements IService<Document> {
         return uniqueMatiereCount;
     }
 
-    public ArrayList<Document> getAllDate() throws SQLException {
+    public ArrayList<Document> getAllTitle() throws SQLException {
         Connection cnx = DataSource.getInstance().getCnx();
         ArrayList<Document> documents = new ArrayList<>();
 
-        String req = "SELECT * FROM document ORDER BY date DESC"; // Added ORDER BY clause for sorting by date
+        String req = "SELECT * FROM document ORDER BY titre DESC"; // Added ORDER BY clause for sorting by date
         try (PreparedStatement pstmt = cnx.prepareStatement(req); ResultSet rs = pstmt.executeQuery()) {
             while (rs.next()) {
                 int id = rs.getInt("id_doc");
@@ -221,4 +222,68 @@ public class ServiceDocument implements IService<Document> {
 
         return documents;
     }
+    public ArrayList<Document> getByDate(java.sql.Date date) throws SQLException {
+        Connection cnx = DataSource.getInstance().getCnx();
+        ArrayList<Document> documents = new ArrayList<>();
+
+        String req = "SELECT * FROM document WHERE date=?";
+        try (PreparedStatement pstmt = cnx.prepareStatement(req)) {
+            pstmt.setDate(1, date);
+            ResultSet rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                int id = rs.getInt("id_doc");
+                String titre = rs.getString("titre");
+                String typeStr = rs.getString("type");
+                String url = rs.getString("url");
+                String niveauStr = rs.getString("niveau");
+                java.sql.Date date2 = rs.getDate("date");
+                int id_mat = rs.getInt("id_mat");
+
+                // Convertir les types String en Enum
+                Type type = Type.valueOf(typeStr);
+                Niveau niveau = Niveau.valueOf(niveauStr);
+                SeviceMatiere ms = new SeviceMatiere();
+
+                // Créer un objet Document
+                Matiere matiere = ms.getOne(id_mat); // Vous devez probablement récupérer la Matiere à partir de la base de données
+                Document document = new Document(id, titre, type, url, niveau, date2, matiere);
+                documents.add(document);
+            }
+        }
+
+        return documents;
+    }
+     public  ArrayList<Document> getAllByMatiere(Matiere mat)  throws SQLException{
+         Connection cnx = DataSource.getInstance().getCnx();
+         ArrayList<Document> documents = new ArrayList<>();
+
+         String req = "SELECT * FROM document WHERE id_mat=?";
+         try (PreparedStatement pstmt = cnx.prepareStatement(req)) {
+             pstmt.setInt(1, mat.getId());
+             ResultSet rs = pstmt.executeQuery();
+
+             while (rs.next()) {
+                 int id = rs.getInt("id_doc");
+                 String titre = rs.getString("titre");
+                 String typeStr = rs.getString("type");
+                 String url = rs.getString("url");
+                 String niveauStr = rs.getString("niveau");
+                 java.sql.Date date2 = rs.getDate("date");
+                 int id_mat = rs.getInt("id_mat");
+
+                 // Convertir les types String en Enum
+                 Type type = Type.valueOf(typeStr);
+                 Niveau niveau = Niveau.valueOf(niveauStr);
+                 SeviceMatiere ms = new SeviceMatiere();
+
+                 // Créer un objet Document
+                 Matiere matiere = ms.getOne(id_mat); // Vous devez probablement récupérer la Matiere à partir de la base de données
+                 Document document = new Document(id, titre, type, url, niveau, date2, matiere);
+                 documents.add(document);
+             }
+         }
+
+         return documents;
+     }
 }

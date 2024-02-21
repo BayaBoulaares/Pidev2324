@@ -51,10 +51,13 @@ public class AffichageMatiereController {
             // Clear existing content in matiereFlowPane
             matiereFlowPane.getChildren().clear();
 
+            matiereFlowPane.setHgap(10); // Ajout de l'espace horizontal entre les VBox
+            matiereFlowPane.setVgap(10); // Ajout de l'espace vertical entre les VBox
+
             // Dynamically create labels, delete buttons, and edit buttons for each matière's name
             int itemsPerRow = 3;
             for (Matiere matiere : matieres) {
-                HBox matiereHBox = createMatiereHBox(matiere);
+                VBox matiereHBox = createMatiereVBox(matiere);
                 matiereFlowPane.getChildren().add(matiereHBox);
 
                 // Add a new row after every 'itemsPerRow' items
@@ -69,54 +72,52 @@ public class AffichageMatiereController {
             alert.showAndWait();
         }
     }
-
-    public HBox createMatiereHBox(Matiere matiere) {
-        HBox hBox = new HBox();
-        hBox.setAlignment(Pos.CENTER); // Align HBox content to the center
-        hBox.setSpacing(8); // Set spacing between label, delete button, and edit button
+    public VBox createMatiereVBox(Matiere matiere) {
+        VBox vBox = new VBox();
+        vBox.setAlignment(Pos.CENTER); // Align VBox content to the center
+        vBox.setSpacing(8); // Set spacing between label and buttons
+        vBox.setStyle( "-fx-background-color: #27DEC1;"+" -fx-border-width: 2px;"+" -fx-border-color: #2b3674;"+"-fx-background-radius: 5px;"+  "-fx-border-radius: 5px; ");
 
         Label label = new Label(matiere.getNommatiere());
         label.setStyle(
                 "-fx-background-color: #27DEC1; " +
-                        "-fx-border-color: #2b3674; " +
                         "-fx-border-width: 2px; " +
                         "-fx-padding: 3px; " +
                         "-fx-border-radius: 5px; " +
+                        "-fx-text-fill: #2b3674;" +
                         "-fx-background-radius: 5px;"
         );
-        label.setTextFill(Color.WHITE);
+
         label.setFont(new Font("System Bold", 20));
 
         // Bouton Supprimer
         Button deleteButton = new Button("Supprimer");
+        deleteButton.setStyle("-fx-background-color: transparent; -fx-text-fill:#2b3674;");
         deleteButton.setOnAction(event -> handleDeleteButtonClick(matiere));
 
         // Bouton Editer
         Button editButton = new Button("Editer");
+        editButton.setStyle("-fx-background-color: transparent; -fx-text-fill:#2b3674;");
         editButton.setOnAction(event -> handleEditButtonClick(matiere));
 
         // Bouton Ajouter Document
         Button ajouterDocumentButton = new Button("Ajouter Document");
+        ajouterDocumentButton.setStyle("-fx-background-color: transparent; -fx-text-fill:#2b3674;  ");
         ajouterDocumentButton.setOnAction(event -> handleAjouterDocumentButtonClick(matiere));
 
         // Bouton Afficher Document
         Button afficherDocumentButton = new Button("Afficher Document");
+        afficherDocumentButton.setStyle("-fx-background-color: transparent; -fx-text-fill:#2b3674;  ");
         afficherDocumentButton.setOnAction(event -> handleAfficherDocumentButtonClick(matiere));
-        Button  detailmatierebutton = new Button("Detail Document");
+        Button  detailmatierebutton = new Button("Detail Matiere");
+        detailmatierebutton.setStyle("-fx-background-color:transparent; -fx-text-fill:#2b3674;  ");
         detailmatierebutton.setOnAction(event -> handleDetailButtonClick(matiere));
 
-        // Incorporer les boutons dans un HBox
-        HBox buttonsHBox = new HBox(deleteButton, editButton, ajouterDocumentButton, afficherDocumentButton,detailmatierebutton);
-        buttonsHBox.setSpacing(5);
+        // Ajouter le label et les boutons dans le VBox
+        vBox.getChildren().addAll(label, deleteButton, editButton, ajouterDocumentButton, afficherDocumentButton, detailmatierebutton);
 
-        VBox buttonVBox = new VBox(label, buttonsHBox);
-        buttonVBox.setAlignment(Pos.CENTER); // Align content in VBox to the center
-        buttonVBox.setMinSize(50, 50); // Set your preferred size
-
-        hBox.getChildren().add(buttonVBox);
-        return hBox;
+        return vBox;
     }
-
     public void handleDeleteButtonClick(Matiere matiere) {
         try {
             // Handle the delete action here
@@ -252,7 +253,7 @@ public void handleAfficherDocumentButtonClick( Matiere matiere){
         // Dynamically create labels, delete buttons, and edit buttons for each matière's name
         int itemsPerRow = 3;
         for (Matiere matiere : matieres) {
-            HBox matiereHBox = createMatiereHBox(matiere);
+            VBox  matiereHBox = createMatiereVBox(matiere);
             matiereFlowPane.getChildren().add(matiereHBox);
 
             // Add a new row after every 'itemsPerRow' items

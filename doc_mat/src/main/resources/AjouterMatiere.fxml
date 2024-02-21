@@ -84,8 +84,8 @@
       <TextArea fx:id="iddesc" layoutX="183.0" layoutY="246.0" prefHeight="72.0" prefWidth="199.0" promptText="Description" />
       <Line endX="251.5999755859375" endY="1.52587890625E-5" layoutX="330.0" layoutY="110.0" startX="-147.99998474121094" startY="1.52587890625E-5" stroke="#a3aed0" />
       <Button layoutX="202.0" layoutY="83.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="80.0" style="-fx-background-color: transparent;" text="Ajouter" textFill="#27dec1" />
-      <Button layoutX="339.0" layoutY="83.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="80.0" style="-fx-background-color: transparent;" text="Consulter" textFill="#a3aed0" />
-      <Button layoutX="478.0" layoutY="83.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="80.0" style="-fx-background-color: transparent;" text="Modifier" textFill="#a3aed0" />
+      <Button fx:id="idc" layoutX="339.0" layoutY="83.0" mnemonicParsing="false" onAction="#consulterMatiere" prefHeight="26.0" prefWidth="80.0" style="-fx-background-color: transparent;" text="Consulter" textFill="#a3aed0" />
+      <Button layoutX="478.0" layoutY="83.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="80.0" style="-fx-background-color: transparent;" text="Statistique" textFill="#a3aed0" />
       <Line endX="17.39996337890625" endY="1.52587890625E-5" layoutX="281.0" layoutY="110.0" startX="-100.0" stroke="#27dec1" />
       <Button fx:id="idcon" layoutX="385.0" layoutY="337.0" mnemonicParsing="false" onAction="#ajouterMatiere" prefHeight="30.0" prefWidth="67.0" style="-fx-background-color: #27DEC1; -fx-background-radius: 5;" text="confirmet" textFill="WHITE" />
       <Button fx:id="idret" layoutX="462.0" layoutY="337.0" mnemonicParsing="false" onAction="#RetourAffichage" prefHeight="30.0" prefWidth="67.0" style="-fx-background-color: transparent; -fx-background-radius: 5; -fx-border-color: #27DEC1; -fx-border-radius: 5;" text="Retour" textFill="#27dec1" />

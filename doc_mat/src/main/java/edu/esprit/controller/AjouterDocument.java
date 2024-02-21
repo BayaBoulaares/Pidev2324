@@ -9,6 +9,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Bounds;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
@@ -20,11 +22,16 @@ import java.time.LocalDate;
 import java.util.ResourceBundle;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.apache.commons.io.FilenameUtils;
 
 public class AjouterDocument  implements Initializable {
+    @FXML
+    private Button idc;
+    @FXML
+    private Button idconf;
     @FXML
     private ComboBox<Niveau> idniveau;
 
@@ -39,14 +46,19 @@ public class AjouterDocument  implements Initializable {
     @FXML
     private TextField idurt;
     private Matiere mt=new Matiere();
+    private static boolean guideUtilisationAffiche = false;
+    private int currentStep = 0;
     private final ServiceDocument DS = new ServiceDocument();
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
+
         // Charger les options pour le ComboBox Niveau
         idniveau.getItems().addAll(Niveau.values());
 
         // Charger les options pour le ComboBox Type
         idtype.getItems().addAll(Type.values());
+
 
         // Ajouter un ChangeListener au ComboBox idtype
         idtype.valueProperty().addListener(new ChangeListener<Type>() {
@@ -56,9 +68,17 @@ public class AjouterDocument  implements Initializable {
                 updateEditableProperty(newValue);
             }
         });
+        // Afficher le guide d'utilisation lors de la première utilisation
+        if (!guideUtilisationAffiche) {
+            afficherGuideUtilisation();
+            guideUtilisationAffiche = true;
+        }
+
     }
+
     public void setMatToAdd( Matiere me)
     {
+
         mt= me;
     }
 
@@ -166,5 +186,75 @@ public class AjouterDocument  implements Initializable {
         boolean isEditable = fileType == Type.PDF || fileType == Type.VIDEO ;
         idurt.setEditable(isEditable);
     }
+    public void afficherGuideUtilisation() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Guide d'utilisation");
+        alert.setHeaderText(null);
 
+        StringBuilder guideText = new StringBuilder("Bienvenue dans l'interface d'ajout de document. Veuillez suivre les instructions ci-dessous :\n\n");
+
+        alert.setContentText(guideText.toString());
+        alert.showAndWait();
+    }
+
+    public void showexplication(MouseEvent mouseEvent) {
+        // Display the alert corresponding to the current step
+        if (currentStep < 5) {
+            // Display the alert corresponding to the current step
+            switch (currentStep) {
+                case 0:
+                    showAlertAtPosition(createAlert("1.  Remplissez le champ 'Titre' avec le titre du document. Assurez-vous qu'il contient au moins 3 caractères."), idtt);
+                    break;
+                case 1:
+                    showAlertAtPosition(createAlert("2. Choisissez le type de document à partir du menu déroulant 'Type'."), idtype);
+                    break;
+                case 2:
+                    showAlertAtPosition(createAlert("3. Selon le type de document, le champ 'URL' peut être éditable ou non. Si le type est PDF ou Vidéo, vous pouvez choisir un fichier à partir du bouton 'Choisir Fichier'."), idurt);
+                    break;
+                case 3:
+                    showAlertAtPosition(createAlert("4. Sélectionnez le niveau du document à partir du menu déroulant 'Niveau'."), idniveau);
+                    break;
+                case 4:
+                    showAlertAtPosition(createAlert("5. Cliquez sur le bouton 'Ajouter' pour enregistrer le document."), idconf);
+                    break;
+                default:
+                    break;
+            }
+
+            // Increment the step for the next time the method is called
+            currentStep++;
+        }
+    }
+
+    private Alert createAlert(String content) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Guide d'utilisation");
+        alert.setHeaderText(null);
+        alert.setContentText(content);
+        return alert;
+    }
+
+    private void showAlertAtPosition(Alert alert, Node node) {
+        // Convert local coordinates to scene coordinates
+        Bounds boundsInScene = node.localToScene(node.getBoundsInLocal());
+
+        // Définissez la position de l'alerte à côté du champ de texte ou du ComboBox
+        alert.setX(node.getScene().getWindow().getX() + node.getScene().getX() + boundsInScene.getMinX());
+        alert.setY(node.getScene().getWindow().getY() + node.getScene().getY() + boundsInScene.getMinY() + boundsInScene.getHeight());
+
+        alert.showAndWait();
+    }
+
+    public void condulterDocument(ActionEvent actionEvent) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherDocument.fxml"));
+            Parent root = loader.load();
+            AfficherDocument affichedoc= loader.getController();
+            if( mt!=null)
+            { affichedoc.setMatToShow(mt);}
+            idc.getScene().setRoot(root);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

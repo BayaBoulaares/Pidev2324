@@ -2,6 +2,7 @@ package edu.esprit.controller;
 
 import edu.esprit.entities.ExistanteException;
 import edu.esprit.entities.Matiere;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -11,11 +12,13 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import edu.esprit.services.SeviceMatiere;
 
-import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.sql.SQLException;
 
 public class MatiereController {
+
+    @FXML
+    private Button idc;
     @FXML
     private Button idcon;
 
@@ -85,5 +88,13 @@ public class MatiereController {
     }
 
 
-
+    public void consulterMatiere(ActionEvent actionEvent) {
+        try {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherMatiere.fxml"));
+        Parent root = loader.load();
+        idc.getScene().setRoot(root);
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+    }
 }

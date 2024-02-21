@@ -91,4 +91,5 @@ public class ModifierMatiereController {
             showAlert(Alert.AlertType.ERROR, "Erreur de chargement", "Impossible de charger la page d'affichage");
         }
     }
+
 }
