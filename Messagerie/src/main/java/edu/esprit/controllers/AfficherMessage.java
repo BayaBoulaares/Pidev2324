@@ -21,10 +21,9 @@ import java.io.IOException;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.*;
 import java.util.List;
-import java.util.ResourceBundle;
+import java.util.regex.Pattern;
 
 import static java.awt.SystemColor.text;
 
@@ -66,6 +65,24 @@ public class AfficherMessage {
     private Messagerie messagerie;
     private static final List<String> BAD_WORDS = Arrays.asList("Sick", "Bad", "Dump");
 
+    private static final Map<String, String> EMOJI_MAP = new HashMap<>();
+
+    static {
+        EMOJI_MAP.put(":)", "😊");
+        EMOJI_MAP.put(":(", "😢");
+        EMOJI_MAP.put(":D", "😃");
+        EMOJI_MAP.put(":-)", "😊");
+        EMOJI_MAP.put(":-(", "😢");
+        EMOJI_MAP.put(":p", "😛");
+        EMOJI_MAP.put(";)", "😉");
+        EMOJI_MAP.put("<3", "❤️");
+        EMOJI_MAP.put(":/", "☹");
+        EMOJI_MAP.put("-_-", "😑");
+
+
+        // Add more mappings as needed
+    }
+
 
     @FXML
     void initialize() {
@@ -84,7 +101,7 @@ public class AfficherMessage {
 
 
                     messagerie.setNom(censoredNom);
-                    messagerie.setMessage(censoredMessage);
+                    messagerie.setMessage(convertSymbolsToEmojis(censoredMessage));
 
                     // If the original message is different from the censored message, show the notification
                     if (!messagerie.getMessage().equals(censoredMessage)) {
@@ -104,6 +121,14 @@ public class AfficherMessage {
         Date.setCellValueFactory(new PropertyValueFactory<>("date"));
         Message.setCellValueFactory(new PropertyValueFactory<>("message"));
         // Add this method for censoring bad words
+    }
+
+    private String convertSymbolsToEmojis(String text) {
+        for (Map.Entry<String, String> entry : EMOJI_MAP.entrySet()) {
+            // Escape special characters in symbols and replace symbols with emojis
+            text = text.replaceAll(Pattern.quote(entry.getKey()), entry.getValue());
+        }
+        return text;
     }
     private void showNotification3() {
         if (SystemTray.isSupported()) {
@@ -165,8 +190,15 @@ public class AfficherMessage {
                     ServiceMessagerie ps = new ServiceMessagerie();
                     messagerie = new Messagerie(messagerie.getId(), NomID.getText(), MeesageID.getText());
 
+                    // Automatically capitalize the first letter of the message
+                    String capitalizedMessage = capitalizeFirstLetter(messagerie.getMessage());
+                    messagerie.setMessage(capitalizedMessage);
+
+                    // Convert symbols to emojis
+                    messagerie.setMessage(convertSymbolsToEmojis(messagerie.getMessage()));
+
                     // Vérifier si le message commence par une majuscule
-                    if (!MeesageID.getText().isEmpty() && !Character.isUpperCase(MeesageID.getText().charAt(0))) {
+                    if (!capitalizedMessage.isEmpty() && !Character.isUpperCase(capitalizedMessage.charAt(0))) {
                         showAlert("Le message doit commencer par une majuscule.");
                         return;
                     }
@@ -191,16 +223,25 @@ public class AfficherMessage {
         }
     }
 
+    private String capitalizeFirstLetter(String text) {
+        if (text.isEmpty()) {
+            return text;
+        }
+        return Character.toUpperCase(text.charAt(0)) + text.substring(1);
+    }
+
+
     private void updateTableView() {
         try {
             List<Messagerie> messagerieList = new ArrayList<>(ps.getAll());
             ObservableList<Messagerie> observableList = FXCollections.observableList(messagerieList);
 
-            // Censor bad words before displaying them
+            // Censor bad words and convert symbols to emojis before displaying them
             observableList.forEach(messagerie -> {
                 messagerie.setNom(censorBadWords(messagerie.getNom()));
-                messagerie.setMessage(censorBadWords(messagerie.getMessage()));
+                messagerie.setMessage(convertSymbolsToEmojis(messagerie.getMessage()));
             });
+
 
             TableView.setItems(observableList);
         } catch (SQLException e) {

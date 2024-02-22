@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.regex.Pattern;
 
 import edu.esprit.entities.Messagerie;
 import edu.esprit.services.ServiceMessagerie;
@@ -16,6 +17,8 @@ import javafx.scene.Scene; // Import Scene class
 import javafx.scene.control.Alert;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
+import java.time.LocalDate;
+import java.util.regex.Pattern;
 
 public class AjouterMessage {
 
@@ -45,21 +48,18 @@ public class AjouterMessage {
                 LocalDate date = DateId.getValue();
                 String message = MessageId.getText();
 
-                // Vérifier si le message commence par une majuscule
-                if (!message.isEmpty() && !Character.isUpperCase(message.charAt(0))) {
-                    showAlert("Le message doit commencer par une majuscule.");
-                    return;
-                }
+                // Capitalize the first letter of the message
+                message = message.substring(0, 1).toUpperCase() + message.substring(1);
 
-                ps.ajouter(new Messagerie(NomId.getText(), String.valueOf(DateId.getValue()), MessageId.getText()));
+                ps.ajouter(new Messagerie(NomId.getText(), String.valueOf(DateId.getValue()), message));
 
                 showNotification();
-
 
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Validation");
                 alert.setContentText("Message added successfully");
                 alert.showAndWait();
+
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherMessage.fxml"));
                 Parent root = loader.load();
 
@@ -81,16 +81,53 @@ public class AjouterMessage {
         }
     }
 
+
+
     // Méthode pour valider les champs
     private boolean validateFields() {
         if (NomId.getText().isEmpty() || DateId.getValue() == null || MessageId.getText().isEmpty()) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Input Validation Error");
-            alert.setContentText("Please fill in all fields.");
-            alert.showAndWait();
+            showAlert("Please fill in all fields.");
             return false;
         }
+
+        // Validate date
+        if (!isValidDate(DateId.getValue())) {
+            showAlert("Please select a valid date (not less than the current date).");
+            return false;
+        }
+
+        // Validate name (no symbols allowed)
+        if (!isValidName(NomId.getText())) {
+            showAlert("Invalid name. It cannot contain symbols (@ # $ *).");
+            return false;
+        }
+
+        // Validate message (customize based on your criteria)
+        if (!isValidMessage(MessageId.getText())) {
+            showAlert("Invalid message. Customize this validation based on your criteria.");
+            return false;
+        }
+
         return true;
+    }
+
+    // Validate date method
+    private boolean isValidDate(LocalDate date) {
+        // Check if the selected date is not less than the current date
+        return date != null && !date.isBefore(LocalDate.now());
+    }
+
+    // Validate name method (no symbols allowed)
+    private boolean isValidName(String name) {
+        // Check if the name does not contain specific symbols (@ # $ *)
+        return Pattern.matches("[a-zA-Z\\s]+", name) && !name.matches(".*[@#$*].*");
+    }
+
+    // Validate message method (customize based on your criteria)
+    private boolean isValidMessage(String message) {
+        // Add your custom message validation logic here
+        // For example, you can check the length or specific content criteria
+        return !message.isEmpty();
     }
 
     @FXML
