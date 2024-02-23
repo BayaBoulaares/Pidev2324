@@ -9,9 +9,9 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="idn" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="419.0" prefWidth="617.0" style="-fx-background-color: #FAFEFC;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controller.DetailMatiere">
+<AnchorPane fx:id="idn" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="610.0" prefWidth="851.0" style="-fx-background-color: #FAFEFC;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controller.DetailMatiere">
    <children>
-      <VBox layoutX="-32.0" prefHeight="419.0" prefWidth="178.0" style="-fx-background-color: #27DEC1; -fx-background-radius: 15;">
+      <VBox layoutX="-32.0" prefHeight="610.0" prefWidth="182.0" style="-fx-background-color: #27DEC1; -fx-background-radius: 15;">
          <children>
             <Label prefHeight="47.0" prefWidth="184.0" text="                Auti-Learn" textFill="WHITE" wrapText="true">
                <font>
@@ -70,28 +70,40 @@
             <Font name="System Bold" size="22.0" />
          </font>
       </Label>
-      <Label layoutX="180.0" layoutY="146.0" text="Nom de la matiere* " textFill="#2b3674">
+      <Label layoutX="178.0" layoutY="124.0" text="Nom de la matiere* " textFill="#2b3674">
          <font>
             <Font name="System Bold" size="13.0" />
          </font>
       </Label>
-      <TextField fx:id="idnom" editable="false" layoutX="180.0" layoutY="174.0" prefHeight="18.0" prefWidth="199.0" promptText="Nom" style="-fx-background-radius: 10;" />
-      <Label layoutX="183.0" layoutY="217.0" text="Description* " textFill="#2b3674">
+      <TextField fx:id="idnom" editable="false" layoutX="178.0" layoutY="152.0" prefHeight="26.0" prefWidth="310.0" promptText="Nom" style="-fx-background-radius: 10;" />
+      <Label layoutX="183.0" layoutY="190.0" text="Description* " textFill="#2b3674">
          <font>
             <Font name="System Bold" size="13.0" />
          </font>
       </Label>
-      <TextArea fx:id="iddesc" editable="false" layoutX="183.0" layoutY="246.0" prefHeight="72.0" prefWidth="199.0" promptText="Description" />
+      <TextArea fx:id="iddesc" editable="false" layoutX="178.0" layoutY="213.0" prefHeight="145.0" prefWidth="309.0" promptText="Description" />
 
-      <Line endX="251.5999755859375" endY="1.52587890625E-5" layoutX="330.0" layoutY="110.0" startX="-147.99998474121094" startY="1.52587890625E-5" stroke="#a3aed0" />
+      <Line endX="443.5999755859375" endY="1.52587890625E-5" layoutX="330.0" layoutY="110.0" startX="-147.99998474121094" startY="1.52587890625E-5" stroke="#a3aed0" />
       <Button layoutX="202.0" layoutY="83.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="80.0" style="-fx-background-color: transparent;" text="Detail" textFill="#27dec1" />
       <Line endX="17.39996337890625" endY="1.52587890625E-5" layoutX="281.0" layoutY="110.0" startX="-100.0" stroke="#27dec1" />
-      <Button fx:id="idret" layoutX="462.0" layoutY="337.0" mnemonicParsing="false" onAction="#retourAffichage" prefHeight="30.0" prefWidth="67.0" style="-fx-background-color: transparent; -fx-background-radius: 5; -fx-border-color: #27DEC1; -fx-border-radius: 5;" text="Retour" textFill="#27dec1" />
-      <Label layoutX="427.0" layoutY="155.0" prefHeight="19.0" prefWidth="154.0" text="Nembre de document*" textFill="#2b3674">
+      <Button fx:id="idret" layoutX="740.0" layoutY="526.0" mnemonicParsing="false" onAction="#retourAffichage" prefHeight="30.0" prefWidth="67.0" style="-fx-background-color: transparent; -fx-background-radius: 5; -fx-border-color: #27DEC1; -fx-border-radius: 5;" text="Retour" textFill="#27dec1" />
+      <Label layoutX="557.0" layoutY="124.0" prefHeight="19.0" prefWidth="154.0" text="Nombre de document*" textFill="#2b3674">
          <font>
             <Font name="System Bold" size="13.0" />
          </font>
       </Label>
-      <TextField fx:id="idnembre" editable="false" layoutX="427.0" layoutY="184.0" prefHeight="30.0" prefWidth="112.0" style="-fx-background-radius: 10;" />
+      <TextField fx:id="idnembre" editable="false" layoutX="557.0" layoutY="163.0" prefHeight="47.0" prefWidth="140.0" style="-fx-background-radius: 10;" />
+      <TextField fx:id="idanne" editable="false" layoutX="172.0" layoutY="477.0" prefHeight="26.0" prefWidth="310.0" promptText="annee" style="-fx-background-radius: 10;" />
+      <Label layoutX="179.0" layoutY="457.0" text="Annee*" textFill="#2b3674">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </Label>
+      <TextField fx:id="idcat" editable="false" layoutX="172.0" layoutY="403.0" prefHeight="26.0" prefWidth="310.0" promptText="categorie" style="-fx-background-radius: 10;" />
+      <Label layoutX="180.0" layoutY="371.0" text="Categorie* " textFill="#2b3674">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

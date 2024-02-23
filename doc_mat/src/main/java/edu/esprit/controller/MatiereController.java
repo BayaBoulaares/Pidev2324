@@ -1,21 +1,23 @@
 package edu.esprit.controller;
 
+import edu.esprit.entities.CAT;
 import edu.esprit.entities.ExistanteException;
 import edu.esprit.entities.Matiere;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import edu.esprit.services.SeviceMatiere;
 
 import java.io.IOException;
 import java.sql.SQLException;
 
 public class MatiereController {
+    @FXML
+    private ComboBox<CAT> idcat;
+    @FXML
+    private ComboBox<String> idannee;
 
     @FXML
     private Button idc;
@@ -28,8 +30,15 @@ public class MatiereController {
     @FXML
     private TextField idnom;
     private final SeviceMatiere MS = new SeviceMatiere();
+    @FXML
+    public void initialize() {
+        // Initialize the ComboBox with the desired items
+        idannee.getItems().addAll("1 ere année", "2 éme année", "3 éme année", "4 éme annee", "5 éme année", "6 éme année");
+        idcat.getItems().addAll(CAT.SCIENTIFIQUE, CAT.LANGUE, CAT.HISTOIRE, CAT.GEOGRAPHIE);
+    }
 
     public  MatiereController(){
+
     }
     @FXML
     public void RetourAffichage(javafx.event.ActionEvent actionEvent) {
@@ -48,7 +57,8 @@ public class MatiereController {
     public void ajouterMatiere(javafx.event.ActionEvent actionEvent) {
         if (validateInput()) {
             try {
-                this.MS.ajouter(new Matiere(this.idnom.getText(), this.iddesc.getText()));
+                this.MS.ajouter(new Matiere(this.idnom.getText(), this.iddesc.getText(),this.idannee.getValue(),this.idcat.getValue()));
+
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Validation");
                 alert.setContentText("Person added succesfully");
@@ -75,8 +85,13 @@ public class MatiereController {
     private boolean validateInput() {
         String nom = idnom.getText();
         String desc = iddesc.getText();
+        String anne=idannee.getValue();
+        CAT categorie=idcat.getValue();
 
-        return nom.length() >= 3 && desc.length() >= 5 && !nom.isEmpty() && !desc.isEmpty();
+        // Check if nom contains only letters
+        boolean isNomValid = nom.matches("[a-zA-Z]+");
+
+        return isNomValid && nom.length() >= 3 && desc.length() >= 5 && !nom.isEmpty() && !desc.isEmpty() &&  !anne.isEmpty() && categorie != null;
 
     }
     @FXML

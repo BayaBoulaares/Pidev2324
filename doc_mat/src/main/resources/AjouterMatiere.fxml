@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
@@ -9,9 +10,9 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="419.0" prefWidth="617.0" style="-fx-background-color: #FAFEFC;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controller.MatiereController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="610.0" prefWidth="851.0" style="-fx-background-color: #FAFEFC;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controller.MatiereController">
    <children>
-      <VBox layoutX="-32.0" prefHeight="419.0" prefWidth="178.0" style="-fx-background-color: #27DEC1; -fx-background-radius: 15;">
+      <VBox layoutX="-32.0" prefHeight="610.0" prefWidth="188.0" style="-fx-background-color: #27DEC1; -fx-background-radius: 15;">
          <children>
             <Label prefHeight="47.0" prefWidth="184.0" text="                Auti-Learn" textFill="WHITE" wrapText="true">
                <font>
@@ -70,24 +71,36 @@
             <Font name="System Bold" size="22.0" />
          </font>
       </Label>
-      <Label layoutX="180.0" layoutY="146.0" text="Nom de la matiere* " textFill="#2b3674">
+      <Label layoutX="192.0" layoutY="173.0" text="Nom de la matiere* " textFill="#2b3674">
          <font>
             <Font name="System Bold" size="13.0" />
          </font>
       </Label>
-      <TextField fx:id="idnom" layoutX="180.0" layoutY="174.0" prefHeight="18.0" prefWidth="199.0" promptText="Nom" style="-fx-background-radius: 10;" />
-      <Label layoutX="183.0" layoutY="217.0" text="Description* " textFill="#2b3674">
+      <TextField fx:id="idnom" layoutX="180.0" layoutY="202.0" prefHeight="26.0" prefWidth="260.0" promptText="Nom" style="-fx-background-radius: 10;" />
+      <Label layoutX="174.0" layoutY="305.0" text="Description* " textFill="#2b3674">
          <font>
             <Font name="System Bold" size="13.0" />
          </font>
       </Label>
-      <TextArea fx:id="iddesc" layoutX="183.0" layoutY="246.0" prefHeight="72.0" prefWidth="199.0" promptText="Description" />
-      <Line endX="251.5999755859375" endY="1.52587890625E-5" layoutX="330.0" layoutY="110.0" startX="-147.99998474121094" startY="1.52587890625E-5" stroke="#a3aed0" />
+      <TextArea fx:id="iddesc" layoutX="180.0" layoutY="333.0" prefHeight="114.0" prefWidth="313.0" promptText="Description" />
+      <Line endX="487.5999755859375" endY="1.52587890625E-5" layoutX="330.0" layoutY="110.0" startX="-147.99998474121094" startY="1.52587890625E-5" stroke="#a3aed0" />
       <Button layoutX="202.0" layoutY="83.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="80.0" style="-fx-background-color: transparent;" text="Ajouter" textFill="#27dec1" />
-      <Button fx:id="idc" layoutX="339.0" layoutY="83.0" mnemonicParsing="false" onAction="#consulterMatiere" prefHeight="26.0" prefWidth="80.0" style="-fx-background-color: transparent;" text="Consulter" textFill="#a3aed0" />
-      <Button layoutX="478.0" layoutY="83.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="80.0" style="-fx-background-color: transparent;" text="Statistique" textFill="#a3aed0" />
+      <Button fx:id="idc" layoutX="441.0" layoutY="83.0" mnemonicParsing="false" onAction="#consulterMatiere" prefHeight="26.0" prefWidth="80.0" style="-fx-background-color: transparent;" text="Consulter" textFill="#a3aed0" />
+      <Button layoutX="717.0" layoutY="83.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="80.0" style="-fx-background-color: transparent;" text="Statistique" textFill="#a3aed0" />
       <Line endX="17.39996337890625" endY="1.52587890625E-5" layoutX="281.0" layoutY="110.0" startX="-100.0" stroke="#27dec1" />
-      <Button fx:id="idcon" layoutX="385.0" layoutY="337.0" mnemonicParsing="false" onAction="#ajouterMatiere" prefHeight="30.0" prefWidth="67.0" style="-fx-background-color: #27DEC1; -fx-background-radius: 5;" text="confirmet" textFill="WHITE" />
-      <Button fx:id="idret" layoutX="462.0" layoutY="337.0" mnemonicParsing="false" onAction="#RetourAffichage" prefHeight="30.0" prefWidth="67.0" style="-fx-background-color: transparent; -fx-background-radius: 5; -fx-border-color: #27DEC1; -fx-border-radius: 5;" text="Retour" textFill="#27dec1" />
+      <Button fx:id="idcon" layoutX="627.0" layoutY="504.0" mnemonicParsing="false" onAction="#ajouterMatiere" prefHeight="30.0" prefWidth="67.0" style="-fx-background-color: #27DEC1; -fx-background-radius: 5;" text="confirmet" textFill="WHITE" />
+      <Button fx:id="idret" layoutX="723.0" layoutY="504.0" mnemonicParsing="false" onAction="#RetourAffichage" prefHeight="30.0" prefWidth="67.0" style="-fx-background-color: transparent; -fx-background-radius: 5; -fx-border-color: #27DEC1; -fx-border-radius: 5;" text="Retour" textFill="#27dec1" />
+      <ComboBox fx:id="idcat" layoutX="568.0" layoutY="351.0" prefHeight="27.0" prefWidth="260.0" style="-fx-background-radius: 10; -fx-background-color: transparent; -fx-border-radius: 10; -fx-border-color: a3aed0;" />
+      <Label layoutX="581.0" layoutY="314.0" text="Annee*" textFill="#2b3674">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </Label>
+      <Label layoutX="558.0" layoutY="173.0" text="Categorie *" textFill="#2b3674">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </Label>
+      <ComboBox fx:id="idannee" layoutX="558.0" layoutY="202.0" prefHeight="27.0" prefWidth="260.0" style="-fx-background-radius: 10; -fx-background-color: transparent; -fx-border-radius: 10; -fx-border-color: a3aed0;" />
    </children>
 </AnchorPane>

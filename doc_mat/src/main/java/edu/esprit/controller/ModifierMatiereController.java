@@ -1,22 +1,26 @@
 package edu.esprit.controller;
 
-import edu.esprit.entities.ExistanteException;
-import edu.esprit.entities.Matiere;
+import edu.esprit.entities.*;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import edu.esprit.services.SeviceMatiere;
 
 import java.io.IOException;
+import java.net.URL;
 import java.sql.SQLException;
+import java.util.ResourceBundle;
+
 import javafx.event.ActionEvent;
 
-public class ModifierMatiereController {
+public class ModifierMatiereController implements Initializable {
 
+    @FXML
+    private ComboBox<CAT> idcat;
+    @FXML
+    private ComboBox<String> idannee;
     @FXML
     private Button idcon;
 
@@ -31,12 +35,19 @@ public class ModifierMatiereController {
     private  int id;
     private final SeviceMatiere MS = new SeviceMatiere();
 
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+      idannee.getItems().addAll("1 ere année","2 éme année","3 éme année","4  éme annee","5  éme année","6  éme année");
+      idcat.getItems().addAll(CAT.values());
+
+    }
+
     public void setMatiereToModify(Matiere matiere) {
         idnom.setText(matiere.getNommatiere());
         iddesc.setText(matiere.getDescription());
         id=matiere.getId();
-
-
+        idannee.getItems().add(matiere.getAnnee());
+        idcat.getItems().add(matiere.getCategorie());
         // Vous pouvez également stocker la matière dans une variable de classe pour une utilisation ultérieure lors de la modification
     }
 
@@ -46,7 +57,7 @@ public class ModifierMatiereController {
             try {
 
 
-                    this.MS.modifier(new Matiere(id,this.idnom.getText(), this.iddesc.getText()));
+                    this.MS.modifier(new Matiere(id,this.idnom.getText(), this.iddesc.getText(),idannee.getValue(),idcat.getValue()));
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setTitle("Validation");
                     alert.setContentText("Matiere updated successfully");
@@ -68,8 +79,14 @@ public class ModifierMatiereController {
     private boolean validateInput() {
         String nom = idnom.getText();
         String desc = iddesc.getText();
+        String anne=idannee.getValue();
+        CAT categorie=idcat.getValue();
 
-        return nom.length() >= 3 && desc.length() >= 5 && !nom.isEmpty() && !desc.isEmpty();
+        // Check if nom contains only letters
+        boolean isNomValid = nom.matches("[a-zA-Z]+");
+
+        return isNomValid && nom.length() >= 3 && desc.length() >= 5 && !nom.isEmpty() && !desc.isEmpty() &&  !anne.isEmpty() && categorie != null;
+
     }
 
     @FXML

@@ -1,5 +1,6 @@
 package edu.esprit.controller;
 
+import edu.esprit.APIapploadfichier.UploadBasic;
 import edu.esprit.entities.*;
 import edu.esprit.services.ServiceDocument;
 import edu.esprit.services.SeviceMatiere;
@@ -48,6 +49,7 @@ public class AjouterDocument  implements Initializable {
     private Matiere mt=new Matiere();
     private static boolean guideUtilisationAffiche = false;
     private int currentStep = 0;
+     private String fileUrl;
     private final ServiceDocument DS = new ServiceDocument();
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -102,7 +104,7 @@ public class AjouterDocument  implements Initializable {
                 // Ajouter la date du jour
                 LocalDate currentDate = LocalDate.now();
 
-                this.DS.ajouter(new Document(this.idtt.getText(),this.idtype.getValue(),this.idurt.getText(),this.idniveau.getValue(), java.sql.Date.valueOf(currentDate),mt));
+                this.DS.ajouter(new Document(this.idtt.getText(),this.idtype.getValue(),fileUrl,this.idniveau.getValue(), java.sql.Date.valueOf(currentDate),mt));
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Validation");
                 alert.setContentText("document added successfully");
@@ -150,19 +152,36 @@ public class AjouterDocument  implements Initializable {
             if (extension.equalsIgnoreCase("pdf")) {
                 idtype.setValue(Type.PDF);
                 idurt.setText(selectedFile.getAbsolutePath());
+
+                // Ajouter le fichier à Google Drive et récupérer son URL
+                try {
+                    String fileId = UploadBasic.uploadPDF(selectedFile.getAbsolutePath());
+                    fileUrl = "https://drive.google.com/file/d/" + fileId;
+                    System.out.println("URL du fichier : https://drive.google.com/file/d/" + fileId);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             } else if (extension.equalsIgnoreCase("mp4") || extension.equalsIgnoreCase("avi")) {
                 idtype.setValue(Type.VIDEO);
                 idurt.setText(selectedFile.getAbsolutePath());
+
+                // Ajouter le fichier à Google Drive et récupérer son URL
+                try {
+                    String fileId = UploadBasic.uploadVideo(selectedFile.getAbsolutePath(),extension);
+                    fileUrl = "https://drive.google.com/file/d/" + fileId;
+                    System.out.println("URL du fichier : https://drive.google.com/file/d/" + fileId);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             } else {
                 showAlert(Alert.AlertType.ERROR, "Erreur d'extension", "Ce type d'extension n'est pas pris en charge");
                 idtype.setValue(null);
                 updateEditableProperty(idtype.getValue());
             }
 
-
-
         }
     }
+
     @FXML
     private boolean validateInput() {
         String nom = idtt.getText();

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" opacity="0.85" prefHeight="610.0" prefWidth="851.0" style="-fx-background-color: #FAFEFC;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controller.MatiersAffichage">
+   <children>
+      <VBox layoutX="-44.0" prefHeight="610.0" prefWidth="198.0" style="-fx-background-color: #27DEC1; -fx-background-radius: 15;">
+         <children>
+            <Label prefHeight="46.0" prefWidth="186.0" text="                Auti-Learn" textFill="WHITE" wrapText="true">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </Label>
+            <AnchorPane />
+            <AnchorPane />
+            <AnchorPane />
+            <AnchorPane />
+            <AnchorPane prefHeight="27.0" prefWidth="170.0">
+               <children>
+                  <Button layoutX="14.0" layoutY="-1.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="159.0" style="-fx-background-color: transparent;" text="            Messagerie" textFill="WHITE" />
+               </children>
+            </AnchorPane>
+            <AnchorPane />
+            <AnchorPane />
+            <AnchorPane prefHeight="33.0" prefWidth="166.0">
+               <children>
+                  <Button layoutX="14.0" layoutY="-6.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="159.0" style="-fx-background-color: transparent;" text="              Reclamation" textFill="WHITE" />
+               </children>
+            </AnchorPane>
+            <AnchorPane />
+            <AnchorPane>
+               <children>
+                  <AnchorPane layoutY="16.0">
+                     <children>
+                        <Button layoutX="26.0" layoutY="-16.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="159.0" style="-fx-background-color: transparent;" text="      Evenements" textFill="WHITE" />
+                        <Button layoutX="27.0" layoutY="17.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="170.0" style="-fx-background-color: transparent;" text="      Questionnaire" textFill="WHITE" />
+                     </children>
+                  </AnchorPane>
+               </children>
+            </AnchorPane>
+         </children>
+      </VBox>
+      <Label layoutX="161.0" layoutY="20.0" text="Pages / Acceuil" textFill="#a3aed0">
+         <font>
+            <Font name="System Bold" size="7.0" />
+         </font>
+      </Label>
+      <Label fx:id="idmat" layoutX="162.0" layoutY="40.0" prefHeight="46.0" prefWidth="129.0" text="Matiere !" textFill="#2b3674">
+         <font>
+            <Font name="System Bold" size="22.0" />
+         </font>
+      </Label>
+      <AnchorPane layoutX="177.0" layoutY="79.0" />
+      <Button fx:id="idret" layoutX="771.0" layoutY="559.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="58.0" style="-fx-background-color: #27DEC1; -fx-background-radius: 5;" text="Retour" textFill="WHITE">
+         <font>
+            <Font size="8.0" />
+         </font>
+      </Button>
+      <ScrollPane layoutX="212.0" layoutY="90.0" prefHeight="456.0" prefWidth="626.0">
+         <content>
+            <FlowPane fx:id="matiereFlowPane" prefHeight="446.0" prefWidth="619.0" style="-fx-background-radius: 5; -fx-border-radius: 5; -fx-background-color: #FAFEFC;" />
+         </content>
+      </ScrollPane>
+      <Line endX="-148.00001525878906" endY="374.0" layoutX="342.0" layoutY="141.0" startX="-148.00001525878906" startY="-33.400001525878906" stroke="#a3aed0" />
+      <Button fx:id="ida" layoutX="171.0" layoutY="116.0" mnemonicParsing="false" onAction="#handleAlphabetButtonClick" prefHeight="11.0" prefWidth="32.0" style="-fx-background-color: transparent;" text="A" textFill="#a3aed0" />
+      <Button fx:id="idb" layoutX="171.0" layoutY="135.0" mnemonicParsing="false" onAction="#handleAlphabetButtonClick" prefHeight="18.0" prefWidth="32.0" style="-fx-background-color: transparent;" text="B" textFill="#a3aed0" />
+      <Button fx:id="idb1" layoutX="171.0" layoutY="148.0" mnemonicParsing="false" onAction="#handleAlphabetButtonClick" prefHeight="18.0" prefWidth="32.0" style="-fx-background-color: transparent;" text="C" textFill="#a3aed0" />
+      <Button fx:id="idb11" layoutX="171.0" layoutY="164.0" mnemonicParsing="false" onAction="#handleAlphabetButtonClick" prefHeight="18.0" prefWidth="32.0" style="-fx-background-color: transparent;" text="D" textFill="#a3aed0" />
+      <Button fx:id="idb111" layoutX="171.0" layoutY="177.0" mnemonicParsing="false" onAction="#handleAlphabetButtonClick" prefHeight="18.0" prefWidth="32.0" style="-fx-background-color: transparent;" text="E" textFill="#a3aed0" />
+      <Button fx:id="idb1111" layoutX="171.0" layoutY="197.0" mnemonicParsing="false" onAction="#handleAlphabetButtonClick" prefHeight="18.0" prefWidth="32.0" style="-fx-background-color: transparent;" text="F" textFill="#a3aed0" />
+      <Button fx:id="idb11111" layoutX="171.0" layoutY="210.0" mnemonicParsing="false" onAction="#handleAlphabetButtonClick" prefHeight="18.0" prefWidth="32.0" style="-fx-background-color: transparent;" text="G" textFill="#a3aed0" />
+      <Button layoutX="171.0" layoutY="229.0" mnemonicParsing="false" onAction="#handleAlphabetButtonClick" prefHeight="18.0" prefWidth="32.0" style="-fx-background-color: transparent;" text="H" textFill="#a3aed0" />
+      <Button layoutX="171.0" layoutY="242.0" mnemonicParsing="false" onAction="#handleAlphabetButtonClick" prefHeight="18.0" prefWidth="32.0" style="-fx-background-color: transparent;" text="I" textFill="#a3aed0" />
+      <Button layoutX="171.0" layoutY="255.0" mnemonicParsing="false" onAction="#handleAlphabetButtonClick" prefHeight="18.0" prefWidth="32.0" style="-fx-background-color: transparent;" text="J" textFill="#a3aed0" />
+      <Button layoutX="171.0" layoutY="268.0" mnemonicParsing="false" onAction="#handleAlphabetButtonClick" prefHeight="18.0" prefWidth="32.0" style="-fx-background-color: transparent;" text="K" textFill="#a3aed0" />
+      <Button layoutX="171.0" layoutY="281.0" mnemonicParsing="false" onAction="#handleAlphabetButtonClick" prefHeight="18.0" prefWidth="32.0" style="-fx-background-color: transparent;" text="L" textFill="#a3aed0" />
+      <Button layoutX="171.0" layoutY="294.0" mnemonicParsing="false" onAction="#handleAlphabetButtonClick" prefHeight="18.0" prefWidth="32.0" style="-fx-background-color: transparent;" text="M" textFill="#a3aed0" />
+      <Button layoutX="171.0" layoutY="307.0" mnemonicParsing="false" onAction="#handleAlphabetButtonClick" prefHeight="18.0" prefWidth="32.0" style="-fx-background-color: transparent;" text="N" textFill="#a3aed0" />
+      <Button layoutX="171.0" layoutY="320.0" mnemonicParsing="false" onAction="#handleAlphabetButtonClick" prefHeight="18.0" prefWidth="32.0" style="-fx-background-color: transparent;" text="O" textFill="#a3aed0" />
+      <Button layoutX="171.0" layoutY="333.0" mnemonicParsing="false" onAction="#handleAlphabetButtonClick" prefHeight="18.0" prefWidth="32.0" style="-fx-background-color: transparent;" text="P" textFill="#a3aed0" />
+      <Button layoutX="171.0" layoutY="346.0" mnemonicParsing="false" onAction="#handleAlphabetButtonClick" prefHeight="18.0" prefWidth="32.0" style="-fx-background-color: transparent;" text="Q" textFill="#a3aed0" />
+      <Button layoutX="171.0" layoutY="372.0" mnemonicParsing="false" onAction="#handleAlphabetButtonClick" prefHeight="18.0" prefWidth="32.0" style="-fx-background-color: transparent;" text="S" textFill="#a3aed0" />
+      <Button layoutX="171.0" layoutY="385.0" mnemonicParsing="false" onAction="#handleAlphabetButtonClick" prefHeight="18.0" prefWidth="32.0" style="-fx-background-color: transparent;" text="T" textFill="#a3aed0" />
+      <Button layoutX="171.0" layoutY="398.0" mnemonicParsing="false" onAction="#handleAlphabetButtonClick" prefHeight="18.0" prefWidth="32.0" style="-fx-background-color: transparent;" text="U" textFill="#a3aed0" />
+      <Button layoutX="171.0" layoutY="411.0" mnemonicParsing="false" onAction="#handleAlphabetButtonClick" prefHeight="18.0" prefWidth="32.0" style="-fx-background-color: transparent;" text="V" textFill="#a3aed0" />
+      <Button layoutX="171.0" layoutY="424.0" mnemonicParsing="false" onAction="#handleAlphabetButtonClick" prefHeight="18.0" prefWidth="32.0" style="-fx-background-color: transparent;" text="W" textFill="#a3aed0" />
+      <Button layoutX="171.0" layoutY="437.0" mnemonicParsing="false" onAction="#handleAlphabetButtonClick" prefHeight="18.0" prefWidth="32.0" style="-fx-background-color: transparent;" text="X" textFill="#a3aed0" />
+      <Button layoutX="171.0" layoutY="450.0" mnemonicParsing="false" onAction="#handleAlphabetButtonClick" prefHeight="18.0" prefWidth="32.0" style="-fx-background-color: transparent;" text="Y" textFill="#a3aed0" />
+      <Button layoutX="171.0" layoutY="469.0" mnemonicParsing="false" onAction="#handleAlphabetButtonClick" prefHeight="18.0" prefWidth="32.0" style="-fx-background-color: transparent;" text="Z" textFill="#a3aed0" />
+      <Button layoutX="171.0" layoutY="359.0" mnemonicParsing="false" onAction="#handleAlphabetButtonClick" prefHeight="18.0" prefWidth="32.0" style="-fx-background-color: transparent;" text="R" textFill="#a3aed0" />
+      <Button layoutX="171.0" layoutY="487.0" mnemonicParsing="false" onAction="#affichertout" prefHeight="18.0" prefWidth="32.0" style="-fx-background-color: transparent;" text="#" textFill="#a3aed0" />
+   </children>
+</AnchorPane>

@@ -1,5 +1,8 @@
 package edu.esprit.controller;
 
+import com.google.api.services.drive.Drive;
+import edu.esprit.APIapploadfichier.PDFViewer;
+import edu.esprit.APIapploadfichier.UploadBasic;
 import edu.esprit.entities.Document;
 import edu.esprit.entities.Matiere;
 import edu.esprit.entities.Niveau;
@@ -20,8 +23,13 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.skin.TableHeaderRow;
 import javafx.scene.control.skin.TableViewSkin;
 import javafx.scene.input.MouseEvent;
+import org.apache.pdfbox.pdmodel.PDDocument;
 
+import javax.swing.*;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
@@ -60,7 +68,7 @@ public class AfficherDocument {
     private int currentStep = 0;
 
     private ServiceDocument serviceDocument = new ServiceDocument();
-    Matiere matiere = new Matiere();
+     private Matiere matiere = new Matiere();
 
     @FXML
     private void initialize() {
@@ -135,18 +143,23 @@ public class AfficherDocument {
             return property;
         });
         idactions.setCellFactory(column -> new TableCell<>() {
-            final Button editButton = new Button("Modifier");
-            final Button deleteButton = new Button("Supprimer");
+            private Button editButton = new Button("Modifier");
+            private Button deleteButton = new Button("Supprimer");
+            private Button afficheButton = new Button("Afficher");
+
 
             {
-                editButton.setOnAction(event -> onEditButtonClicked(getItem()));
+               editButton.setOnAction(event -> onEditButtonClicked(getItem()));
                 deleteButton.setOnAction(event -> onDeleteButtonClicked(getItem()));
+                afficheButton.setOnAction(event -> onAfficheClicked(getItem()) );
 
                 editButton.setStyle("-fx-background-color: transparent; -fx-text-fill:#a3aed0; ");
                 deleteButton.setStyle("-fx-background-color:transparent; -fx-text-fill: #a3aed0; ");
+                afficheButton.setStyle("-fx-background-color:transparent; -fx-text-fill: #a3aed0; ");
 
                 editButton.setMaxWidth(200);
                 deleteButton.setMaxWidth(200);
+                afficheButton.setMaxWidth(200);
             }
 
             @Override
@@ -155,7 +168,7 @@ public class AfficherDocument {
                 if (item == null || empty) {
                     setGraphic(null);
                 } else {
-                    setGraphic(new javafx.scene.layout.HBox(editButton, deleteButton));
+                    setGraphic(new javafx.scene.layout.HBox(editButton, deleteButton , afficheButton ));
                 }
             }
         });
@@ -183,6 +196,50 @@ public class AfficherDocument {
             e.printStackTrace();
         }
     }
+    public void onAfficheClicked(Document document) {
+        PDDocument pdfDocument = null;
+        try {
+            // Extraire l'ID du fichier à partir de l'URL
+            String url = document.getUrl();
+            String fileId;
+            if (url.contains("/view")) {
+                fileId = url.substring(url.indexOf("/d/") + 3, url.indexOf("/view"));
+            } else {
+                fileId = url.substring(url.indexOf("/d/") + 3);
+            }
+
+            // Télécharger le fichier PDF à partir de Google Drive
+            Drive service = UploadBasic.getDriveService();
+            OutputStream outputStream = new ByteArrayOutputStream();
+            service.files().get(fileId).executeMediaAndDownloadTo(outputStream);
+
+            // Convertir le OutputStream en ByteArrayInputStream
+            ByteArrayInputStream inputStream = new ByteArrayInputStream(((ByteArrayOutputStream) outputStream).toByteArray());
+
+            // Charger le document PDF à partir du ByteArrayInputStream
+            pdfDocument = PDDocument.load(inputStream);
+
+            // Afficher le document PDF dans une nouvelle fenêtre
+            PDFViewer viewer = new PDFViewer("PDF Viewer", pdfDocument);
+            viewer.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            viewer.setSize(800, 600);
+            viewer.setVisible(true);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (pdfDocument != null) {
+                try {
+                    pdfDocument.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+
+
+
 
     public void retourMatiere(ActionEvent actionEvent) {
         try {

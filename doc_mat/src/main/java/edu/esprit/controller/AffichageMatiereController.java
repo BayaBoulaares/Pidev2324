@@ -76,11 +76,11 @@ public class AffichageMatiereController {
         VBox vBox = new VBox();
         vBox.setAlignment(Pos.CENTER); // Align VBox content to the center
         vBox.setSpacing(8); // Set spacing between label and buttons
-        vBox.setStyle( "-fx-background-color: #27DEC1;"+" -fx-border-width: 2px;"+" -fx-border-color: #2b3674;"+"-fx-background-radius: 5px;"+  "-fx-border-radius: 5px; ");
+        vBox.setStyle( "-fx-background-color:  #FAFEFC; "+" -fx-border-width: 2px;"+" -fx-border-color: #2b3674;"+"-fx-background-radius: 5px;"+  "-fx-border-radius: 5px; ");
 
         Label label = new Label(matiere.getNommatiere());
         label.setStyle(
-                "-fx-background-color: #27DEC1; " +
+                "-fx-background-color:   #27DEC1;" +
                         "-fx-border-width: 2px; " +
                         "-fx-padding: 3px; " +
                         "-fx-border-radius: 5px; " +

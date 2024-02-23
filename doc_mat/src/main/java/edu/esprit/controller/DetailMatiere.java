@@ -14,6 +14,10 @@ import javafx.scene.control.TextField;
 import java.io.IOException;
 
 public class DetailMatiere {
+    @FXML
+    private TextField idcat;
+    @FXML
+    private TextField idanne;
 
     @FXML
     private TextArea iddesc;
@@ -34,6 +38,9 @@ public class DetailMatiere {
         idnom.setText(ma.getNommatiere());
         iddesc.setText(ma.getDescription());
         idnembre.setText(String.valueOf(ds.getDocumentCountPerMatiere(ma)));
+        idanne.setText(ma.getAnnee());
+       System.out.println("Category value: " + ma.getCategorie());
+       idcat.setText(ma.getCategorie().toString());
     }
     @FXML
     private void showAlert(Alert.AlertType alertType, String title, String content) {

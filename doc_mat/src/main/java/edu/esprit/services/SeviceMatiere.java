@@ -1,5 +1,6 @@
 package edu.esprit.services;
 
+import edu.esprit.entities.CAT;
 import edu.esprit.entities.Matiere;
 import edu.esprit.entities.ExistanteException;
 import edu.esprit.utils.DataSource;
@@ -14,13 +15,14 @@ public class SeviceMatiere implements IService<Matiere> {
     @Override
     public void ajouter(Matiere v) throws SQLException , ExistanteException {
         Connection cnx = DataSource.getInstance().getCnx();
-        if (!matiereExists(v.getNommatiere())) {
+        if (!matiereExists(v.getNommatiere(),v.getAnnee())) {
 
-            String req = "INSERT INTO matiere(nom_matiere, description) VALUES (?, ?)";
+            String req = "INSERT INTO matiere(nom_matiere, description,annee,categorie) VALUES (?, ?, ?,?)";
             PreparedStatement pstmt = cnx.prepareStatement(req);
             pstmt.setString(1, v.getNommatiere());
             pstmt.setString(2, v.getDescription());
-
+            pstmt.setString(3, v.getAnnee());
+            pstmt.setString(4, v.getCategorie().toString());
             pstmt.executeUpdate();
             System.out.println("Matiere ajoutee avec succes");
         } else {
@@ -29,11 +31,12 @@ public class SeviceMatiere implements IService<Matiere> {
         }
 
     }
-    private boolean matiereExists(String nomMatiere) throws SQLException {
+    private boolean matiereExists(String nomMatiere , String annee) throws SQLException {
         Connection cnx = DataSource.getInstance().getCnx();
-        String req = "SELECT * FROM matiere WHERE nom_matiere=?";
+        String req = "SELECT * FROM matiere WHERE nom_matiere=? AND annee=?";
         PreparedStatement pstmt = cnx.prepareStatement(req);
         pstmt.setString(1, nomMatiere);
+        pstmt.setString(2, annee);
         ResultSet rs = pstmt.executeQuery();
 
         // Si une ligne est renvoyée, la matière existe déjà
@@ -45,11 +48,13 @@ public class SeviceMatiere implements IService<Matiere> {
         Connection cnx = DataSource.getInstance().getCnx();
 
 
-            String req = "UPDATE matiere SET nom_matiere=?, description=? WHERE id=?";
+            String req = "UPDATE matiere SET nom_matiere=?, description=?, annee=? , categorie=? WHERE id=?";
             PreparedStatement pstmt = cnx.prepareStatement(req);
             pstmt.setString(1, v.getNommatiere());
             pstmt.setString(2, v.getDescription());
-            pstmt.setInt(3, v.getId());
+        pstmt.setString(3, v.getAnnee());
+        pstmt.setString(4, v.getCategorie().toString());
+            pstmt.setInt(5, v.getId());
 
             pstmt.executeUpdate();
             System.out.println("Matiere modifiee avec succes");
@@ -85,8 +90,13 @@ public class SeviceMatiere implements IService<Matiere> {
             int id = rs.getInt("id");
             String nomMatiere = rs.getString("nom_matiere");
             String description = rs.getString("description");
-
-            Matiere matiere = new Matiere(id, nomMatiere, description);
+            String annee= rs.getString("annee");
+            String categorie=rs.getString("categorie");
+            CAT cat;
+            if(categorie.isEmpty())
+            {  cat = null;} else
+            { cat = CAT.valueOf(categorie);}
+            Matiere matiere = new Matiere(id, nomMatiere, description, annee, cat);
             matieres.add(matiere);
         }
 
@@ -107,8 +117,11 @@ public class SeviceMatiere implements IService<Matiere> {
             if (rs.next()) {
                 String nomMatiere = rs.getString("nom_matiere");
                 String description = rs.getString("description");
+                String annee=rs.getString("annee");
+                String categorie=rs.getString("categorie");
+                CAT cat=CAT.valueOf(categorie);
 
-                matiere = new Matiere(id, nomMatiere, description);
+                matiere = new Matiere(id, nomMatiere, description,annee,cat);
             }
 
         return matiere;
@@ -138,8 +151,10 @@ public class SeviceMatiere implements IService<Matiere> {
             int id = rs.getInt("id");
             String nomMatiere = rs.getString("nom_matiere");
             String description = rs.getString("description");
-
-            Matiere matiere = new Matiere(id, nomMatiere, description);
+            String annee =rs.getString("annee");
+            String categorie=rs.getString("categorie");
+            CAT cat=CAT.valueOf(categorie);
+            Matiere matiere = new Matiere(id, nomMatiere, description,annee,cat);
             matieresByAlphabet.add(matiere);
         }
 

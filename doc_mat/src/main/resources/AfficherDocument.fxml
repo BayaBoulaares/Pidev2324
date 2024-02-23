@@ -11,9 +11,9 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="421.0" prefWidth="662.0" style="-fx-background-color: #FAFEFC;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controller.AfficherDocument">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="610.0" prefWidth="851.0" style="-fx-background-color: #FAFEFC;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controller.AfficherDocument">
    <children>
-      <VBox layoutX="-36.0" prefHeight="421.0" prefWidth="181.0" style="-fx-background-color: #27DEC1; -fx-background-radius: 15;">
+      <VBox layoutX="-36.0" prefHeight="610.0" prefWidth="193.0" style="-fx-background-color: #27DEC1; -fx-background-radius: 15;">
          <children>
             <Label prefHeight="47.0" prefWidth="188.0" text="                Auti-Learn" textFill="WHITE" wrapText="true">
                <font>
@@ -73,17 +73,17 @@
          </font>
       </Label>
       <AnchorPane layoutX="187.0" layoutY="89.0" />
-      <Button fx:id="idretour" layoutX="582.0" layoutY="380.0" mnemonicParsing="false" onAction="#retourMatiere" prefHeight="26.0" prefWidth="50.0" style="-fx-background-color: #27DEC1; -fx-background-radius: 5;" text="Retour" textFill="WHITE">
+      <Button fx:id="idretour" layoutX="768.0" layoutY="550.0" mnemonicParsing="false" onAction="#retourMatiere" prefHeight="26.0" prefWidth="50.0" style="-fx-background-color: #27DEC1; -fx-background-radius: 5;" text="Retour" textFill="WHITE">
          <font>
             <Font name="System Bold" size="8.0" />
          </font>
       </Button>
-      <Line endX="251.5999755859375" endY="1.52587890625E-5" layoutX="330.0" layoutY="116.0" startX="-147.99998474121094" startY="1.52587890625E-5" stroke="#a3aed0" />
+      <Line endX="497.199951171875" endY="1.52587890625E-5" layoutX="330.0" layoutY="116.0" startX="-147.99998474121094" startY="1.52587890625E-5" stroke="#a3aed0" />
       <Button fx:id="idaj" layoutX="202.0" layoutY="89.0" mnemonicParsing="false" onAction="#retourAjouterDoc" prefHeight="26.0" prefWidth="80.0" style="-fx-background-color: transparent;" text="Ajouter" textFill="#a3aed0" />
-      <Button layoutX="339.0" layoutY="89.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="80.0" style="-fx-background-color: transparent;" text="Consulter" textFill="#27dec1" />
-      <Button layoutX="478.0" layoutY="89.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="80.0" style="-fx-background-color: transparent;" text="Statistique" textFill="#a3aed0" />
-      <Line endX="17.39996337890625" endY="1.52587890625E-5" layoutX="423.0" layoutY="115.0" startX="-100.0" stroke="#27dec1" />
-      <TableView fx:id="idtab" layoutX="180.0" layoutY="173.0" prefHeight="198.0" prefWidth="458.0" style="-fx-background-radius: 5; -fx-background-radius: 5; -fx-background-color: transparent;">
+      <Button layoutX="484.0" layoutY="89.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="80.0" style="-fx-background-color: transparent;" text="Consulter" textFill="#27dec1" />
+      <Button layoutX="728.0" layoutY="89.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="80.0" style="-fx-background-color: transparent;" text="Statistique" textFill="#a3aed0" />
+      <Line endX="17.39996337890625" endY="1.52587890625E-5" layoutX="570.0" layoutY="115.0" startX="-100.0" stroke="#27dec1" />
+      <TableView fx:id="idtab" layoutX="180.0" layoutY="173.0" prefHeight="340.0" prefWidth="657.0" style="-fx-background-radius: 5; -fx-background-radius: 5; -fx-background-color: transparent;">
         <columns>
           <TableColumn fx:id="idtitre" prefWidth="75.0" style="-fx-background-color: transparent;" text="Titre" />
           <TableColumn fx:id="idType" prefWidth="75.0" style="-fx-background-color: transparent;" text="type" />
