@@ -1,48 +1,71 @@
 package edu.esprit.controllers;
 
+import edu.esprit.entities.Reclamation;
+import edu.esprit.services.ServiceReclamation;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.TextField;
+import javafx.stage.Stage;
+
 import java.awt.*;
-import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.sql.Date;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.regex.Pattern;
 
-import edu.esprit.entities.Messagerie;
-import edu.esprit.services.ServiceMessagerie;
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene; // Import Scene class
-import javafx.scene.control.Alert;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextField;
-import java.time.LocalDate;
-import java.util.regex.Pattern;
+public class AjouterReclamation {
 
-public class AjouterMessage {
-
-    private final ServiceMessagerie ps = new ServiceMessagerie();
+    private final ServiceReclamation rs = new ServiceReclamation();
 
     @FXML
     private DatePicker DateId;
 
     @FXML
-    private TextField MessageId;
+    private TextField ReclamationId;
 
     @FXML
     private TextField NomId;
-    @FXML
-    private javafx.scene.control.Button Goback;
 
 
-    private void showAlert(String message) {
+
+    private void showAlert(String reclamation) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Erreur de saisie");
         alert.setHeaderText(null);
-        alert.setContentText(message);
+        alert.setContentText(reclamation);
         alert.showAndWait();
     }
+
+
+
+    @FXML
+    void Goback(ActionEvent event) {
+        try {
+            // Load the Ajouter interface FXML file
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AjouterMessage.fxml"));
+            Parent ajouterInterface = loader.load();
+
+            // Create a new scene
+            Scene ajouterScene = new Scene(ajouterInterface);
+
+            // Get the current stage
+            Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+            // Set the scene and show the stage
+            currentStage.setScene(ajouterScene);
+            currentStage.show();
+        } catch (IOException e) {
+            e.printStackTrace(); // Handle the exception properly in your application
+        }
+    }
+
 
     @FXML
     void Ajouter(ActionEvent event) {
@@ -50,13 +73,13 @@ public class AjouterMessage {
             // Validation des champs
             if (validateFields()) {
                 String nom = NomId.getText();
+                String reclamation = ReclamationId.getText();
                 LocalDate date = DateId.getValue();
-                String message = MessageId.getText();
 
                 // Capitalize the first letter of the message
-                message = message.substring(0, 1).toUpperCase() + message.substring(1);
+                reclamation = reclamation.substring(0, 1).toUpperCase() + reclamation.substring(1);
 
-                ps.ajouter(new Messagerie(NomId.getText(), String.valueOf(DateId.getValue()), message));
+                rs.ajouter(new Reclamation(nom, reclamation, Date.valueOf(date)));
 
                 showNotification();
 
@@ -65,7 +88,7 @@ public class AjouterMessage {
                 alert.setContentText("Message added successfully");
                 alert.showAndWait();
 
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherMessage.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherReclamation.fxml"));
                 Parent root = loader.load();
 
                 // Retrieve the current scene from any control
@@ -86,10 +109,27 @@ public class AjouterMessage {
         }
     }
 
+    // Validate date method
+    private boolean isValidDate(LocalDate date) {
+        // Check if the selected date is not less than the current date
+        return date != null && !date.isBefore(LocalDate.now());
+    }
 
-    // Méthode pour valider les champs
+    // Validate name method (no symbols allowed)
+    private boolean isValidName(String name) {
+        // Check if the name does not contain specific symbols (@ # $ *)
+        return Pattern.matches("[a-zA-Z\\s]+", name) && !name.matches(".*[@#$*].*");
+    }
+
+    // Validate message method (customize based on your criteria)
+    private boolean isValidMessage(String reclamation) {
+        // Add your custom message validation logic here
+        // For example, you can check the length or specific content criteria
+        return !reclamation.isEmpty();
+    }
+
     private boolean validateFields() {
-        if (NomId.getText().isEmpty() || DateId.getValue() == null || MessageId.getText().isEmpty()) {
+        if (NomId.getText().isEmpty() || DateId.getValue() == null || ReclamationId.getText().isEmpty()) {
             showAlert("Please fill in all fields.");
             return false;
         }
@@ -107,7 +147,7 @@ public class AjouterMessage {
         }
 
         // Validate message (customize based on your criteria)
-        if (!isValidMessage(MessageId.getText())) {
+        if (!isValidMessage(ReclamationId.getText())) {
             showAlert("Invalid message. Customize this validation based on your criteria.");
             return false;
         }
@@ -115,28 +155,9 @@ public class AjouterMessage {
         return true;
     }
 
-    // Validate date method
-    private boolean isValidDate(LocalDate date) {
-        // Check if the selected date is not less than the current date
-        return date != null && !date.isBefore(LocalDate.now());
-    }
-
-    // Validate name method (no symbols allowed)
-    private boolean isValidName(String name) {
-        // Check if the name does not contain specific symbols (@ # $ *)
-        return Pattern.matches("[a-zA-Z\\s]+", name) && !name.matches(".*[@#$*].*");
-    }
-
-    // Validate message method (customize based on your criteria)
-    private boolean isValidMessage(String message) {
-        // Add your custom message validation logic here
-        // For example, you can check the length or specific content criteria
-        return !message.isEmpty();
-    }
-
     @FXML
     void Afficher(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherMessage.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherReclamation.fxml"));
         Parent root = loader.load();
 
         // Retrieve the current scene from any control
@@ -172,26 +193,4 @@ public class AjouterMessage {
             }
         }
     }
-
-    @FXML
-    void Reclamer(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/AjouterReclamation.fxml"));
-        Parent root = loader.load();
-
-        // Retrieve the current scene from any control
-        Scene currentScene = DateId.getScene();
-
-        // Check if already on the "AfficherPersonne" scene before setting the root
-        if (currentScene.getRoot() != root) {
-            currentScene.setRoot(root);
-        }
-    }
 }
-
-
-
-
-
-
-
-

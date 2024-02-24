@@ -207,9 +207,9 @@ public class AfficherMessage {
                     // Check if the message has been modified
                     String censoredMessage = censorBadWords(messagerie.getMessage());
                     if (!messagerie.getMessage().equals(censoredMessage)) {
-                        showNotification3();
+                        showNotification3();//notification mtaa el bad words
                     } else {
-                        showNotification1();
+                        showNotification1();//notification kn jawha bhy
                     }
 
                     // After modifying the data, update the TableView
