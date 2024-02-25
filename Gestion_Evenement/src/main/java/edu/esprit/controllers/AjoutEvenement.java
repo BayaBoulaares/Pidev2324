@@ -7,7 +7,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.stage.Stage;
+
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -15,9 +18,6 @@ import java.time.LocalDate;
 public class AjoutEvenement {
 
     private final ServiceEvenement serviceEvenement = new ServiceEvenement();
-
-    @FXML
-    private Button addEventButton;
 
     @FXML
     private ComboBox<String> eventType;
@@ -59,7 +59,12 @@ public class AjoutEvenement {
             }
 
             if (nomEvenement.length() > 22) {
-                afficherAlerte("Le nom de l'événement ne peut pas dépasser 22caractères !");
+                afficherAlerte("Le nom de l'événement ne peut pas dépasser 22 caractères !");
+                return;
+            }
+
+            if (descriptionEvenement.length() < 3 || nomEvenement.length() < 3) {
+                afficherAlerte("Le nom et la description de l'événement doivent avoir au moins 3 caractères !");
                 return;
             }
 
@@ -95,12 +100,24 @@ public class AjoutEvenement {
     }
 
     @FXML
-    void afficherEvenements(ActionEvent event) throws IOException {
+    void afficherEvenements() throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/Afficher_Evenement.fxml"));
-
-        // Set the root of the scene to the loaded FXML root
-        ((Node) event.getSource()).getScene().setRoot(root);
+        eventStartDate.getScene().setRoot(root);
     }
+    @FXML
+    void afficherListEvenements() {
+        try {
+            // Load the FXML file
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Liste_Evenement.fxml"));
+            Parent root = loader.load();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 
 
     private boolean contientChiffres(String str) {

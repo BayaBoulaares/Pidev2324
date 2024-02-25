@@ -88,7 +88,9 @@
     -fx-spacing: 10px;
     -fx-pref-width: 300px;
     -fx-max-width: 300px;
+    -fx-alignment: center;
 }
+
 
 /* Style for the Consulter Sponsors button */
 .consulter-sponsors-btn {
@@ -103,3 +105,33 @@
 .consulter-sponsors-btn:hover {
     -fx-background-color: #27b9a9;
 }
+/* CSS for the agenda */
+.agenda {
+    background-color: #F0F0F0; /* Light grey background */
+    border: 1px solid #CCCCCC; /* Thin grey border */
+}
+
+/* CSS for the cells in the agenda */
+.agenda .appointment {
+    background-color: #FFFFFF; /* White background */
+    border: 1px solid #CCCCCC; /* Thin grey border */
+}
+
+/* CSS for the text in the cells */
+.agenda .appointment .summary {
+    font-size: 12px; /* Adjust the font size as needed */
+    color: #010133;
+}
+
+/* CSS for the month label */
+.month-label {
+    font-size: 20px; /* Large font size */
+    font-weight: bold; /* Bold text */
+    text-align: center; /* Centered text */
+    margin-bottom: 10px; /* Space below the label */
+    -fx-font-family: "DM Sans";
+}
+.no-border {
+    -fx-border-width: 0;
+}
+

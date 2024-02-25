@@ -130,4 +130,40 @@ public class ServiceEvenement implements IService<Evenement> {
         }
         return evenements;
     }
+  /*  public List<Evenement> getEventsOfWeek(java.sql.Date startOfWeek, java.sql.Date endOfWeek) {
+        List<Evenement> evenements = new ArrayList<>();
+        try {
+            // Construct the SQL query to retrieve events within the specified week
+            String req = "SELECT * FROM evenement WHERE (Date_Debut >= ? AND Date_Debut <= ?) OR (Date_Fin >= ? AND Date_Fin <= ?)";
+            PreparedStatement ps = cnx.prepareStatement(req);
+            ps.setDate(1, startOfWeek);
+            ps.setDate(2, endOfWeek);
+            ps.setDate(3, startOfWeek);
+            ps.setDate(4, endOfWeek);
+
+            // Execute the query
+            ResultSet res = ps.executeQuery();
+            while (res.next()) {
+                // Retrieve event details from the result set
+                int id = res.getInt("Id_Event");
+                String nomEvent = res.getString("Nom_Event");
+                String description = res.getString("Description");
+                String lieuEvent = res.getString("Lieu_Event");
+                Date dateDebut = res.getDate("Date_Debut");
+                Date dateFin = res.getDate("Date_Fin");
+                int nbMax = res.getInt("Nb_Max");
+                Status status = Status.valueOf(res.getString("Status"));
+
+                // Create an Evenement object and add it to the list
+                Evenement e = new Evenement(id, nomEvent, description, lieuEvent, dateDebut, dateFin, nbMax, status);
+                evenements.add(e);
+            }
+        } catch (SQLException ex) {
+            System.out.println("Erreur lors de la récupération des événements de la semaine : " + ex.getMessage());
+        }
+        return evenements;
+    }
+*/
+
 }
+

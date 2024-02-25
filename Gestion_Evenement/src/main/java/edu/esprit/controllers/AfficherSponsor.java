@@ -1,5 +1,6 @@
 package edu.esprit.controllers;
 
+import edu.esprit.entities.Evenement;
 import edu.esprit.entities.Sponsor;
 import edu.esprit.services.ServiceSponsor;
 import javafx.fxml.FXML;
@@ -29,6 +30,7 @@ public class AfficherSponsor {
     private TextField searchField;
 
     private final ServiceSponsor serviceSponsor = new ServiceSponsor();
+    private Evenement evenement;
 
     @FXML
     void initialize() {
@@ -38,7 +40,9 @@ public class AfficherSponsor {
         // Charger tous les sponsors lors du lancement de l'application
         refreshSponsorList();
     }
-
+    public void setEvenement(Evenement evenement) {
+        this.evenement = evenement;
+    }
     @FXML
     void searchSponsor() {
         String eventName = searchField.getText().trim();
@@ -60,7 +64,7 @@ public class AfficherSponsor {
 
 
 
-    private void displaySponsors(List<Sponsor> sponsors) {
+    public void displaySponsors(List<Sponsor> sponsors) {
         // Effacer la liste actuelle des sponsors
         sponsorVBox.getChildren().clear();
 
@@ -74,7 +78,7 @@ public class AfficherSponsor {
     private HBox createSponsorBox(Sponsor sponsor) {
         HBox sponsorBox = new HBox();
         sponsorBox.setStyle("-fx-border-color: #a5e7dc;-fx-background-color: #ffffff; -fx-border-width: 1px; -fx-border-radius: 5px;"); // Ajoutez une bordure bleue
-
+        sponsorBox.setSpacing(20);
         // Image du sponsor (si disponible)
         ImageView sponsorImage = new ImageView();
         File file = new File("C:/Users/ameni/Downloads/Gestion_Evenement2/src/main/java/edu/esprit/imagesponsor/" + sponsor.getId_Sponsor() + ".jpg");
@@ -90,13 +94,13 @@ public class AfficherSponsor {
         sponsorInfoBox.setSpacing(28);
 
         // Nom du sponsor
-        Label sponsorNameLabel = new Label("Nom du sponsor: " + sponsor.getNomSponsor());
-        sponsorNameLabel.setStyle("-fx-text-fill: darkblue; -fx-font-family: 'DM Sans'; -fx-font-size: 14px;"); // Texte en bleu foncé avec la police DM Sans et taille de l'écriture 14
+        Label sponsorNameLabel = new Label( sponsor.getNomSponsor());
+        sponsorNameLabel.setStyle("-fx-text-fill: darkblue; -fx-font-family: 'DM Sans'; -fx-font-size: 18px;"); // Texte en bleu foncé avec la police DM Sans et taille de l'écriture 14
         sponsorInfoBox.getChildren().add(sponsorNameLabel);
 
         // Description du sponsor
-        Label descriptionLabel = new Label("Description: " + sponsor.getDescription_s());
-        descriptionLabel.setStyle("-fx-text-fill: darkblue; -fx-font-family: 'DM Sans'; -fx-font-size: 14px;"); // Texte en bleu foncé avec la police DM Sans et taille de l'écriture 14
+        Label descriptionLabel = new Label(sponsor.getDescription_s());
+        descriptionLabel.setStyle("-fx-text-fill: #a7b2b1; -fx-font-family: 'DM Sans'; -fx-font-size: 14px;"); // Texte en bleu foncé avec la police DM Sans et taille de l'écriture 14
         sponsorInfoBox.getChildren().add(descriptionLabel);
 
         // Autres détails du sponsor
@@ -141,6 +145,7 @@ public class AfficherSponsor {
             List<Sponsor> updatedSponsors = serviceSponsor.getAll();
             for (Sponsor updatedSponsor : updatedSponsors) {
                 HBox sponsorBox = createSponsorBox(updatedSponsor);
+                sponsorBox.setSpacing(20);
                 sponsorVBox.getChildren().add(sponsorBox);
             }
         } catch (SQLException ex) {

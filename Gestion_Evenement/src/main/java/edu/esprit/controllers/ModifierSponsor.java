@@ -67,10 +67,12 @@ public class ModifierSponsor {
             String selectedEventName = eventComboBox.getValue();
 
             if (newName == null || newName.isEmpty() || newFond == null || selectedEventName == null) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Erreur");
-                alert.setContentText("Veuillez remplir tous les champs obligatoires.");
-                alert.showAndWait();
+                afficherAlerte("Veuillez remplir tous les champs obligatoires.");
+                return;
+            }
+
+            if (newName.length() < 3 || newDescription.length() < 3) {
+                afficherAlerte("Le nom et la description du sponsor doivent avoir au moins 3 caractères !");
                 return;
             }
 
@@ -87,10 +89,7 @@ public class ModifierSponsor {
 
             if (selectedEvent == null) {
                 // If the selected event is not found, show an error message
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Erreur");
-                alert.setContentText("L'événement sélectionné est introuvable.");
-                alert.showAndWait();
+                afficherAlerte("L'événement sélectionné est introuvable.");
                 return;
             }
 
@@ -104,11 +103,16 @@ public class ModifierSponsor {
             alert.setContentText("Sponsor mis à jour avec succès !");
             alert.showAndWait();
         } catch (SQLException e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Erreur");
-            alert.setContentText("Erreur lors de la mise à jour du sponsor : " + e.getMessage());
-            alert.showAndWait();
+            afficherAlerte("Erreur lors de la mise à jour du sponsor : " + e.getMessage());
         }
     }
+
+    private void afficherAlerte(String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Erreur");
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+
 
 }

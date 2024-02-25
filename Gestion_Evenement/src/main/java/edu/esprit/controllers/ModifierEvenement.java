@@ -4,15 +4,14 @@ import edu.esprit.entities.Evenement;
 import edu.esprit.entities.Status;
 import edu.esprit.services.ServiceEvenement;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.control.*;
-import java.io.IOException;
+import javafx.event.ActionEvent;
+import javafx.scene.layout.AnchorPane;
+
 import java.sql.SQLException;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
-import javafx.event.ActionEvent;
 import java.util.Date;
 
 public class ModifierEvenement {
@@ -30,6 +29,8 @@ public class ModifierEvenement {
     private TextField maxNumber;
     @FXML
     private TextArea eventDescription;
+    @FXML
+    private AnchorPane anchorPane;
 
     // Ajoutez un champ pour stocker l'ID de l'événement
     private int idEvenement;
@@ -71,8 +72,6 @@ public class ModifierEvenement {
     @FXML
     private void saveEventData(ActionEvent event) {
         try {
-            // Récupére
-            // r les données modifiées depuis les champs
             String nomEvenement = eventName.getText();
             LocalDate dateDebut = eventStartDate.getValue();
             LocalDate dateFin = eventEndDate.getValue();
@@ -80,6 +79,22 @@ public class ModifierEvenement {
             String typeEvenement = eventType.getValue();
             int nombreMax = Integer.parseInt(maxNumber.getText());
             String description = eventDescription.getText();
+
+            if (nomEvenement.isEmpty() || lieuEvenement.isEmpty() || dateDebut == null ||
+                    dateFin == null || typeEvenement == null || description.isEmpty()) {
+                afficherAlerte("Veuillez remplir tous les champs !");
+                return;
+            }
+
+            if (nomEvenement.length() > 22) {
+                afficherAlerte("Le nom de l'événement ne peut pas dépasser 22 caractères !");
+                return;
+            }
+
+            if (description.length() < 3 || nomEvenement.length() < 3) {
+                afficherAlerte("Le nom et la description de l'événement doivent avoir au moins 3 caractères !");
+                return;
+            }
 
             // Convertir les LocalDate en Date
             Date dateDebutConverted = java.sql.Date.valueOf(dateDebut);
@@ -103,23 +118,20 @@ public class ModifierEvenement {
 
         } catch (NumberFormatException e) {
             // Afficher un message d'erreur
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Erreur");
-            alert.setContentText("Veuillez entrer un nombre valide pour le nombre maximum de participants.");
-            alert.showAndWait();
+            afficherAlerte("Veuillez entrer un nombre valide pour le nombre maximum de participants.");
         } catch (IllegalArgumentException e) {
             // Afficher un message d'erreur
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Erreur");
-            alert.setContentText("Veuillez sélectionner un type d'événement.");
-            alert.showAndWait();
+            afficherAlerte("Veuillez sélectionner un type d'événement.");
         } catch (SQLException e) {
             // Afficher un message d'erreur
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Erreur");
-            alert.setContentText("Une erreur s'est produite lors de la mise à jour de l'événement : " + e.getMessage());
-            alert.showAndWait();
+            afficherAlerte("Une erreur s'est produite lors de la mise à jour de l'événement : " + e.getMessage());
         }
     }
 
+    private void afficherAlerte(String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Erreur");
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
 }

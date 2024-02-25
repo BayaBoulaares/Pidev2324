@@ -1,37 +1,44 @@
 package edu.esprit.controllers;
 import edu.esprit.entities.Evenement;
+import edu.esprit.entities.Sponsor;
 import edu.esprit.services.ServiceEvenement;
+import edu.esprit.services.ServiceSponsor;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.net.URL;
-import java.nio.file.Paths;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
-
 
 public class AfficherEvenement {
 
     @FXML
     private VBox eventVBox;
 
-    private final ServiceEvenement serviceEvenement = new ServiceEvenement();
-    private final Map<Integer, Boolean> displayedEvents = new HashMap<>();
 
+    @FXML
+    private Button calendarButton;
+    private final ServiceEvenement serviceEvenement = new ServiceEvenement();
+    private final ServiceSponsor serviceSponsor = new ServiceSponsor();
+    private final Map<Integer, Boolean> displayedEvents = new HashMap<>();
 
     @FXML
     void initialize() {
@@ -61,6 +68,8 @@ public class AfficherEvenement {
         eventVBox.getChildren().add(eventPairBox);
     }
 
+
+
     private VBox createEventBox(Evenement evenement) {
         VBox eventBox = new VBox();
         eventBox.getStyleClass().add("eventBox");
@@ -74,62 +83,121 @@ public class AfficherEvenement {
         eventImage.setPreserveRatio(true);
         eventBox.getChildren().add(eventImage);
 
-        Label titleLabel = new Label("Nom: " + evenement.getNom_Event());
-        titleLabel.getStyleClass().add("title");
-        eventBox.getChildren().add(titleLabel);
+        // Créer le label du nom
+        Label nameLabel = new Label(evenement.getNom_Event());
+        nameLabel.setStyle("-fx-font-family: 'DM Sans'; -fx-font-size: 18;");
+        nameLabel.getStyleClass().add("nom");
+        eventBox.getChildren().add(nameLabel); // Ajouter cette ligne
 
-        Label lieuLabel = new Label("Lieu: " + evenement.getLieu_Event());
+        HBox hbox = new HBox();
+        ImageView locationIcon = new ImageView(new Image("file:///C:/Users/ameni/Downloads/Gestion_Evenement2/src/main/java/edu/esprit/image/lieu.png"));
+        locationIcon.setFitWidth(20);
+        locationIcon.setFitHeight(20);
+
+        // Créer le label du lieu
+        Label lieuLabel = new Label(evenement.getLieu_Event());
         lieuLabel.getStyleClass().add("lieu");
-        eventBox.getChildren().add(lieuLabel);
 
-        Label dateDebutLabel = new Label("Date début: " + evenement.getDate_Debut());
-        dateDebutLabel.getStyleClass().add("date");
-        eventBox.getChildren().add(dateDebutLabel);
+        // Ajouter l'icône et le label au HBox
+        hbox.getChildren().addAll(locationIcon, lieuLabel);
 
-        Label dateFinLabel = new Label("Date fin: " + evenement.getDate_Fin());
-        dateFinLabel.getStyleClass().add("date");
-        eventBox.getChildren().add(dateFinLabel);
+        // Ajouter le HBox à eventBox
+        eventBox.getChildren().add(hbox);
 
-        Label maxLabel = new Label("Nombre max: " + evenement.getNb_Max());
-        maxLabel.getStyleClass().add("max");
-        eventBox.getChildren().add(maxLabel);
-
-        Label descriptionLabel = new Label("Description: " + evenement.getDescription());
+        SimpleDateFormat formatter = new SimpleDateFormat("EEE, dd MMM", Locale.FRENCH);
+        String dateDebutStr = formatter.format(evenement.getDate_Debut());
+        String dateFinStr = formatter.format(evenement.getDate_Fin());
+        Label dateLabel = new Label( dateDebutStr +"    /   "+ dateFinStr);
+        dateLabel.getStyleClass().add("date");
+        eventBox.getChildren().add(dateLabel);
+        // Créer le label de la description
+        Label descriptionLabel = new Label(evenement.getDescription());
         descriptionLabel.getStyleClass().add("description");
+        descriptionLabel.setStyle("-fx-text-fill: gray;  -fx-wrap-text: true;");
+        descriptionLabel.setWrapText(true);
+        descriptionLabel.setMaxWidth(Double.MAX_VALUE); // Permet au label de s'étendre en largeur sur plusieurs lignes
+        descriptionLabel.setMaxHeight(Double.MAX_VALUE); // Permet au label de s'étendre en hauteur sur plusieurs lignes
+        descriptionLabel.setPrefWidth(800); // Vous pouvez ajuster cette valeur en fonction de la largeur souhaitée
         eventBox.getChildren().add(descriptionLabel);
 
-        Label statusLabel = new Label("Status: " + evenement.getStatus());
+
+        Label maxLabel = new Label("Nombre Restant :" + evenement.getNb_Max());
+        maxLabel.getStyleClass().add("max");
+        eventBox.getChildren().add(maxLabel);
+        Label statusLabel = new Label("Etat :" + evenement.getStatus());
         statusLabel.getStyleClass().add("status");
         eventBox.getChildren().add(statusLabel);
+
+        // Créer un HBox pour les boutons
+        HBox hboxButtons = new HBox(18); // 18 est l'espace entre les éléments
+        hboxButtons.setAlignment(Pos.CENTER); // Centrer les éléments dans le HBox
 
         Button modifierButton = new Button("Modifier");
         modifierButton.getStyleClass().add("action-button");
         modifierButton.setStyle("-fx-background-color: turquoise; -fx-text-fill: white;-fx-background-radius: 5px; -fx-border-color: turquoise;");
         modifierButton.setOnAction(event -> handleModifierEvent(evenement));
-        eventBox.getChildren().add(modifierButton);
+
+        // Créer l'icône pour le bouton "Modifier"
+        ImageView editIcon = new ImageView(new Image("file:///C:/Users/ameni/Downloads/Gestion_Evenement2/src/main/java/edu/esprit/image/editer.png"));
+        editIcon.setFitWidth(20);
+        editIcon.setFitHeight(20);
+
+        // Ajouter l'icône au bouton "Modifier"
+        modifierButton.setGraphic(editIcon);
 
         Button supprimerButton = new Button("Supprimer");
         supprimerButton.getStyleClass().add("action-button");
         supprimerButton.setStyle("-fx-background-color: white; -fx-text-fill:turquoise;-fx-background-radius: 5px; -fx-border-color: turquoise;");
         supprimerButton.setOnAction(event -> handleSupprimerEvent(evenement));
-        eventBox.getChildren().add(supprimerButton);
 
-        Button AjouterSponsorsButton = new Button("Ajouter Sponsors");
+        // Créer l'icône pour le bouton "Supprimer"
+        ImageView deleteIcon = new ImageView(new Image("file:///C:/Users/ameni/Downloads/Gestion_Evenement2/src/main/java/edu/esprit/image/supprimer.png"));
+        deleteIcon.setFitWidth(21);
+        deleteIcon.setFitHeight(21);
+
+        // Ajouter l'icône au bouton "Supprimer"
+        supprimerButton.setGraphic(deleteIcon);
+
+        // Ajouter les boutons au HBox
+        hboxButtons.getChildren().addAll(modifierButton,supprimerButton); // supprimer à gauche, modifier à droite
+
+        eventBox.getChildren().add(hboxButtons);
+
+        Button consulterSponsorsButton = new Button("Consulter Sponsors");
+        consulterSponsorsButton.getStyleClass().add("action-button");
+        consulterSponsorsButton.setStyle("-fx-background-color: #ffffff; -fx-text-fill: #02024b;-fx-background-radius: 5px; -fx-border-color: #a6b0af;");
+        ImageView icon = new ImageView(new Image("file:///C:/Users/ameni/Downloads/Gestion_Evenement2/src/main/java/edu/esprit/image/referer.png"));
+        icon.setFitWidth(15);
+        icon.setFitHeight(15);
+        consulterSponsorsButton.setGraphic(icon);
+        consulterSponsorsButton.setOnAction(event -> handleConsulterSponsors(evenement));
+        eventBox.getChildren().add(consulterSponsorsButton);
+        return eventBox;
+    }
+    /* Button AjouterSponsorsButton = new Button("Ajouter Sponsors");
         AjouterSponsorsButton.getStyleClass().add("action-button");
         AjouterSponsorsButton.setStyle("-fx-background-color: #ffffff; -fx-text-fill: #02024b;-fx-background-radius: 5px; -fx-border-color: #a6b0af;");
         AjouterSponsorsButton.setOnAction(event -> AjouterSponsors(evenement));
         eventBox.getChildren().add(AjouterSponsorsButton);
-        return eventBox;
-    }
+*/
+
+
+
+
+
 
     private void handleSupprimerEvent(Evenement evenement) {
         try {
+            // Supprimer d'abord le sponsor lié à l'événement
+            serviceSponsor.supprimer(evenement.getId_Event());
+
+            // Ensuite, supprimer l'événement
             serviceEvenement.supprimer(evenement.getId_Event());
 
             Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
             successAlert.setTitle("Succès");
             successAlert.setHeaderText(null);
-            successAlert.setContentText("Événement supprimé avec succès !");
+            successAlert.setContentText("Événement et son sponsor ont été supprimés avec succès !");
             successAlert.show();
 
             // Clear the VBox
@@ -138,7 +206,7 @@ public class AfficherEvenement {
             // Repopulate the VBox with the updated list of events from the database
             List<Evenement> updatedEvents = serviceEvenement.getAll();
             HBox hbox = new HBox();
-            hbox.setSpacing(20);
+            hbox.setSpacing(30);
             for (Evenement updatedEvent : updatedEvents) {
                 // Add each event to the HBox
                 hbox.getChildren().add(createEventBox(updatedEvent));
@@ -171,7 +239,7 @@ public class AfficherEvenement {
                 try {
                     List<Evenement> updatedEvents = serviceEvenement.getAll();
                     HBox hbox = new HBox();
-                    hbox.setSpacing(20);
+                    hbox.setSpacing(30);
                     for (Evenement updatedEvent : updatedEvents) {
                         // Create an HBox for each event
                         hbox.getChildren().add(createEventBox(updatedEvent));
@@ -189,9 +257,25 @@ public class AfficherEvenement {
         }
     }
 
-
     @FXML
-    private void handleConsulterSponsors() {
+    private void handleConsulterSponsors(Evenement evenement) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Afficher_Sponsor.fxml"));
+            Parent root = loader.load();
+
+            AfficherSponsor controller = loader.getController();
+            List<Sponsor> sponsors = serviceSponsor.getByEventName(evenement.getNom_Event());
+            controller.displaySponsors(sponsors);
+
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    @FXML
+    private void ConsulterSponsors() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Afficher_Sponsor.fxml"));
             Parent root = loader.load();
@@ -200,33 +284,25 @@ public class AfficherEvenement {
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
-            // Gérer l'exception appropriée, par exemple en affichant un message d'erreur
         }
     }
-
-
-
-    private void AjouterSponsors(Evenement evenement) {
+    @FXML
+    private void AjouterSponsors() {
         try {
-            URL url = getClass().getResource("/Ajout_Sponsor.fxml");
-            FXMLLoader loader = new FXMLLoader(url);
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Ajout_Sponsor.fxml"));
             Parent root = loader.load();
-            AjoutSponsor ajoutSponsorController = loader.getController();
-            if (ajoutSponsorController != null) {
-                ajoutSponsorController.setEvenement(evenement);
-                Stage stage = new Stage();
-                stage.setScene(new Scene(root));
-                stage.showAndWait(); // Change this line to make sure the stage is closed before continuing
-                if (ajoutSponsorController.getEvenement() != null) {
-                    // Handle the event here or refresh your UI
-                }
-            } else {
-                afficherAlerte("Erreur: Contrôleur introuvable pour la fenêtre Ajout Sponsor.");
-            }
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.showAndWait();
+
+            // Code à exécuter après la fermeture de la fenêtre d'ajout de sponsor
+            System.out.println("Fenêtre d'ajout de sponsor fermée.");
+
         } catch (IOException e) {
-            afficherAlerte("Erreur lors du chargement de la fenêtre Ajout Sponsor : " + e.getMessage());
+            e.printStackTrace();
         }
     }
+
 
 
     private void afficherAlerte(String message) {
@@ -239,25 +315,36 @@ public class AfficherEvenement {
     @FXML
     private void handleRetour() {
         try {
-            // Charger la vue de la page d'ajout d'événement
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Ajout_Evenement.fxml"));
             Parent root = loader.load();
 
-            // Créer une nouvelle scène
             Scene scene = new Scene(root);
 
-            // Obtenir la référence de la scène actuelle
             Stage stage = (Stage) eventVBox.getScene().getWindow();
 
-            // Mettre à jour la scène avec la nouvelle vue
             stage.setScene(scene);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
-            // Gérer l'exception, par exemple afficher une alerte
         }
     }
 
-}
+    @FXML
+    void handleCalendarButton(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Calendrier.fxml"));
+            Parent root = loader.load();
 
+            // Create a new stage
+            Stage stage = new Stage();
+            // Set the scene with the loaded root
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
 
+            // Show the stage
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+   }

@@ -167,6 +167,4 @@ public class ServiceSponsor implements IService<Sponsor> {
 
         return sponsors;
     }
-
-
 }
