@@ -2,6 +2,8 @@ package edu.esprit.controllers;
 
 import edu.esprit.entities.Reclamation;
 import edu.esprit.services.ServiceReclamation;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -9,6 +11,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -18,6 +21,7 @@ import java.io.IOException;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.ResourceBundle;
 import java.util.regex.Pattern;
 
 public class AjouterReclamation {
@@ -32,6 +36,10 @@ public class AjouterReclamation {
 
     @FXML
     private TextField NomId;
+
+    @FXML
+    private ComboBox<String> comboBox;
+
 
 
 
@@ -81,12 +89,13 @@ public class AjouterReclamation {
 
                 rs.ajouter(new Reclamation(nom, reclamation, Date.valueOf(date)));
 
-                showNotification();
-
+                // Affichez la réponse dans une alerte
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Validation");
-                alert.setContentText("Message added successfully");
+                alert.setTitle("Confirmation");
+                alert.setContentText("Réclamation ajoutée avec succès.\nOption sélectionnée : " + reclamation);
                 alert.showAndWait();
+
+                showNotification();
 
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherReclamation.fxml"));
                 Parent root = loader.load();
@@ -117,9 +126,10 @@ public class AjouterReclamation {
 
     // Validate name method (no symbols allowed)
     private boolean isValidName(String name) {
-        // Check if the name does not contain specific symbols (@ # $ *)
-        return Pattern.matches("[a-zA-Z\\s]+", name) && !name.matches(".*[@#$*].*");
+        // Check if the name contains only letters, spaces, and digits
+        return Pattern.matches("[a-zA-Z\\s\\d]+", name) && !name.matches(".*[@#$*].*");
     }
+
 
     // Validate message method (customize based on your criteria)
     private boolean isValidMessage(String reclamation) {
@@ -129,7 +139,7 @@ public class AjouterReclamation {
     }
 
     private boolean validateFields() {
-        if (NomId.getText().isEmpty() || DateId.getValue() == null || ReclamationId.getText().isEmpty()) {
+        if (NomId.getText().isEmpty() || DateId.getValue() == null || ReclamationId.getText().isEmpty() || comboBox.getValue() == null) {
             showAlert("Please fill in all fields.");
             return false;
         }
@@ -152,8 +162,15 @@ public class AjouterReclamation {
             return false;
         }
 
+        // Validate ComboBox selection
+        if (comboBox.getValue().isEmpty()) {
+            showAlert("Please select a reclamation type from the dropdown.");
+            return false;
+        }
+
         return true;
     }
+
 
     @FXML
     void Afficher(ActionEvent event) throws IOException {
@@ -192,5 +209,27 @@ public class AjouterReclamation {
                 e.printStackTrace();
             }
         }
+    }
+
+    public void comboboxselected(ActionEvent actionEvent) {
+        // Gérez l'événement de sélection du ComboBox
+        String selectedOption = comboBox.getValue();
+
+        // Affichez l'option sélectionnée dans le champ ReclamationId
+        ReclamationId.setText(selectedOption);
+    }
+
+    @FXML
+    void initialize() {
+        // Initialisez le ComboBox avec des réclamations spécifiques
+        ObservableList<String> reclamationOptions = FXCollections.observableArrayList(
+                "Problème de cours",
+                "Reclamation pour proffeseur",
+                "Reclamation pour etudiant",
+                "Problèmes techniques",
+                "Difficultés d'utilisation d'application",
+                "Suggestions d'amélioration"
+        );
+        comboBox.setItems(reclamationOptions);
     }
 }

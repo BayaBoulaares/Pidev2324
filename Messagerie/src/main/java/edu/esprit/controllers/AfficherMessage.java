@@ -2,8 +2,12 @@ package edu.esprit.controllers;
 
 import edu.esprit.entities.Messagerie;
 import edu.esprit.services.ServiceMessagerie;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -12,9 +16,11 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import org.controlsfx.control.Rating;
 
 import java.awt.*;
 import java.io.IOException;
@@ -60,6 +66,10 @@ public class AfficherMessage {
     private Button Supprimer;
     @FXML
     private Button Goback;
+    @FXML
+    private TextField searchField;
+
+
 
     public final ServiceMessagerie ps = new ServiceMessagerie();
     private Messagerie messagerie;
@@ -121,6 +131,8 @@ public class AfficherMessage {
         Date.setCellValueFactory(new PropertyValueFactory<>("date"));
         Message.setCellValueFactory(new PropertyValueFactory<>("message"));
         // Add this method for censoring bad words
+
+
     }
 
     private String convertSymbolsToEmojis(String text) {
@@ -285,7 +297,9 @@ public class AfficherMessage {
             if (validateSelection()) {
                 ServiceMessagerie ps = new ServiceMessagerie();
                 if (messagerie != null) {
-                    ps.supprimer(messagerie.getId());
+                    if (showDeleteConfirmationDialog()) {
+                        ps.supprimer(messagerie.getId());
+                    }
                     showNotification2();
 
                     initialize();
@@ -381,4 +395,47 @@ public class AfficherMessage {
         }
     }
 
+    private boolean showDeleteConfirmationDialog() {
+        Alert confirmationDialog = new Alert(Alert.AlertType.CONFIRMATION);
+        confirmationDialog.setTitle("Confirmation");
+        confirmationDialog.setHeaderText(null);
+        confirmationDialog.setContentText("Are you sure you want to delete this item?");
+
+        Optional<ButtonType> result = confirmationDialog.showAndWait();
+
+        return result.isPresent() && result.get() == ButtonType.OK;
+    }
+
+    public void recherche(ActionEvent actionEvent) {
+        try {
+            List<Messagerie> messagerieList = new ArrayList<>(ps.getAll());  // Assuming ps.getAll() returns a List
+
+            ObservableList<Messagerie> observableList = FXCollections.observableList(messagerieList);
+            FilteredList<Messagerie> filteredList = new FilteredList<>(observableList, p -> true);
+
+            // Bind the search field text to the filter predicate
+            searchField.textProperty().addListener((observable, oldValue, newValue) -> {
+                filteredList.setPredicate(messagerie -> {
+                    if (newValue == null || newValue.isEmpty()) {
+                        return true; // Show all items when the filter is empty
+                    }
+
+                    String lowerCaseFilter = newValue.toLowerCase();
+
+                    // Check if any property of the Messagerie contains the filter text
+                    return messagerie.getNom().toLowerCase().contains(lowerCaseFilter)
+                            || messagerie.getMessage().toLowerCase().contains(lowerCaseFilter)
+                            || String.valueOf(messagerie.getDate()).toLowerCase().contains(lowerCaseFilter);
+                });
+            });
+
+            SortedList<Messagerie> sortedList = new SortedList<>(filteredList);
+            sortedList.comparatorProperty().bind(TableView.comparatorProperty());
+
+            TableView.setItems(sortedList);
+
+        } catch (Exception e) {
+            e.printStackTrace(); // Handle the exception properly in your application
+        }
+    }
 }

@@ -29,7 +29,7 @@
       <TextField fx:id="MessageId" layoutX="650.0" layoutY="210.0" prefHeight="141.0" prefWidth="226.0" promptText="Message" styleClass="input-field" />
       <Button layoutX="794.0" layoutY="750.0" mnemonicParsing="false" onAction="#Afficher" styleClass="action-button" text="Afficher" />
       <Button layoutX="707.0" layoutY="750.0" mnemonicParsing="false" onAction="#Ajouter" styleClass="action-button" text="Ajouter" />
-      <Button layoutX="618.0" layoutY="750.0" mnemonicParsing="false" onAction="#Reclamer" text="Reclamer" />
+      <Button layoutX="618.0" layoutY="750.0" mnemonicParsing="false" onAction="#Reclamer" styleClass="action-button" text="Reclamer" />
       <Label layoutX="436.0" layoutY="125.0" styleClass="info-label" text="Nom" />
       <Label layoutX="426.0" layoutY="272.0" styleClass="info-label" text="Message" />
       <DatePicker fx:id="DateId" layoutX="676.0" layoutY="412.0" promptText="Date" styleClass="input-field" />

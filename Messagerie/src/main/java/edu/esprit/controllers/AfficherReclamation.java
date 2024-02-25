@@ -1,9 +1,14 @@
 package edu.esprit.controllers;
 
+import edu.esprit.entities.Messagerie;
 import edu.esprit.entities.Reclamation;
 import edu.esprit.services.ServiceReclamation;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,6 +23,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import org.controlsfx.control.Rating;
 
 import java.awt.*;
 import java.io.IOException;
@@ -74,6 +80,18 @@ public class AfficherReclamation {
 
     @FXML
     private VBox navBar;
+
+    @FXML
+    private TextField searchField;
+
+
+    @FXML
+    private Rating rating;
+    @FXML
+    private TextField msg;
+
+
+
 
     public final ServiceReclamation ps = new ServiceReclamation();
     private Reclamation reclamation;
@@ -348,7 +366,10 @@ public class AfficherReclamation {
             if (validateSelection()) {
                 ServiceReclamation ps = new ServiceReclamation();
                 if (reclamation != null) {
-                    ps.supprimer(reclamation.getId());
+                    if (showDeleteConfirmationDialog()) {
+                        ps.supprimer(reclamation.getId());
+
+                    }
                     showNotification2();
 
                     initialize();
@@ -396,7 +417,60 @@ public class AfficherReclamation {
             Date.setCellValueFactory(new PropertyValueFactory<>("date"));  // Make sure your Reclamation class has a 'Date' property of type java.sql.Date
 
             // Add this method for censoring bad words
+
+            rating.ratingProperty().addListener(new ChangeListener<Number>() {
+                @Override
+                public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
+                    msg.setText("Rating "+t1);
+                }
+            });
+
         }
+    private boolean showDeleteConfirmationDialog() {
+        Alert confirmationDialog = new Alert(Alert.AlertType.CONFIRMATION);
+        confirmationDialog.setTitle("Confirmation");
+        confirmationDialog.setHeaderText(null);
+        confirmationDialog.setContentText("Are you sure you want to delete this item?");
+
+        Optional<ButtonType> result = confirmationDialog.showAndWait();
+
+        return result.isPresent() && result.get() == ButtonType.OK;
+    }
+    public void recherche(ActionEvent actionEvent) {
+        try {
+            List<Reclamation> reclamationsList = new ArrayList<>(ps.getAll());  // Assuming ps.getAll() returns a List
+
+            ObservableList<Reclamation> observableList = FXCollections.observableList(reclamationsList);
+            FilteredList<Reclamation> filteredList = new FilteredList<>(observableList, p -> true);
+
+            // Bind the search field text to the filter predicate
+            searchField.textProperty().addListener((observable, oldValue, newValue) -> {
+                filteredList.setPredicate(messagerie -> {
+                    if (newValue == null || newValue.isEmpty()) {
+                        return true; // Show all items when the filter is empty
+                    }
+
+                    String lowerCaseFilter = newValue.toLowerCase();
+
+                    // Check if any property of the Messagerie contains the filter text
+                    return messagerie.getNom().toLowerCase().contains(lowerCaseFilter)
+                            || messagerie.getReclamation().toLowerCase().contains(lowerCaseFilter)
+                            || String.valueOf(messagerie.getDate()).toLowerCase().contains(lowerCaseFilter);
+                });
+            });
+
+            SortedList<Reclamation> sortedList = new SortedList<>(filteredList);
+            sortedList.comparatorProperty().bind(TableView.comparatorProperty());
+
+            TableView.setItems(sortedList);
+
+        } catch (Exception e) {
+            e.printStackTrace(); // Handle the exception properly in your application
+        }
+    }
+
+
+
 
 
     }

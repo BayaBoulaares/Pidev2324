@@ -42,5 +42,6 @@
             <Label text="Réservations" />
             <Label fx:id="lastLabel" text="Profil" />
         </VBox>
+      <TextField fx:id="searchField" layoutX="320.0" layoutY="333.0" onAction="#recherche" promptText="recherche" />
     </children>
 </AnchorPane>

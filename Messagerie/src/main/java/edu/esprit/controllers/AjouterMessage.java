@@ -123,9 +123,10 @@ public class AjouterMessage {
 
     // Validate name method (no symbols allowed)
     private boolean isValidName(String name) {
-        // Check if the name does not contain specific symbols (@ # $ *)
-        return Pattern.matches("[a-zA-Z\\s]+", name) && !name.matches(".*[@#$*].*");
+        // Check if the name contains only letters, spaces, and digits
+        return Pattern.matches("[a-zA-Z\\s\\d]+", name) && !name.matches(".*[@#$*].*");
     }
+
 
     // Validate message method (customize based on your criteria)
     private boolean isValidMessage(String message) {
