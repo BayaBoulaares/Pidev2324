@@ -1,0 +1,262 @@
+.sidebar{
+    -fx-background-color: #27DEC1;
+    -fx-background-radius: 0px 20px 20px 0px;
+    -fx-font-family: dm-sans;
+    -fx-font-size: 10px;
+
+}
+.parent{
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 30px;
+}
+.bprof{
+    -fx-background-color: #27DEC1; /* Couleur de fond */
+    -fx-text-fill: white; /* Couleur du texte */
+    -fx-font-size: 13px; /* Taille de police */
+    -fx-font-family: "dm-sans"; /* Famille de police */
+    /*-fx-border-radius: 5em; /* Rayon de la bordure */
+    -fx-border-color: transparent; /* Couleur de la bordure */
+    -fx-border-width: 2px;
+    -fx-padding: 5;
+    -fx-background-radius:1em;
+
+
+}
+.bdoc{
+    -fx-background-color: #27DEC1; /* Couleur de fond */
+    -fx-text-fill: white; /* Couleur du texte */
+    -fx-font-size: 13px; /* Taille de police */
+    -fx-font-family: "dm-sans"; /* Famille de police */
+    /*-fx-border-radius: 5em; /* Rayon de la bordure */
+    -fx-border-color: transparent; /* Couleur de la bordure */
+    -fx-border-width: 2px;
+    -fx-padding: 5;
+    -fx-background-radius:1em;
+
+
+}
+.bev{
+    -fx-background-color: #27DEC1; /* Couleur de fond */
+    -fx-text-fill: white; /* Couleur du texte */
+    -fx-font-size: 13px; /* Taille de police */
+    -fx-font-family: "dm-sans"; /* Famille de police */
+    /*-fx-border-radius: 5em; /* Rayon de la bordure */
+    -fx-border-color: transparent; /* Couleur de la bordure */
+    -fx-border-width: 2px;
+    -fx-padding: 5;
+    -fx-background-radius:1em;
+
+
+}
+.bee{
+    -fx-background-color: #27DEC1; /* Couleur de fond */
+    -fx-text-fill: white; /* Couleur du texte */
+    -fx-font-size: 13px; /* Taille de police */
+    -fx-font-family: "dm-sans"; /* Famille de police */
+    /*-fx-border-radius: 5em; /* Rayon de la bordure */
+    -fx-border-color: transparent; /* Couleur de la bordure */
+    -fx-border-width: 2px;
+    -fx-padding: 5;
+    -fx-background-radius:1em;
+
+
+}
+.dcxn{
+    -fx-background-color: #27DEC1; /* Couleur de fond */
+    -fx-text-fill: white; /* Couleur du texte */
+    -fx-font-size: 14px; /* Taille de police */
+    -fx-font-family: "dm-sans"; /* Famille de police */
+    /*-fx-border-radius: 5em; /* Rayon de la bordure */
+    -fx-border-color: transparent; /* Couleur de la bordure */
+    -fx-border-width: 2px;
+    -fx-padding: 5;
+    -fx-background-radius:1em;
+
+
+}
+.brec{
+    -fx-background-color: #27DEC1; /* Couleur de fond */
+    -fx-text-fill: white; /* Couleur du texte */
+    -fx-font-size: 13px; /* Taille de police */
+    -fx-font-family: "dm-sans"; /* Famille de police */
+    /*-fx-border-radius: 5em; /* Rayon de la bordure */
+    -fx-border-color: transparent; /* Couleur de la bordure */
+    -fx-border-width: 2px;
+    -fx-padding: 5;
+    -fx-background-radius:1em;
+
+
+}
+.brec{
+    -fx-background-color: #27DEC1; /* Couleur de fond */
+    -fx-text-fill: white; /* Couleur du texte */
+    -fx-font-size: 13px; /* Taille de police */
+    -fx-font-family: "dm-sans"; /* Famille de police */
+    /*-fx-border-radius: 5em; /* Rayon de la bordure */
+    -fx-border-color: transparent; /* Couleur de la bordure */
+    -fx-border-width: 2px;
+    -fx-padding: 5;
+    -fx-background-radius:1em;
+
+
+}
+.deletep{
+    -fx-background-color: #27DEC1; /* Couleur de fond */
+    -fx-text-fill: white; /* Couleur du texte */
+    -fx-font-size: 13px; /* Taille de police */
+    -fx-font-family: "dm-sans"; /* Famille de police */
+    /*-fx-border-radius: 5em; /* Rayon de la bordure */
+    -fx-border-color: transparent; /* Couleur de la bordure */
+    -fx-border-width: 2px;
+    -fx-padding: 5;
+    -fx-background-radius:1em;
+
+
+}
+.bmodifier{
+    -fx-background-color: #27DEC1; /* Couleur de fond */
+    -fx-text-fill: white; /* Couleur du texte */
+    -fx-font-size: 13px; /* Taille de police */
+    -fx-font-family: "dm-sans"; /* Famille de police */
+    /*-fx-border-radius: 5em; /* Rayon de la bordure */
+    -fx-border-color: transparent; /* Couleur de la bordure */
+    -fx-border-width: 2px;
+    -fx-padding: 5;
+    -fx-background-radius:1em;
+
+
+}
+.panenom {
+    -fx-background-color: white; /* Définit la couleur de fond */
+    -fx-border-color: #27DEC1; /* Définit la couleur de la bordure */
+    -fx-border-width: 1px; /* Définit la largeur de la bordure */
+    -fx-padding: 10px; /* Ajoute un espace intérieur */
+    -fx-text-fill: #A3AED0;
+}
+.panedob {
+    -fx-background-color: white; /* Définit la couleur de fond */
+    -fx-border-color: #27DEC1; /* Définit la couleur de la bordure */
+    -fx-border-width: 1px; /* Définit la largeur de la bordure */
+    -fx-padding: 10px; /* Ajoute un espace intérieur */
+    -fx-text-fill: #A3AED0;
+}
+.paneadresse{
+    -fx-background-color: white; /* Définit la couleur de fond */
+    -fx-border-color: #27DEC1; /* Définit la couleur de la bordure */
+    -fx-border-width: 1px; /* Définit la largeur de la bordure */
+    -fx-padding: 10px; /* Ajoute un espace intérieur */
+    -fx-text-fill: #A3AED0;
+}
+.paneprenom {
+    -fx-background-color: white; /* Définit la couleur de fond */
+    -fx-border-color: #27DEC1; /* Définit la couleur de la bordure */
+    -fx-border-width: 1px; /* Définit la largeur de la bordure */
+    -fx-padding: 10px; /* Ajoute un espace intérieur */
+    -fx-text-fill: #A3AED0;
+}
+.panetel {
+    -fx-background-color: white; /* Définit la couleur de fond */
+    -fx-border-color: #27DEC1; /* Définit la couleur de la bordure */
+    -fx-border-width: 1px; /* Définit la largeur de la bordure */
+    -fx-padding: 10px; /* Ajoute un espace intérieur */
+    -fx-text-fill: #A3AED0;
+}
+.pnlogin {
+    -fx-background-color: white; /* Définit la couleur de fond */
+    -fx-border-color: #27DEC1; /* Définit la couleur de la bordure */
+    -fx-border-width: 1px; /* Définit la largeur de la bordure */
+    -fx-padding: 10px; /* Ajoute un espace intérieur */
+    -fx-text-fill: #A3AED0;
+}
+.pmdp{
+    -fx-background-color: white; /* Définit la couleur de fond */
+    -fx-border-color: #27DEC1; /* Définit la couleur de la bordure */
+    -fx-border-width: 1px; /* Définit la largeur de la bordure */
+    -fx-padding: 10px; /* Ajoute un espace intérieur */
+    -fx-text-fill: #A3AED0;
+}
+.paneprenomenfant {
+    -fx-background-color: white; /* Définit la couleur de fond */
+    -fx-border-color: #27DEC1; /* Définit la couleur de la bordure */
+    -fx-border-width: 1px; /* Définit la largeur de la bordure */
+    -fx-padding: 10px; /* Ajoute un espace intérieur */
+    -fx-text-fill: #A3AED0;
+}
+.panenomenfant {
+    -fx-background-color: white; /* Définit la couleur de fond */
+    -fx-border-color: #27DEC1; /* Définit la couleur de la bordure */
+    -fx-border-width: 1px; /* Définit la largeur de la bordure */
+    -fx-padding: 10px; /* Ajoute un espace intérieur */
+    -fx-text-fill: #A3AED0;
+}
+.pdobenfant {
+    -fx-background-color: white; /* Définit la couleur de fond */
+    -fx-border-color: #27DEC1; /* Définit la couleur de la bordure */
+    -fx-border-width: 1px; /* Définit la largeur de la bordure */
+    -fx-padding: 10px; /* Ajoute un espace intérieur */
+    -fx-text-fill: #A3AED0;
+}
+
+
+.imageuser{
+    -fx-border-color: #A3AED0; /* Couleur de la bordure */
+    -fx-border-width: 2px; /* Largeur de la bordure */
+    -fx-border-style: solid; /* Style de la bordure */
+}
+.hboxnome {
+    -fx-border-color: #FFFFFF; /* Couleur de la bordure */
+    /* Épaisseur de la bordure */
+    -fx-background-radius: 7px; /* Rayon de la bordure */
+    -fx-border-width: 0.5px; /* Épaisseur de la bordure */
+    -fx-border-radius: 10px; /* Rayon de la bordure */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 1, 0, 0, 0);
+}
+.hboxprenom {
+    -fx-border-color: #FFFFFF; /* Couleur de la bordure */
+    -fx-border-width: 0.5px; /* Épaisseur de la bordure */
+    -fx-border-radius: 10px; /* Rayon de la bordure */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 1, 0, 0, 0);
+}
+.hboxdob {
+    -fx-border-color: #FFFFFF; /* Couleur de la bordure */
+    -fx-border-width: 0.5px; /* Épaisseur de la bordure */
+    -fx-border-radius: 10px; /* Rayon de la bordure */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 1, 0, 0, 0);
+}
+.hboxadresse {
+    -fx-border-color: #FFFFFF; /* Couleur de la bordure */
+    -fx-border-width: 0.5px; /* Épaisseur de la bordure */
+    -fx-border-radius: 10px; /* Rayon de la bordure */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 1, 0, 0, 0);
+}
+.hboxtel {
+    -fx-border-color: #FFFFFF; /* Couleur de la bordure */
+    -fx-border-width: 0.5px; /* Épaisseur de la bordure */
+    -fx-border-radius: 10px; /* Rayon de la bordure */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 1, 0, 0, 0);
+}
+.hboxlogin {
+    -fx-border-color: #FFFFFF; /* Couleur de la bordure */
+    -fx-border-width: 0.5px; /* Épaisseur de la bordure */
+    -fx-border-radius: 10px; /* Rayon de la bordure */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 1, 0, 0, 0);
+}
+.hboxmdp {
+    -fx-border-color: #FFFFFF; /* Couleur de la bordure */
+    -fx-border-width: 0.5px; /* Épaisseur de la bordure */
+    -fx-border-radius: 10px; /* Rayon de la bordure */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 1, 0, 0, 0);
+}
+.hboxnome {
+    -fx-border-color: #FFFFFF; /* Couleur de la bordure */
+    -fx-border-width: 0.5px; /* Épaisseur de la bordure */
+    -fx-border-radius: 10px; /* Rayon de la bordure */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 1, 0, 0, 0);
+}
+
+.imageuser-container {
+    -fx-border-color: black; /* Couleur de la bordure */
+    -fx-border-width: 0.5px; /* Épaisseur de la bordure */
+    -fx-border-radius: 10px; /* Rayon de la bordure */
+
+}

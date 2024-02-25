@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="972.0" prefWidth="1728.0" styleClass="parent" stylesheets="@../css/StyleSignUp.css" translateX="-6.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.crudoff.services.SignUpParent">
+   <children>
+      <BorderPane layoutX="1033.0" layoutY="214.0" prefHeight="347.0" prefWidth="335.0" styleClass="borderenfant" stylesheets="@../css/StyleSignUp.css" />
+      <TextField fx:id="nomparent" layoutX="322.0" layoutY="256.0" prefHeight="32.0" prefWidth="207.0" />
+      <Text fill="#2b3674" layoutX="328.0" layoutY="243.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nom*">
+         <font>
+            <Font size="14.0" />
+         </font></Text>
+      <TextField fx:id="prenomparent" layoutX="322.0" layoutY="339.0" prefHeight="32.0" prefWidth="207.0" />
+      <Text fill="#2b3674" layoutX="328.0" layoutY="326.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Prénom*">
+         <font>
+            <Font size="14.0" />
+         </font></Text>
+      <Text fill="#2b3674" layoutX="329.0" layoutY="411.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date De Naissance*">
+         <font>
+            <Font size="14.0" />
+         </font></Text>
+      <Button fx:id="rtologin" layoutX="54.0" layoutY="18.0" mnemonicParsing="false" onAction="#returntologin" prefHeight="33.0" prefWidth="112.0" styleClass="breturn" stylesheets="@../css/StyleSignUp.css" text="Retourner" textFill="#27dec1">
+         <cursor>
+            <Cursor fx:constant="DEFAULT" />
+         </cursor>
+      </Button>
+      <Button fx:id="bconfirm" layoutX="1284.0" layoutY="760.0" mnemonicParsing="false" onAction="#addenfant" prefHeight="33.0" prefWidth="132.0" styleClass="bconfirm" text="confirmer" />
+      <TextField fx:id="emailparent" layoutX="618.0" layoutY="336.0" prefHeight="32.0" prefWidth="200.0" />
+      <Text fill="#2b3674" layoutX="624.0" layoutY="323.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email*">
+         <font>
+            <Font size="14.0" />
+         </font></Text>
+      <TextField fx:id="adresseparent" layoutX="615.0" layoutY="253.0" prefHeight="32.0" prefWidth="207.0" />
+      <Text fill="#2b3674" layoutX="624.0" layoutY="240.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Adresse*">
+         <font>
+            <Font size="14.0" />
+         </font></Text>
+      <TextField fx:id="mdpparent" layoutX="618.0" layoutY="421.0" prefHeight="32.0" prefWidth="200.0" />
+      <Text fill="#2b3674" layoutX="624.0" layoutY="411.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Mot de passe*">
+         <font>
+            <Font size="14.0" />
+         </font></Text>
+      <Text fill="#2b3674" layoutX="190.0" layoutY="103.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Créer un compte !">
+         <font>
+            <Font name="System Bold" size="30.0" />
+         </font>
+      </Text>
+      <Text fill="#707eae" layoutX="190.0" layoutY="64.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Pages / Accueil">
+         <font>
+            <Font size="18.0" />
+         </font></Text>
+      <DatePicker fx:id="dobparent" layoutX="323.0" layoutY="421.0" prefHeight="32.0" prefWidth="207.0" styleClass="date">
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </DatePicker>
+      <TextField fx:id="telparent" layoutX="327.0" layoutY="503.0" prefHeight="32.0" prefWidth="200.0" />
+      <Text fill="#2b3674" layoutX="333.0" layoutY="490.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Numéro de téléphone*">
+         <font>
+            <Font size="14.0" />
+         </font></Text>
+      <TextField fx:id="nomenfant" layoutX="1097.0" layoutY="269.0" prefHeight="32.0" prefWidth="230.0" />
+      <Text fill="#2b3674" layoutX="1103.0" layoutY="256.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nom de votre enfant *">
+         <font>
+            <Font size="14.0" />
+         </font></Text>
+      <TextField fx:id="prenomenfant" layoutX="1097.0" layoutY="349.0" prefHeight="32.0" prefWidth="230.0" />
+      <Text fill="#2b3674" layoutX="1103.0" layoutY="336.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Prénom de votre enfant*">
+         <font>
+            <Font size="14.0" />
+         </font></Text>
+      <Text fill="#2b3674" layoutX="1106.0" layoutY="419.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date De Naissance de votre enfant*">
+         <font>
+            <Font size="14.0" />
+         </font></Text>
+      <DatePicker fx:id="dobenfant" layoutX="1097.0" layoutY="437.0" prefHeight="32.0" prefWidth="230.0" styleClass="date">
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </DatePicker>
+      <TextField fx:id="confimmdp" layoutX="618.0" layoutY="503.0" prefHeight="32.0" prefWidth="200.0" />
+      <Text fill="#2b3674" layoutX="624.0" layoutY="489.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Confirmer mot de passe*">
+         <font>
+            <Font size="14.0" />
+         </font></Text>
+      <Text fill="#858585" layoutX="333.0" layoutY="197.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Vos coordonnées" wrappingWidth="152.916015625">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>
+      <Text fill="#858585" layoutX="1033.0" layoutY="197.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Coordonnées de votre enfant" wrappingWidth="207.0">
+         <font>
+            <Font name="System Bold Italic" size="15.0" />
+         </font>
+      </Text>
+      <BorderPane layoutX="-2.0" layoutY="929.0" prefHeight="43.0" prefWidth="1734.0" styleClass="borderpane" stylesheets="@../css/StyleSignUp.css" />
+      <ImageView layoutX="30.0" layoutY="23.0" translateX="10.0" translateY="2.0">
+         <image>
+            <Image url="@../images/Reply 2.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="219.0" fitWidth="230.0" layoutX="1496.0" layoutY="1.0">
+         <image>
+            <Image url="@../images/785202333.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="243.0" fitWidth="243.0" layoutX="14.0" layoutY="638.0">
+         <image>
+            <Image url="@../images/shipping, delivery, destination, location, airplane, plane, aeroplane, deliver.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>
