@@ -1,9 +1,11 @@
 package edu.esprit.controller;
 
 import edu.esprit.APIapploadfichier.UploadBasic;
+import edu.esprit.APIapploadfichier.VideoCompressor;
 import edu.esprit.entities.*;
 import edu.esprit.services.ServiceDocument;
 import edu.esprit.services.SeviceMatiere;
+import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -133,6 +135,7 @@ public class AjouterDocument  implements Initializable {
 
     @FXML
     void choisirFichier(javafx.event.ActionEvent event) {
+        idtype.setValue(null);
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Choisir un fichier");
 
@@ -144,42 +147,49 @@ public class AjouterDocument  implements Initializable {
         java.io.File selectedFile = fileChooser.showOpenDialog(new Stage());
 
         if (selectedFile != null) {
-
             // Extraire l'extension du fichier
             String extension = FilenameUtils.getExtension(selectedFile.getName());
 
             // Définir la valeur du ComboBox idtype en fonction de l'extension
             if (extension.equalsIgnoreCase("pdf")) {
                 idtype.setValue(Type.PDF);
-                idurt.setText(selectedFile.getAbsolutePath());
-
-                // Ajouter le fichier à Google Drive et récupérer son URL
-                try {
-                    String fileId = UploadBasic.uploadPDF(selectedFile.getAbsolutePath());
-                    fileUrl = "https://drive.google.com/file/d/" + fileId;
-                    System.out.println("URL du fichier : https://drive.google.com/file/d/" + fileId);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            } else if (extension.equalsIgnoreCase("mp4") || extension.equalsIgnoreCase("avi")) {
-                idtype.setValue(Type.VIDEO);
-                idurt.setText(selectedFile.getAbsolutePath());
-
-                // Ajouter le fichier à Google Drive et récupérer son URL
-                try {
-                    String fileId = UploadBasic.uploadVideo(selectedFile.getAbsolutePath(),extension);
-                    fileUrl = "https://drive.google.com/file/d/" + fileId;
-                    System.out.println("URL du fichier : https://drive.google.com/file/d/" + fileId);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+            } else if (extension.equalsIgnoreCase("mp4")) {
+                idtype.setValue(Type.MP4);
+            } else if (extension.equalsIgnoreCase("avi")) {
+                idtype.setValue(Type.AVI);
             } else {
                 showAlert(Alert.AlertType.ERROR, "Erreur d'extension", "Ce type d'extension n'est pas pris en charge");
                 idtype.setValue(null);
                 updateEditableProperty(idtype.getValue());
+                return;
             }
 
+            new Thread(() -> {
+                try {
+                    // Ajouter le fichier à Google Drive et récupérer son URL
+                    String fileId;
+                    if (extension.equalsIgnoreCase("pdf")) {
+                        fileId = UploadBasic.uploadPDF(selectedFile.getAbsolutePath());
+                    } else { // mp4 or avi
+                        String compressedFilePath = VideoCompressor. compressVideo(selectedFile.getAbsolutePath(), extension);
+                        fileId = UploadBasic.uploadVideo(compressedFilePath, extension);
+                    }
+
+
+                    fileUrl = "https://drive.google.com/file/d/" + fileId;
+
+                    // Afficher l'URL du fichier dans l'interface utilisateur
+                    Platform.runLater(() -> {
+                        System.out.println("URL du fichier : " + fileUrl);
+                        idurt.setText(selectedFile.getAbsolutePath()); // Mettre à jour le champ de texte avec le chemin du fichier
+                    });
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }).start();
+
         }
+
     }
 
     @FXML
@@ -202,7 +212,7 @@ public class AjouterDocument  implements Initializable {
     }
     private void updateEditableProperty(Type fileType) {
         // Si le type de fichier n'est pas PDF, VIDEO ou AVI, le TextField ne sera pas éditable
-        boolean isEditable = fileType == Type.PDF || fileType == Type.VIDEO ;
+        boolean isEditable = fileType == Type.PDF || fileType == Type.AVI|| fileType==Type.MP4;
         idurt.setEditable(isEditable);
     }
     public void afficherGuideUtilisation() {

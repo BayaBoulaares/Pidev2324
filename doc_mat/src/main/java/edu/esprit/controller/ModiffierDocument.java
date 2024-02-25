@@ -1,7 +1,9 @@
 package edu.esprit.controller;
 
+import edu.esprit.APIapploadfichier.UploadBasic;
 import edu.esprit.entities.*;
 import edu.esprit.services.ServiceDocument;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -41,6 +43,7 @@ public class ModiffierDocument  implements Initializable {
     int id;
     private int currentStep = 0;
     private final ServiceDocument DS = new ServiceDocument();
+    private String fileUrl;
     public void setDocumentToModify( Document doc) {
         idtt.setText(doc.getTitre());
         idtype.setValue(doc.getType());
@@ -116,6 +119,7 @@ public class ModiffierDocument  implements Initializable {
 
     }
 
+
     @FXML
     void choisirFichier(javafx.event.ActionEvent event) {
         FileChooser fileChooser = new FileChooser();
@@ -129,20 +133,44 @@ public class ModiffierDocument  implements Initializable {
         java.io.File selectedFile = fileChooser.showOpenDialog(new Stage());
 
         if (selectedFile != null) {
-            // Afficher le chemin du fichier dans le TextField
-            idurt.setText(selectedFile.getAbsolutePath());
-
             // Extraire l'extension du fichier
             String extension = FilenameUtils.getExtension(selectedFile.getName());
 
             // Définir la valeur du ComboBox idtype en fonction de l'extension
             if (extension.equalsIgnoreCase("pdf")) {
                 idtype.setValue(Type.PDF);
-            } else if (extension.equalsIgnoreCase("mp4") || extension.equalsIgnoreCase("avi")) {
-                idtype.setValue(Type.VIDEO);
+            } else if (extension.equalsIgnoreCase("mp4")) {
+                idtype.setValue(Type.MP4);
+            } else if (extension.equalsIgnoreCase("avi")) {
+                idtype.setValue(Type.AVI);
             } else {
                 showAlert(Alert.AlertType.ERROR, "Erreur d'extension", "Ce type d'extension n'est pas pris en charge");
+                idtype.setValue(null);
+             //   updateEditableProperty(idtype.getValue());
+                return;
             }
+
+            idurt.setText(selectedFile.getAbsolutePath());
+
+            // Créer un nouveau thread pour le téléchargement du fichier
+            new Thread(() -> {
+                try {
+                    // Ajouter le fichier à Google Drive et récupérer son URL
+                    String fileId;
+                    if (extension.equalsIgnoreCase("pdf")) {
+                        fileId = UploadBasic.uploadPDF(selectedFile.getAbsolutePath());
+                    } else { // mp4 or avi
+                        fileId = UploadBasic.uploadVideo(selectedFile.getAbsolutePath(), extension);
+                    }
+
+                    fileUrl = "https://drive.google.com/file/d/" + fileId;
+
+                    // Afficher l'URL du fichier dans la console (sur le thread de l'interface utilisateur)
+                    Platform.runLater(() -> System.out.println("URL du fichier : " + fileUrl));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }).start();
         }
     }
     @FXML

@@ -3,9 +3,11 @@ package edu.esprit.controller;
 import com.google.api.services.drive.Drive;
 import edu.esprit.APIapploadfichier.PDFViewer;
 import edu.esprit.APIapploadfichier.UploadBasic;
+import edu.esprit.APIapploadfichier.VideoPlayer;
 import edu.esprit.entities.Document;
 import edu.esprit.entities.Matiere;
 import edu.esprit.entities.Niveau;
+import edu.esprit.entities.Type;
 import edu.esprit.services.ServiceDocument;
 import edu.esprit.services.SeviceMatiere;
 import javafx.beans.property.ObjectProperty;
@@ -30,6 +32,10 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
@@ -197,8 +203,8 @@ public class AfficherDocument {
         }
     }
     public void onAfficheClicked(Document document) {
-        PDDocument pdfDocument = null;
         try {
+
             // Extraire l'ID du fichier à partir de l'URL
             String url = document.getUrl();
             String fileId;
@@ -207,8 +213,11 @@ public class AfficherDocument {
             } else {
                 fileId = url.substring(url.indexOf("/d/") + 3);
             }
+            System.out.println(url);
+            // Extraire l'extension du fichier à partir de l'URL
+            String extension = url.substring(url.lastIndexOf(".") + 1);
 
-            // Télécharger le fichier PDF à partir de Google Drive
+            // Télécharger le fichier à partir de Google Drive
             Drive service = UploadBasic.getDriveService();
             OutputStream outputStream = new ByteArrayOutputStream();
             service.files().get(fileId).executeMediaAndDownloadTo(outputStream);
@@ -216,30 +225,36 @@ public class AfficherDocument {
             // Convertir le OutputStream en ByteArrayInputStream
             ByteArrayInputStream inputStream = new ByteArrayInputStream(((ByteArrayOutputStream) outputStream).toByteArray());
 
-            // Charger le document PDF à partir du ByteArrayInputStream
-            pdfDocument = PDDocument.load(inputStream);
+            if (document.getType()== Type.PDF) {
+                // Charger le document PDF à partir du ByteArrayInputStream
+                PDDocument pdfDocument = PDDocument.load(inputStream);
 
-            // Afficher le document PDF dans une nouvelle fenêtre
-            PDFViewer viewer = new PDFViewer("PDF Viewer", pdfDocument);
-            viewer.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-            viewer.setSize(800, 600);
-            viewer.setVisible(true);
+                // Afficher le document PDF dans une nouvelle fenêtre
+                PDFViewer viewer = new PDFViewer("PDF Viewer", pdfDocument);
+                viewer.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                viewer.setSize(800, 600);
+                viewer.setVisible(true);
+
+                // Fermer le document PDF
+                pdfDocument.close();
+            } else {
+                // Enregistrer le fichier vidéo en mémoire
+                byte[] videoBytes = ((ByteArrayOutputStream) outputStream).toByteArray();
+
+                // Définir l'extension
+                extension = ".mp4"; // Remplacez ".mp4" par l'extension de fichier appropriée
+
+                // Créer un fichier temporaire avec l'extension appropriée
+                Path tempFile = Files.createTempFile("video", extension);
+
+                // Lire la vidéo dans une nouvelle fenêtre
+                VideoPlayer player = new VideoPlayer("Video Player", videoBytes, extension);
+
+            }
         } catch (IOException e) {
             e.printStackTrace();
-        } finally {
-            if (pdfDocument != null) {
-                try {
-                    pdfDocument.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
         }
     }
-
-
-
-
 
     public void retourMatiere(ActionEvent actionEvent) {
         try {
