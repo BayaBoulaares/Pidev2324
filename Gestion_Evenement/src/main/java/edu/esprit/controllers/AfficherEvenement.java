@@ -73,16 +73,14 @@ public class AfficherEvenement {
     private VBox createEventBox(Evenement evenement) {
         VBox eventBox = new VBox();
         eventBox.getStyleClass().add("eventBox");
-
         ImageView eventImage = new ImageView();
-        File file = new File("C:/Users/ameni/Downloads/Gestion_Evenement2/src/main/java/edu/esprit/image/" + evenement.getId_Event() + ".jpg");
-        Image image = new Image(file.toURI().toString());
+        String imagePath = evenement.getImage(); // Assuming getImage() returns the path to the image file
+        Image image = new Image(new File(imagePath).toURI().toString());
         eventImage.setImage(image);
         eventImage.setFitWidth(280);
         eventImage.setFitHeight(200);
         eventImage.setPreserveRatio(true);
         eventBox.getChildren().add(eventImage);
-
         // Créer le label du nom
         Label nameLabel = new Label(evenement.getNom_Event());
         nameLabel.setStyle("-fx-font-family: 'DM Sans'; -fx-font-size: 18;");
@@ -294,10 +292,6 @@ public class AfficherEvenement {
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
             stage.showAndWait();
-
-            // Code à exécuter après la fermeture de la fenêtre d'ajout de sponsor
-            System.out.println("Fenêtre d'ajout de sponsor fermée.");
-
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -134,4 +134,11 @@
 .no-border {
     -fx-border-width: 0;
 }
+.valid-field {
+    -fx-control-inner-background: #90ee90; /* Vert clair pour indiquer la validité */
+}
+
+.invalid-field {
+    -fx-control-inner-background: #ff7f7f; /* Rouge clair pour indiquer l'invalidité */
+}
 

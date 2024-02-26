@@ -1,4 +1,5 @@
 package edu.esprit.controllers;
+
 import edu.esprit.entities.Evenement;
 import edu.esprit.entities.Fond;
 import edu.esprit.entities.Sponsor;
@@ -53,10 +54,9 @@ public class AjoutSponsor {
     @FXML
     void ajouter() {
         try {
-            // Check if an event is selected
             Evenement selectedEvent = eventComboBox.getValue();
             if (selectedEvent == null) {
-                afficherAlerte("Veuillez sélectionner un événement !");
+                setFieldAsInvalid(eventComboBox);
                 return;
             }
 
@@ -64,47 +64,70 @@ public class AjoutSponsor {
             String descriptionSponsor = sponsorDescription.getText();
             Fond fondSponsor = null;
 
-            // Vérifier que la valeur sélectionnée dans la ComboBox est valide
             String fondValue = sponsorFond.getValue();
             if (fondValue != null) {
                 fondSponsor = Fond.valueOf(fondValue);
             } else {
-                afficherAlerte("Veuillez sélectionner un fond pour le sponsor !");
+                setFieldAsInvalid(sponsorFond);
                 return;
             }
 
-            // Validation check for sponsor name and description
             if (nomSponsor.length() < 3 || descriptionSponsor.length() < 3) {
-                afficherAlerte("Le nom et la description du sponsor doivent avoir au moins 3 caractères !");
+                setFieldAsInvalid(sponsorName);
+                setFieldAsInvalid(sponsorDescription);
                 return;
             }
 
             if (nomSponsor.length() > 20 || nomSponsor.matches(".*\\d.*")) {
-                afficherAlerte("Le nom du sponsor ne doit pas dépasser 20 caractères et ne doit pas contenir de chiffres !");
+                setFieldAsInvalid(sponsorName);
                 return;
             }
 
             if (nomSponsor.isEmpty() || descriptionSponsor.isEmpty() || fondSponsor == null) {
-                afficherAlerte("Veuillez remplir tous les champs !");
+                setFieldAsInvalid(sponsorName);
+                setFieldAsInvalid(sponsorDescription);
+                setFieldAsInvalid(sponsorFond);
                 return;
             }
 
-            // Create a new sponsor object
+            setFieldAsValid(sponsorName);
+            setFieldAsValid(sponsorDescription);
+            setFieldAsValid(sponsorFond);
+
             Sponsor nouveauSponsor = new Sponsor();
             nouveauSponsor.setNomSponsor(nomSponsor);
             nouveauSponsor.setDescription_s(descriptionSponsor);
             nouveauSponsor.setFond(fondSponsor);
             nouveauSponsor.setEvenement(selectedEvent);
 
-            // Add the sponsor to the database
             ServiceSponsor serviceSponsor = new ServiceSponsor();
             serviceSponsor.ajouter(nouveauSponsor);
-
-            afficherAlerte("Sponsor ajouté avec succès !");
 
         } catch (SQLException | NumberFormatException e) {
             afficherAlerte("Une erreur de type " + e.getClass().getSimpleName() + " s'est produite lors de l'ajout du sponsor : " + e.getMessage());
         }
+    }
+
+    private void setFieldAsValid(TextField field) {
+        field.getStyleClass().removeAll("invalid-field");
+        field.getStyleClass().add("valid-field");
+    }
+
+    private void setFieldAsInvalid(TextField field) {
+        field.getStyleClass().removeAll("valid-field");
+        field.getStyleClass().add("invalid-field");
+        field.setPromptText("Champ invalide");
+    }
+
+    private void setFieldAsValid(ComboBox<?> field) {
+        field.getStyleClass().removeAll("invalid-field");
+        field.getStyleClass().add("valid-field");
+    }
+
+    private void setFieldAsInvalid(ComboBox<?> field) {
+        field.getStyleClass().removeAll("valid-field");
+        field.getStyleClass().add("invalid-field");
+        field.setPromptText("Champ invalide");
     }
 
     private void afficherAlerte(String message) {

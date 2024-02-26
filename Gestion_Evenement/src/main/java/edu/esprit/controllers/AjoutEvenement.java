@@ -1,16 +1,25 @@
 package edu.esprit.controllers;
+
 import edu.esprit.entities.Evenement;
 import edu.esprit.entities.Status;
 import edu.esprit.services.ServiceEvenement;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -39,6 +48,11 @@ public class AjoutEvenement {
 
     @FXML
     private TextArea eventDescription;
+
+    @FXML
+    private ImageView eventImage;
+
+    private String imagePath;
 
     @FXML
     void ajouter(ActionEvent event) {
@@ -73,7 +87,11 @@ public class AjoutEvenement {
                 return;
             }
 
-            // Le reste de votre logique d'ajout d'événement ici...
+            if (imagePath == null || imagePath.isEmpty()) {
+                afficherAlerte("Veuillez choisir une image !");
+                return;
+            }
+
             Evenement nouvelEvenement = new Evenement();
             nouvelEvenement.setNom_Event(nomEvenement);
             nouvelEvenement.setLieu_Event(lieuEvenement);
@@ -82,6 +100,7 @@ public class AjoutEvenement {
             nouvelEvenement.setNb_Max(Integer.parseInt(maxParticipantsText));
             nouvelEvenement.setDescription(descriptionEvenement);
             nouvelEvenement.setStatus(Status.valueOf(typeEvenement.toUpperCase()));
+            nouvelEvenement.setImage(imagePath);
 
             serviceEvenement.ajouter(nouvelEvenement);
 
@@ -104,10 +123,10 @@ public class AjoutEvenement {
         Parent root = FXMLLoader.load(getClass().getResource("/Afficher_Evenement.fxml"));
         eventStartDate.getScene().setRoot(root);
     }
+
     @FXML
     void afficherListEvenements() {
         try {
-            // Load the FXML file
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Liste_Evenement.fxml"));
             Parent root = loader.load();
             Stage stage = new Stage();
@@ -118,7 +137,23 @@ public class AjoutEvenement {
         }
     }
 
-
+    @FXML
+    void selectImage(ActionEvent event) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Choisir une image");
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif"));
+        File selectedFile = fileChooser.showOpenDialog(((Button) event.getSource()).getScene().getWindow());
+        if (selectedFile != null) {
+            try {
+                Image image = new Image(selectedFile.toURI().toString()); // Corrected line
+                eventImage.setImage(image);
+                imagePath = selectedFile.getAbsolutePath();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
     private boolean contientChiffres(String str) {
         for (char c : str.toCharArray()) {
@@ -136,7 +171,3 @@ public class AjoutEvenement {
         alert.showAndWait();
     }
 }
-
-
-
-

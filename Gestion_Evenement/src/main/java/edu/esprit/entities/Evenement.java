@@ -1,8 +1,6 @@
 package edu.esprit.entities;
 
-import java.time.LocalDate;
 import java.util.Date;
-import java.util.Objects;
 
 public class Evenement {
     private int Id_Event;
@@ -13,13 +11,16 @@ public class Evenement {
     private String Description;
     private int Nb_Max;
     private Status Status;
+    private String image; // Image stored as String in Java class
 
     public Evenement() {
     }
+
     public Evenement(int id) {
         this.Id_Event = id;
     }
-    public Evenement(String Nom_Event, String Description, String Lieu_Event, Date Date_Debut, Date Date_Fin, int Nb_Max, Status Status) {
+
+    public Evenement(String Nom_Event, String Description, String Lieu_Event, Date Date_Debut, Date Date_Fin, int Nb_Max, Status Status, String image) {
         this.Nom_Event = Nom_Event;
         this.Description = Description;
         this.Lieu_Event = Lieu_Event;
@@ -27,9 +28,10 @@ public class Evenement {
         this.Date_Fin = Date_Fin;
         this.Nb_Max = Nb_Max;
         this.Status = Status;
+        this.image = image; // Initialize image attribute
     }
 
-    public Evenement(int Id_Event, String Nom_Event, String Description, String Lieu_Event, Date Date_Debut, Date Date_Fin, int Nb_Max, Status Status) {
+    public Evenement(int Id_Event, String Nom_Event, String Description, String Lieu_Event, Date Date_Debut, Date Date_Fin, int Nb_Max, Status Status, String image) {
         this.Id_Event = Id_Event;
         this.Nom_Event = Nom_Event;
         this.Description = Description;
@@ -38,9 +40,8 @@ public class Evenement {
         this.Date_Fin = Date_Fin;
         this.Nb_Max = Nb_Max;
         this.Status = Status;
+        this.image = image; // Initialize image attribute
     }
-
-
 
     public int getId_Event() {
         return Id_Event;
@@ -106,7 +107,13 @@ public class Evenement {
         this.Status = Status;
     }
 
+    public String getImage() {
+        return image;
+    }
 
+    public void setImage(String image) {
+        this.image = image;
+    }
 
     @Override
     public String toString() {
@@ -118,6 +125,7 @@ public class Evenement {
                 ", Date_Fin=" + Date_Fin +
                 ", Nb_Max=" + Nb_Max +
                 ", Status=" + Status +
+                ", image='" + image + '\'' +
                 '}';
     }
 
@@ -128,6 +136,4 @@ public class Evenement {
         Evenement evenement = (Evenement) o;
         return Id_Event == evenement.Id_Event;
     }
-
-
 }
