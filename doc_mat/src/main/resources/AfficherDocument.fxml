@@ -4,8 +4,7 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Line?>
@@ -83,18 +82,9 @@
       <Button layoutX="484.0" layoutY="89.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="80.0" style="-fx-background-color: transparent;" text="Consulter" textFill="#27dec1" />
       <Button layoutX="728.0" layoutY="89.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="80.0" style="-fx-background-color: transparent;" text="Statistique" textFill="#a3aed0" />
       <Line endX="17.39996337890625" endY="1.52587890625E-5" layoutX="570.0" layoutY="115.0" startX="-100.0" stroke="#27dec1" />
-      <TableView fx:id="idtab" layoutX="180.0" layoutY="173.0" prefHeight="340.0" prefWidth="657.0" style="-fx-background-radius: 5; -fx-background-radius: 5; -fx-background-color: transparent;">
-        <columns>
-          <TableColumn fx:id="idtitre" prefWidth="75.0" style="-fx-background-color: transparent;" text="Titre" />
-          <TableColumn fx:id="idType" prefWidth="75.0" style="-fx-background-color: transparent;" text="type" />
-            <TableColumn fx:id="idurl" prefWidth="75.0" style="-fx-background-color: transparent;" text="url" />
-            <TableColumn fx:id="idDate" prefWidth="75.0" style="-fx-background-color: transparent;" text="date" />
-            <TableColumn fx:id="idniveau" prefWidth="75.0" style="-fx-background-color: transparent;" text="niveau" />
-            <TableColumn fx:id="idactions" prefWidth="75.0" style="-fx-background-color: transparent;" text="action" />
-        </columns>
-      </TableView>
       <ComboBox fx:id="idl" layoutX="459.0" layoutY="131.0" prefHeight="26.0" prefWidth="130.0" style="-fx-background-radius: 5; -fx-border-radius: 5; -fx-background-color: transparent; -fx-border-color: #a3aed0;" />
       <Button layoutX="393.0" layoutY="132.0" mnemonicParsing="false" onAction="#trier" style="-fx-border-radius: 5; -fx-background-radius: 5; -fx-background-color: #27DEC1;" text="trier" textFill="WHITE" />
       <DatePicker fx:id="datePicker" layoutX="194.0" layoutY="132.0" onAction="#rechercheDate" style="-fx-background-color: transparent; -fx-background-color: #a3aed0; -fx-background-radius: 5; -fx-border-radius: 5;" />
+      <ListView fx:id="idListView" layoutX="184.0" layoutY="185.0" prefHeight="330.0" prefWidth="638.0" style="-fx-background-color: transparent;" />
    </children>
 </AnchorPane>

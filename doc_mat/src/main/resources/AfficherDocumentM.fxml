@@ -3,46 +3,31 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" opacity="0.85" prefHeight="610.0" prefWidth="851.0" style="-fx-background-color: #FAFEFC;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controller.AfficherDocumentM">
    <children>
-      <VBox layoutX="-44.0" prefHeight="610.0" prefWidth="198.0" style="-fx-background-color: #27DEC1; -fx-background-radius: 15;">
+      <VBox layoutX="-44.0" prefHeight="610.0" prefWidth="192.0" style="-fx-background-color: #27DEC1; -fx-background-radius: 5;">
          <children>
-            <Label prefHeight="46.0" prefWidth="186.0" text="                Auti-Learn" textFill="WHITE" wrapText="true">
+            <ImageView fitHeight="93.0" fitWidth="148.0" style="-fx-translate-x: 45; -fx-translate-y: 10;">
+               <image>
+                  <Image url="@image/logo2.png" />
+               </image>
+            </ImageView>
+            <Label prefHeight="47.0" prefWidth="190.0" text="                      Auti-Learn" textFill="#fafefc">
                <font>
-                  <Font name="System Bold" size="15.0" />
+                  <Font name="System Bold" size="14.0" />
                </font>
             </Label>
-            <AnchorPane />
-            <AnchorPane />
-            <AnchorPane />
-            <AnchorPane />
-            <AnchorPane prefHeight="27.0" prefWidth="170.0">
-               <children>
-                  <Button layoutX="14.0" layoutY="-1.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="159.0" style="-fx-background-color: transparent;" text="            Messagerie" textFill="WHITE" />
-               </children>
-            </AnchorPane>
-            <AnchorPane />
-            <AnchorPane />
-            <AnchorPane prefHeight="33.0" prefWidth="166.0">
-               <children>
-                  <Button layoutX="14.0" layoutY="-6.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="159.0" style="-fx-background-color: transparent;" text="              Reclamation" textFill="WHITE" />
-               </children>
-            </AnchorPane>
-            <AnchorPane />
-            <AnchorPane>
-               <children>
-                  <AnchorPane layoutY="16.0">
-                     <children>
-                        <Button layoutX="26.0" layoutY="-16.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="159.0" style="-fx-background-color: transparent;" text="      Evenements" textFill="WHITE" />
-                        <Button layoutX="27.0" layoutY="17.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="170.0" style="-fx-background-color: transparent;" text="      Questionnaire" textFill="WHITE" />
-                     </children>
-                  </AnchorPane>
-               </children>
-            </AnchorPane>
+            <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="197.0" style="-fx-background-color: transparent;" text="        Mariers" textFill="WHITE" />
+            <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="197.0" style="-fx-background-color: transparent;" text="            Messagerie" textFill="WHITE" />
+            <Button mnemonicParsing="false" prefHeight="39.0" prefWidth="193.0" style="-fx-background-color: transparent;" text="              Reclamation" textFill="WHITE" />
+            <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="203.0" style="-fx-background-color: transparent;" text="             Evenements" textFill="WHITE" />
+            <Button mnemonicParsing="false" prefHeight="34.0" prefWidth="193.0" style="-fx-background-color: transparent;" text="              Questionnaire" textFill="WHITE" />
          </children>
       </VBox>
       <Label layoutX="161.0" layoutY="20.0" text="Pages / Acceuil" textFill="#a3aed0">
@@ -50,21 +35,25 @@
             <Font name="System Bold" size="7.0" />
          </font>
       </Label>
-      <Label fx:id="idmat" layoutX="161.0" layoutY="43.0" prefHeight="46.0" prefWidth="129.0" text="Cours !" textFill="#2b3674">
+      <Label fx:id="idmat" layoutX="161.0" layoutY="31.0" prefHeight="46.0" prefWidth="129.0" text="Cours !" textFill="#2b3674">
          <font>
             <Font name="System Bold" size="22.0" />
          </font>
       </Label>
-      <AnchorPane layoutX="177.0" layoutY="79.0" />
-      <Button fx:id="idret" layoutX="771.0" layoutY="559.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="58.0" style="-fx-background-color: #27DEC1; -fx-background-radius: 5;" text="Retour" textFill="WHITE">
+      <Button fx:id="idret" layoutX="771.0" layoutY="559.0" mnemonicParsing="false" onAction="#retourMatiere" prefHeight="26.0" prefWidth="58.0" style="-fx-background-color: #27DEC1; -fx-background-radius: 5;" text="Retour" textFill="WHITE">
          <font>
             <Font size="8.0" />
          </font>
       </Button>
-      <ScrollPane layoutX="212.0" layoutY="90.0" prefHeight="456.0" prefWidth="626.0">
+      <ScrollPane layoutX="229.0" layoutY="90.0" prefHeight="396.0" prefWidth="610.0" style="-fx-background-color: transparent;">
          <content>
             <VBox fx:id="documentListVBox" prefHeight="80.0" prefWidth="506.0" />
          </content>
       </ScrollPane>
+      <ImageView fitHeight="106.0" fitWidth="167.0" layoutX="161.0" layoutY="490.0">
+         <image>
+            <Image url="@image/istockphoto-165502645-612x612.jpg" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

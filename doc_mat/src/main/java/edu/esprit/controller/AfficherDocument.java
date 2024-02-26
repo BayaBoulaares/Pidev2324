@@ -1,5 +1,6 @@
 package edu.esprit.controller;
-
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import com.google.api.services.drive.Drive;
 import edu.esprit.APIapploadfichier.PDFViewer;
 import edu.esprit.APIapploadfichier.UploadBasic;
@@ -9,36 +10,30 @@ import edu.esprit.entities.Matiere;
 import edu.esprit.entities.Niveau;
 import edu.esprit.entities.Type;
 import edu.esprit.services.ServiceDocument;
-import edu.esprit.services.SeviceMatiere;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Bounds;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.control.skin.TableHeaderRow;
-import javafx.scene.control.skin.TableViewSkin;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import org.apache.pdfbox.pdmodel.PDDocument;
 
 import javax.swing.*;
+import java.awt.*;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.util.List;
+import javafx.scene.control.ListView;
 
 public class AfficherDocument {
     @FXML
@@ -47,27 +42,10 @@ public class AfficherDocument {
     private DatePicker datePicker;
     @FXML
     private ComboBox<Niveau> idl;
-
     @FXML
-    private TableView<Document> idtab;
+    private ListView<Document> idListView;
 
-    @FXML
-    private TableColumn<Document, Integer> idDate;
 
-    @FXML
-    private TableColumn<Document, String> idType;
-
-    @FXML
-    private TableColumn<Document, String> idniveau;
-
-    @FXML
-    private TableColumn<Document, String> idtitre;
-
-    @FXML
-    private TableColumn<Document, String> idurl;
-
-    @FXML
-    private TableColumn<Document, Document> idactions;
 
     @FXML
     private Button idretour;
@@ -78,25 +56,66 @@ public class AfficherDocument {
 
     @FXML
     private void initialize() {
-        // Configure les colonnes du TableView
-        idDate.setCellValueFactory(new PropertyValueFactory<>("date"));
-        idType.setCellValueFactory(new PropertyValueFactory<>("type"));
-        idniveau.setCellValueFactory(new PropertyValueFactory<>("niveau"));
-        idtitre.setCellValueFactory(new PropertyValueFactory<>("titre"));
-        idurl.setCellValueFactory(new PropertyValueFactory<>("url"));
-
-        // Configure la colonne "Actions" avec des boutons "Modifier" et "Supprimer"
-        configureActionsColumn();
-
-
-
         // Configure the ComboBox
         idl.getItems().setAll(Niveau.values());
         // Add "Tous les niveaux" as a separate item
-       idl.getItems().add(null);
+        idl.getItems().add(null);
 
         idl.setOnAction(event -> handleLevelSelection());
-        // Charge les données dans le TableView
+
+        // Configure the ListView
+        idListView.setCellFactory(param -> new ListCell<>() {
+            private Button editButton = new Button("Modifier");
+            private Button deleteButton = new Button("Supprimer");
+            private Button afficheButton = new Button("Afficher");
+
+            {
+                editButton.setOnAction(event -> onEditButtonClicked(getItem()));
+                deleteButton.setOnAction(event -> onDeleteButtonClicked(getItem()));
+                afficheButton.setOnAction(event -> onAfficheClicked(getItem()));
+
+                editButton.setStyle("-fx-background-color: transparent; -fx-text-fill:#a3aed0;-fx-font-weight: bold ");
+                deleteButton.setStyle("-fx-background-color:transparent; -fx-text-fill: #a3aed0;-fx-font-weight: bold ");
+                afficheButton.setStyle("-fx-background-color:transparent; -fx-text-fill: #a3aed0; -fx-font-weight: bold");
+
+                editButton.setMaxWidth(200);
+                deleteButton.setMaxWidth(200);
+                afficheButton.setMaxWidth(200);
+            }
+
+            @Override
+            protected void updateItem(Document item, boolean empty) {
+                super.updateItem(item, empty);
+
+                if (empty || item == null) {
+                    setText(null);
+                    setGraphic(null);
+                } else {
+                    // Display more details of the document
+                    Label label = new Label("Titre: " + item.getTitre() + "\n" +
+                            "Type: " + item.getType() + "\n" +
+                            "URL: " + item.getUrl() + "\n" +
+                            "Niveau: " + item.getNiveau() + "\n" +
+                            "Date: " + item.getDate());
+                    label.setStyle("-fx-font-size: 15px; -fx-font-weight: bold;-fx-text-fill: #2b3674;"); // Adjust the font size and weight
+
+                    // Load the appropriate image based on the document type
+                    ImageView imageView;
+                    if (item.getType() == Type.PDF) {
+                        imageView = new ImageView(new Image("file:C:/Users/benmr/IdeaProjects/test3/src/main/resources/image/pdf.png"));
+                    } else {
+                        imageView = new ImageView(new Image("file:C:/Users/benmr/IdeaProjects/test3/src/main/resources/image/video.png"));
+                    }
+
+                    imageView.setFitHeight(20); // Adjust the size of the image
+                    imageView.setFitWidth(20);
+
+                    setGraphic(new VBox(label, new HBox(imageView, editButton, deleteButton, afficheButton)));
+                }
+            }
+        });
+
+        // Load the data into the ListView
         loadDocumentData();
     }
 
@@ -132,54 +151,17 @@ public class AfficherDocument {
                     documentList = FXCollections.observableArrayList(serviceDocument.getAllByMatiere(matiere));
                 }
 
-                idtab.setItems(documentList);
+                idListView.setItems(documentList);
             } else {
-                idtab.setItems(FXCollections.emptyObservableList());
+                idListView.setItems(FXCollections.emptyObservableList());
             }
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();
         }
+
     }
-
-    private void configureActionsColumn() {
-        idactions.setCellValueFactory(param -> {
-            ObjectProperty<Document> property = new SimpleObjectProperty<>(param.getValue());
-            return property;
-        });
-        idactions.setCellFactory(column -> new TableCell<>() {
-            private Button editButton = new Button("Modifier");
-            private Button deleteButton = new Button("Supprimer");
-            private Button afficheButton = new Button("Afficher");
-
-
-            {
-               editButton.setOnAction(event -> onEditButtonClicked(getItem()));
-                deleteButton.setOnAction(event -> onDeleteButtonClicked(getItem()));
-                afficheButton.setOnAction(event -> onAfficheClicked(getItem()) );
-
-                editButton.setStyle("-fx-background-color: transparent; -fx-text-fill:#a3aed0; ");
-                deleteButton.setStyle("-fx-background-color:transparent; -fx-text-fill: #a3aed0; ");
-                afficheButton.setStyle("-fx-background-color:transparent; -fx-text-fill: #a3aed0; ");
-
-                editButton.setMaxWidth(200);
-                deleteButton.setMaxWidth(200);
-                afficheButton.setMaxWidth(200);
-            }
-
-            @Override
-            protected void updateItem(Document item, boolean empty) {
-                super.updateItem(item, empty);
-                if (item == null || empty) {
-                    setGraphic(null);
-                } else {
-                    setGraphic(new javafx.scene.layout.HBox(editButton, deleteButton , afficheButton ));
-                }
-            }
-        });
-    }
-
     private void onEditButtonClicked(Document document) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/ModifierDocument.fxml"));
@@ -290,9 +272,9 @@ public class AfficherDocument {
                 {documentList = FXCollections.observableArrayList(serviceDocument.getByLevel(selectedLevel,matiere));}
                 else { documentList = FXCollections.observableArrayList(serviceDocument. getAllTitle());}
 
-                idtab.setItems(documentList);
+                idListView.setItems(documentList);
             } else {
-                idtab.setItems(FXCollections.emptyObservableList());
+                idListView.setItems(FXCollections.emptyObservableList());
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -314,7 +296,7 @@ public class AfficherDocument {
 
                 // Appeler la méthode de service pour obtenir les documents pour une date spécifique
                 ObservableList<Document> documentList = FXCollections.observableArrayList(serviceDocument.getByDate(sqlDate));
-                idtab.setItems(documentList);
+                idListView.setItems(documentList);
             } else {
                 // Si aucune date n'est sélectionnée, afficher tous les documents
                 loadDocumentData();
@@ -330,15 +312,6 @@ public class AfficherDocument {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/AjouterDocument.fxml"));
             Parent root = loader.load();
-
-            // Accéder au contrôleur du formulaire de modification
-            AjouterDocument ajouterdoc= loader.getController();
-
-            if( matiere!=null)
-            // Appeler la méthode pour passer la matière à modifier
-            { ajouterdoc.setMatToAdd(matiere);}
-
-            // Changer la scène pour afficher le formulaire de modification
             idaj.getScene().setRoot(root);
         } catch (IOException e) {
             e.printStackTrace();

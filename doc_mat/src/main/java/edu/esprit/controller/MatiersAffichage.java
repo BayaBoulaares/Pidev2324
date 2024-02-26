@@ -5,6 +5,7 @@ import edu.esprit.services.SeviceMatiere;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.control.Alert;
@@ -45,6 +46,7 @@ private String annee;
     {
         this.annee=annee;
         System.out.println(this.annee);
+        loadMatieres();
     }
 
     public void loadMatieres() {
@@ -62,12 +64,13 @@ private String annee;
             int itemsPerRow = 3;
             for (Matiere matiere : matieres) {
                 VBox matiereHBox = createMatiereVBox(matiere);
-                matiereFlowPane.getChildren().add(matiereHBox);
 
+                matiereFlowPane.getChildren().add(matiereHBox);
+                VBox.setMargin(matiereHBox, new Insets(20, 20, 70, 20));
                 // Add a new row after every 'itemsPerRow' items
-                if (matiereFlowPane.getChildren().size() % itemsPerRow == 0) {
+                /*if (matiereFlowPane.getChildren().size() % itemsPerRow == 0) {
                     matiereFlowPane.getChildren().add(new HBox()); // New row
-                }
+                }*/
             }
         } catch (SQLException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -80,6 +83,7 @@ private String annee;
         VBox vBox = new VBox();
         vBox.setAlignment(Pos.CENTER); // Align VBox content to the center
         vBox.setSpacing(8); // Set spacing between label and buttons
+
         vBox.setStyle("-fx-background-color: #FAFEFC; " +
                 "-fx-border-width: 2px;" +
                 "-fx-border-color: #2b3674;" +

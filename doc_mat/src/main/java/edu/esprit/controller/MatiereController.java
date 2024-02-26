@@ -90,7 +90,15 @@ public class MatiereController {
 
         // Check if nom contains only letters
         boolean isNomValid = nom.matches("[a-zA-Z]+");
+        // Check if nom is "mathematique", "science", or "physique" and categorie is not SCIENTIFIQUE
+        if ((nom.equalsIgnoreCase("mathematique") || nom.equalsIgnoreCase("science") || nom.equalsIgnoreCase("physique")) && categorie != CAT.SCIENTIFIQUE) {
+            return false;
+        }
 
+        // Check if nom is "francais", "anglais", or "arabe" and categorie is not LANGUE
+        if ((nom.equalsIgnoreCase("francais") || nom.equalsIgnoreCase("anglais") || nom.equalsIgnoreCase("arabe")) && categorie != CAT.LANGUE) {
+            return false;
+        }
         return isNomValid && nom.length() >= 3 && desc.length() >= 5 && !nom.isEmpty() && !desc.isEmpty() &&  !anne.isEmpty() && categorie != null;
 
     }
