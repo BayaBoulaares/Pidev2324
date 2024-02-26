@@ -2,6 +2,8 @@ package edu.esprit.controllers;
 
 import edu.esprit.entities.Reclamation;
 import edu.esprit.services.ServiceReclamation;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -15,6 +17,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import org.controlsfx.control.Rating;
 
 import java.awt.*;
 import java.io.IOException;
@@ -40,6 +43,10 @@ public class AjouterReclamation {
     @FXML
     private ComboBox<String> comboBox;
 
+    @FXML
+    private Rating rating;
+    @FXML
+    private TextField msg;
 
 
 
@@ -116,6 +123,8 @@ public class AjouterReclamation {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+
+
     }
 
     // Validate date method
@@ -231,5 +240,13 @@ public class AjouterReclamation {
                 "Suggestions d'amélioration"
         );
         comboBox.setItems(reclamationOptions);
+
+
+        rating.ratingProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
+                msg.setText("Rate us "+t1+"/5");
+            }
+        });
     }
 }

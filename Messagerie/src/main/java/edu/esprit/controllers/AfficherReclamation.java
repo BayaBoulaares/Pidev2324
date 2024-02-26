@@ -85,10 +85,7 @@ public class AfficherReclamation {
     private TextField searchField;
 
 
-    @FXML
-    private Rating rating;
-    @FXML
-    private TextField msg;
+
 
 
 
@@ -418,12 +415,7 @@ public class AfficherReclamation {
 
             // Add this method for censoring bad words
 
-            rating.ratingProperty().addListener(new ChangeListener<Number>() {
-                @Override
-                public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
-                    msg.setText("Rating "+t1);
-                }
-            });
+
 
         }
     private boolean showDeleteConfirmationDialog() {
