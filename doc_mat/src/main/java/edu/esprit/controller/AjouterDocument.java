@@ -15,14 +15,15 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Bounds;
 import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ComboBox;
+import javafx.scene.control.*;
+
 import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
+
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
@@ -31,6 +32,8 @@ import javafx.stage.Stage;
 import org.apache.commons.io.FilenameUtils;
 
 public class AjouterDocument  implements Initializable {
+   /* @FXML
+    private ProgressBar idProgressBar;*/
     @FXML
     private Button idc;
     @FXML
@@ -147,6 +150,7 @@ public class AjouterDocument  implements Initializable {
         java.io.File selectedFile = fileChooser.showOpenDialog(new Stage());
 
         if (selectedFile != null) {
+
             // Extraire l'extension du fichier
             String extension = FilenameUtils.getExtension(selectedFile.getName());
 
@@ -166,11 +170,20 @@ public class AjouterDocument  implements Initializable {
 
             new Thread(() -> {
                 try {
+                    //idProgressBar.setProgress(0);
                     // Ajouter le fichier à Google Drive et récupérer son URL
                     String fileId;
                     if (extension.equalsIgnoreCase("pdf")) {
+
                         fileId = UploadBasic.uploadPDF(selectedFile.getAbsolutePath());
                     } else { // mp4 or avi
+                        long fileSizeInBytes = selectedFile.length();
+                        long fileSizeInMB = fileSizeInBytes / (1024 * 1024);
+                        if (fileSizeInMB > 500) {
+                            showAlert(Alert.AlertType.ERROR, "Erreur de taille de fichier", "La taille du fichier ne doit pas dépasser 500 Mo");
+                            return;
+                        }
+
                         String compressedFilePath = VideoCompressor. compressVideo(selectedFile.getAbsolutePath(), extension);
                         fileId = UploadBasic.uploadVideo(compressedFilePath, extension);
                     }
@@ -183,6 +196,7 @@ public class AjouterDocument  implements Initializable {
                         System.out.println("URL du fichier : " + fileUrl);
                         idurt.setText(selectedFile.getAbsolutePath()); // Mettre à jour le champ de texte avec le chemin du fichier
                     });
+
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

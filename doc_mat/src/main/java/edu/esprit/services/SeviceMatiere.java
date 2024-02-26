@@ -160,4 +160,30 @@ public class SeviceMatiere implements IService<Matiere> {
 
         return matieresByAlphabet;
     }
+
+    public ArrayList<Matiere> getOneByAnnee(String annee)  throws SQLException {
+        Connection cnx = DataSource.getInstance().getCnx();
+        ArrayList<Matiere> matieresByAnnee = new ArrayList<>();
+
+
+        String req = "SELECT * FROM matiere WHERE annee =?";
+        PreparedStatement pstmt = cnx.prepareStatement(req);
+        pstmt.setString(1, annee);
+        ResultSet rs = pstmt.executeQuery();
+
+        while (rs.next()) {
+            int id = rs.getInt("id");
+            String nomMatiere = rs.getString("nom_matiere");
+            String description = rs.getString("description");
+            String anne=rs.getString("annee");
+            String categorie=rs.getString("categorie");
+            CAT cat=CAT.valueOf(categorie);
+
+            Matiere matiere = new Matiere(id,nomMatiere, description,anne,cat);
+            matieresByAnnee.add(matiere);
+        }
+
+        return matieresByAnnee;
+    }
+
 }

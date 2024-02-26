@@ -32,7 +32,7 @@ public class MatiersAffichage {
     @FXML
     private VBox alphabetButtons;
 
-
+private String annee;
     private SeviceMatiere serviceMatiere = new SeviceMatiere();
 
     @FXML
@@ -41,11 +41,17 @@ public class MatiersAffichage {
         // Load matières at startup
         loadMatieres();
     }
+    public void  afficherSeulentAnnee(String annee)
+    {
+        this.annee=annee;
+        System.out.println(this.annee);
+    }
 
     public void loadMatieres() {
+      //  if(annee!=null) {
         try {
             // Fetch matières from the database or any other source
-            List<Matiere> matieres = serviceMatiere.getAll();
+            List<Matiere> matieres = serviceMatiere.getOneByAnnee(annee);
             // Clear existing content in matiereFlowPane
             matiereFlowPane.getChildren().clear();
 
@@ -68,7 +74,7 @@ public class MatiersAffichage {
             alert.setTitle("SQL Exception");
             alert.setContentText(e.getMessage());
             alert.showAndWait();
-        }
+        } //} else {  throw new IllegalArgumentException("annee cannot be null");}
     }
     public VBox createMatiereVBox(Matiere matiere) {
         VBox vBox = new VBox();

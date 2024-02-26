@@ -33,7 +33,7 @@ public class MatiereController {
     @FXML
     public void initialize() {
         // Initialize the ComboBox with the desired items
-        idannee.getItems().addAll("1 ere année", "2 éme année", "3 éme année", "4 éme annee", "5 éme année", "6 éme année");
+        idannee.getItems().addAll("1 ere annee", "2 eme annee", "3 éme annee", "4 eme annee", "5 eme annee", "6 eme anne e");
         idcat.getItems().addAll(CAT.SCIENTIFIQUE, CAT.LANGUE, CAT.HISTOIRE, CAT.GEOGRAPHIE);
     }
 

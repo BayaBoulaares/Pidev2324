@@ -13,11 +13,11 @@ public class VideoCompressor {
 
             grabber.start();
 
-            try (FFmpegFrameRecorder recorder = new FFmpegFrameRecorder(outputFilePath, grabber.getImageWidth() / 2, grabber.getImageHeight() / 2)) {
+            try (FFmpegFrameRecorder recorder = new FFmpegFrameRecorder(outputFilePath, grabber.getImageWidth() / 4, grabber.getImageHeight() / 4)) {
                 recorder.setFormat(extension); // Set the format according to the extension
                 recorder.setVideoCodec(avcodec.AV_CODEC_ID_H264); // Use H.264 codec
                 recorder.setFrameRate(grabber.getFrameRate()); // Use the same frame rate as the input video
-                recorder.setVideoBitrate(grabber.getVideoBitrate() / 2); // Use half the bit rate of the input video
+                recorder.setVideoBitrate(grabber.getVideoBitrate() / 4); // Use quarter the bit rate of the input video
                 recorder.setAudioChannels(1); // Set the number of audio channels
                 recorder.setAudioBitrate(grabber.getAudioBitrate()); // Set the audio bitrate
                 recorder.setSampleRate(grabber.getSampleRate()); // Set the sample rate
@@ -32,11 +32,15 @@ public class VideoCompressor {
             }
 
             grabber.stop();
+
+
         } catch (Exception e) {
             e.printStackTrace();
         }
+        System.out.println("terminer");
         return outputFilePath;
     }
+
 
 
 }

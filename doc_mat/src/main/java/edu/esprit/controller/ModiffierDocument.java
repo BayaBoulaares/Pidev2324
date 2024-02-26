@@ -1,30 +1,35 @@
 package edu.esprit.controller;
 
 import edu.esprit.APIapploadfichier.UploadBasic;
+import edu.esprit.APIapploadfichier.VideoCompressor;
 import edu.esprit.entities.*;
 import edu.esprit.services.ServiceDocument;
+import edu.esprit.services.SeviceMatiere;
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Bounds;
 import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
-import javafx.stage.FileChooser;
-import javafx.stage.Stage;
-import org.apache.commons.io.FilenameUtils;
+import javafx.scene.control.*;
 
+import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
+import org.apache.commons.io.FilenameUtils;
 public class ModiffierDocument  implements Initializable {
     @FXML
     private ComboBox<Niveau> idniveau;
@@ -122,6 +127,7 @@ public class ModiffierDocument  implements Initializable {
 
     @FXML
     void choisirFichier(javafx.event.ActionEvent event) {
+        idtype.setValue(null);
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Choisir un fichier");
 
@@ -133,6 +139,7 @@ public class ModiffierDocument  implements Initializable {
         java.io.File selectedFile = fileChooser.showOpenDialog(new Stage());
 
         if (selectedFile != null) {
+
             // Extraire l'extension du fichier
             String extension = FilenameUtils.getExtension(selectedFile.getName());
 
@@ -146,33 +153,53 @@ public class ModiffierDocument  implements Initializable {
             } else {
                 showAlert(Alert.AlertType.ERROR, "Erreur d'extension", "Ce type d'extension n'est pas pris en charge");
                 idtype.setValue(null);
-             //   updateEditableProperty(idtype.getValue());
+                updateEditableProperty(idtype.getValue());
                 return;
             }
 
-            idurt.setText(selectedFile.getAbsolutePath());
-
-            // Créer un nouveau thread pour le téléchargement du fichier
             new Thread(() -> {
                 try {
+                    //idProgressBar.setProgress(0);
                     // Ajouter le fichier à Google Drive et récupérer son URL
                     String fileId;
                     if (extension.equalsIgnoreCase("pdf")) {
+
                         fileId = UploadBasic.uploadPDF(selectedFile.getAbsolutePath());
                     } else { // mp4 or avi
-                        fileId = UploadBasic.uploadVideo(selectedFile.getAbsolutePath(), extension);
+                        long fileSizeInBytes = selectedFile.length();
+                        long fileSizeInMB = fileSizeInBytes / (1024 * 1024);
+                        if (fileSizeInMB > 500) {
+                            showAlert(Alert.AlertType.ERROR, "Erreur de taille de fichier", "La taille du fichier ne doit pas dépasser 500 Mo");
+                            return;
+                        }
+
+                        String compressedFilePath = VideoCompressor. compressVideo(selectedFile.getAbsolutePath(), extension);
+                        fileId = UploadBasic.uploadVideo(compressedFilePath, extension);
                     }
+
 
                     fileUrl = "https://drive.google.com/file/d/" + fileId;
 
-                    // Afficher l'URL du fichier dans la console (sur le thread de l'interface utilisateur)
-                    Platform.runLater(() -> System.out.println("URL du fichier : " + fileUrl));
+                    // Afficher l'URL du fichier dans l'interface utilisateur
+                    Platform.runLater(() -> {
+                        System.out.println("URL du fichier : " + fileUrl);
+                        idurt.setText(selectedFile.getAbsolutePath()); // Mettre à jour le champ de texte avec le chemin du fichier
+                    });
+
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             }).start();
+
         }
+
     }
+    private void updateEditableProperty(Type fileType) {
+        // Si le type de fichier n'est pas PDF, VIDEO ou AVI, le TextField ne sera pas éditable
+        boolean isEditable = fileType == Type.PDF || fileType == Type.AVI|| fileType==Type.MP4;
+        idurt.setEditable(isEditable);
+    }
+
     @FXML
     private boolean validateInput() {
         String nom = idtt.getText();
