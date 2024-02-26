@@ -16,5 +16,5 @@ public interface IServices<T> {
     void supprimer(int id);
 
     T getOneById(int id);
-    HashSet<T> getAll() throws SQLException;
+    Set<T> getAll() throws SQLException;
 }

@@ -6,6 +6,7 @@ import edu.esprit.utils.DataSource;
 import java.sql.*;
 import java.time.LocalDateTime;
 import java.util.HashSet;
+import java.util.Set;
 
 public class ServiceReclamation implements IServices<Reclamation> {
 
@@ -13,7 +14,7 @@ public class ServiceReclamation implements IServices<Reclamation> {
 
     @Override
     public void ajouter(Reclamation r) throws SQLException {
-        String req = "INSERT INTO `reclamation`(`nom`, `reclamation`, `date`) VALUES (?, ?, ?)";
+        String req = "INSERT INTO `reclamation`(`nom`, `reclamation`, `date`, `rating`) VALUES (?, ?, ?, ?)";
 
         try (PreparedStatement ps = cnx.prepareStatement(req)) {
             ps.setString(1, r.getNom());
@@ -22,6 +23,9 @@ public class ServiceReclamation implements IServices<Reclamation> {
             // Use the current date and time for the 'date' field
             Timestamp sqlTimestamp = Timestamp.valueOf(LocalDateTime.now());
             ps.setTimestamp(3, sqlTimestamp);
+
+            // Assuming 'rating' is an integer property in your Reclamation class
+            ps.setString(4, r.getRating());
 
             ps.executeUpdate();
             System.out.println("Reclamation added!");
@@ -30,7 +34,7 @@ public class ServiceReclamation implements IServices<Reclamation> {
 
     @Override
     public void modifier(Reclamation r) throws SQLException {
-        String req = "UPDATE reclamation SET nom=?, reclamation=?, date=? WHERE id=?";
+        String req = "UPDATE reclamation SET nom=?, reclamation=?, date=?, rating=? WHERE id=?";
 
         try (PreparedStatement ps = cnx.prepareStatement(req)) {
             ps.setString(1, r.getNom());
@@ -40,12 +44,14 @@ public class ServiceReclamation implements IServices<Reclamation> {
             Timestamp sqlTimestamp = Timestamp.valueOf(LocalDateTime.now());
             ps.setTimestamp(3, sqlTimestamp);
 
-            ps.setInt(4, r.getId());
+            // Assuming 'rating' is an integer property in your Reclamation class
+            ps.setString(4, r.getRating());
+
+            ps.setInt(5, r.getId());
             ps.executeUpdate();
             System.out.println("Reclamation updated!");
         }
     }
-
 
 
 
@@ -79,7 +85,8 @@ public class ServiceReclamation implements IServices<Reclamation> {
                 String reclamation = res.getString("reclamation");
 
                 Date date = res.getDate("date");
-                r = new Reclamation( id, nom,reclamation, date);
+                String rating = res.getString("rating");
+                r = new Reclamation( id, nom,reclamation, date.toLocalDate(), rating);
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -87,7 +94,6 @@ public class ServiceReclamation implements IServices<Reclamation> {
 
         return r ;
     }
-
 
     @Override
     public HashSet<Reclamation> getAll() throws SQLException {
@@ -105,12 +111,41 @@ public class ServiceReclamation implements IServices<Reclamation> {
 
                 String nom = res.getString("nom");
 
-                Date date = res.getDate(4);
-                Reclamation r = new Reclamation(id, nom,reclamation, date);
+                Date date = res.getDate("date");
+                String rating =res.getString("rating");
+                Reclamation r = new Reclamation(id, nom, reclamation, date.toLocalDate(), rating);
                 reclamations.add(r);
             }
 
-
         return reclamations;
     }
+
+/*
+    @Override
+    public Set<Reclamation> getAll() {
+        Set<Reclamation> reclamationSet = new HashSet<Reclamation>();
+        try
+        {
+            Reclamation rec = new Reclamation();
+            String sql = "SELECT * FROM reclamation";
+            PreparedStatement statement = DataSource.getInstance().getCnx().prepareStatement(sql);
+            try (ResultSet resultSet = statement.executeQuery())
+            {
+                while (resultSet.next())
+                {
+
+                    rec.setId(resultSet.getInt("id"));
+                    reclamationSet.add(rec);
+                }
+            }
+        }
+        catch (SQLException e)
+        {
+            System.out.println("Failed to execute SQL Select statement for all edu.esprit.pack.entities.Users:");
+            System.out.println(e.getMessage());
+        }
+        return reclamationSet;
+    }
+
+ */
 }

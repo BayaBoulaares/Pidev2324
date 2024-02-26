@@ -24,7 +24,6 @@ import java.io.IOException;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.util.ResourceBundle;
 import java.util.regex.Pattern;
 
 public class AjouterReclamation {
@@ -45,9 +44,11 @@ public class AjouterReclamation {
 
     @FXML
     private Rating rating;
-    @FXML
-    private TextField msg;
 
+    @FXML
+    private TextField ratingID;
+    @FXML
+    private Rating ratingControl;
 
 
     private void showAlert(String reclamation) {
@@ -57,8 +58,6 @@ public class AjouterReclamation {
         alert.setContentText(reclamation);
         alert.showAndWait();
     }
-
-
 
     @FXML
     void Goback(ActionEvent event) {
@@ -81,7 +80,6 @@ public class AjouterReclamation {
         }
     }
 
-
     @FXML
     void Ajouter(ActionEvent event) {
         try {
@@ -90,11 +88,12 @@ public class AjouterReclamation {
                 String nom = NomId.getText();
                 String reclamation = ReclamationId.getText();
                 LocalDate date = DateId.getValue();
+                String rating = ratingID.getText();
 
                 // Capitalize the first letter of the message
                 reclamation = reclamation.substring(0, 1).toUpperCase() + reclamation.substring(1);
 
-                rs.ajouter(new Reclamation(nom, reclamation, Date.valueOf(date)));
+                rs.ajouter(new Reclamation(nom, reclamation, Date.valueOf(date), rating));
 
                 // Affichez la réponse dans une alerte
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -120,12 +119,13 @@ public class AjouterReclamation {
             alert.setTitle("SQL Exception");
             alert.setContentText(e.getMessage());
             alert.showAndWait();
+            e.printStackTrace(); // Handle the exception appropriately
+
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
-
     }
+
 
     // Validate date method
     private boolean isValidDate(LocalDate date) {
@@ -138,7 +138,6 @@ public class AjouterReclamation {
         // Check if the name contains only letters, spaces, and digits
         return Pattern.matches("[a-zA-Z\\s\\d]+", name) && !name.matches(".*[@#$*].*");
     }
-
 
     // Validate message method (customize based on your criteria)
     private boolean isValidMessage(String reclamation) {
@@ -180,11 +179,10 @@ public class AjouterReclamation {
         return true;
     }
 
-
     @FXML
     void Afficher(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherReclamation.fxml"));
-        Parent root = loader.load();
+        Parent root = loader.<Parent>load();
 
         // Retrieve the current scene from any control
         Scene currentScene = DateId.getScene();
@@ -241,11 +239,10 @@ public class AjouterReclamation {
         );
         comboBox.setItems(reclamationOptions);
 
-
         rating.ratingProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
-                msg.setText("Rate us "+t1+"/5");
+                ratingID.setText("Rate us " + t1 + "/5");
             }
         });
     }

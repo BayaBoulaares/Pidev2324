@@ -38,7 +38,7 @@
         <Label layoutX="449.0" layoutY="424.0" styleClass="info-label" text="Date" />
       <ComboBox fx:id="comboBox" layoutX="384.0" layoutY="309.0" onAction="#comboboxselected" prefWidth="150.0" promptText="type de reclamation" />
       <Rating fx:id="rating" layoutX="342.0" layoutY="733.0" />
-      <TextField fx:id="msg" layoutX="352.0" layoutY="775.0" />
+      <TextField fx:id="ratingID" layoutX="352.0" layoutY="775.0" />
     </children>
 
 </AnchorPane>
