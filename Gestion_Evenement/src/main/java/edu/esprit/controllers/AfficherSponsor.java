@@ -1,5 +1,4 @@
 package edu.esprit.controllers;
-
 import edu.esprit.entities.Evenement;
 import edu.esprit.entities.Sponsor;
 import edu.esprit.services.ServiceSponsor;
@@ -15,7 +14,6 @@ import javafx.scene.layout.VBox;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
-
 import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -58,39 +56,55 @@ public class AfficherSponsor {
     }
 
 
-
     private VBox createSponsorBox(Sponsor sponsor) {
         VBox sponsorBox = new VBox();
-        sponsorBox.getStyleClass().add("sponsorBox");
-        sponsorBox.setSpacing(10); // Ajoutez un espacement entre les éléments
 
-        // Image du sponsor (si disponible)
-        ImageView sponsorImage = createSponsorImage(sponsor);
-        if (sponsorImage != null) {
-            sponsorBox.getChildren().add(sponsorImage);
+        sponsorBox.getStyleClass().add("sponsorBox");
+        sponsorBox.setSpacing(25); // Add spacing between elements
+
+        ImageView sponsorImage = new ImageView();
+        String imagePath = sponsor.getImage(); // Assuming getImage() returns the path to the image file
+
+        try {
+            if (imagePath != null && !imagePath.isEmpty()) {
+                File file = new File(imagePath);
+                if (file.exists()) {
+                    Image image = new Image(file.toURI().toString());
+                    sponsorImage.setImage(image);
+                    sponsorImage.setFitWidth(230);
+                    sponsorImage.setFitHeight(200);
+                    sponsorImage.setPreserveRatio(true);
+                    sponsorBox.getChildren().add(sponsorImage);
+                } else {
+                    System.err.println("Image file does not exist: " + imagePath);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.err.println("Error loading image: " + e.getMessage());
         }
 
-        // Nom du sponsor
+        // Sponsor name
         Label sponsorNameLabel = new Label(sponsor.getNomSponsor());
         sponsorNameLabel.getStyleClass().add("nom");
         sponsorNameLabel.setStyle("-fx-text-fill: #010133; -fx-wrap-text: true; -fx-font-family: 'DM Sans'; -fx-font-size: 18;");
         sponsorBox.getChildren().add(sponsorNameLabel);
 
-        // Description du sponsor
+        // Sponsor description
         Label descriptionLabel = new Label(sponsor.getDescription_s());
         descriptionLabel.getStyleClass().add("description");
         descriptionLabel.setStyle("-fx-text-fill: #99a1a1; -fx-font-family: 'DM Sans'; -fx-font-size: 14;");
         sponsorBox.getChildren().add(descriptionLabel);
 
-        // Autres détails du sponsor
+        // Sponsor's contribution
         Label fondLabel = new Label("Ce sponsor a donné " + sponsor.getFond());
         fondLabel.getStyleClass().add("fond");
         fondLabel.setStyle("-fx-text-fill: #191941; -fx-wrap-text: true; -fx-font-family: 'DM Sans'; -fx-font-size: 12;");
         sponsorBox.getChildren().add(fondLabel);
 
-        // Boutons d'action
+        // Action buttons
         HBox actionButtonBox = new HBox();
-        actionButtonBox.setSpacing(25); // Ajoutez un espacement entre les boutons
+        actionButtonBox.setSpacing(25); // Add spacing between buttons
 
         Button modifierSponsorButton = new Button("Modifier");
         modifierSponsorButton.getStyleClass().add("action-button");
@@ -104,12 +118,11 @@ public class AfficherSponsor {
         supprimerButton.setOnAction(event -> handleSupprimerEvent(sponsor));
         actionButtonBox.getChildren().add(supprimerButton);
 
-        // Ajoutez les boutons à la sponsorBox
+        // Add buttons to the sponsorBox
         sponsorBox.getChildren().add(actionButtonBox);
 
         return sponsorBox;
     }
-
     private void handleSupprimerEvent(Sponsor sponsor) {
         try {
             serviceSponsor.supprimer(sponsor.getId_Sponsor());
@@ -164,21 +177,7 @@ public class AfficherSponsor {
             e.printStackTrace();
         }
     }
-    private ImageView createSponsorImage(Sponsor sponsor) {
-        File file = new File("C:/Users/ameni/Downloads/Gestion_Evenement2/src/main/java/edu/esprit/imagesponsor/" + sponsor.getId_Sponsor() + ".jpg");
-        if (file.exists()) {
-            ImageView sponsorImage = new ImageView();
-            Image image = new Image(file.toURI().toString());
-            sponsorImage.setImage(image);
-            sponsorImage.setFitWidth(240);
-            sponsorImage.setFitHeight(200);
-            sponsorImage.setPreserveRatio(true);
-            return sponsorImage;
-        } else {
-            System.err.println("Le fichier d'image du sponsor n'existe pas : " + file.getAbsolutePath());
-            return null;
-        }
-    }
+
     private void afficherAlerte(String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Information");

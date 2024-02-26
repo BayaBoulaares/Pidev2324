@@ -9,6 +9,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class ServiceSponsor implements IService<Sponsor> {
 
     @Override
@@ -16,12 +17,14 @@ public class ServiceSponsor implements IService<Sponsor> {
         Connection cnx = DataSource.getInstance().getCnx();
 
         try {
-            String req = "INSERT INTO sponsor(Nom, Description, Fond, Id_Event) VALUES (?, ?, ?, ?)";
+            String req = "INSERT INTO sponsor(Id_Sopnsor, Nom, Description, Fond, Id_Event, image) VALUES (?, ?, ?, ?, ?, ?)";
             PreparedStatement pstmt = cnx.prepareStatement(req);
-            pstmt.setString(1, s.getNomSponsor());
-            pstmt.setString(2, s.getDescription_s());
-            pstmt.setString(3, s.getFond().toString()); // Assuming Fond is an enum inside Sponsor class
-            pstmt.setInt(4, s.getEvenement().getId_Event());
+            pstmt.setInt(1, s.getId_Sponsor());
+            pstmt.setString(2, s.getNomSponsor());
+            pstmt.setString(3, s.getDescription_s());
+            pstmt.setString(4, s.getFond().toString());
+            pstmt.setInt(5, s.getEvenement().getId_Event());
+            pstmt.setString(6, s.getEvenement().getImage());
             pstmt.executeUpdate();
             System.out.println("Sponsor ajouté avec succès");
         } catch (SQLException ex) {
@@ -34,13 +37,14 @@ public class ServiceSponsor implements IService<Sponsor> {
         Connection cnx = DataSource.getInstance().getCnx();
 
         try {
-            String req = "UPDATE sponsor SET Nom=?, Description=?, Fond=?, Id_Event=? WHERE Id_Sopnsor=?"; // Correction: Utilisation du nom correct de la colonne dans la clause WHERE
+            String req = "UPDATE sponsor SET Nom=?, Description=?, Fond=?, Id_Event=?, image=? WHERE Id_Sopnsor=?";
             PreparedStatement pstmt = cnx.prepareStatement(req);
             pstmt.setString(1, s.getNomSponsor());
             pstmt.setString(2, s.getDescription_s());
-            pstmt.setString(3, s.getFond().toString()); // Assuming Fond is an enum inside Sponsor class
+            pstmt.setString(3, s.getFond().toString());
             pstmt.setInt(4, s.getEvenement().getId_Event());
-            pstmt.setInt(5, s.getId_Sponsor());
+            pstmt.setString(5, s.getEvenement().getImage());
+            pstmt.setInt(6, s.getId_Sponsor());
 
             pstmt.executeUpdate();
             System.out.println("Sponsor modifié avec succès");
@@ -78,20 +82,18 @@ public class ServiceSponsor implements IService<Sponsor> {
             ResultSet rs = pstmt.executeQuery();
 
             while (rs.next()) {
-                int idSponsor = rs.getInt("Id_Sopnsor"); // Correction: utilisation du nom correct de la colonne
+                int idSponsor = rs.getInt("Id_Sopnsor");
                 String nomSponsor = rs.getString("Nom");
                 String description = rs.getString("Description");
                 String fondStr = rs.getString("Fond");
                 int idEvent = rs.getInt("Id_Event");
+                String image = rs.getString("image");
 
-                // Convertir les types String en Enum
                 Fond fond = Fond.valueOf(fondStr);
-
-                // Récupérer l'objet Evenement complet de la base de données
                 Evenement evenement = serviceEvenement.getOneById(idEvent);
 
-                // Créer un objet Sponsor
                 Sponsor sponsor = new Sponsor(idSponsor, nomSponsor, description, fond, evenement);
+                sponsor.getEvenement().setImage(image);
                 sponsors.add(sponsor);
             }
         } catch (SQLException ex) {
@@ -105,26 +107,27 @@ public class ServiceSponsor implements IService<Sponsor> {
     public Sponsor getOneById(int id) throws SQLException {
         Connection cnx = DataSource.getInstance().getCnx();
         Sponsor sponsor = null;
+        ServiceEvenement serviceEvenement = new ServiceEvenement(); // Création d'une instance de ServiceEvenement
 
         try {
-            String req = "SELECT * FROM sponsor WHERE Id_Sponsor=?";
+            String req = "SELECT * FROM sponsor WHERE Id_Sopnsor=?";
             PreparedStatement pstmt = cnx.prepareStatement(req);
             pstmt.setInt(1, id);
             ResultSet rs = pstmt.executeQuery();
 
             if (rs.next()) {
-                int idSponsor = rs.getInt("Id_Sponsor");
+                int idSponsor = rs.getInt("Id_Sopnsor");
                 String nomSponsor = rs.getString("Nom");
                 String description = rs.getString("Description");
                 String fondStr = rs.getString("Fond");
                 int idEvent = rs.getInt("Id_Event");
+                String image = rs.getString("image");
 
-                // Convertir les types String en Enum
                 Fond fond = Fond.valueOf(fondStr);
+                Evenement evenement = serviceEvenement.getOneById(idEvent);
 
-                // Créer un objet Sponsor
-                Evenement evenement = new Evenement(idEvent); // Vous devez probablement récupérer l'Evenement à partir de la base de données
                 sponsor = new Sponsor(idSponsor, nomSponsor, description, fond, evenement);
+                sponsor.getEvenement().setImage(image);
             }
         } catch (SQLException ex) {
             System.out.println("Erreur lors de la récupération du sponsor : " + ex.getMessage());
@@ -136,7 +139,7 @@ public class ServiceSponsor implements IService<Sponsor> {
     public List<Sponsor> getByEventName(String eventName) {
         Connection cnx = DataSource.getInstance().getCnx();
         List<Sponsor> sponsors = new ArrayList<>();
-        ServiceEvenement serviceEvenement = new ServiceEvenement();
+        ServiceEvenement serviceEvenement = new ServiceEvenement(); // Création d'une instance de ServiceEvenement
 
         try {
             String req = "SELECT s.* FROM sponsor s JOIN evenement e ON s.Id_Event = e.Id_Event WHERE e.Nom_Event = ?";
@@ -145,20 +148,18 @@ public class ServiceSponsor implements IService<Sponsor> {
             ResultSet rs = pstmt.executeQuery();
 
             while (rs.next()) {
-                int idSponsor = rs.getInt("Id_Sopnsor");  // Corrected column name
+                int idSponsor = rs.getInt("Id_Sopnsor");
                 String nomSponsor = rs.getString("Nom");
                 String description = rs.getString("Description");
                 String fondStr = rs.getString("Fond");
                 int idEvent = rs.getInt("Id_Event");
+                String image = rs.getString("image");
 
-                // Convertir les types String en Enum
                 Fond fond = Fond.valueOf(fondStr);
-
-                // Récupérer l'objet Evenement complet de la base de données
                 Evenement evenement = serviceEvenement.getOneById(idEvent);
 
-                // Créer un objet Sponsor
                 Sponsor sponsor = new Sponsor(idSponsor, nomSponsor, description, fond, evenement);
+                sponsor.getEvenement().setImage(image);
                 sponsors.add(sponsor);
             }
         } catch (SQLException ex) {
@@ -167,4 +168,6 @@ public class ServiceSponsor implements IService<Sponsor> {
 
         return sponsors;
     }
+
 }
+

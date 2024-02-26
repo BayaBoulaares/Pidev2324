@@ -74,10 +74,9 @@ public class AfficherEvents {
     private VBox createEventBox(Evenement evenement) {
         VBox eventBox = new VBox();
         eventBox.getStyleClass().add("eventBox");
-
         ImageView eventImage = new ImageView();
-        File file = new File("C:/Users/ameni/Downloads/Gestion_Evenement2/src/main/java/edu/esprit/image/" + evenement.getId_Event() + ".jpg");
-        Image image = new Image(file.toURI().toString());
+        String imagePath = evenement.getImage(); // Assuming getImage() returns the path to the image file
+        Image image = new Image(new File(imagePath).toURI().toString());
         eventImage.setImage(image);
         eventImage.setFitWidth(280);
         eventImage.setFitHeight(200);

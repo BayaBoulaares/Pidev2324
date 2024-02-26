@@ -10,6 +10,8 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
 <AnchorPane prefHeight="614.0" prefWidth="786.0" stylesheets="@Design.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.ModifierSponsor">
     <children>
         <VBox fx:id="navBar" prefHeight="613.0" prefWidth="174.0" spacing="10" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -39,11 +41,7 @@
             </items>
         </ComboBox>
         <ComboBox fx:id="eventComboBox" layoutX="403.0" layoutY="300.0" prefWidth="230.0" promptText="Sélectionner l'événement">
-            <items>
-                <FXCollections fx:factory="observableArrayList">
-                    <!-- Cette liste sera remplie avec vos événements -->
-                </FXCollections>
-            </items>
+            <!-- This list will be filled with your events -->
         </ComboBox>
 
         <Button layoutX="386.0" layoutY="394.0" mnemonicParsing="false" onAction="#saveSponsorData" style="-fx-background-color: turquoise; -fx-font-size: 14px; -fx-text-fill: white; -fx-background-radius: 5px;" text="Confirmer" />
@@ -54,7 +52,12 @@
                 <Font name="Arial Rounded MT Bold" size="17.0" />
             </font>
         </Label>
-      <Label layoutX="269.0" layoutY="263.0" text="Fond du sponsor*" textFill="#09026e" />
-      <Label layoutX="274.0" layoutY="307.0" text=" évenement*" textFill="#09026e" />
+        <Label layoutX="269.0" layoutY="263.0" text="Fond du sponsor*" textFill="#09026e" />
+        <Label layoutX="274.0" layoutY="307.0" text=" Événement*" textFill="#09026e" />
+        <HBox layoutX="218.0" layoutY="450.0" spacing="10">
+            <ImageView fx:id="sponsorImage" fitHeight="1" fitWidth="1" />
+        </HBox>
+        <Button fx:id="selectImageButton" layoutX="696.0" layoutY="360.0" mnemonicParsing="false" onAction="#selectSponsorImage" style="-fx-background-color: turquoise; -fx-font-size: 14px; -fx-text-fill: white; -fx-background-radius: 5px;" text="Sélectionner une image"  />
+        <ImageView fitHeight="200.0" fitWidth="200.0" layoutX="306.0" layoutY="51.0" />
     </children>
 </AnchorPane>

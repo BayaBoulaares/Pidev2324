@@ -11,7 +11,10 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.TextField;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
+import java.io.File;
 import java.sql.SQLException;
 
 public class AjoutSponsor {
@@ -28,13 +31,16 @@ public class AjoutSponsor {
     @FXML
     private ComboBox<String> sponsorFond;
 
+    private String imagePath;
+
+
     @FXML
     void initialize() {
-        // Fill the ComboBox with events on form load
+        // Remplir la ComboBox avec les événements lors du chargement du formulaire
         ServiceEvenement serviceEvenement = new ServiceEvenement();
         try {
             eventComboBox.setItems(FXCollections.observableArrayList(serviceEvenement.getAll()));
-            // Override the default cell factory to display only event names
+            // Remplacer la cellule par défaut pour afficher uniquement les noms des événements
             eventComboBox.setCellFactory(param -> new ListCell<Evenement>() {
                 @Override
                 protected void updateItem(Evenement item, boolean empty) {
@@ -47,7 +53,7 @@ public class AjoutSponsor {
                 }
             });
         } catch (SQLException e) {
-            afficherAlerte("Error loading events: " + e.getMessage());
+            afficherAlerte("Erreur lors du chargement des événements : " + e.getMessage());
         }
     }
 
@@ -83,10 +89,11 @@ public class AjoutSponsor {
                 return;
             }
 
-            if (nomSponsor.isEmpty() || descriptionSponsor.isEmpty() || fondSponsor == null) {
+            if (nomSponsor.isEmpty() || descriptionSponsor.isEmpty() || fondSponsor == null || imagePath.isEmpty()) {
                 setFieldAsInvalid(sponsorName);
                 setFieldAsInvalid(sponsorDescription);
                 setFieldAsInvalid(sponsorFond);
+                afficherAlerte("Veuillez sélectionner une image pour le sponsor.");
                 return;
             }
 
@@ -94,17 +101,41 @@ public class AjoutSponsor {
             setFieldAsValid(sponsorDescription);
             setFieldAsValid(sponsorFond);
 
+            // Créer un nouvel objet Sponsor avec les informations fournies
             Sponsor nouveauSponsor = new Sponsor();
             nouveauSponsor.setNomSponsor(nomSponsor);
             nouveauSponsor.setDescription_s(descriptionSponsor);
             nouveauSponsor.setFond(fondSponsor);
             nouveauSponsor.setEvenement(selectedEvent);
+            nouveauSponsor.setImage(imagePath); // Définir le chemin de l'image
 
+            // Appeler le service pour ajouter le nouveau sponsor
             ServiceSponsor serviceSponsor = new ServiceSponsor();
             serviceSponsor.ajouter(nouveauSponsor);
 
+            afficherAlerte("Sponsor ajouté avec succès");
+
+            // Réinitialiser les champs après l'ajout
+            sponsorName.clear();
+            sponsorDescription.clear();
+            eventComboBox.getSelectionModel().clearSelection();
+            sponsorFond.getSelectionModel().clearSelection();
+            imagePath = ""; // Réinitialiser le chemin de l'image
+
         } catch (SQLException | NumberFormatException e) {
             afficherAlerte("Une erreur de type " + e.getClass().getSimpleName() + " s'est produite lors de l'ajout du sponsor : " + e.getMessage());
+        }
+    }
+
+    @FXML
+    void selectImage() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Choisir une image");
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif"));
+        File selectedFile = fileChooser.showOpenDialog(new Stage());
+        if (selectedFile != null) {
+            imagePath = selectedFile.getAbsolutePath();
         }
     }
 

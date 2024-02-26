@@ -6,12 +6,14 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="635.0" prefWidth="938.0" stylesheets="@Design.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.AjoutSponsor">
+<AnchorPane prefHeight="635.0" prefWidth="976.0" stylesheets="@Design.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.AjoutSponsor">
     <VBox fx:id="navBar" prefHeight="635.0" prefWidth="174.0" spacing="10" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
         <Label styleClass="navTitle" text="Auto+Learn">
             <font>
@@ -48,7 +50,10 @@
             </FXCollections>
         </items>
     </ComboBox>
-
-    <Button layoutX="439.0" layoutY="357.0" mnemonicParsing="false" onAction="#ajouter" prefHeight="32.0" prefWidth="134.0" style="-fx-background-color: turquoise; -fx-font-size: 14px; -fx-text-fill: white; -fx-background-radius: 5px;" text="Ajouter" />
-
+    <HBox layoutX="218.0" layoutY="450.0" spacing="10">
+        <ImageView fx:id="eventImage" fitHeight="1" fitWidth="1" />
+    </HBox>
+    <Button fx:id="selectImageButton" layoutX="696.0" layoutY="360.0" mnemonicParsing="false" onAction="#selectImage" prefHeight="34.0" prefWidth="150.0" text="Choisir une image" />
+    <ImageView fitHeight="200.0" fitWidth="200.0" layoutX="306.0" layoutY="51.0" />
+    <Button layoutX="425.0" layoutY="395.0" mnemonicParsing="false" onAction="#ajouter" prefHeight="34.0" prefWidth="161.0" style="-fx-background-color: turquoise; -fx-font-size: 14px; -fx-text-fill: white; -fx-background-radius: 5px;" text="Ajouter" />
 </AnchorPane>

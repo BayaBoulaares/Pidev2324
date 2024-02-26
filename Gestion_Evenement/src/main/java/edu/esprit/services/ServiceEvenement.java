@@ -5,6 +5,9 @@ import edu.esprit.entities.Status;
 import edu.esprit.utils.DataSource;
 
 import java.sql.*;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -126,4 +129,37 @@ public class ServiceEvenement implements IService<Evenement> {
         }
         return evenements;
     }
+    public List<Evenement> getEventsForCurrentWeek() throws SQLException {
+        List<Evenement> evenementsSemaine = new ArrayList<>();
+        try {
+            // Obtenez la date de début et de fin de la semaine actuelle
+            LocalDate debutSemaine = LocalDate.now().with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY));
+            LocalDate finSemaine = debutSemaine.plusDays(6); // Dimanche est le dernier jour de la semaine
+
+            String req = "SELECT * FROM evenement WHERE Date_Fin >= ? AND Date_Debut <= ?";
+            PreparedStatement ps = cnx.prepareStatement(req);
+            ps.setDate(1, java.sql.Date.valueOf(debutSemaine));
+            ps.setDate(2, java.sql.Date.valueOf(finSemaine));
+            ResultSet res = ps.executeQuery();
+            while (res.next()) {
+                int id = res.getInt("Id_Event");
+                String nomEvent = res.getString("Nom_Event");
+                String description = res.getString("Description");
+                String lieuEvent = res.getString("Lieu_Event");
+                Date dateDebut = res.getDate("Date_Debut");
+                Date dateFin = res.getDate("Date_Fin");
+                int nbMax = res.getInt("Nb_Max");
+                Status status = Status.valueOf(res.getString("Status"));
+                String image = res.getString("image");
+                Evenement e = new Evenement(id, nomEvent, description, lieuEvent, dateDebut, dateFin, nbMax, status, image);
+                evenementsSemaine.add(e);
+            }
+        } catch (SQLException ex) {
+            System.out.println("Erreur lors de la récupération des événements de la semaine : " + ex.getMessage());
+            throw ex;
+        }
+        return evenementsSemaine;
+    }
+
+
 }

@@ -6,6 +6,7 @@ public class Sponsor {
     private String Description_s;
     private Fond fond;
     private Evenement evenement;
+    private String image;
 
     public Sponsor() {
     }
@@ -17,13 +18,16 @@ public class Sponsor {
         this.fond = fond;
         this.evenement = evenement;
     }
-    public Sponsor(int id_Sponsor, String nomSponsor, String description_s, Fond fond) {
+
+    public Sponsor(int id_Sponsor, String nomSponsor, String description_s, Fond fond, Evenement evenement, String image) {
         this.Id_Sponsor = id_Sponsor;
         this.NomSponsor = nomSponsor;
         this.Description_s = description_s;
         this.fond = fond;
-
+        this.evenement = evenement;
+        this.image = image;
     }
+
     public int getId_Sponsor() {
         return Id_Sponsor;
     }
@@ -64,6 +68,14 @@ public class Sponsor {
         this.evenement = evenement;
     }
 
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
     @Override
     public String toString() {
         return "Sponsor{" +
@@ -72,8 +84,7 @@ public class Sponsor {
                 ", Description_s='" + Description_s + '\'' +
                 ", fond=" + fond +
                 ", evenement=" + evenement +
+                ", image='" + image + '\'' +
                 '}';
     }
-
-
 }

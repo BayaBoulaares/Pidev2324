@@ -57,48 +57,54 @@ public class ListSponsor {
     }
 
 
-
     private VBox createSponsorBox(Sponsor sponsor) {
         VBox sponsorBox = new VBox();
         sponsorBox.getStyleClass().add("sponsorBox");
-        ImageView sponsorImage = createSponsorImage(sponsor);
-        if (sponsorImage != null) {
-            sponsorBox.getChildren().add(sponsorImage);
+
+        // Sponsor image
+        ImageView sponsorImage = new ImageView();
+        String imagePath = sponsor.getImage(); // Assuming getImage() returns the path to the image file
+
+        try {
+            if (imagePath != null && !imagePath.isEmpty()) {
+                File file = new File(imagePath);
+                if (file.exists()) {
+                    Image image = new Image(file.toURI().toString());
+                    sponsorImage.setImage(image);
+                    sponsorImage.setFitWidth(280);
+                    sponsorImage.setFitHeight(200);
+                    sponsorImage.setPreserveRatio(true);
+                    sponsorBox.getChildren().add(sponsorImage);
+                } else {
+                    System.err.println("Image file does not exist: " + imagePath);
+                }
+            } else {
+                System.err.println("Image path is null or empty");
+            }
+
+            // Sponsor name
+            Label sponsorNameLabel = new Label(sponsor.getNomSponsor());
+            sponsorNameLabel.getStyleClass().add("nom");
+            sponsorNameLabel.setStyle("-fx-text-fill: #010133; -fx-wrap-text: true; -fx-font-family: 'DM Sans'; -fx-font-size: 18;");
+            sponsorBox.getChildren().add(sponsorNameLabel);
+
+            // Sponsor description
+            Label descriptionLabel = new Label(sponsor.getDescription_s());
+            descriptionLabel.getStyleClass().add("description");
+            descriptionLabel.setStyle("-fx-text-fill: #99a1a1; -fx-font-family: 'DM Sans'; -fx-font-size: 14;");
+            sponsorBox.getChildren().add(descriptionLabel);
+
+            // Sponsor's contribution
+            Label fondLabel = new Label("Ce sponsor a donné " + sponsor.getFond());
+            fondLabel.getStyleClass().add("fond");
+            fondLabel.setStyle("-fx-text-fill: #191941; -fx-wrap-text: true; -fx-font-family: 'DM Sans'; -fx-font-size: 12;");
+            sponsorBox.getChildren().add(fondLabel);
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.err.println("Error creating sponsor box: " + e.getMessage());
         }
-
-        Label sponsorNameLabel = new Label(sponsor.getNomSponsor());
-        sponsorNameLabel.getStyleClass().add("nom");
-        sponsorNameLabel.setStyle("-fx-text-fill: #010133; -fx-wrap-text: true; -fx-font-family: 'DM Sans'; -fx-font-size: 18;");
-        sponsorBox.getChildren().add(sponsorNameLabel);
-
-        // Description du sponsor
-        Label descriptionLabel = new Label(sponsor.getDescription_s());
-        descriptionLabel.getStyleClass().add("description");
-        descriptionLabel.setStyle("-fx-text-fill: #99a1a1; -fx-font-family: 'DM Sans'; -fx-font-size: 14;");
-        sponsorBox.getChildren().add(descriptionLabel);
-
-        // Autres détails du sponsor
-        Label fondLabel = new Label("Ce sponsor a donné " + sponsor.getFond());
-        fondLabel.getStyleClass().add("fond");
-        fondLabel.setStyle("-fx-text-fill: #191941; -fx-wrap-text: true; -fx-font-family: 'DM Sans'; -fx-font-size: 12;");
-        sponsorBox.getChildren().add(fondLabel);
 
         return sponsorBox;
     }
 
-    private ImageView createSponsorImage(Sponsor sponsor) {
-        File file = new File("C:/Users/ameni/Downloads/Gestion_Evenement2/src/main/java/edu/esprit/imagesponsor/" + sponsor.getId_Sponsor() + ".jpg");
-        if (file.exists()) {
-            ImageView sponsorImage = new ImageView();
-            Image image = new Image(file.toURI().toString());
-            sponsorImage.setImage(image);
-            sponsorImage.setFitWidth(140);
-            sponsorImage.setFitHeight(100);
-            sponsorImage.setPreserveRatio(true);
-            return sponsorImage;
-        } else {
-            System.err.println("Le fichier d'image du sponsor n'existe pas : " + file.getAbsolutePath());
-            return null;
-        }
-    }}
-
+}
