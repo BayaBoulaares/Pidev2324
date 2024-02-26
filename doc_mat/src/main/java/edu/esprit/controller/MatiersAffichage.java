@@ -184,4 +184,22 @@ private String annee;
     public void affichertout(ActionEvent actionEvent) {
         loadMatieres();
     }
+ @FXML
+    public void retourMAtiere(ActionEvent actionEvent) {
+     try {
+         FXMLLoader loader = new FXMLLoader(this.getClass().getResource("/acceuilMatiere.fxml"));
+         Parent root = (Parent) loader.load();
+         this.idret.getScene().setRoot(root);
+     } catch (IOException e) {
+         e.printStackTrace();
+         showAlert(Alert.AlertType.ERROR, "Erreur de chargement", "Impossible de charger la page d'affichage");
+     }
+ }
+    @FXML
+    private void showAlert(Alert.AlertType alertType, String title, String content) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setContentText(content);
+        alert.showAndWait();
+    }
 }
