@@ -90,7 +90,28 @@
     -fx-max-width: 300px;
     -fx-alignment: center;
 }
-
+.sponsorBox{
+    -fx-background-color: transparent;
+    -fx-border-color: #8ce5db;
+    -fx-border-width: 1px;
+    -fx-border-radius: 5px;
+    -fx-padding: 10px;
+    -fx-spacing: 10px;
+    -fx-pref-width: 300px;
+    -fx-max-width: 300px;
+    -fx-alignment: center;
+}
+.sponsorVBox{
+    -fx-background-color: transparent;
+    -fx-border-color: #93e5d9;
+    -fx-border-width: 1px;
+    -fx-border-radius: 5px;
+    -fx-padding: 10px;
+    -fx-spacing: 10px;
+    -fx-pref-width: 300px;
+    -fx-max-width: 300px;
+    -fx-alignment: center;
+}
 
 /* Style for the Consulter Sponsors button */
 .consulter-sponsors-btn {

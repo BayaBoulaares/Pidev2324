@@ -122,9 +122,7 @@ public class AfficherEvenement {
         Label maxLabel = new Label("Nombre Restant :" + evenement.getNb_Max());
         maxLabel.getStyleClass().add("max");
         eventBox.getChildren().add(maxLabel);
-        Label statusLabel = new Label("Etat :" + evenement.getStatus());
-        statusLabel.getStyleClass().add("status");
-        eventBox.getChildren().add(statusLabel);
+
 
         // Créer un HBox pour les boutons
         HBox hboxButtons = new HBox(18); // 18 est l'espace entre les éléments
@@ -172,12 +170,7 @@ public class AfficherEvenement {
         eventBox.getChildren().add(consulterSponsorsButton);
         return eventBox;
     }
-    /* Button AjouterSponsorsButton = new Button("Ajouter Sponsors");
-        AjouterSponsorsButton.getStyleClass().add("action-button");
-        AjouterSponsorsButton.setStyle("-fx-background-color: #ffffff; -fx-text-fill: #02024b;-fx-background-radius: 5px; -fx-border-color: #a6b0af;");
-        AjouterSponsorsButton.setOnAction(event -> AjouterSponsors(evenement));
-        eventBox.getChildren().add(AjouterSponsorsButton);
-*/
+
 
 
 
@@ -299,12 +292,7 @@ public class AfficherEvenement {
 
 
 
-    private void afficherAlerte(String message) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Erreur");
-        alert.setContentText(message);
-        alert.showAndWait();
-    }
+
 
     @FXML
     private void handleRetour() {
@@ -323,22 +311,5 @@ public class AfficherEvenement {
         }
     }
 
-    @FXML
-    void handleCalendarButton(ActionEvent event) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Calendrier.fxml"));
-            Parent root = loader.load();
 
-            // Create a new stage
-            Stage stage = new Stage();
-            // Set the scene with the loaded root
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
-
-            // Show the stage
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
    }

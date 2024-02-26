@@ -120,9 +120,7 @@ public class AfficherEvents {
         Label maxLabel = new Label("Nombre Restant :" + evenement.getNb_Max());
         maxLabel.getStyleClass().add("max");
         eventBox.getChildren().add(maxLabel);
-        Label statusLabel = new Label("Etat :" + evenement.getStatus());
-        statusLabel.getStyleClass().add("status");
-        eventBox.getChildren().add(statusLabel);
+
 
         HBox hboxButtons = new HBox(18);
         hboxButtons.setAlignment(Pos.CENTER);
@@ -185,10 +183,10 @@ public class AfficherEvents {
     @FXML
     private void handleConsulterSponsors(Evenement evenement) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Afficher_Sponsor.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/List_Sponsor.fxml"));
             Parent root = loader.load();
 
-            AfficherSponsor controller = loader.getController();
+            ListSponsor controller = loader.getController();
             List<Sponsor> sponsors = serviceSponsor.getByEventName(evenement.getNom_Event());
             controller.displaySponsors(sponsors);
 
@@ -197,8 +195,18 @@ public class AfficherEvents {
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
+            // Handle the exception here, e.g., show an error message to the user
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Failed to load sponsors");
+            alert.setContentText("An error occurred while loading sponsors for the event. Please try again.");
+            alert.showAndWait();
+        } catch (Exception e) {
+            e.printStackTrace();
+            // Handle any other exceptions here
         }
     }
+
     @FXML
     private void handleparticiperEvent(Evenement evenement)
     {}

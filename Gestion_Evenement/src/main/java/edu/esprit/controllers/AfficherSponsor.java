@@ -15,19 +15,16 @@ import javafx.scene.layout.VBox;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
+
 import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
-import javafx.scene.control.TextField;
 
 public class AfficherSponsor {
 
     @FXML
-    private VBox sponsorVBox;
-
-    @FXML
-    private TextField searchField;
+    private VBox sponsorBox;
 
     private final ServiceSponsor serviceSponsor = new ServiceSponsor();
     private Evenement evenement;
@@ -35,95 +32,81 @@ public class AfficherSponsor {
     @FXML
     void initialize() {
         // Effacer la VBox avant de rafraîchir les sponsors
-        sponsorVBox.getChildren().clear();
+        sponsorBox.getChildren().clear();
 
         // Charger tous les sponsors lors du lancement de l'application
         refreshSponsorList();
     }
+
     public void setEvenement(Evenement evenement) {
         this.evenement = evenement;
     }
-    @FXML
-    void searchSponsor() {
-        String eventName = searchField.getText().trim();
-
-        if (eventName.isEmpty()) {
-            // Si le champ de recherche est vide, affichez tous les sponsors
-            refreshSponsorList();
-        } else {
-            // Sinon, recherchez les sponsors par nom d'événement
-            List<Sponsor> foundSponsors = serviceSponsor.getByEventName(eventName);
-
-            if (foundSponsors != null && !foundSponsors.isEmpty()) {
-                displaySponsors(foundSponsors);
-            } else {
-                afficherAlerte("Aucun sponsor correspondant trouvé.");
-            }
-        }
-    }
-
-
 
     public void displaySponsors(List<Sponsor> sponsors) {
-        // Effacer la liste actuelle des sponsors
-        sponsorVBox.getChildren().clear();
+        // Utilisez HBox pour un affichage horizontal
+        HBox sponsorContainer = new HBox();
+        sponsorContainer.setSpacing(20); // Ajoutez un espacement entre les sponsors
 
-        // Afficher les sponsors trouvés
         for (Sponsor sponsor : sponsors) {
-            HBox sponsorBox = createSponsorBox(sponsor);
-            sponsorVBox.getChildren().add(sponsorBox);
+            VBox sponsorBox = createSponsorBox(sponsor);
+            sponsorContainer.getChildren().add(sponsorBox);
         }
+
+        // Remplacez l'ancien conteneur par le nouveau
+        sponsorBox.getChildren().clear();
+        sponsorBox.getChildren().add(sponsorContainer);
     }
 
-    private HBox createSponsorBox(Sponsor sponsor) {
-        HBox sponsorBox = new HBox();
-        sponsorBox.setStyle("-fx-border-color: #a5e7dc;-fx-background-color: #ffffff; -fx-border-width: 1px; -fx-border-radius: 5px;"); // Ajoutez une bordure bleue
-        sponsorBox.setSpacing(20);
-        // Image du sponsor (si disponible)
-        ImageView sponsorImage = new ImageView();
-        File file = new File("C:/Users/ameni/Downloads/Gestion_Evenement2/src/main/java/edu/esprit/imagesponsor/" + sponsor.getId_Sponsor() + ".jpg");
-        Image image = new Image(file.toURI().toString());
-        sponsorImage.setImage(image);
-        sponsorImage.setFitWidth(220);
-        sponsorImage.setFitHeight(150);
-        sponsorImage.setPreserveRatio(true);
-        sponsorBox.getChildren().add(sponsorImage);
 
-        // Informations du sponsor
-        VBox sponsorInfoBox = new VBox();
-        sponsorInfoBox.setSpacing(28);
+
+    private VBox createSponsorBox(Sponsor sponsor) {
+        VBox sponsorBox = new VBox();
+        sponsorBox.getStyleClass().add("sponsorBox");
+        sponsorBox.setSpacing(10); // Ajoutez un espacement entre les éléments
+
+        // Image du sponsor (si disponible)
+        ImageView sponsorImage = createSponsorImage(sponsor);
+        if (sponsorImage != null) {
+            sponsorBox.getChildren().add(sponsorImage);
+        }
 
         // Nom du sponsor
-        Label sponsorNameLabel = new Label( sponsor.getNomSponsor());
-        sponsorNameLabel.setStyle("-fx-text-fill: darkblue; -fx-font-family: 'DM Sans'; -fx-font-size: 18px;"); // Texte en bleu foncé avec la police DM Sans et taille de l'écriture 14
-        sponsorInfoBox.getChildren().add(sponsorNameLabel);
+        Label sponsorNameLabel = new Label(sponsor.getNomSponsor());
+        sponsorNameLabel.getStyleClass().add("nom");
+        sponsorNameLabel.setStyle("-fx-text-fill: #010133; -fx-wrap-text: true; -fx-font-family: 'DM Sans'; -fx-font-size: 18;");
+        sponsorBox.getChildren().add(sponsorNameLabel);
 
         // Description du sponsor
         Label descriptionLabel = new Label(sponsor.getDescription_s());
-        descriptionLabel.setStyle("-fx-text-fill: #a7b2b1; -fx-font-family: 'DM Sans'; -fx-font-size: 14px;"); // Texte en bleu foncé avec la police DM Sans et taille de l'écriture 14
-        sponsorInfoBox.getChildren().add(descriptionLabel);
+        descriptionLabel.getStyleClass().add("description");
+        descriptionLabel.setStyle("-fx-text-fill: #99a1a1; -fx-font-family: 'DM Sans'; -fx-font-size: 14;");
+        sponsorBox.getChildren().add(descriptionLabel);
 
         // Autres détails du sponsor
-        Label fondLabel = new Label("Fond: " + sponsor.getFond());
-        fondLabel.setStyle("-fx-text-fill: darkblue; -fx-font-family: 'DM Sans'; -fx-font-size: 14px;"); // Texte en bleu foncé avec la police DM Sans et taille de l'écriture 14
-        sponsorInfoBox.getChildren().add(fondLabel);
+        Label fondLabel = new Label("Ce sponsor a donné " + sponsor.getFond());
+        fondLabel.getStyleClass().add("fond");
+        fondLabel.setStyle("-fx-text-fill: #191941; -fx-wrap-text: true; -fx-font-family: 'DM Sans'; -fx-font-size: 12;");
+        sponsorBox.getChildren().add(fondLabel);
 
-        Label evenementLabel = new Label("Evenement Sponsorisé: " + sponsor.getEvenement().getNom_Event());
-        evenementLabel.setStyle("-fx-text-fill: darkblue; -fx-font-family: 'DM Sans'; -fx-font-size: 14px;"); // Texte en bleu foncé avec la police DM Sans et taille de l'écriture 14
-        sponsorInfoBox.getChildren().add(evenementLabel);
+        // Boutons d'action
+        HBox actionButtonBox = new HBox();
+        actionButtonBox.setSpacing(25); // Ajoutez un espacement entre les boutons
 
-        sponsorBox.getChildren().add(sponsorInfoBox);
         Button modifierSponsorButton = new Button("Modifier");
         modifierSponsorButton.getStyleClass().add("action-button");
         modifierSponsorButton.setStyle("-fx-background-color: turquoise; -fx-text-fill: white; -fx-background-radius: 5px; -fx-border-color: #63e8db;");
         modifierSponsorButton.setOnAction(event -> modifierSponsor(sponsor));
-        sponsorBox.getChildren().add(modifierSponsorButton);
+        actionButtonBox.getChildren().add(modifierSponsorButton);
 
         Button supprimerButton = new Button("Supprimer");
         supprimerButton.getStyleClass().add("action-button");
         supprimerButton.setStyle("-fx-background-color: white; -fx-text-fill:turquoise;-fx-background-radius: 5px; -fx-border-color: turquoise;");
         supprimerButton.setOnAction(event -> handleSupprimerEvent(sponsor));
-        sponsorBox.getChildren().add(supprimerButton);
+        actionButtonBox.getChildren().add(supprimerButton);
+
+        // Ajoutez les boutons à la sponsorBox
+        sponsorBox.getChildren().add(actionButtonBox);
+
         return sponsorBox;
     }
 
@@ -140,18 +123,29 @@ public class AfficherSponsor {
     }
 
     private void refreshSponsorList() {
-        sponsorVBox.getChildren().clear();
+        // Utilisez HBox pour un affichage horizontal
+        HBox sponsorContainer = new HBox();
+        sponsorContainer.setSpacing(25); // Ajoutez un espacement entre les sponsors
+
         try {
             List<Sponsor> updatedSponsors = serviceSponsor.getAll();
             for (Sponsor updatedSponsor : updatedSponsors) {
-                HBox sponsorBox = createSponsorBox(updatedSponsor);
-                sponsorBox.setSpacing(20);
-                sponsorVBox.getChildren().add(sponsorBox);
+                VBox sponsorBoxItem = createSponsorBox(updatedSponsor);
+                sponsorContainer.getChildren().add(sponsorBoxItem);
             }
         } catch (SQLException ex) {
             System.out.println("Erreur lors de l'actualisation de la liste des sponsors : " + ex.getMessage());
-            // Gérez l'exception de manière appropriée, par exemple en affichant un message d'erreur
+            // Affichez un message d'erreur à l'utilisateur
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erreur");
+            alert.setHeaderText("Une erreur s'est produite lors de l'actualisation de la liste des sponsors.");
+            alert.setContentText(ex.getMessage());
+            alert.showAndWait();
         }
+
+        // Remplacez l'ancien conteneur par le nouveau
+        sponsorBox.getChildren().clear();
+        sponsorBox.getChildren().add(sponsorContainer);
     }
 
     private void modifierSponsor(Sponsor sponsor) {
@@ -170,7 +164,21 @@ public class AfficherSponsor {
             e.printStackTrace();
         }
     }
-
+    private ImageView createSponsorImage(Sponsor sponsor) {
+        File file = new File("C:/Users/ameni/Downloads/Gestion_Evenement2/src/main/java/edu/esprit/imagesponsor/" + sponsor.getId_Sponsor() + ".jpg");
+        if (file.exists()) {
+            ImageView sponsorImage = new ImageView();
+            Image image = new Image(file.toURI().toString());
+            sponsorImage.setImage(image);
+            sponsorImage.setFitWidth(240);
+            sponsorImage.setFitHeight(200);
+            sponsorImage.setPreserveRatio(true);
+            return sponsorImage;
+        } else {
+            System.err.println("Le fichier d'image du sponsor n'existe pas : " + file.getAbsolutePath());
+            return null;
+        }
+    }
     private void afficherAlerte(String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Information");
@@ -179,4 +187,3 @@ public class AfficherSponsor {
         alert.show();
     }
 }
-

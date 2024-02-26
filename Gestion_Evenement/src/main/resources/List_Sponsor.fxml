@@ -1,27 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.TextField?>
+
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.HBox?>
+
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="572.0" prefWidth="859.0" stylesheets="@Design.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.AfficherSponsor">
+<BorderPane prefHeight="572.0" prefWidth="859.0" stylesheets="@Design.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.ListSponsor">
+<top><VBox alignment="CENTER">
+    <Label style="-fx-font-size: 18px;" text="Liste des Sponsors" textFill="#000044" />
+</VBox></top>
 
-    <top>
-    <VBox alignment="CENTER">
-        <Label style="-fx-font-size: 18px;" text="Liste des Sponsors" textFill="#000044" />
-    </VBox>
-    </top>
+
     <left>
         <!-- Navigation Bar -->
         <VBox fx:id="navBar" prefHeight="535.0" prefWidth="162.0" spacing="10">
             <Label styleClass="navTitle" text="Auti+Learn" textFill="#fffdfd">
                 <font>
-                    <javafx.scene.text.Font name="Arial Rounded MT Bold" size="18.0" />
+                    <javafx.scene.text.Font name="DM sans" size="18.0" />
                 </font>
             </Label>
             <Label text="Accueil" textFill="WHITE" />
@@ -33,14 +31,15 @@
             <Label text="Profil" textFill="WHITE" />
         </VBox>
     </left>
-
     <center>
-        <!-- Sponsor Details Section -->
-        <ScrollPane>
-            <VBox fx:id="sponsorBox" prefHeight="535.0" prefWidth="636.0" BorderPane.alignment="CENTER">
+        <ScrollPane fitToWidth="true" fitToHeight="true" hbarPolicy="ALWAYS" vbarPolicy="NEVER">
+            <content>
+                <VBox fx:id="sponsorBox" prefHeight="535.0" prefWidth="636.0" BorderPane.alignment="CENTER">
 
-            </VBox>
+                </VBox>
+            </content>
         </ScrollPane>
     </center>
+
 
 </BorderPane>

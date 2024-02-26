@@ -8,17 +8,17 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.HBox?>
 
-<AnchorPane prefHeight="624.0" prefWidth="940.0" stylesheets="@Design.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.AjoutEvenement">
-    <VBox fx:id="navBar" prefHeight="630.0" prefWidth="174.0" spacing="10" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
-        <Label styleClass="navTitle" text="Auto+Learn">
+<AnchorPane prefHeight="730.0" prefWidth="1487.0" stylesheets="@Design.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.AjoutEvenement">
+    <VBox fx:id="navBar" prefHeight="730.0" prefWidth="174.0" spacing="10" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <Label styleClass="navTitle" text="Auti+Learn">
             <font>
                 <Font name="Arial Rounded MT Bold" size="18.0" />
             </font>
@@ -32,19 +32,19 @@
         <Label fx:id="lastLabel" text="Profil" textFill="WHITE" />
         <Button mnemonicParsing="false" onAction="#afficherListEvenements" style="-fx-background-color: transparent; -fx-text-fill: white;" text="List" />
     </VBox>
-    <Text fill="#020269" layoutX="428.0" layoutY="44.0" text="Créer un nouveau Événement!" />
-    <Label layoutX="192.0" layoutY="108.0" text="Nom d'événement*" textFill="#020269" />
-    <TextField fx:id="eventName" layoutX="316.0" layoutY="102.0" prefHeight="32.0" prefWidth="160.0" promptText="Saisir Nom d'événement" />
-    <DatePicker fx:id="eventStartDate" layoutX="617.0" layoutY="102.0" promptText="Choisir Date début" />
-    <Label layoutX="534.0" layoutY="108.0" text="Date début*" textFill="#020269" />
-    <TextField fx:id="eventLocation" layoutX="606.0" layoutY="207.0" prefHeight="34.0" prefWidth="160.0" promptText="Choisir Lieu " />
-    <Label layoutX="555.0" layoutY="214.0" text="Lieu*" textFill="#020269" />
-    <DatePicker fx:id="eventEndDate" layoutX="307.0" layoutY="208.0" promptText="Choisir Date fin " />
-    <Label layoutX="210.0" layoutY="214.0" text="Date fin*" textFill="#020269" />
-    <Label layoutX="548.0" layoutY="302.0" text="Status*" textFill="#020269" />
-    <Button layoutX="451.0" layoutY="526.0" mnemonicParsing="false" onAction="#ajouter" prefHeight="34.0" prefWidth="130.0" style="-fx-background-color: turquoise; -fx-font-size: 14px; -fx-text-fill: white; -fx-background-radius: 5px;" text="Ajouter" />
-    <Label layoutX="298.0" layoutY="388.0" prefHeight="22.0" prefWidth="82.0" text="Description *" textFill="#020269" />
-    <ComboBox fx:id="eventType" layoutX="626.0" layoutY="296.0" prefHeight="22.0" prefWidth="115.0" promptText="Status*">
+    <Text fill="#020269" layoutX="899.0" layoutY="42.0" text="Créer un nouveau Événement!" />
+    <Label layoutX="608.0" layoutY="108.0" text="Nom d'événement*" textFill="#020269" />
+    <TextField fx:id="eventName" layoutX="747.0" layoutY="102.0" prefHeight="32.0" prefWidth="202.0" promptText="Saisir Nom d'événement" />
+    <DatePicker fx:id="eventStartDate" layoutX="1158.0" layoutY="102.0" prefHeight="32.0" prefWidth="202.0" promptText="Choisir Date début" />
+    <Label layoutX="1071.0" layoutY="108.0" text="Date début*" textFill="#020269" />
+    <TextField fx:id="eventLocation" layoutX="1154.0" layoutY="217.0" prefHeight="34.0" prefWidth="177.0" promptText="Choisir Lieu " />
+    <Label layoutX="1092.0" layoutY="224.0" text="Lieu*" textFill="#020269" />
+    <DatePicker fx:id="eventEndDate" layoutX="773.0" layoutY="218.0" prefHeight="32.0" prefWidth="178.0" promptText="Choisir Date fin " />
+    <Label layoutX="677.0" layoutY="224.0" text="Date fin*" textFill="#020269" />
+    <Label layoutX="1085.0" layoutY="330.0" text="Status*" textFill="#020269" />
+    <Button layoutX="777.0" layoutY="640.0" mnemonicParsing="false" onAction="#ajouter" prefHeight="34.0" prefWidth="161.0" style="-fx-background-color: turquoise; -fx-font-size: 14px; -fx-text-fill: white; -fx-background-radius: 5px;" text="Ajouter" />
+    <Label layoutX="817.0" layoutY="467.0" prefHeight="22.0" prefWidth="82.0" text="Description *" textFill="#020269" />
+    <ComboBox fx:id="eventType" layoutX="1148.0" layoutY="324.0" prefHeight="32.0" prefWidth="169.0" promptText="Status*">
         <items>
             <FXCollections fx:factory="observableArrayList">
                 <String fx:value="EN_COURS" />
@@ -53,17 +53,22 @@
             </FXCollections>
         </items>
     </ComboBox>
-    <TextField fx:id="maxNumber" layoutX="298.0" layoutY="299.0" promptText="Donner Nombre max" />
-    <TextArea fx:id="eventDescription" layoutX="411.0" layoutY="388.0" prefHeight="106.0" prefWidth="433.0" promptText="Description" />
-    <Label layoutX="195.0" layoutY="304.0" text="Nombre max*" textFill="#020269" />
-    <Button layoutX="831.0" layoutY="568.0" mnemonicParsing="false" onAction="#afficherEvenements" prefHeight="34.0" prefWidth="82.0" style="-fx-background-color: turquoise; -fx-font-size: 14px; -fx-text-fill: white; -fx-background-radius: 5px;" text="Consulter" />
+    <TextField fx:id="maxNumber" layoutX="764.0" layoutY="325.0" promptText="Donner Nombre max" />
+    <TextArea fx:id="eventDescription" layoutX="926.0" layoutY="460.0" prefHeight="106.0" prefWidth="433.0" promptText="Description" />
+    <Label layoutX="636.0" layoutY="330.0" text="Nombre max*" textFill="#020269" />
+    <Button layoutX="1153.0" layoutY="681.0" mnemonicParsing="false" onAction="#afficherEvenements" prefHeight="34.0" prefWidth="178.0" style="-fx-background-color: turquoise; -fx-font-size: 14px; -fx-text-fill: white; -fx-background-radius: 5px;" text="Consulter" />
     <Text fill="#50508c" layoutX="187.0" layoutY="25.0" text="Page/Événement">
         <font>
             <Font size="10.0" />
         </font>
     </Text>
     <HBox layoutX="218.0" layoutY="450.0" spacing="10">
-        <Button fx:id="selectImageButton" onAction="#selectImage" mnemonicParsing="false" text="Choisir une image" />
         <ImageView fx:id="eventImage" fitHeight="1" fitWidth="1" />
     </HBox>
+     <Button fx:id="selectImageButton" layoutX="548.0" layoutY="443.0" mnemonicParsing="false" onAction="#selectImage" prefHeight="34.0" prefWidth="150.0" text="Choisir une image" />
+   <ImageView fitHeight="200.0" fitWidth="200.0" layoutX="306.0" layoutY="51.0">
+      <image>
+         <Image url="@../java/edu/esprit/image/Schedule-rafiki.png" />
+      </image>
+   </ImageView>
 </AnchorPane>
