@@ -1,0 +1,153 @@
+.sidebar2{
+    -fx-background-color: #27DEC1;
+    -fx-background-radius: 60px 0px 0px 60px;
+    -fx-font-family: dm-sans;
+    -fx-font-size: 16px;
+    -fx-font-weight:Bold;
+
+}
+.parent{
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 30px;
+}
+
+.text-field {
+    -fx-background-color: #ffffff; /* Couleur de fond */
+    -fx-text-fill: #333333; /* Couleur du texte */
+    -fx-font-size: 14px; /* Taille de police */
+    -fx-font-family: "dm-sans"; /* Famille de police */
+    -fx-prompt-text-fill: #A3AED0; /* Couleur du texte de l'invite */
+    -fx-border-color: #A3AED0; /* Couleur de la bordure */
+    -fx-border-width: 0.5px; /* Épaisseur de la bordure */
+    -fx-border-radius: 10px; /* Rayon de la bordure */
+    -fx-padding: 5px; /* Espacement à l'intérieur du champ de texte */
+}
+.bconnexion{
+    -fx-background-color: #27DEC1; /* Couleur de fond */
+    -fx-text-fill: white; /* Couleur du texte */
+    -fx-font-size: 13px; /* Taille de police */
+    -fx-font-family: "dm-sans"; /* Famille de police */
+    /*-fx-border-radius: 5em; /* Rayon de la bordure */
+    -fx-border-color: transparent; /* Couleur de la bordure */
+    -fx-border-width: 0.5px;
+    -fx-padding: 5;
+    -fx-background-radius:1em;
+
+
+}
+.signinf{
+    -fx-background-color: #FFFFFF; /* Couleur de fond */
+    -fx-text-fill: #27DEC1; /* Couleur du texte */
+    -fx-font-size: 13px; /* Taille de police */
+    -fx-font-family: "dm-sans"; /* Famille de police */
+    /*-fx-border-radius: 5em; /* Rayon de la bordure */
+    -fx-border-color: transparent; /* Couleur de la bordure */
+    -fx-border-width: 0.5px;
+    -fx-padding: 5;
+    -fx-background-radius:1em;
+
+}
+.bmdpo{
+    -fx-background-color: #ffffff; /* Couleur de fond */
+    -fx-text-fill: #27DEC1; /* Couleur du texte */
+    -fx-font-size: 13px; /* Taille de police */
+    -fx-font-family: "dm-sans"; /* Famille de police */
+    /*-fx-border-radius: 5em; /* Rayon de la bordure */
+    -fx-border-color: #FFFFFF; /* Couleur de la bordure */
+    -fx-border-width: 0.5px;
+    -fx-padding: 5;
+    -fx-background-radius:1em;
+
+
+
+}
+/* Style du RadioButton */
+.radio-button {
+    -fx-font-size: 12px; /* Taille de police */
+    -fx-font-family: "dm-sans"; /* Famille de police */
+    -fx-text-fill: #2b3674; /* Couleur du texte */
+}
+
+/* Style du carré sélectionné */
+
+.radio-button .radio {
+    -fx-background-color: #ffffff; /* Couleur de remplissage */
+    -fx-border-color: #A3AED0; /* Couleur de la bordure */
+    -fx-border-width: 0.5px; /* Épaisseur de la bordure */
+    -fx-padding: 2px; /* Espacement intérieur */
+    -fx-border-radius: 2px; /* Rayon de la bordure */
+}
+
+
+/* Style du carré lorsque le RadioButton est désactivé */
+.radio-button:disabled .radio {
+    -fx-background-color: #cccccc; /* Couleur de remplissage désactivée */
+
+}
+.creercompte{
+    -fx-background-color: #FFFFFF; /* Couleur de fond */
+    -fx-text-fill: #A3AED0; /* Couleur du texte */
+    -fx-font-size: 12px; /* Taille de police */
+    -fx-font-family: "dm-sans"; /* Famille de police */
+    /*-fx-border-radius: 5em; /* Rayon de la bordure */
+    -fx-border-color: transparent; /* Couleur de la bordure */
+    -fx-border-width: 0.5px;
+    -fx-padding: 5;
+    -fx-background-radius:1em;
+
+
+}
+
+/* Style de l'étiquette du RadioButton */
+.radio-button .text {
+    -fx-padding: 0 5px; /* Espacement */
+}
+
+/* ComboBox styles */
+.combo-box {
+    -fx-background-color: #ffffff; /* Background color */
+    -fx-text-fill: #333333; /* Text color */
+    -fx-font-size: 14px; /* Font size */
+    -fx-font-family: "dm-sans"; /* Font family */
+    -fx-border-color: #A3AED0; /* Border color */
+    -fx-border-width: 0.5px; /* Border width */
+    -fx-border-radius: 10px; /* Border radius */
+    -fx-padding: 5px; /* Padding */
+}
+
+.combo-box .arrow-button {
+    -fx-background-color: #A3AED0; /* Arrow button background color */
+    -fx-shape: "M0,0 L7,7 L14,0 L0,0 Z"; /* Custom arrow shape */
+}
+
+.combo-box .list-cell {
+    -fx-background-color: #ffffff; /* List cell background color */
+    -fx-text-fill: #333333; /* List cell text color */
+}
+
+.combo-box .list-view {
+    -fx-background-color: #ffffff; /* List view background color */
+    -fx-border-color: #A3AED0; /* List view border color */
+    -fx-border-width: 0.5px; /* List view border width */
+    -fx-border-radius: 10px; /* List view border radius */
+}
+
+.combo-box .list-view .scroll-bar {
+    -fx-background-color: #A3AED0; /* Scroll bar background color */
+}
+
+.combo-box .list-view .scroll-bar .thumb {
+    -fx-background-color: #27DEC1; /* Scroll bar thumb color */
+}
+
+.combo-box .list-view .scroll-bar .track {
+    -fx-background-color: #A3AED0; /* Scroll bar track color */
+}
+
+.combo-box .list-view .scroll-bar:vertical {
+    -fx-padding: 0.5em; /* Scroll bar vertical padding */
+}
+
+.combo-box .list-view .scroll-bar:horizontal {
+    -fx-padding: 0.5em; /* Scroll bar horizontal padding */
+}

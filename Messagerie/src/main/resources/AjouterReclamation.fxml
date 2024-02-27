@@ -10,7 +10,7 @@
 <?import javafx.scene.text.Font?>
 <?import org.controlsfx.control.Rating?>
 
-<AnchorPane prefHeight="813.0" prefWidth="937.0" stylesheets="Style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.AjouterReclamation">
+<AnchorPane prefHeight="823.0" prefWidth="1224.0" stylesheets="" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.AjouterReclamation">
 
     <children>
         <VBox fx:id="navBar" prefHeight="760.0" prefWidth="272.0" spacing="10" styleClass="side-bar" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -27,18 +27,18 @@
             <Label text="Réservations" />
             <Label fx:id="lastLabel" text="Profil" />
         </VBox>
-        <TextField fx:id="NomId" layoutX="688.0" layoutY="121.0" promptText="Nom" styleClass="input-field" />
-        <TextField fx:id="ReclamationId" layoutX="650.0" layoutY="210.0" prefHeight="141.0" prefWidth="226.0" promptText="Reclamation" styleClass="input-field" />
-        <Button layoutX="794.0" layoutY="750.0" mnemonicParsing="false" onAction="#Afficher" styleClass="action-button" text="Afficher" />
-        <Button layoutX="707.0" layoutY="750.0" mnemonicParsing="false" onAction="#Ajouter" styleClass="action-button" text="Ajouter" />
-        <Button layoutY="760.0" mnemonicParsing="false" onAction="#Goback" prefHeight="63.0" prefWidth="135.0" text="&lt;- Go Back" />
-        <Label layoutX="436.0" layoutY="125.0" styleClass="info-label" text="Nom" />
-        <Label layoutX="426.0" layoutY="272.0" styleClass="info-label" text="Reclamation" />
-        <DatePicker fx:id="DateId" layoutX="676.0" layoutY="412.0" promptText="Date" styleClass="input-field" />
-        <Label layoutX="449.0" layoutY="424.0" styleClass="info-label" text="Date" />
-      <ComboBox fx:id="comboBox" layoutX="384.0" layoutY="309.0" onAction="#comboboxselected" prefWidth="150.0" promptText="type de reclamation" />
+        <TextField fx:id="NomId" layoutX="688.0" layoutY="121.0" promptText="Nom" styleClass="input-field" stylesheets="@css/css/StyleConnect.css" />
+        <TextField fx:id="ReclamationId" layoutX="650.0" layoutY="210.0" prefHeight="141.0" prefWidth="226.0" promptText="Reclamation" styleClass="input-field" stylesheets="@css/css/StyleConnect.css" />
+        <Button layoutX="794.0" layoutY="750.0" mnemonicParsing="false" onAction="#Afficher" styleClass="action-button" stylesheets="@css/css/StyleTable.css" text="Afficher" />
+        <Button layoutX="707.0" layoutY="750.0" mnemonicParsing="false" onAction="#Ajouter" styleClass="action-button" stylesheets="@css/css/StyleTable.css" text="Ajouter" />
+        <Button layoutY="760.0" mnemonicParsing="false" onAction="#Goback" prefHeight="63.0" prefWidth="135.0" stylesheets="@css/css/StyleTable.css" text="&lt;- Go Back" />
+        <Label layoutX="436.0" layoutY="125.0" styleClass="info-label" stylesheets="@css/css/StyleProfile.css" text="Nom" />
+        <Label layoutX="426.0" layoutY="272.0" styleClass="info-label" stylesheets="@css/css/StyleProfile.css" text="Reclamation" />
+        <DatePicker fx:id="DateId" layoutX="676.0" layoutY="412.0" promptText="Date" styleClass="input-field" stylesheets="@css/css/StyleConnect.css" />
+        <Label layoutX="449.0" layoutY="424.0" styleClass="info-label" stylesheets="@css/css/StyleProfile.css" text="Date" />
+      <ComboBox fx:id="comboBox" layoutX="384.0" layoutY="309.0" onAction="#comboboxselected" prefWidth="150.0" promptText="type de reclamation" stylesheets="@css/css/StyleConnect.css" />
       <Rating fx:id="rating" layoutX="342.0" layoutY="733.0" />
-      <TextField fx:id="ratingID" layoutX="352.0" layoutY="775.0" />
+      <TextField fx:id="ratingID" layoutX="352.0" layoutY="775.0" promptText="rate us ..." stylesheets="@css/css/StyleConnect.css" />
     </children>
 
 </AnchorPane>

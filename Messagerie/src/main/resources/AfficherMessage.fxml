@@ -9,29 +9,29 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="813.0" prefWidth="937.0" stylesheets="Style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.AfficherMessage">
+<AnchorPane prefHeight="813.0" prefWidth="1248.0" stylesheets="" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.AfficherMessage">
 
     <children>
 
-        <TableView fx:id="TableView" layoutX="292.0" layoutY="16.0" onMouseClicked="#mouceClicked" prefHeight="287.0" prefWidth="625.0" styleClass="custom-table-view">
+        <TableView fx:id="TableView" layoutX="292.0" layoutY="16.0" onMouseClicked="#mouceClicked" prefHeight="287.0" prefWidth="924.0" styleClass="custom-table-view" stylesheets="@css/css/StyleTable.css">
             <columns>
-                <TableColumn fx:id="Nom" prefWidth="150.0" text="Nom" />
-                <TableColumn fx:id="Message" minWidth="0.0" prefWidth="277.0" text="Message" />
-                <TableColumn fx:id="Date" prefWidth="197.0" text="Date" />
+                <TableColumn fx:id="Nom" prefWidth="308.0" text="Nom" />
+                <TableColumn fx:id="Message" minWidth="0.0" prefWidth="291.0" text="Message" />
+                <TableColumn fx:id="Date" prefWidth="324.0" text="Date" />
             </columns>
         </TableView>
 
-        <Label layoutX="421.0" layoutY="455.0" prefHeight="49.0" prefWidth="91.0" styleClass="info-label" text="Nom" />
-        <Label layoutX="410.0" layoutY="558.0" prefHeight="49.0" prefWidth="126.0" styleClass="info-label" text="Message" textAlignment="CENTER" />
-        <Label layoutX="421.0" layoutY="664.0" prefHeight="49.0" prefWidth="91.0" styleClass="info-label" text="Date" textAlignment="JUSTIFY" />
+        <Label layoutX="421.0" layoutY="455.0" prefHeight="49.0" prefWidth="91.0" styleClass="info-label" stylesheets="@css/css/StyleProfile.css" text="Nom" />
+        <Label layoutX="410.0" layoutY="558.0" prefHeight="49.0" prefWidth="126.0" styleClass="info-label" stylesheets="@css/css/StyleProfile.css" text="Message" textAlignment="CENTER" />
+        <Label layoutX="421.0" layoutY="664.0" prefHeight="49.0" prefWidth="91.0" styleClass="info-label" stylesheets="@css/css/StyleProfile.css" text="Date" textAlignment="JUSTIFY" />
 
-        <TextField fx:id="NomID" layoutX="636.0" layoutY="448.0" prefHeight="63.0" prefWidth="230.0" promptText="Nom" styleClass="input-field" />
-        <TextField fx:id="MeesageID" layoutX="636.0" layoutY="551.0" prefHeight="63.0" prefWidth="230.0" promptText="Message" styleClass="input-field" />
-        <DatePicker fx:id="DateID" layoutX="635.0" layoutY="657.0" prefHeight="63.0" prefWidth="230.0" promptText="Date" styleClass="input-field" />
+        <TextField fx:id="NomID" layoutX="636.0" layoutY="448.0" prefHeight="63.0" prefWidth="230.0" promptText="Nom" styleClass="input-field" stylesheets="@css/css/StyleConnect.css" />
+        <TextField fx:id="MeesageID" layoutX="636.0" layoutY="551.0" prefHeight="63.0" prefWidth="230.0" promptText="Message" styleClass="input-field" stylesheets="@css/css/StyleConnect.css" />
+        <DatePicker fx:id="DateID" layoutX="635.0" layoutY="657.0" prefHeight="63.0" prefWidth="230.0" promptText="Date" styleClass="input-field" stylesheets="@css/css/StyleConnect.css" />
 
-        <Button fx:id="Modifier" layoutX="733.0" layoutY="314.0" mnemonicParsing="false" onAction="#modifiermessage" prefHeight="63.0" prefWidth="135.0" styleClass="action-button" text="Modifier" />
-        <Button fx:id="Supprimer" layoutX="576.0" layoutY="314.0" mnemonicParsing="false" onAction="#supprimermessage" prefHeight="63.0" prefWidth="135.0" styleClass="action-button" text="Supprimer" />
-        <Button fx:id="Goback" layoutY="750.0" mnemonicParsing="false" onAction="#Goback" prefHeight="63.0" prefWidth="135.0" text="&lt;- Go Back" />
+        <Button fx:id="Modifier" layoutX="733.0" layoutY="314.0" mnemonicParsing="false" onAction="#modifiermessage" prefHeight="63.0" prefWidth="135.0" styleClass="action-button" stylesheets="@css/css/StyleTable.css" text="Modifier" />
+        <Button fx:id="Supprimer" layoutX="576.0" layoutY="314.0" mnemonicParsing="false" onAction="#supprimermessage" prefHeight="63.0" prefWidth="135.0" styleClass="action-button" stylesheets="@css/css/StyleTable.css" text="Supprimer" />
+        <Button fx:id="Goback" layoutY="750.0" mnemonicParsing="false" onAction="#Goback" prefHeight="63.0" prefWidth="135.0" stylesheets="@css/css/StyleTable.css" text="&lt;- Go Back" />
         <VBox fx:id="navBar" prefHeight="750.0" prefWidth="272.0" spacing="10" styleClass="side-bar" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
             <Label prefHeight="49.0" prefWidth="191.0" styleClass="navTitle" text="Auto+Learn" />
             <Label fx:id="firstLabel" text="Accueil" />
@@ -42,6 +42,6 @@
             <Label text="Réservations" />
             <Label fx:id="lastLabel" text="Profil" />
         </VBox>
-      <TextField fx:id="searchField" layoutX="320.0" layoutY="333.0" onAction="#recherche" promptText="recherche" />
+      <TextField fx:id="searchField" layoutX="320.0" layoutY="333.0" onAction="#recherche" promptText="recherche" stylesheets="@css/css/StyleConnect.css" />
     </children>
 </AnchorPane>
