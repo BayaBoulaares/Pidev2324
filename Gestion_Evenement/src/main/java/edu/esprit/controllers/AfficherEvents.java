@@ -1,8 +1,9 @@
 package edu.esprit.controllers;
-
 import edu.esprit.entities.Evenement;
 import edu.esprit.entities.Sponsor;
+import edu.esprit.entities.User;
 import edu.esprit.services.ServiceEvenement;
+import edu.esprit.services.ServiceParticipation;
 import edu.esprit.services.ServiceSponsor;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -40,7 +41,7 @@ public class AfficherEvents {
     private final ServiceEvenement serviceEvenement = new ServiceEvenement();
     private final ServiceSponsor serviceSponsor = new ServiceSponsor();
     private final Map<Integer, Boolean> displayedEvents = new HashMap<>();
-
+    private ServiceParticipation serviceParticipation = new ServiceParticipation();
 
 
     @FXML
@@ -127,7 +128,8 @@ public class AfficherEvents {
         Button participerButton = new Button("Participer");
         participerButton.getStyleClass().add("action-button");
         participerButton.setStyle("-fx-background-color: white; -fx-text-fill:turquoise;-fx-background-radius: 5px; -fx-border-color: turquoise;");
-        participerButton.setOnAction(event -> handleparticiperEvent(evenement));
+        participerButton.setOnAction(event -> handleParticiperEvent(evenement));
+
         ImageView participerIcon = new ImageView(new Image("file:///C:/Users/ameni/Downloads/Gestion_Evenement2/src/main/java/edu/esprit/image/verifier.png"));
         participerIcon.setFitWidth(20);
         participerIcon.setFitHeight(20);
@@ -206,9 +208,7 @@ public class AfficherEvents {
         }
     }
 
-    @FXML
-    private void handleparticiperEvent(Evenement evenement)
-    {}
+
 
     @FXML
     private void handleRetour() {
@@ -254,4 +254,33 @@ public class AfficherEvents {
             System.out.println("Event unliked: " + evenement.getNom_Event());
             // Add your code to update the database or perform any other actions
         }
-    }}
+    }
+    @FXML
+    void handleParticiperEvent(Evenement evenement) {
+        try {
+            // Utilisez l'ID de l'utilisateur connu
+            int userId = 1;
+
+            // Obtenez l'ID de l'événement
+            int eventId = evenement.getId_Event();
+
+            // Insérez la participation dans la base de données
+            serviceParticipation.insertParticipation(eventId, userId);
+
+            System.out.println("Participation ajoutée avec succès!");
+
+            // Affichez une alerte indiquant que la participation a été ajoutée avec succès
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Participation ajoutée");
+            alert.setHeaderText(null);
+            alert.setContentText("La participation a été ajoutée avec succès!");
+            alert.showAndWait();
+        } catch (SQLException ex) {
+            System.err.println("Erreur lors de l'ajout de la participation : " + ex.getMessage());
+        }
+    }
+
+}
+
+
+

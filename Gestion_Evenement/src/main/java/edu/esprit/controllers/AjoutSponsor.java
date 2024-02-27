@@ -6,11 +6,11 @@ import edu.esprit.entities.Sponsor;
 import edu.esprit.services.ServiceEvenement;
 import edu.esprit.services.ServiceSponsor;
 import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -19,6 +19,8 @@ import java.sql.SQLException;
 
 public class AjoutSponsor {
 
+    public ImageView sponsorImage;
+    public Button selectImageButton;
     @FXML
     private TextField sponsorName;
 
@@ -128,14 +130,20 @@ public class AjoutSponsor {
     }
 
     @FXML
-    void selectImage() {
+    void selectImage(ActionEvent event) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Choisir une image");
         fileChooser.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif"));
-        File selectedFile = fileChooser.showOpenDialog(new Stage());
+        File selectedFile = fileChooser.showOpenDialog(((Button) event.getSource()).getScene().getWindow());
         if (selectedFile != null) {
-            imagePath = selectedFile.getAbsolutePath();
+            try {
+                Image image = new Image(selectedFile.toURI().toString()); // Corrected line
+                sponsorImage.setImage(image);
+                imagePath = selectedFile.getAbsolutePath();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 
