@@ -3,10 +3,7 @@ package edu.esprit.crudoff.services;
 import edu.esprit.crudoff.entities.ParentE;
 import edu.esprit.crudoff.utilis.DataSource;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -17,7 +14,7 @@ public class ServiceParent implements IService<ParentE> {
     // Méthode pour ajouter un parent à la base de données
     @Override
     public void ajouter(ParentE parent) throws SQLException {
-        String sql = "INSERT INTO utilisateurs (nom, prenom, adresse, dob, tel, login, mdp, nomenfant, prenomenfant, dobenfant,role,discipline,niveau) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?,?)";
+        String sql = "INSERT INTO utilisateurs (nom, prenom, adresse, dob, tel, login, mdp, nomenfant, prenomenfant, dobenfant,role,discipline,niveau,image) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?,?,?)";
         PreparedStatement statement = cnx.prepareStatement(sql);
         statement.setString(1, parent.getNom());
         statement.setString(2, parent.getPrenom());
@@ -29,9 +26,10 @@ public class ServiceParent implements IService<ParentE> {
         statement.setString(8, parent.getNomE());
         statement.setString(9, parent.getPrenomE());
         statement.setDate(10, new java.sql.Date(parent.getDateNaissanceE().getTime()));
-        statement.setString(11, "parent");
+        statement.setString(11, "Parent");
         statement.setString(12, "Null");
         statement.setInt(13, 0);
+        statement.setString(14, String.valueOf(parent.getImage()));
 
         //statement.setInt(11, parent.getNiveau());
         statement.executeUpdate();
@@ -43,20 +41,21 @@ public class ServiceParent implements IService<ParentE> {
 
         // Obtenez l'ID de l'utilisateur à partir de l'objet ParentE
             try {
-                String sql = "UPDATE utilisateurs SET nom=?, prenom=?, adresse=?, tel=?, nomenfant=?, prenomenfant=? WHERE idu=? and role='Parent'";
+                String sql = "UPDATE utilisateurs SET nom=?, prenom=?, adresse=?, tel=?, dob=?, nomenfant=?, prenomenfant=?, dobenfant=?, image=? WHERE idu=? and role='Parent'";
                 PreparedStatement statement = cnx.prepareStatement(sql);
                 statement.setString(1, parent.getNom());
                 statement.setString(2, parent.getPrenom());
                 statement.setString(3, parent.getAdresse());
-                //statement.setDate(4, new java.sql.Date(parent.getDateNaissance().getTime()));
+                statement.setDate(5, new java.sql.Date(parent.getDateNaissance().getTime()));
                 statement.setInt(4, parent.getTel());
                 //statement.setString(6, parent.getLogin());
                 //statement.setString(7, parent.getMdp());
-                statement.setString(5, parent.getNomE());
-                statement.setString(6, parent.getPrenomE());
-                // statement.setDate(10, new java.sql.Date(parent.getDateNaissanceE().getTime()));
+                statement.setString(6, parent.getNomE());
+                statement.setString(7, parent.getPrenomE());
+                statement.setDate(8, new java.sql.Date(parent.getDateNaissanceE().getTime()));
                 //statement.setInt(11, parent.getNiveau());
-                statement.setInt(7, parent.getId());
+                statement.setInt(9, parent.getId());
+                statement.setString(10, String.valueOf(parent.getImage()));
                 statement.executeUpdate();
             }catch (SQLException e)
             {
@@ -100,8 +99,8 @@ public class ServiceParent implements IService<ParentE> {
                     resultSet.getString("nomE"),
                     resultSet.getString("prenomE"),
                     resultSet.getDate("date_naissance_enfant"),
-                    resultSet.getInt("niveau")
-            );
+                    resultSet.getInt("niveau"));
+                    //String.valueOf(image));
         }
         return null;
     }
@@ -110,12 +109,12 @@ public class ServiceParent implements IService<ParentE> {
     @Override
     public Collection<ParentE> getAll() throws SQLException {
         Collection<ParentE> parents = new ArrayList<>();
-        String sql = "SELECT * FROM parents";
+        String sql = "SELECT * FROM utilisateurs where role='Parent'";
         PreparedStatement statement = cnx.prepareStatement(sql);
         ResultSet resultSet = statement.executeQuery();
         while (resultSet.next()) {
             parents.add(new ParentE(
-                    resultSet.getInt("idU"),
+                    resultSet.getInt("idu"),
                     resultSet.getString("nom"),
                     resultSet.getString("prenom"),
                     resultSet.getString("adresse"),
@@ -123,10 +122,11 @@ public class ServiceParent implements IService<ParentE> {
                     resultSet.getInt("tel"),
                     resultSet.getString("login"),
                     resultSet.getString("mdp"),
-                    resultSet.getString("nomE"),
-                    resultSet.getString("prenomE"),
+                    resultSet.getString("nomenfant"),
+                    resultSet.getString("prenomenfant"),
                     resultSet.getDate("dobenfant"),
                     resultSet.getInt("niveau")
+
             ));
         }
         return parents;
@@ -186,8 +186,8 @@ public class ServiceParent implements IService<ParentE> {
         return -1;
     }
     public ParentE getByLogin(String login) {
-        ParentE utilisateur = null;
-        String sql = "SELECT * FROM utilisateurs WHERE role='Parent' and login = ? ";
+        ParentE util = null;
+        String sql = "SELECT idu, nom, prenom, adresse, dob, tel, login, mdp, nomenfant, prenomenfant, dobenfant, image from  utilisateurs WHERE role='Parent' and login = ? ";
 
         try (PreparedStatement statement = cnx.prepareStatement(sql)) {
             statement.setString(1, login);
@@ -209,15 +209,19 @@ public class ServiceParent implements IService<ParentE> {
                         String prenomE = resultSet.getString("prenomenfant");
                         System.out.println(prenomE);
                         Date dateNaissanceE = resultSet.getDate("dobenfant");
+                        String image = resultSet.getString(12);
+                        //Blob im = resultSet.getBlob("image");
+                        System.out.println(image);
                         System.out.println(dateNaissanceE);
                         //int niveau = resultSet.getInt("niveau");
-                        utilisateur = new ParentE(id,nom, prenom, adresse, dateNaissance, tel, login, mdp, nomE, prenomE, dateNaissanceE);
-                        // System.out.println("parent");
+                        util = new ParentE( id,  nom,  prenom,  adresse,  dateNaissance,  tel,  login,  mdp,  nomE,  prenomE, dateNaissanceE,image);
+                        //utilisateur = new ParentE(id,nom, prenom, adresse, dateNaissance, tel, login, mdp, nomE, prenomE, dateNaissanceE,image);
+                         System.out.println(util);
 
 
 
 
-                System.out.println("got User : " + utilisateur);
+                System.out.println("got Parent : " + (ParentE)util);
             } else {
                 System.out.println("Aucun utilisateur trouvé pour le login : " + login);
             }
@@ -226,7 +230,8 @@ public class ServiceParent implements IService<ParentE> {
             // Gérer l'exception
         }
 
-        return utilisateur;
+        return util;
     }
+
 
 }

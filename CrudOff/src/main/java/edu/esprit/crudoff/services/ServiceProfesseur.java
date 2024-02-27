@@ -160,7 +160,7 @@ public class ServiceProfesseur implements IService<Professeur> {
         }
     }
     public int recupereId(String login) throws SQLException {
-        String query = "SELECT idu FROM utilisateurs WHERE login=? and role='Parent'";
+        String query = "SELECT idu FROM utilisateurs WHERE login=? and role='Professeur'";
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         statement = cnx.prepareStatement(query);

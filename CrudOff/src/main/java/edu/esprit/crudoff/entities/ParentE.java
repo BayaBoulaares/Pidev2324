@@ -8,24 +8,65 @@ public class ParentE extends Utilisateur{
     private String prenomE;
     private Date dateNaissanceE ;
     private int niveau;
-    public ParentE()
-    {
-        super();
+    private String image;
+
+    public ParentE(int i, String nom, String prenom, String adresse, java.sql.Date dateNaissance, int tel, String nomEnfant, String prenomEnfant, java.sql.Date dateNaissance2, String image) {
+        super(i, nom, prenom, adresse, dateNaissance, tel);
+        this.nomE = nomEnfant;
+        this.prenomE = prenomEnfant;
+        this.dateNaissanceE = dateNaissance2;
+        this.image=image;
     }
-    public ParentE(int id, String nom, String prenom, String adresse, Date dateNaissance, int tel, String login, String mdp, String nomE, String prenomE, Date dateNaissanceE, int niveau) {
+
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public ParentE(int idu, String nom, String prenom, String adresse, java.sql.Date dob, int tel, String login, String mdp, String nomE, String prenomE, java.sql.Date dobenfant, String image)
+    {     super(idu, nom, prenom, adresse, dob, tel,login, mdp);
+        this.nomE = nomE;
+        this.prenomE = prenomE;
+        this.dateNaissanceE = dobenfant;
+        this.image=image;
+
+    }
+    public ParentE(int id, String nom, String prenom, String adresse, Date dateNaissance, int tel, String login, String mdp, String nomE, String prenomE, Date dateNaissanceE,  String image) {
          super(id, nom, prenom, adresse, dateNaissance, tel,login, mdp);
          this.nomE = nomE;
          this.prenomE = prenomE;
          this.dateNaissanceE = dateNaissanceE;
-         this.niveau = niveau;
+         this.image = image;
     }
-    public ParentE(int id, String nom, String prenom, String adresse, Date dateNaissance, int tel, String login, String mdp, String nomE, String prenomE, Date dateNaissanceE) {
+
+    public ParentE(String nomParent, String prenomParent, String adresseParent, Date dobParent, int  telephone, String emailParent, String mdpParent, String nomEnfant, String prenomEnfant, Date dobEnfant, String imagePath)
+    {
+        super( nomParent, prenomParent, adresseParent, dobParent, telephone,emailParent, mdpParent);
+        this.nomE = nomEnfant;
+        this.prenomE = prenomEnfant;
+        this.dateNaissanceE = dobEnfant;
+        this.image = imagePath;
+    }
+
+    public ParentE(int id, String nom, String prenom, String adresse, Date dateNaissance, int tel, String login, String mdp, String nomE, String prenomE, Date dateNaissanceE, int niveau) {
         super(id, nom, prenom, adresse, dateNaissance, tel,login, mdp);
         this.nomE = nomE;
         this.prenomE = prenomE;
         this.dateNaissanceE = dateNaissanceE;
 
     }
+    public ParentE(int id, String nom, String prenom, String adresse, Date dateNaissance, int tel, String nomE, String prenomE, Date dateNaissanceE) {
+        super(id, nom, prenom, adresse, dateNaissance, tel);
+        this.nomE = nomE;
+        this.prenomE = prenomE;
+        this.dateNaissanceE = dateNaissanceE;
+
+    }
+
 
     public ParentE(String nom, String prenom,String adresse, Date dateNaissance, int tel,String login)
     {
@@ -120,11 +161,11 @@ public class ParentE extends Utilisateur{
 
     @Override
     public String toString() {
-        return super.toString()+ "ParentE{" +
+        return "ParentE{" +
                 "nomE='" + nomE + '\'' +
                 ", prenomE='" + prenomE + '\'' +
                 ", dateNaissanceE=" + dateNaissanceE +
-                ", niveau=" + niveau +
+                ", image='" + image + '\'' +
                 '}';
     }
 }

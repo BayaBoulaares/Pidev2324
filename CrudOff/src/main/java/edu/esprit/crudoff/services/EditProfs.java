@@ -5,13 +5,12 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.control.Button;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class EditProfs {
 
@@ -20,6 +19,8 @@ public class EditProfs {
     @FXML
     private PasswordField pmdp;
 
+    @FXML
+    private DatePicker editdob;
         @FXML
         private Button accueil;
 
@@ -75,32 +76,47 @@ public class EditProfs {
     }
     @FXML
     void confirmchanges(ActionEvent event) throws SQLException, IOException {
+        try {
         ServiceProfesseur sl = new ServiceProfesseur();
-
         System.out.println("baya");
         String nom = editpnomfield.getText();
         String prenom = editpprenomfield.getText();
         String adresse = editpadressefield.getText();
         String discipline = editpdiscfield.getText();
+        LocalDate localDate = editdob.getValue();
+        String dateString = localDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        java.sql.Date dateNaissance = java.sql.Date.valueOf(dateString);
         System.out.println(discipline);
         String email = editpemailfield.getText();
         int idy = sl.recupereId(email);
         System.out.println(idy);
         String mdp = pmdp.getText();
         System.out.println(mdp);
-
-
-            // Tentative de conversion du numéro de téléphone en entier
-           int tel = Integer.parseInt(editptelfield.getText());
-
+        // Tentative de conversion du numéro de téléphone en entier
+        int tel = Integer.parseInt(editptelfield.getText());
         // Créer un nouvel objet Professeur avec les données récupérées
-        Professeur ppp = new Professeur(idy,nom, prenom, adresse, tel, email,mdp, discipline);
+        Professeur ppp = new Professeur(idy,nom, prenom, adresse,dateNaissance, tel, email,mdp, discipline);
         System.out.println(ppp);
         // Appeler la méthode de modification dans votre service
-        sl.modifier(ppp);
-        FXMLLoader loader= new FXMLLoader(getClass().getResource("/fxml/CrudAdmins.fxml"));
+            sl.modifier(ppp);
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Validation");
+            alert.setContentText("Le professeur est mis à jour avec succès updated ");
+            alert.showAndWait();
+
+           FXMLLoader loader= new FXMLLoader(getClass().getResource("/fxml/CrudAdmins.fxml"));
         Parent root=loader.load();
         editpdiscfield.getScene().setRoot(root);
+
+
+        } catch (SQLException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("SQL Exeption");
+            alert.setContentText(e.getMessage());
+            alert.showAndWait();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 

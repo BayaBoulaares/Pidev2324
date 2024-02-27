@@ -35,6 +35,7 @@ public class Professeur extends Utilisateur{
         super(nom, prenom, adresse, dateNaissance, tel,login);
         this.discpline = discpline;
     }
+
     public Professeur(int id,String nom,String prenom, String adresse, int tel,String email,String mdp, String discpline)
     {
         super(id,nom, prenom, adresse,tel,email,mdp);

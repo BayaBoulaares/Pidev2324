@@ -4,6 +4,10 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 
+import javax.mail.*;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+import java.util.Properties;
 import java.util.SplittableRandom;
 
 public class SendSms {
@@ -25,7 +29,7 @@ public class SendSms {
             String otp = generateOtp(6); // 6 est la longueur du code OTP
 
             // Envoyer l'e-mail avec le code OTP
-            //sendEmail(email, "Sujet de l'email", "Votre code OTP est : " + otp);
+            sendEmail(email, "Sujet de l'email", "Votre code OTP est : " + otp);
         } else {
             System.out.println("Veuillez saisir une adresse e-mail.");
         }
@@ -47,5 +51,36 @@ public class SendSms {
     }
 
     // Fonction pour envoyer un e-mail
+    public static void sendEmail(String to, String subject, String body) {
+        // Propriétés pour configurer l'envoi de l'e-mail
+        Properties props = new Properties();
+        props.put("mail.smtp.host", "smtp.gmail.com");
+        props.put("mail.smtp.port", "587");
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.starttls.enable", "true");
+
+        // Création de l'objet Session
+        Session session = Session.getInstance(props, new javax.mail.Authenticator() {
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication("baya.boulaares@esprit.tn", "upmi srhl uajk ugan");
+            }
+        });
+
+        try {
+            // Création de l'objet Message
+            Message message = new MimeMessage(session);
+            message.setFrom(new InternetAddress("aya.boulaares@esprit.tn"));
+            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
+            message.setSubject(subject);
+            message.setText(body);
+
+            // Envoi de l'e-mail
+            Transport.send(message);
+
+            System.out.println("E-mail envoyé avec succès !");
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
+    }
 
 }

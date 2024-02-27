@@ -35,6 +35,18 @@
 
 
 }
+.bselect{
+    -fx-background-color: #27DEC1; /* Couleur de fond */
+    -fx-text-fill: white; /* Couleur du texte */
+    -fx-font-size: 14px; /* Taille de police */
+    -fx-font-family: "dm-sans"; /* Famille de police */
+    /*-fx-border-radius: 5em; /* Rayon de la bordure */
+    -fx-border-color: transparent; /* Couleur de la bordure */
+    -fx-border-width: 2px;
+    -fx-padding: 5;
+    -fx-background-radius:1em;
+
+}
 .bev{
     -fx-background-color: #27DEC1; /* Couleur de fond */
     -fx-text-fill: white; /* Couleur du texte */
@@ -245,7 +257,7 @@
     -fx-border-color: #FFFFFF; /* Couleur de la bordure */
     -fx-border-width: 0.5px; /* Épaisseur de la bordure */
     -fx-border-radius: 10px; /* Rayon de la bordure */
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 1, 0, 0, 0);
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 3, 0, 0, 0);
 }
 .hboxnome {
     -fx-border-color: #FFFFFF; /* Couleur de la bordure */

@@ -144,8 +144,12 @@ public class Profile1 {
     public void supprimercompte1(ActionEvent actionEvent) {
             String ll = plogin.getText();
             int idUtilisateur = spp.getIdUtilisateurParLogin(ll);
-            supprimercompte11(idUtilisateur);
-            viderLabels();
+        try {
+            spp.supprimer(idUtilisateur);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        viderLabels();
             System.out.println("spprimer3");
         }
 

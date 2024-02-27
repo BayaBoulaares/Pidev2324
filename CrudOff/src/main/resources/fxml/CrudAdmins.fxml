@@ -118,7 +118,7 @@
             </VBox>
          </children>
       </VBox>
-      <ImageView fitHeight="172.0" fitWidth="194.0" layoutX="249.0" layoutY="22.0">
+      <ImageView fitHeight="199.0" fitWidth="224.0" layoutX="246.0" layoutY="24.0">
          <image>
             <Image url="@../images/undefined.png" />
          </image>

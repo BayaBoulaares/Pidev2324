@@ -31,7 +31,7 @@ public class DashboardUser {
 
     public void tohisprofile(ActionEvent actionEvent) throws IOException {
 
-            FXMLLoader loader= new FXMLLoader(getClass().getResource("/fxml/Profile1.fxml"));
+            FXMLLoader loader= new FXMLLoader(getClass().getResource("/fxml/ProfileUser.fxml"));
             Parent root=loader.load();
             reclamation1.getScene().setRoot(root);
 

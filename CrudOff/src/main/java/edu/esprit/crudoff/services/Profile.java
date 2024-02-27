@@ -10,6 +10,7 @@ import javafx.scene.control.TextArea;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 import static java.lang.Integer.parseInt;
 
@@ -123,7 +124,7 @@ public class Profile {
         LocalDate localDateNaissancekid = sqlDateNaissance.toLocalDate();
 
         // Définition de la valeur du DatePicker
-        editdobenfant.setValue(localDateNaissance);
+        editdobenfant.setValue(localDateNaissancekid);
         //int tel = Integer.parseInt(edittel.getText());
         edittel.setText(String.valueOf(user.getTel()));
         editnomenfant.setText(user.getNomE());
@@ -141,29 +142,26 @@ public class Profile {
     void modifiercompte(ActionEvent event) throws SQLException {
 
           try{
-                //int id = spp.recupereId()
-              //String login = editlogin.getText();
-              //int idUtilisateur = spp.getIdUtilisateurParLogin(login);
+
               String nom = editnom.getText();
               System.out.println(nom);
               String prenom = editprenom.getText();
               System.out.println(prenom);
               String adresse = editadresse.getText();
-              /*LocalDate localDate = editdob.getValue();
+              LocalDate localDate = editdob.getValue();
               String dateString = localDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-              java.sql.Date dateNaissance = java.sql.Date.valueOf(dateString);*/
+              java.sql.Date dateNaissance = java.sql.Date.valueOf(dateString);
               int tel = parseInt(edittel.getText());
-            String mdp = editmdp.getText();
-            String nomEnfant = editnomenfant.getText();
-            String prenomEnfant = editprenomenfant.getText();
-            /*LocalDate localDate2 = editdobenfant.getValue();
-            String dateString2 = localDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-            java.sql.Date dateNaissance2 = java.sql.Date.valueOf(dateString);*/
+              String mdp = editmdp.getText();
+             String nomEnfant = editnomenfant.getText();
+             String prenomEnfant = editprenomenfant.getText();
+             LocalDate localDate2 = editdobenfant.getValue();
+            String dateString2 = localDate2.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+            java.sql.Date dateNaissance2 = java.sql.Date.valueOf(dateString2);
               CredentialsManager crd = new CredentialsManager();
               String[] crds = crd.loadCredentials();
 
-
-              ParentE parent1 = new ParentE(parseInt(crds[1]),nom, prenom, adresse, tel, nomEnfant, prenomEnfant);
+              ParentE parent1 = new ParentE(parseInt(crds[1]),nom, prenom, adresse, dateNaissance,tel, nomEnfant, prenomEnfant,dateNaissance2);
               System.out.println("this is parent"+parent1);
               PS.modifier(parent1);
               System.out.println(parent1);

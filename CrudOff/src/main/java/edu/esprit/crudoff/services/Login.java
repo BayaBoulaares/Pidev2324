@@ -158,6 +158,7 @@ public class Login {
                     CredentialsManager.clearCredentials();
                     CredentialsManager.saveCredentials(String.valueOf(utilisateur.getId()),loginuser.getText(), mdpuser.getText(),String.valueOf(rememberCheckBox.isSelected()));
                 } else if (utilisateur instanceof ParentE) {
+                    ParentE pp = (ParentE) utilisateur;
                     // Redirection vers l'interface utilisateur normale
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setTitle("Succès");

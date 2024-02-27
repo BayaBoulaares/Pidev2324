@@ -6,22 +6,25 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.stage.FileChooser;
 
+import java.io.File;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.util.Date;
+import java.util.regex.Pattern;
 
 public class SignUpParent {
     private final ServiceUtilisateur SU = new ServiceUtilisateur();
-
+    Connection cnx = DataSource.getInsatnce().getConnection();
+    @FXML
+    private ImageView parentimage;
 
     @FXML
     private TextField adresseparent;
@@ -45,7 +48,7 @@ public class SignUpParent {
     private TextField emailparent;
 
     @FXML
-    private TextField mdpparent;
+    private PasswordField mdpparent;
 
     @FXML
     private TextField nomenfant;
@@ -55,6 +58,10 @@ public class SignUpParent {
 
     @FXML
     private TextField prenomenfant;
+
+    @FXML
+    private PasswordField confirmmdpparent;
+    private String imagePath;
 
     @FXML
     private TextField prenomparent;
@@ -68,68 +75,133 @@ public class SignUpParent {
         try {
 
             System.out.println("bb");
-            String cmdp = confimmdp.getText();
+            String cmdp = confirmmdpparent.getText();
             // Récupérer les valeurs des champs de saisie
             String nomParent = nomparent.getText();
             String prenomParent = prenomparent.getText();
             String adresseParent = adresseparent.getText();
             LocalDate dobParentValue = dobparent.getValue();
-            Date dobParent = java.sql.Date.valueOf(dobParentValue);
+            //Date dobParent = java.sql.Date.valueOf(dobParentValue);
             String telephoneText = telparent.getText();
             String emailParent = emailparent.getText();
             String mdpParent = mdpparent.getText();
             String nomEnfant = nomenfant.getText();
             String prenomEnfant = prenomenfant.getText();
             LocalDate dobEnfantValue = dobenfant.getValue();
-            Date dobEnfant = java.sql.Date.valueOf(dobEnfantValue);
+            //Date dobEnfant = java.sql.Date.valueOf(dobEnfantValue);
+
             //Controle de saisie
-
-             if (prenomParent.matches(".*\\d.*"))
-                {
-                showAlert("Le nom et le prénom doivent avoir au moins 3 caractères et être alphanumériques !");
-                return;
-                }
-
-            if (adresseParent.length() < 5) {
-                showAlert("L'adresse doit avoir au moins 5 caractères.");
+            if (nomParent.isEmpty() || prenomParent.isEmpty() || adresseParent.isEmpty() ||
+                    dobParentValue == null || telephoneText.isEmpty() || emailParent.isEmpty() ||
+                    mdpParent.isEmpty() || nomEnfant.isEmpty() || prenomEnfant.isEmpty() ||
+                    dobEnfantValue == null || cmdp.isEmpty() || imagePath == null
+            ) {
+                showAlert("Erreur de saisie", "Tous les champs sont obligatoires ", "Veuillez remplir tous les champs.");
                 return;
             }
-            // Vérification du numéro de téléphone
-            if (!telephoneText.matches("\\d{8}")) {
-                showAlert("Le numéro de téléphone doit contenir exactement 8 chiffres.");
-                return;
-            }
-            String regexpsd = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=!])(?=\\S+$).{8,}$";
+            java.sql.Date sqlDate = java.sql.Date.valueOf(dobParentValue);
+            java.sql.Date sqlDate2 = java.sql.Date.valueOf(dobEnfantValue);
             int telephone = Integer.parseInt(telephoneText);
-            if (mdpParent.matches(regexpsd) && mdpParent.equals(cmdp)) {
-                showAlert("Le mot de passe doit contenir au moins 6 caractères.");
+
+            if (!isValidName(nomParent)  ) {
+                showAlert("Erreur de saisie", "nom invalide", "Le nom doit contenir que des lettres !");
                 return;
+
             }
-            // Vérification de l'email
-            if (!(emailParent.matches("^[\\w.-]+@[\\w.-]+\\.[a-zA-Z]{2,}$"))) {
-                showAlert("Email invalide.");
+            if (nomParent.length() < 3  ) {
+                showAlert("Erreur de saisie", "nom invalide", "Le nom doit au moins 3 caractéres !");
                 return;
+
             }
 
-            // Vérification si l'email existe déjà dans la base de données
-            if (isEmailAlreadyExists(emailParent)) {
-                showAlert("Cet email est déjà utilisé. Veuillez en choisir un autre.");
+            if (!isValidName(prenomParent)) {
+                showAlert("Erreur de saisie", "prénom invalide", "Le prénom doit avoir minimum 3 caractères.");
                 return;
+
+            }
+            if (prenomParent.length() < 3  ) {
+                showAlert("Erreur de saisie", "nom invalide", "Le nom doit au moins 3 caractéres !");
+                return;
+
+            }
+            if (!isValidName(nomEnfant)  ) {
+                showAlert("Erreur de saisie", "nom invalide", "Le nom doit contenir que des lettres !");
+                return;
+
+            }
+            if (nomEnfant.length() < 3  ) {
+                showAlert("Erreur de saisie", "nom invalide", "Le nom doit au moins 3 caractéres !");
+                return;
+
             }
 
-            // Vérification de la date de naissance
-            /*LocalDate dobDate = LocalDate.parse(dobenfant, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-            LocalDate currentDate = LocalDate.now();*/
-            /*if (dobParent.plusYears(20).isAfter(currentDate)) {
-                showAlert("La date de naissance doit remonter à au moins 25 ans.");
+            if (!isValidName(prenomEnfant)) {
+                showAlert("Erreur de saisie", "prénom invalide", "Le prénom doit avoir minimum 3 caractères.");
+                return;
+
+            }
+            if (prenomEnfant.length() < 3  ) {
+                showAlert("Erreur de saisie", "nom invalide", "Le nom doit au moins 3 caractéres !");
+                return;
+
+            }
+            if (adresseParent.length() < 10  ) {
+                showAlert("Erreur de saisie", "Adresse invalide", "L'adresse doit au moins 10 caractéres !");
+                return;
+
+            }
+
+
+            if (!isValidPhoneNumber(telephoneText)) {
+
+                showAlert("Erreur de saisie", "numéro de téléphone invalide", "Veuillez entrer un numéro de téléphone valide.");
+                return;
+
+            }
+
+            if (!isValidEmail(emailParent)) {
+                showAlert("Erreur de saisie", "Adresse e-mail invalide", "Veuillez entrer une adresse e-mail valide.");
+                return;
+            }
+            // Vérifier si l'email est unique
+            if (!isEmailUnique(emailParent)) {
+
+                showAlert("Erreur de saisie", "Adresse e-mail existante !", "Cet email existe déjà. Veuillez en choisir un autre.");
+
+                return;
+            }
+            // Calculer la date limite (il y a 23 ans à partir de la date actuelle)
+            //LocalDate dateLimite = LocalDate.now().minusYears(23);
+
+            // Vérifier si la date de naissance est supérieure ou égale à la date limite
+            if (dobEnfantValue != null && dobParentValue != null && dobEnfantValue.isBefore(dobParentValue)) {
+                showAlert("Erreur", "Date de naissance incorrecte", "La date de naissance du parent doit être supérieure à la date de naissance de l'enfant.");
+
+            }
+            if (!isValidPassword(mdpParent)) {
+
+                showAlert("Erreur de saisie", "Mot de passe invalide", "Le mot de passe doit contenir au moins 8 caractères, une lettre majuscule, une lettre minuscule, un chiffre et un caractère spécial.");
+
+                return;
+            }
+            if (!mdpParent.equals(cmdp)) {
+                showAlert("Erreur", "Confirmation de mot de passe incorrecte", "Les mots de passe ne correspondent pas.");
+                return;
+            } else {
+                // Mot de passe confirmé, vous pouvez effectuer d'autres actions ici
+                System.out.println("Mot de passe confirmé" );
+            }
+            /*if (imagePath.isEmpty() || imagePath == null) {
+                showAlert("Veuillez choisir une image !");
                 return;
             }*/
 
 
             // Créer un nouvel objet Parent avec les données récupérées
-            ParentE parent = new ParentE(nomParent, prenomParent, adresseParent, dobParent, telephone, emailParent, mdpParent, nomEnfant, prenomEnfant, dobEnfant);
+            ParentE parent = new ParentE(nomParent, prenomParent, adresseParent, sqlDate, telephone, emailParent, mdpParent, nomEnfant, prenomEnfant, sqlDate2,imagePath);
 
             // Ajouter le parent à la base de données en utilisant le service Parent
+
             serviceParent.ajouter(parent);
 
             // Afficher un message de succès
@@ -139,13 +211,9 @@ public class SignUpParent {
             alert.setContentText("Vous êtes ajouté avec succès !");
             alert.showAndWait();
             System.out.println(parent);
-            /*FXMLLoader loader= new FXMLLoader(getClass().getResource("/fxml/Profile.fxml"));
+            FXMLLoader loader= new FXMLLoader(getClass().getResource("/fxml/Login.fxml"));
             Parent root=loader.load();
-            nomenfant.getScene().setRoot(root);*/
-            // Afficher les valeurs saisies dans les TextField
-            afficherChampsDernierementAjoutes(nomParent, nomEnfant); // Appel de la méthode pour afficher les champs
-            // Effacer les champs de saisie après l'ajout
-            //effacerChamps();
+            nomenfant.getScene().setRoot(root);
 
         } catch (SQLException e) {
             // En cas d'erreur SQL, afficher un message d'erreur
@@ -222,7 +290,95 @@ public class SignUpParent {
         }
         return true;
     }
+    @FXML
+    void selectimage(ActionEvent event) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Choisir une image");
+        fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif"));
+        File selectedFile = fileChooser.showOpenDialog(((Button) event.getSource()).getScene().getWindow());
+        if (selectedFile != null) {
+            try {
+                Image image = new Image(selectedFile.toURI().toString()); // Corrected line
+                parentimage.setImage(image);
+                imagePath = selectedFile.getAbsolutePath();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
 
+    }
+    public static boolean isValidName(String name) {
+        return name.matches("[a-zA-Z]+");
+    }
+    public static boolean isValidPhoneNumber(String phoneNumber) {
+        // Un exemple simple de validation de numéro de téléphone
+        // Vous pouvez ajouter des règles supplémentaires selon vos besoins
+        return phoneNumber.matches("\\d{8}"); // Exemple : 10 chiffres
+    }
+    // Méthode pour valider une adresse e-mail
+    public static boolean isValidEmail(String email) {
+        // Utilisation d'une expression régulière simple pour valider l'adresse e-mail
+        // Vous pouvez utiliser une expression régulière plus complexe pour une validation plus stricte si nécessaire
+        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
+        Pattern pattern = Pattern.compile(emailRegex);
+        return pattern.matcher(email).matches();
+    }
+    // Méthode pour afficher une alerte
+    public static void showAlert(String title, String header, String content) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setHeaderText(header);
+        alert.setContentText(content);
+        alert.showAndWait();
+    }
+    public static boolean isValidPassword(String password) {
+        // Au moins 8 caractères
+        if (password.length() < 8) {
+            return false;
+        }
+
+        // Au moins une lettre majuscule
+        if (!password.matches(".*[A-Z].*")) {
+            return false;
+        }
+
+        // Au moins une lettre minuscule
+        if (!password.matches(".*[a-z].*")) {
+            return false;
+        }
+
+        // Au moins un chiffre
+        if (!password.matches(".*\\d.*")) {
+            return false;
+        }
+
+        // Au moins un caractère spécial
+        if (!password.matches(".*[!@#$%^&*()-_+=?/<>,.].*")) {
+            return false;
+        }
+
+        return true;
+    }
+    public boolean isEmailUnique(String email) {
+        // Charger le pilote JDBC et établir une connexion à la base de données
+        try {
+            // Préparer la requête SQL pour vérifier si l'email existe déjà
+            String query = "SELECT COUNT(*) FROM utilisateurs WHERE login = ?";
+            try (PreparedStatement statement = cnx.prepareStatement(query)) {
+                statement.setString(1, email);
+                try (ResultSet resultSet = statement.executeQuery()) {
+                    if (resultSet.next()) {
+                        int count = resultSet.getInt(1);
+                        // Si count est supérieur à zéro, cela signifie que l'email existe déjà
+                        return count == 0;
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(); // Gérer les exceptions appropriées selon votre application
+        }
+        return false; // En cas d'erreur ou de problème de connexion, retourner false par défaut
+    }
 
 
 }

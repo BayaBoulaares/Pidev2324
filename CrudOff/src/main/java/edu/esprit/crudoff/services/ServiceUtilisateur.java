@@ -6,10 +6,7 @@ import edu.esprit.crudoff.entities.Professeur;
 import edu.esprit.crudoff.entities.Utilisateur;
 import edu.esprit.crudoff.utilis.DataSource;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -234,7 +231,7 @@ public class ServiceUtilisateur implements IService<Utilisateur>{
 
     public Utilisateur getByLogin(String login) {
         Utilisateur utilisateur = null;
-        String sql = "SELECT * FROM utilisateurs WHERE login = ? ";
+        String sql = "SELECT idu, nom, prenom, adresse, dob, tel, login, mdp, role, discipline, nomenfant, prenomenfant, dobenfant, image FROM utilisateurs WHERE login=? ";
 
         try (PreparedStatement statement = cnx.prepareStatement(sql)) {
             statement.setString(1, login);
@@ -261,9 +258,11 @@ public class ServiceUtilisateur implements IService<Utilisateur>{
                         System.out.println(prenomE);
                         Date dateNaissanceE = resultSet.getDate("dobenfant");
                         System.out.println(dateNaissanceE);
+                        String image = resultSet.getString(14);
                         //int niveau = resultSet.getInt("niveau");
-                        utilisateur = new ParentE(id,nom, prenom, adresse, dateNaissance, tel, login, mdp, nomE, prenomE, dateNaissanceE);
-                       // System.out.println("parent");
+                        utilisateur = new ParentE(id,nom, prenom, adresse, dateNaissance, tel, login, mdp, nomE, prenomE, dateNaissanceE,image);
+                       System.out.println(image);
+                        System.out.println(utilisateur);
                         break;
                     case "Professeur":
                         String discipline = resultSet.getString("discipline");

@@ -19,7 +19,7 @@
                         <Image url="@../images/78520233 - Copy.png" />
                      </image>
                   </ImageView>
-                  <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="442.0" prefWidth="235.0" spacing="10.0" translateY="-50.0">
+                  <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="442.0" prefWidth="235.0" spacing="10.0" translateX="-10.0" translateY="-50.0">
                      <children>
                         <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="45.0" prefWidth="200.0">
                            <children>

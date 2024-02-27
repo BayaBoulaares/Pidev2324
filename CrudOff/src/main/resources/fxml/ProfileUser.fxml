@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="972.0" prefWidth="1728.0" styleClass="parent" stylesheets="@../css/StyleProfile.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.crudoff.services.ProfileUser">
+<AnchorPane fx:id="parent" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="972.0" prefWidth="1800.0" styleClass="parent" stylesheets="@../css/StyleProfile.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.crudoff.services.ProfileUser">
    <children>
       <VBox prefHeight="972.0" prefWidth="235.0" styleClass="sidebar" stylesheets="@../css/StyleProfile.css">
          <children>
@@ -21,9 +21,9 @@
                   <Insets top="50.0" />
                </VBox.margin>
                <children>
-                  <ImageView fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="250.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../images/78520233%20-%20Copy.png" />
+                        <Image url="@../images/78520233 - Copy.png" />
                      </image>
                   </ImageView>
                   <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="442.0" prefWidth="235.0" spacing="10.0" styleClass="sidebar" translateY="20.0">
@@ -78,7 +78,7 @@
                               <Button fx:id="reclamation" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="36.0" prefWidth="91.0" styleClass="brec" text="Réclamation" translateX="30.0" />
                            </children>
                         </HBox>
-                        <Button fx:id="modifierprofile" mnemonicParsing="false" styleClass="bmodifier" text="Modifier votre profile" translateX="12.0" translateY="70.0" />
+                        <Button fx:id="modifierprofile" mnemonicParsing="false" onAction="#tomodifier" prefHeight="33.0" prefWidth="136.0" styleClass="bmodifier" text="Modifier  compte" translateX="-1.0" translateY="70.0" />
                         <ImageView fitHeight="15.0" fitWidth="15.0" translateX="-66.0" translateY="35.0">
                            <image>
                               <Image url="@../images/edituser.png" />
@@ -92,26 +92,26 @@
                <children>
                   <ImageView fitHeight="24.0" fitWidth="24.0" translateX="40.0" translateY="21.0">
                      <image>
-                        <Image url="@../images/User%20Minus.png" />
+                        <Image url="@../images/User Minus.png" />
                      </image>
                   </ImageView>
                   <Button fx:id="supprimer" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#supprimercompte" prefHeight="30.0" prefWidth="121.0" styleClass="deletep" text="Supprimer compte" translateX="37.0" translateY="20.0" />
                </children>
             </HBox>
-            <Button mnemonicParsing="false" styleClass="dcxn" text="Déconnexion" translateX="70.0" translateY="120.0" />
+            <Button fx:id="dxcn" mnemonicParsing="false" onAction="#deconnexion" styleClass="dcxn" text="Déconnexion" translateX="70.0" translateY="120.0" />
             <ImageView translateX="600.0" translateY="90.0">
                <image>
-                  <Image url="@../images/Logout%202.png" />
+                  <Image url="@../images/Logout 2.png" />
                </image>
             </ImageView>
             <ImageView translateX="45.0" translateY="67.0">
                <image>
-                  <Image url="@../images/Logout%202.png" />
+                  <Image url="@../images/Logout 2.png" />
                </image>
             </ImageView>
          </children>
       </VBox>
-      <HBox layoutX="262.0" layoutY="164.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="77.0" prefWidth="568.0" styleClass="hboxnome" stylesheets="@../css/StyleProfile.css">
+      <HBox layoutX="264.0" layoutY="255.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="77.0" prefWidth="568.0" styleClass="hboxnome" stylesheets="@../css/StyleProfile.css">
          <children>
             <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="80.0" prefWidth="295.0" stylesheets="@../css/StyleProfile.css" text="Nom" textFill="#2b3674">
                <padding>
@@ -121,20 +121,20 @@
                   <Font size="13.0" />
                </font>
             </Label>
-            <Label fx:id="pnom" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="226.0" translateX="7.0" translateY="16.0" />
+            <Label fx:id="pnom" alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="226.0" translateX="7.0" translateY="16.0" />
          </children>
       </HBox>
-      <Label layoutX="270.0" layoutY="36.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="38.0" prefWidth="311.0" styleClass="parametres" stylesheets="@../css/StyleProfile.css" text="Paramètres de compte" textFill="#2b3674">
+      <Label layoutX="269.0" layoutY="74.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="38.0" prefWidth="311.0" styleClass="parametres" stylesheets="@../css/StyleProfile.css" text="Paramètres de compte" textFill="#2b3674">
          <font>
             <Font size="30.0" />
          </font>
       </Label>
-      <Label layoutX="288.0" layoutY="96.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="38.0" prefWidth="311.0" styleClass="parametres" stylesheets="@../css/StyleProfile.css" text="Détails de votre profile" textFill="#a3aed0">
+      <Label layoutX="284.0" layoutY="190.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="38.0" prefWidth="311.0" styleClass="parametres" stylesheets="@../css/StyleProfile.css" text="Détails de votre profile" textFill="#a3aed0">
          <font>
             <Font size="20.0" />
          </font>
       </Label>
-      <HBox layoutX="262.0" layoutY="275.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="77.0" prefWidth="568.0" styleClass="hboxnome" stylesheets="@../css/StyleProfile.css">
+      <HBox layoutX="264.0" layoutY="355.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="77.0" prefWidth="568.0" styleClass="hboxnome" stylesheets="@../css/StyleProfile.css">
          <children>
             <Label prefHeight="83.0" prefWidth="259.0" stylesheets="@../css/StyleProfile.css" text="Prénom" textFill="#2b3674">
                <padding>
@@ -144,10 +144,10 @@
                   <Font size="13.0" />
                </font>
             </Label>
-            <Label fx:id="ppprenom" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="38.0" prefWidth="236.0" translateX="36.0" translateY="16.0" />
+            <Label fx:id="ppprenom" alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="226.0" translateX="36.0" translateY="16.0" />
          </children>
       </HBox>
-      <HBox layoutX="262.0" layoutY="372.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="77.0" prefWidth="568.0" styleClass="hboxnome" stylesheets="@../css/StyleProfile.css">
+      <HBox layoutX="264.0" layoutY="454.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="77.0" prefWidth="568.0" styleClass="hboxnome" stylesheets="@../css/StyleProfile.css">
          <children>
             <Label prefHeight="79.0" prefWidth="246.0" text="Votre Date de naissance" textFill="#2b3674">
                <padding>
@@ -157,10 +157,10 @@
                   <Font size="13.0" />
                </font>
             </Label>
-            <Label fx:id="pdob" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="29.0" prefWidth="299.0" translateY="25.0" />
+            <Label fx:id="pdob" alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="226.0" translateX="50.0" translateY="16.0" />
          </children>
       </HBox>
-      <HBox layoutX="269.0" layoutY="539.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="77.0" prefWidth="568.0" styleClass="hboxadresse" stylesheets="@../css/StyleProfile.css">
+      <HBox layoutX="269.0" layoutY="616.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="77.0" prefWidth="568.0" styleClass="hboxadresse" stylesheets="@../css/StyleProfile.css">
          <children>
             <Label prefHeight="77.0" prefWidth="302.0" styleClass="hobxadresse" text="Adresse" textFill="#2b3674">
                <padding>
@@ -170,10 +170,10 @@
                   <Font size="13.0" />
                </font>
             </Label>
-            <Label fx:id="padresse" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="29.0" prefWidth="287.0" translateY="25.0" />
+            <Label fx:id="padresse" alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="226.0" translateX="-10.0" translateY="15.0" />
          </children>
       </HBox>
-      <HBox layoutX="269.0" layoutY="647.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="77.0" prefWidth="568.0" styleClass="hboxtel" stylesheets="@../css/StyleProfile.css">
+      <HBox layoutX="269.0" layoutY="724.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="77.0" prefWidth="568.0" styleClass="hboxtel" stylesheets="@../css/StyleProfile.css">
          <children>
             <Label prefHeight="79.0" prefWidth="239.0" text="Numéro de téléphone" textFill="#2b3674">
                <padding>
@@ -184,10 +184,10 @@
                </font>
             </Label>
             <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="55.0" prefWidth="24.0" />
-            <Label fx:id="ptel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="34.0" prefWidth="301.0" translateY="25.0" />
+            <Label fx:id="ptel" alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="34.0" prefWidth="301.0" translateY="25.0" />
          </children>
       </HBox>
-      <HBox layoutX="921.0" layoutY="164.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="77.0" prefWidth="560.0" styleClass="hboxnome" stylesheets="@../css/StyleProfile.css">
+      <HBox layoutX="921.0" layoutY="248.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="77.0" prefWidth="560.0" styleClass="hboxnome" stylesheets="@../css/StyleProfile.css">
          <children>
             <Label prefHeight="77.0" prefWidth="302.0" styleClass="hbonome" text="Nom de votre enfant" textFill="#2b3674">
                <padding>
@@ -197,11 +197,10 @@
                   <Font size="13.0" />
                </font>
             </Label>
-            <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="55.0" prefWidth="24.0" />
-            <Label fx:id="pnomenfant" prefHeight="35.0" prefWidth="300.0" translateY="25.0" />
+            <Label fx:id="pnomenfant" alignment="CENTER" contentDisplay="CENTER" prefHeight="40.0" prefWidth="226.0" translateX="-10.0" translateY="15.0" />
          </children>
       </HBox>
-      <HBox layoutX="922.0" layoutY="269.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="77.0" prefWidth="560.0" styleClass="hboxnome" stylesheets="@../css/StyleProfile.css">
+      <HBox layoutX="921.0" layoutY="349.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="77.0" prefWidth="560.0" styleClass="hboxnome" stylesheets="@../css/StyleProfile.css">
          <children>
             <Label prefHeight="77.0" prefWidth="302.0" text="Prénom de votre enfant" textFill="#2b3674">
                <padding>
@@ -212,10 +211,10 @@
                </font>
             </Label>
             <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="55.0" prefWidth="24.0" />
-            <Label fx:id="pprenomenfant" prefHeight="33.0" prefWidth="293.0" translateY="25.0" />
+            <Label fx:id="pprenomenfant" alignment="CENTER" contentDisplay="CENTER" prefHeight="40.0" prefWidth="226.0" translateX="-30.0" translateY="15.0" />
          </children>
       </HBox>
-      <HBox layoutX="922.0" layoutY="373.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="75.0" prefWidth="560.0" styleClass="hboxnome" stylesheets="@../css/StyleProfile.css">
+      <HBox layoutX="921.0" layoutY="449.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="75.0" prefWidth="560.0" styleClass="hboxnome" stylesheets="@../css/StyleProfile.css">
          <children>
             <Label prefHeight="79.0" prefWidth="342.0" text="Date de naissance de votre enfant" textFill="#2b3674">
                <padding>
@@ -225,31 +224,40 @@
                   <Font size="13.0" />
                </font>
             </Label>
-            <Label fx:id="pdobenfant" prefHeight="30.0" prefWidth="297.0" translateX="22.0" translateY="25.0" />
+            <Label fx:id="pdobenfant" alignment="CENTER" contentDisplay="CENTER" prefHeight="40.0" prefWidth="226.0" translateX="-30.0" translateY="15.0" />
          </children>
       </HBox>
-      <Label layoutX="295.0" layoutY="475.0" prefHeight="17.0" prefWidth="93.0" text="Contacts" textFill="#a3aed0">
+      <Label layoutX="284.0" layoutY="554.0" prefHeight="17.0" prefWidth="93.0" text="Contacts" textFill="#a3aed0">
          <font>
             <Font size="20.0" />
          </font>
       </Label>
-      <ProgressBar layoutX="288.0" layoutY="134.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="2.0" prefWidth="260.0" progress="0.0" />
-      <ProgressBar layoutX="288.0" layoutY="510.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="2.0" prefWidth="260.0" progress="0.0" />
-      <Label layoutX="932.0" layoutY="96.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="38.0" prefWidth="311.0" styleClass="parametres" stylesheets="@../css/StyleProfile.css" text="Détails de votre enfant" textFill="#a3aed0">
+      <ProgressBar layoutX="284.0" layoutY="228.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="2.0" prefWidth="260.0" progress="0.0" />
+      <ProgressBar layoutX="277.0" layoutY="589.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="2.0" prefWidth="260.0" progress="0.0" />
+      <Label layoutX="940.0" layoutY="190.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="38.0" prefWidth="311.0" styleClass="parametres" stylesheets="@../css/StyleProfile.css" text="Détails de votre enfant" textFill="#a3aed0">
          <font>
             <Font size="20.0" />
          </font>
       </Label>
-      <ProgressBar layoutX="932.0" layoutY="133.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="2.0" prefWidth="260.0" progress="0.0" />
-      <ImageView fitHeight="132.0" fitWidth="177.0" layoutX="1542.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true" translateX="-20.0" translateY="5.0">
+      <ProgressBar layoutX="940.0" layoutY="227.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="2.0" prefWidth="260.0" progress="0.0" />
+      <ImageView fitHeight="336.0" fitWidth="335.0" layoutX="1364.0" layoutY="616.0">
          <image>
-            <Image url="@../images/1-intro-photo-final.jpg" />
+            <Image url="@../images/account, user, profile, description, profile picture, image, man, people.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="336.0" fitWidth="335.0" layoutX="1147.0" layoutY="615.0">
-         <image>
-            <Image url="@../images/account,%20user,%20profile,%20description,%20profile%20picture,%20image,%20man,%20people.png" />
-         </image>
-      </ImageView>
+      <HBox fx:id="hbox2" layoutX="269.0" layoutY="827.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="77.0" prefWidth="568.0" styleClass="hboxadresse" stylesheets="@../css/StyleProfile.css">
+         <children>
+            <Label prefHeight="77.0" prefWidth="302.0" styleClass="hobxadresse" text="Email" textFill="#2b3674">
+               <padding>
+                  <Insets bottom="30.0" left="50.0" right="50.0" top="30.0" />
+               </padding>
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Label>
+            <Label fx:id="plogin" alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="29.0" prefWidth="287.0" translateY="25.0" />
+         </children>
+      </HBox>
+      <ImageView fx:id="parentimage" fitHeight="150.0" fitWidth="200.0" layoutX="632.0" layoutY="80.0" pickOnBounds="true" preserveRatio="true" />
    </children>
 </AnchorPane>
