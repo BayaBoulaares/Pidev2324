@@ -1,11 +1,14 @@
 package edu.esprit.services;
 
+import edu.esprit.entities.Evenement;
 import edu.esprit.utils.DataSource;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ServiceParticipation {
 
@@ -64,4 +67,32 @@ public class ServiceParticipation {
         }
         return userName;
     }*/
+  public List<Evenement> getParticipatedEvents(int userId) throws SQLException {
+      List<Evenement> events = new ArrayList<>();
+      String query = "SELECT e.Id_Event, e.Nom_Event, e.Date_Debut, e.Date_Fin, e.Lieu_Event, e.Description, e.Nb_Max, e.image FROM evenement e JOIN participation p ON e.Id_Event = p.Id_Event WHERE p.Id_User = ?";
+      try (PreparedStatement pstmt = cnx.prepareStatement(query)) {
+          pstmt.setInt(1, userId);
+          try (ResultSet resultSet = pstmt.executeQuery()) {
+              while (resultSet.next()) {
+                  Evenement event = new Evenement();
+                  event.setId_Event(resultSet.getInt("Id_Event"));
+                  event.setNom_Event(resultSet.getString("Nom_Event"));
+                  event.setDate_Debut(resultSet.getDate("Date_Debut"));
+                  event.setDate_Fin(resultSet.getDate("Date_Fin"));
+                  event.setLieu_Event(resultSet.getString("Lieu_Event"));
+                  event.setDescription(resultSet.getString("Description"));
+                  event.setNb_Max(resultSet.getInt("Nb_Max"));
+                  event.setImage(resultSet.getString("image"));
+                  events.add(event);
+              }
+          }
+      } catch (SQLException ex) {
+          System.out.println("Error while getting participated events: " + ex.getMessage());
+          throw ex;
+      }
+      return events;
+  }
+
+
+
 }

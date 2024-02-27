@@ -1,5 +1,6 @@
 package edu.esprit.controllers;
 import edu.esprit.entities.Evenement;
+import edu.esprit.entities.Participation;
 import edu.esprit.entities.Sponsor;
 import edu.esprit.entities.User;
 import edu.esprit.services.ServiceEvenement;
@@ -37,7 +38,8 @@ public class AfficherEvents {
 
     @FXML
     private Button calendarButton;
-
+    @FXML
+    private Button libraryButton;
     private final ServiceEvenement serviceEvenement = new ServiceEvenement();
     private final ServiceSponsor serviceSponsor = new ServiceSponsor();
     private final Map<Integer, Boolean> displayedEvents = new HashMap<>();
@@ -280,7 +282,39 @@ public class AfficherEvents {
         }
     }
 
+
+    @FXML
+    void handleLibraryButtonAction(ActionEvent event) {
+        try {
+            // Récupérer les événements auxquels l'utilisateur a participé
+            List<Evenement> participatedEvents = serviceParticipation.getParticipatedEvents(1); // Utilisateur avec ID 1
+
+            // Charger la page de participation
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Affichage_Participation.fxml"));
+            Parent root = loader.load();
+
+            // Obtenir le contrôleur de la page de participation
+            AffichageParticipation controller = loader.getController();
+
+// Appeler la méthode loadParticipations
+            controller.loadParticipations(participatedEvents);
+
+            // Créer une nouvelle scène avec la page de participation et l'afficher dans un nouveau stage
+            Scene scene = new Scene(root);
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            System.err.println("Error loading participation page: " + e.getMessage());
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 }
+
+
+
 
 
 
