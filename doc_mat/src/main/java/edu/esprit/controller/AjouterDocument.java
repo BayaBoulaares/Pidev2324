@@ -104,7 +104,8 @@ public class AjouterDocument  implements Initializable {
 
     @FXML
     void ajouterDocument(javafx.event.ActionEvent event) {
-        if (validateInput()) {
+        String validationError = validateInput();
+        if (validationError.isEmpty()) {
             try {
                 // Ajouter la date du jour
                 LocalDate currentDate = LocalDate.now();
@@ -130,7 +131,7 @@ public class AjouterDocument  implements Initializable {
                 showAlert(Alert.AlertType.ERROR, "Erreur", e.getMessage());
             } catch (ExistanteException e) { showAlert(Alert.AlertType.ERROR, "Erreur", e.getMessage());}
         } else {
-            showAlert(Alert.AlertType.ERROR, "Error", "Veuillez remplir tous les champs!");
+            showAlert(Alert.AlertType.ERROR, "Erreur de validation", validationError);
         }
 
 
@@ -156,10 +157,28 @@ public class AjouterDocument  implements Initializable {
 
             // Définir la valeur du ComboBox idtype en fonction de l'extension
             if (extension.equalsIgnoreCase("pdf")) {
+                long fileSizeInBytes = selectedFile.length();
+                long fileSizeInMB = fileSizeInBytes / (1024 * 1024);
+                if (fileSizeInMB > 50) {
+                    showAlert(Alert.AlertType.ERROR, "Erreur de taille de fichier", "La taille du fichier PDF ne doit pas dépasser 50 Mo");
+                    return;
+                }
                 idtype.setValue(Type.PDF);
             } else if (extension.equalsIgnoreCase("mp4")) {
+                long fileSizeInBytes = selectedFile.length();
+                long fileSizeInMB = fileSizeInBytes / (1024 * 1024);
+                if (fileSizeInMB > 90) {
+                    showAlert(Alert.AlertType.ERROR, "Erreur de taille de fichier", "La taille du fichier ne doit pas dépasser 500 Mo");
+                    return;
+                }
                 idtype.setValue(Type.MP4);
             } else if (extension.equalsIgnoreCase("avi")) {
+                long fileSizeInBytes = selectedFile.length();
+                long fileSizeInMB = fileSizeInBytes / (1024 * 1024);
+                if (fileSizeInMB > 90) {
+                    showAlert(Alert.AlertType.ERROR, "Erreur de taille de fichier", "La taille du fichier ne doit pas dépasser 500 Mo");
+                    return;
+                }
                 idtype.setValue(Type.AVI);
             } else {
                 showAlert(Alert.AlertType.ERROR, "Erreur d'extension", "Ce type d'extension n'est pas pris en charge");
@@ -174,20 +193,18 @@ public class AjouterDocument  implements Initializable {
                     // Ajouter le fichier à Google Drive et récupérer son URL
                     String fileId;
                     if (extension.equalsIgnoreCase("pdf")) {
-
                         fileId = UploadBasic.uploadPDF(selectedFile.getAbsolutePath());
                     } else { // mp4 or avi
                         long fileSizeInBytes = selectedFile.length();
                         long fileSizeInMB = fileSizeInBytes / (1024 * 1024);
-                        if (fileSizeInMB > 500) {
-                            showAlert(Alert.AlertType.ERROR, "Erreur de taille de fichier", "La taille du fichier ne doit pas dépasser 500 Mo");
-                            return;
+
+                        if (fileSizeInMB > 10) {
+                            String compressedFilePath = VideoCompressor.compressVideo(selectedFile.getAbsolutePath(), extension);
+                            fileId = UploadBasic.uploadVideo(compressedFilePath, extension);
+                        } else {
+                            fileId = UploadBasic.uploadVideo(selectedFile.getAbsolutePath(), extension);
                         }
-
-                        String compressedFilePath = VideoCompressor. compressVideo(selectedFile.getAbsolutePath(), extension);
-                        fileId = UploadBasic.uploadVideo(compressedFilePath, extension);
                     }
-
 
                     fileUrl = "https://drive.google.com/file/d/" + fileId;
 
@@ -206,15 +223,32 @@ public class AjouterDocument  implements Initializable {
 
     }
 
-    @FXML
-    private boolean validateInput() {
+
+    private String validateInput() {
         String nom = idtt.getText();
-        Type type=idtype.getValue();
-        String url=idurt.getText();
-        Niveau niveau=idniveau.getValue();
+        Type type = idtype.getValue();
+        String url = idurt.getText();
+        Niveau niveau = idniveau.getValue();
 
-        return nom.length() >= 3 && !nom.isEmpty() && type != null && niveau != null && !url.isEmpty();
+        StringBuilder validationError = new StringBuilder();
 
+        if (nom.isEmpty() || nom.length() < 3) {
+            validationError.append("Le nom doit avoir au moins 3 caractères.\n");
+        }
+
+        if (type == null) {
+            validationError.append("Veuillez sélectionner un type.\n");
+        }
+
+        if (niveau == null) {
+            validationError.append("Veuillez sélectionner un niveau.\n");
+        }
+
+        if (url.isEmpty()) {
+            validationError.append("Veuillez spécifier une URL.\n");
+        }
+
+        return validationError.toString().trim(); // No leading/trailing whitespaces
     }
 
     @FXML

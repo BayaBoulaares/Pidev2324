@@ -75,30 +75,30 @@
             <Font name="System Bold" size="13.0" />
          </font>
       </Label>
-      <TextField fx:id="idtt" layoutX="500.0" layoutY="250.0" prefHeight="26.0" prefWidth="242.0" promptText="Titre" style="-fx-background-radius: 10;" />
+      <TextField fx:id="idtt" layoutX="169.0" layoutY="249.0" prefHeight="26.0" prefWidth="242.0" promptText="Titre" style="-fx-background-radius: 10;" />
       <Line endX="455.5999755859375" endY="1.52587890625E-5" layoutX="329.0" layoutY="171.0" startX="-147.99998474121094" startY="1.52587890625E-5" stroke="#a3aed0" />
       <Button layoutX="187.0" layoutY="141.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="94.0" style="-fx-background-color: transparent;" text="Modifier" textFill="#27dec1" />
       <Line endX="41.399993896484375" endY="1.52587890625E-5" layoutX="281.0" layoutY="171.0" startX="-100.0" stroke="#27dec1" />
       <Button layoutX="526.0" layoutY="405.0" mnemonicParsing="false" onAction="#modifierDocument" prefHeight="30.0" prefWidth="80.0" style="-fx-background-color: #27DEC1; -fx-background-radius: 5;" text="confirmer" textFill="WHITE" />
       <Button layoutX="663.0" layoutY="406.0" mnemonicParsing="false" onAction="#RetourMatiere" prefHeight="14.0" prefWidth="53.0" style="-fx-background-color: transparent; -fx-background-radius: 5; -fx-border-color: #27DEC1; -fx-border-radius: 5;" text="Retour" textFill="#27dec1" />
-      <ComboBox fx:id="idtype" layoutX="500.0" layoutY="332.0" opacity="0.47" prefHeight="27.0" prefWidth="242.0" style="-fx-background-radius: 10; -fx-background-color: transparent; -fx-border-color: a3aed0; -fx-border-radius: 10;" />
-      <Label layoutX="169.0" layoutY="305.0" text="Type *" textFill="#2b3674">
+      <ComboBox fx:id="idtype" layoutX="169.0" layoutY="345.0" opacity="0.47" prefHeight="27.0" prefWidth="242.0" style="-fx-background-radius: 10; -fx-background-color: transparent; -fx-border-color: a3aed0; -fx-border-radius: 10;" />
+      <Label layoutX="167.0" layoutY="314.0" text="Type *" textFill="#2b3674">
          <font>
             <Font name="System Bold" size="13.0" />
          </font>
       </Label>
-      <Label layoutX="500.0" layoutY="214.0" text="Url *" textFill="#2b3674">
+      <Label layoutX="484.0" layoutY="223.0" text="Url *" textFill="#2b3674">
          <font>
             <Font name="System Bold" size="13.0" />
          </font>
       </Label>
-      <Label layoutX="500.0" layoutY="305.0" text="Niveau *" textFill="#2b3674">
+      <Label layoutX="488.0" layoutY="314.0" text="Niveau *" textFill="#2b3674">
          <font>
             <Font name="System Bold" size="13.0" />
          </font>
       </Label>
-      <ComboBox fx:id="idniveau" layoutX="160.0" layoutY="332.0" prefHeight="27.0" prefWidth="242.0" style="-fx-background-radius: 10; -fx-background-color: transparent; -fx-border-color: a3aed0; -fx-border-radius: 10;" />
+      <ComboBox fx:id="idniveau" layoutX="484.0" layoutY="345.0" prefHeight="27.0" prefWidth="242.0" style="-fx-background-radius: 10; -fx-background-color: transparent; -fx-border-color: a3aed0; -fx-border-radius: 10;" />
       <Button fx:id="idurl" layoutX="753.0" layoutY="250.0" mnemonicParsing="false" onAction="#choisirFichier" prefHeight="19.0" prefWidth="68.0" style="-fx-border-radius: 10; -fx-background-radius: 10; -fx-background-color: #27DEC1;" text="Url" textFill="#a3aed0" />
-      <TextField fx:id="idurt" editable="false" layoutX="163.0" layoutY="250.0" prefHeight="26.0" prefWidth="242.0" promptText="Url" style="-fx-background-radius: 10;" />
+      <TextField fx:id="idurt" editable="false" layoutX="484.0" layoutY="249.0" prefHeight="26.0" prefWidth="242.0" promptText="Url" style="-fx-background-radius: 10;" />
    </children>
 </AnchorPane>

@@ -1,4 +1,7 @@
 package edu.esprit.controller;
+import javafx.event.EventHandler;
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.text.PDFTextStripper;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
@@ -21,6 +24,8 @@ import javafx.scene.image.ImageView; // Utilisez javafx.scene.image.ImageView
 import org.apache.pdfbox.pdmodel.PDDocument;
 
 import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionListener;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -29,6 +34,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class AfficherDocumentM {
 
@@ -129,17 +137,73 @@ public class AfficherDocumentM {
             ByteArrayInputStream inputStream = new ByteArrayInputStream(((ByteArrayOutputStream) outputStream).toByteArray());
 
             if (document.getType()== Type.PDF) {
+
                 // Charger le document PDF à partir du ByteArrayInputStream
                 PDDocument pdfDocument = PDDocument.load(inputStream);
+                if(document.getTitre().substring(0,4).equals("exer"))
+                {
 
-                // Afficher le document PDF dans une nouvelle fenêtre
-                PDFViewer viewer = new PDFViewer("PDF Viewer", pdfDocument);
-                viewer.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                viewer.setSize(800, 600);
-                viewer.setVisible(true);
+                    if(document.getTitre().substring(0,4).equals("exer"))
+                    {
+                        List<String> questions = extractQuestions(pdfDocument);
+                        Map<String, String> correctAnswers = extractAnswers(pdfDocument);
 
-                // Fermer le document PDF
-                pdfDocument.close();
+                        JPanel panel = new JPanel();
+                        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+
+                        Map<JTextField, String> answerFields = new HashMap<>();
+                        for (String question : questions) {
+                            // Afficher la question
+                            JLabel questionLabel = new JLabel(question);
+                            panel.add(questionLabel);
+
+                            // Ajouter un champ de texte pour la réponse
+                            JTextField answerField = new JTextField();
+                            panel.add(answerField);
+
+                            answerFields.put(answerField, correctAnswers.get(question));
+                        }
+
+                        // Ajouter un bouton pour soumettre les réponses
+                        JButton submitButton = new JButton("Submit");
+                        panel.add(submitButton);
+
+                        submitButton.addActionListener(new ActionListener() {
+                            @Override
+                            public void actionPerformed(java.awt.event.ActionEvent e) {
+                                for (Map.Entry<JTextField, String> entry : answerFields.entrySet()) {
+                                    JTextField answerField = entry.getKey();
+                                    String correctAnswer = entry.getValue();
+
+                                    String userAnswer = answerField.getText();  // Obtenir la réponse de l'utilisateur
+
+                                    // Comparer avec la bonne réponse et afficher le résultat
+                                    if (userAnswer.equals(correctAnswer)) {
+                                        JOptionPane.showMessageDialog(panel, "Correct!");
+                                    } else {
+                                        JOptionPane.showMessageDialog(panel, "Incorrect! The correct answer is: " + correctAnswer);
+                                    }
+                                }
+                            }
+                        });
+
+                        JFrame frame = new JFrame("Exercices");
+                        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                        frame.setSize(800, 600);
+                        frame.setLayout(new BorderLayout());
+                        frame.add(new JScrollPane(panel), BorderLayout.CENTER);
+                        frame.setVisible(true);
+                                    }
+                }
+                  else {// Afficher le document PDF dans une nouvelle fenêtre
+                    PDFViewer viewer = new PDFViewer("PDF Viewer", pdfDocument);
+                    viewer.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                    viewer.setSize(800, 600);
+                    viewer.setVisible(true);
+
+                    // Fermer le document PDF
+                    pdfDocument.close();
+                }
             } else {
                 // Enregistrer le fichier vidéo en mémoire
                 byte[] videoBytes = ((ByteArrayOutputStream) outputStream).toByteArray();
@@ -171,6 +235,34 @@ public class AfficherDocumentM {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+    private List<String> extractQuestions(PDDocument document) throws IOException {
+        PDFTextStripper textStripper = new PDFTextStripper();
+        String text = textStripper.getText(document);
+
+        String[] lines = text.split("\\n");
+        List<String> questions = new ArrayList<>();
+
+        for (int i = 0; i < lines.length; i += 2) {
+            questions.add(lines[i].trim());
+        }
+
+        return questions;
+    }
+    private Map<String, String> extractAnswers(PDDocument document) throws IOException {
+        PDFTextStripper textStripper = new PDFTextStripper();
+        String text = textStripper.getText(document);
+
+        String[] lines = text.split("\\n");
+        Map<String, String> answers = new HashMap<>();
+
+        for (int i = 1; i < lines.length; i += 2) {
+            String question = lines[i - 1].trim();
+            String answer = lines[i].trim();
+            answers.put(question, answer);
+        }
+
+        return answers;
     }
 }
 

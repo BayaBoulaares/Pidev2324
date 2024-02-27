@@ -295,7 +295,7 @@ public class AfficherDocument {
                 java.sql.Date sqlDate = java.sql.Date.valueOf(selectedDate);
 
                 // Appeler la méthode de service pour obtenir les documents pour une date spécifique
-                ObservableList<Document> documentList = FXCollections.observableArrayList(serviceDocument.getByDate(sqlDate));
+                ObservableList<Document> documentList = FXCollections.observableArrayList(serviceDocument.getByDate(sqlDate,matiere));
                 idListView.setItems(documentList);
             } else {
                 // Si aucune date n'est sélectionnée, afficher tous les documents

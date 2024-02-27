@@ -222,13 +222,14 @@ public class ServiceDocument implements IService<Document> {
 
         return documents;
     }
-    public ArrayList<Document> getByDate(java.sql.Date date) throws SQLException {
+    public ArrayList<Document> getByDate(java.sql.Date date,Matiere mat) throws SQLException {
         Connection cnx = DataSource.getInstance().getCnx();
         ArrayList<Document> documents = new ArrayList<>();
 
-        String req = "SELECT * FROM document WHERE date=?";
+        String req = "SELECT * FROM document WHERE date=? AND id_mat=?";
         try (PreparedStatement pstmt = cnx.prepareStatement(req)) {
             pstmt.setDate(1, date);
+            pstmt.setInt(2, mat.getId());
             ResultSet rs = pstmt.executeQuery();
 
             while (rs.next()) {

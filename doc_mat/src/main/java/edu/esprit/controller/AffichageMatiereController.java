@@ -1,5 +1,8 @@
 package edu.esprit.controller;
 
+import javafx.animation.PauseTransition;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -17,10 +20,12 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import edu.esprit.entities.Matiere;
 import edu.esprit.services.SeviceMatiere;
+import javafx.util.Duration;
 
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class AffichageMatiereController {
 
@@ -31,14 +36,23 @@ public class AffichageMatiereController {
     private Button idret;
     @FXML
     private FlowPane matiereFlowPane;
+
     @FXML
-    private VBox alphabetButtons;
+    private TextField idrecherche;
+    private ObservableList<Matiere> filteredMatieres = FXCollections.observableArrayList();
 
 
     private SeviceMatiere serviceMatiere = new SeviceMatiere();
+    private final PauseTransition pause = new PauseTransition(Duration.seconds(1));
 
     @FXML
     public void initialize() {
+        idrecherche.textProperty().addListener((observable, oldValue, newValue) -> {
+            pause.setOnFinished(event -> {
+                chercherMatiers();
+            });
+            pause.playFromStart();
+        });
 
         // Load matières at startup
         loadMatieres();
@@ -267,4 +281,31 @@ public void handleAfficherDocumentButtonClick( Matiere matiere){
     public void affichertout(ActionEvent actionEvent) {
         loadMatieres();
     }
+    @FXML
+
+    public void chercherMatiers() {
+        String searchQuery = idrecherche.getText().toLowerCase().trim();
+        if (searchQuery.isEmpty()) {
+            // Handle the case where the search query is empty (optional)
+            // You can display all matières or show a message to enter a query.
+            // For now, let's display all matières:
+            loadMatieres();
+        } else {
+            try {
+                // Fetch matières from the database or any other source
+                List<Matiere> allMatieres = serviceMatiere.getAll();
+
+                // Filter matières based on the search query
+                filteredMatieres.setAll(allMatieres.stream()
+                        .filter(matiere -> matiere.getNommatiere().toLowerCase().contains(searchQuery))
+                        .collect(Collectors.toList()));
+
+                // Display the filtered matières
+                displayFilteredMatieres(filteredMatieres);
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+
 }

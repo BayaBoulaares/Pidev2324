@@ -55,7 +55,8 @@ public class MatiereController {
 
     @FXML
     public void ajouterMatiere(javafx.event.ActionEvent actionEvent) {
-        if (validateInput()) {
+        String validationError = validateInput();
+        if (validationError.isEmpty()) {
             try {
                 this.MS.ajouter(new Matiere(this.idnom.getText(), this.iddesc.getText(),this.idannee.getValue(),this.idcat.getValue()));
 
@@ -77,29 +78,38 @@ public class MatiereController {
                 throw new RuntimeException(var6);
             }
         } else {
-            showAlert(Alert.AlertType.ERROR, "Error", "Veuillez remplir tous les champs!");
+            showAlert(Alert.AlertType.ERROR, "Erreur de validation", validationError);
         }
 
     }
     @FXML
-    private boolean validateInput() {
+    private String validateInput() {
         String nom = idnom.getText();
         String desc = iddesc.getText();
         String anne=idannee.getValue();
         CAT categorie=idcat.getValue();
+        StringBuilder validationError = new StringBuilder();
+        if(nom.matches("[a-zA-Z]+"))   validationError.append("Le nom ne doit pas des nembres .\n");
 
-        // Check if nom contains only letters
-        boolean isNomValid = nom.matches("[a-zA-Z]+");
+        else {
+            if(nom.isEmpty()||nom.length() >= 3)
+        {
+            validationError.append("Le nom doit avoir au moins 3 caractères.\n");
+        }}
         // Check if nom is "mathematique", "science", or "physique" and categorie is not SCIENTIFIQUE
         if ((nom.equalsIgnoreCase("mathematique") || nom.equalsIgnoreCase("science") || nom.equalsIgnoreCase("physique")) && categorie != CAT.SCIENTIFIQUE) {
-            return false;
+            validationError.append("Le nom ne fait pas party de cette categorie .\n");
         }
 
         // Check if nom is "francais", "anglais", or "arabe" and categorie is not LANGUE
         if ((nom.equalsIgnoreCase("francais") || nom.equalsIgnoreCase("anglais") || nom.equalsIgnoreCase("arabe")) && categorie != CAT.LANGUE) {
-            return false;
+            validationError.append("Le nom ne fait pas party de cette categorie .\n");
         }
-        return isNomValid && nom.length() >= 3 && desc.length() >= 5 && !nom.isEmpty() && !desc.isEmpty() &&  !anne.isEmpty() && categorie != null;
+        if(desc.isEmpty()|| desc.length() >= 5 )
+        { validationError.append("La description doit contenir aux moins 5 carracteres .\n");}
+        if(anne.isEmpty()||categorie ==null )
+        { validationError.append("Remplir la case manquante .\n");}
+        return validationError.toString().trim(); // No leading/trailing whitespaces
 
     }
     @FXML

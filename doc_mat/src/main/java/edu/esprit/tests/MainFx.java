@@ -14,7 +14,7 @@ public class MainFx extends Application {
     }
 
     public void start(Stage stage) throws IOException {
-        FXMLLoader loader = new FXMLLoader(this.getClass().getResource("/acceuilMatiere.fxml"));
+        FXMLLoader loader = new FXMLLoader(this.getClass().getResource("/AfficherMatiere.fxml"));
         Parent root = (Parent)loader.load();
         Scene scene = new Scene(root);
         stage.setScene(scene);

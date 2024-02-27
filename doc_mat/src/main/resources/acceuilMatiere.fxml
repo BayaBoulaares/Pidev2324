@@ -58,7 +58,7 @@
       </Button>
       <VBox layoutX="-46.0" prefHeight="610.0" prefWidth="184.0" style="-fx-background-color: #27DEC1; -fx-background-radius: 5;">
          <children>
-            <ImageView fitHeight="93.0" fitWidth="148.0" style="-fx-translate-x: 45; -fx-translate-y: 10;">
+            <ImageView fitHeight="147.0" fitWidth="143.0" style="-fx-translate-x: 45; -fx-translate-y: 10;">
                <image>
                   <Image url="@image/logo2.png" />
                </image>
