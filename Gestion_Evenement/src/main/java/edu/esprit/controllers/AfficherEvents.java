@@ -55,7 +55,7 @@ public class AfficherEvents {
             e.printStackTrace();
         }
     }
-    
+
 
     @FXML
     private void displayEventsInEventBox(List<Evenement> events) {
@@ -266,6 +266,17 @@ public class AfficherEvents {
             // Obtenez l'ID de l'événement
             int eventId = evenement.getId_Event();
 
+            // Check if the user has already participated in the event
+            if (serviceParticipation.hasParticipated(eventId, userId)) {
+                // If the user has already participated, display an alert
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Déjà participé");
+                alert.setHeaderText(null);
+                alert.setContentText("Vous avez déjà participé à cet événement.");
+                alert.showAndWait();
+                return; // Exit the method
+            }
+
             // Insérez la participation dans la base de données
             serviceParticipation.insertParticipation(eventId, userId);
 
@@ -281,6 +292,7 @@ public class AfficherEvents {
             System.err.println("Erreur lors de l'ajout de la participation : " + ex.getMessage());
         }
     }
+
 
 
     @FXML

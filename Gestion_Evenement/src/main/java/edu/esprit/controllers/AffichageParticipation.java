@@ -3,6 +3,8 @@ package edu.esprit.controllers;
 import edu.esprit.entities.Evenement;
 import edu.esprit.services.ServiceParticipation;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -18,7 +20,7 @@ import java.util.Locale;
 public class AffichageParticipation {
 
     @FXML
-    private VBox participationBox;
+    private HBox participationBox; // Change VBox to HBox
 
     private ServiceParticipation serviceParticipation = new ServiceParticipation();
 
@@ -26,18 +28,41 @@ public class AffichageParticipation {
     private void initialize() throws SQLException {
         List<Evenement> participatedEvents = serviceParticipation.getParticipatedEvents(1);
         loadParticipations(participatedEvents);
+        participationBox.setSpacing(30); // Ajoutez cette ligne pour définir l'espacement
     }
 
     public void loadParticipations(List<Evenement> participatedEvents) {
         for (Evenement evenement : participatedEvents) {
-            VBox eventBox = createEventBox(evenement);
-            participationBox.getChildren().add(eventBox);
+            if (!isEventAlreadyAdded(evenement)) {
+                VBox eventBox = createEventBox(evenement);
+                participationBox.getChildren().add(eventBox);
+            }
         }
+    }
+
+    private boolean isEventAlreadyAdded(Evenement evenement) {
+        for (Node node : participationBox.getChildren()) {
+            if (node instanceof VBox) {
+                VBox eventBox = (VBox) node;
+                Label nameLabel = (Label) eventBox.getChildren().get(1);
+                if (nameLabel.getText().equals(evenement.getNom_Event())) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     private VBox createEventBox(Evenement evenement) {
         VBox eventBox = new VBox();
         eventBox.getStyleClass().add("eventBox");
+
+        // Définir une taille spécifique pour VBox
+        eventBox.setMinWidth(250); // Ajustez selon vos besoins
+        eventBox.setMinHeight(150); // Ajustez selon vos besoins
+
+        // Centrer le contenu de la VBox
+        eventBox.setAlignment(Pos.CENTER);
 
         ImageView eventImage = new ImageView();
         String imagePath = evenement.getImage();
@@ -49,7 +74,7 @@ public class AffichageParticipation {
         eventBox.getChildren().add(eventImage);
 
         Label nameLabel = new Label(evenement.getNom_Event());
-        nameLabel.setStyle("-fx-font-family: 'DM Sans'; -fx-font-size: 18;");
+        nameLabel.setStyle("-fx-font-family: 'DM Sans'; -fx-font-size: 18; -fx-text-fill: turquoise;"); // Set font size and color
         nameLabel.getStyleClass().add("nom");
         eventBox.getChildren().add(nameLabel);
 
@@ -71,12 +96,9 @@ public class AffichageParticipation {
 
         Label descriptionLabel = new Label("Description: " + evenement.getDescription());
         descriptionLabel.getStyleClass().add("description");
+        descriptionLabel.setStyle("-fx-text-fill: gray; -fx-wrap-text: true; -fx-font-size: 14;"); // Set font size and color
         descriptionLabel.setWrapText(true);
         eventBox.getChildren().add(descriptionLabel);
-
-        Label maxLabel = new Label("Nombre Restant: " + evenement.getNb_Max());
-        maxLabel.getStyleClass().add("max");
-        eventBox.getChildren().add(maxLabel);
 
         return eventBox;
     }

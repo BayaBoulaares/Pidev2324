@@ -7,7 +7,7 @@
 
     <top>
         <VBox alignment="CENTER">
-            <Label text="Calendrier" textFill="#007777" style="-fx-font-family: 'DM Sans', sans-serif; -fx-font-size: 18px;" />
+            <Label text="Agenda" textFill="#007777" style="-fx-font-family: 'DM Sans', sans-serif; -fx-font-size: 18px;" />
         </VBox>
     </top>
 

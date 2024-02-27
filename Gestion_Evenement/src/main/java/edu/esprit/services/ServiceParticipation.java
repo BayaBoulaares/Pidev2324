@@ -92,6 +92,23 @@ public class ServiceParticipation {
       }
       return events;
   }
+    public boolean hasParticipated(int eventId, int userId) throws SQLException {
+        String query = "SELECT COUNT(*) FROM participation WHERE Id_Event = ? AND Id_User = ?";
+        try (PreparedStatement pstmt = cnx.prepareStatement(query)) {
+            pstmt.setInt(1, eventId);
+            pstmt.setInt(2, userId);
+            try (ResultSet resultSet = pstmt.executeQuery()) {
+                if (resultSet.next()) {
+                    int count = resultSet.getInt(1);
+                    return count > 0;
+                }
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error while checking participation: " + ex.getMessage());
+            throw ex;
+        }
+        return false;
+    }
 
 
 
