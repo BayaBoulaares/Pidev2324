@@ -2,6 +2,7 @@ package edu.esprit.entities;
 
 import java.util.Date;
 
+
 public class Evenement {
     private int Id_Event;
     private String Nom_Event;
@@ -10,7 +11,6 @@ public class Evenement {
     private String Lieu_Event;
     private String Description;
     private int Nb_Max;
-    private Status Status;
     private String image; // Image stored as String in Java class
 
     public Evenement() {
@@ -20,18 +20,17 @@ public class Evenement {
         this.Id_Event = id;
     }
 
-    public Evenement(String Nom_Event, String Description, String Lieu_Event, Date Date_Debut, Date Date_Fin, int Nb_Max, Status Status, String image) {
+    public Evenement(String Nom_Event, String Description, String Lieu_Event, Date Date_Debut, Date Date_Fin, int Nb_Max, String image) {
         this.Nom_Event = Nom_Event;
         this.Description = Description;
         this.Lieu_Event = Lieu_Event;
         this.Date_Debut = Date_Debut;
         this.Date_Fin = Date_Fin;
         this.Nb_Max = Nb_Max;
-        this.Status = Status;
         this.image = image; // Initialize image attribute
     }
 
-    public Evenement(int Id_Event, String Nom_Event, String Description, String Lieu_Event, Date Date_Debut, Date Date_Fin, int Nb_Max, Status Status, String image) {
+    public Evenement(int Id_Event, String Nom_Event, String Description, String Lieu_Event, Date Date_Debut, Date Date_Fin, int Nb_Max, String image) {
         this.Id_Event = Id_Event;
         this.Nom_Event = Nom_Event;
         this.Description = Description;
@@ -39,7 +38,6 @@ public class Evenement {
         this.Date_Debut = Date_Debut;
         this.Date_Fin = Date_Fin;
         this.Nb_Max = Nb_Max;
-        this.Status = Status;
         this.image = image; // Initialize image attribute
     }
 
@@ -99,14 +97,6 @@ public class Evenement {
         this.Nb_Max = Nb_Max;
     }
 
-    public Status getStatus() {
-        return Status;
-    }
-
-    public void setStatus(Status Status) {
-        this.Status = Status;
-    }
-
     public String getImage() {
         return image;
     }
@@ -124,7 +114,6 @@ public class Evenement {
                 ", Date_Debut=" + Date_Debut +
                 ", Date_Fin=" + Date_Fin +
                 ", Nb_Max=" + Nb_Max +
-                ", Status=" + Status +
                 ", image='" + image + '\'' +
                 '}';
     }
@@ -137,3 +126,4 @@ public class Evenement {
         return Id_Event == evenement.Id_Event;
     }
 }
+

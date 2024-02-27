@@ -119,7 +119,7 @@ public class AfficherEvenement {
         eventBox.getChildren().add(descriptionLabel);
 
 
-        Label maxLabel = new Label("Nombre Restant :" + evenement.getNb_Max());
+     Label maxLabel = new Label("Nombre Restant :" + evenement.getNb_Max());
         maxLabel.getStyleClass().add("max");
         eventBox.getChildren().add(maxLabel);
 

@@ -10,6 +10,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.sql.DriverManager.getConnection;
+
 public class ServiceParticipation {
 
     private Connection cnx;
@@ -32,41 +34,7 @@ public class ServiceParticipation {
         }
     }
 
-  /*  // Méthode pour obtenir l'identifiant de l'utilisateur à partir de son nom
-    public int getUserIdFromUserName(String userName) throws SQLException {
-        int userId = -1;
-        String query = "SELECT idu FROM utilisateurs WHERE nom = ?";
-        try (PreparedStatement pstmt = cnx.prepareStatement(query)) {
-            pstmt.setString(1, userName);
-            try (ResultSet resultSet = pstmt.executeQuery()) {
-                if (resultSet.next()) {
-                    userId = resultSet.getInt("idu");
-                }
-            }
-        } catch (SQLException ex) {
-            System.out.println("Error while getting user ID: " + ex.getMessage());
-            throw ex;
-        }
-        return userId;
-    }
 
-    // Méthode pour obtenir le nom de l'utilisateur à partir de son identifiant
-    public String getUserNameFromId(int userId) throws SQLException {
-        String userName = null;
-        String query = "SELECT nom FROM utilisateurs WHERE idu = ?";
-        try (PreparedStatement pstmt = cnx.prepareStatement(query)) {
-            pstmt.setInt(1, userId);
-            try (ResultSet resultSet = pstmt.executeQuery()) {
-                if (resultSet.next()) {
-                    userName = resultSet.getString("nom");
-                }
-            }
-        } catch (SQLException ex) {
-            System.out.println("Error while getting user name: " + ex.getMessage());
-            throw ex;
-        }
-        return userName;
-    }*/
   public List<Evenement> getParticipatedEvents(int userId) throws SQLException {
       List<Evenement> events = new ArrayList<>();
       String query = "SELECT e.Id_Event, e.Nom_Event, e.Date_Debut, e.Date_Fin, e.Lieu_Event, e.Description, e.Nb_Max, e.image FROM evenement e JOIN participation p ON e.Id_Event = p.Id_Event WHERE p.Id_User = ?";
@@ -109,7 +77,22 @@ public class ServiceParticipation {
         }
         return false;
     }
-
+    public int getNumberOfParticipants(int Id_Event) throws SQLException {
+        // Execute a SQL query to count the number of participants for the event
+        String query = "SELECT COUNT(*) FROM participation WHERE Id_Event = ?";
+        try (PreparedStatement statement = cnx.prepareStatement(query)) {
+            statement.setInt(1, Id_Event);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    return resultSet.getInt(1); // Return the count of participants
+                }
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error while getting number of participants: " + ex.getMessage());
+            throw ex;
+        }
+        return 0; // Return 0 if no participants found or an error occurred
+    }
 
 
 }

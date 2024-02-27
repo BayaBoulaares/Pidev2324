@@ -1,7 +1,6 @@
 package edu.esprit.controllers;
 
 import edu.esprit.entities.Evenement;
-import edu.esprit.entities.Status;
 import edu.esprit.services.ServiceEvenement;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -27,9 +26,6 @@ import java.time.LocalDate;
 public class AjoutEvenement {
 
     private final ServiceEvenement serviceEvenement = new ServiceEvenement();
-
-    @FXML
-    private ComboBox<String> eventType;
 
     @FXML
     private DatePicker eventStartDate;
@@ -63,11 +59,9 @@ public class AjoutEvenement {
             LocalDate dateFin = eventEndDate.getValue();
             String maxParticipantsText = maxNumber.getText();
             String descriptionEvenement = eventDescription.getText();
-            String typeEvenement = eventType.getValue();
 
             if (nomEvenement.isEmpty() || lieuEvenement.isEmpty() || dateDebut == null ||
-                    dateFin == null || maxParticipantsText.isEmpty() || descriptionEvenement.isEmpty() ||
-                    typeEvenement == null) {
+                    dateFin == null || maxParticipantsText.isEmpty() || descriptionEvenement.isEmpty()) {
                 afficherAlerte("Veuillez remplir tous les champs !");
                 return;
             }
@@ -92,6 +86,12 @@ public class AjoutEvenement {
                 return;
             }
 
+            // Validate if the start date is before the end date
+            if (dateDebut.isAfter(dateFin)) {
+                afficherAlerte("La date de début doit être avant la date de fin !");
+                return;
+            }
+
             Evenement nouvelEvenement = new Evenement();
             nouvelEvenement.setNom_Event(nomEvenement);
             nouvelEvenement.setLieu_Event(lieuEvenement);
@@ -99,7 +99,6 @@ public class AjoutEvenement {
             nouvelEvenement.setDate_Fin(java.sql.Date.valueOf(dateFin));
             nouvelEvenement.setNb_Max(Integer.parseInt(maxParticipantsText));
             nouvelEvenement.setDescription(descriptionEvenement);
-            nouvelEvenement.setStatus(Status.valueOf(typeEvenement.toUpperCase()));
             nouvelEvenement.setImage(imagePath);
 
             serviceEvenement.ajouter(nouvelEvenement);
@@ -117,6 +116,7 @@ public class AjoutEvenement {
             afficherAlerte("Une erreur s'est produite : " + e.getMessage());
         }
     }
+
 
     @FXML
     void afficherEvenements() throws IOException {
@@ -171,3 +171,4 @@ public class AjoutEvenement {
         alert.showAndWait();
     }
 }
+

@@ -1,7 +1,6 @@
 package edu.esprit.controllers;
 
 import edu.esprit.entities.Evenement;
-import edu.esprit.entities.Status;
 import edu.esprit.services.ServiceEvenement;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -11,9 +10,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 
-import javax.imageio.ImageIO;
 import java.io.File;
-import java.io.IOException;
 import java.sql.SQLException;
 import java.time.Instant;
 import java.time.LocalDate;
@@ -74,7 +71,7 @@ public class ModifierEvenement {
                         .atZone(ZoneId.systemDefault())
                         .toLocalDate()
         );
-        eventType.setValue(evenement.getStatus().toString());
+        // eventType.setValue(evenement.getStatus().toString()); // Remove this line
         maxNumber.setText(String.valueOf(evenement.getNb_Max()));
         eventDescription.setText(evenement.getDescription());
 
@@ -100,13 +97,12 @@ public class ModifierEvenement {
             LocalDate dateDebut = eventStartDate.getValue();
             LocalDate dateFin = eventEndDate.getValue();
             String lieuEvenement = eventLocation.getText();
-            String typeEvenement = eventType.getValue();
             int nombreMax = Integer.parseInt(maxNumber.getText());
             String description = eventDescription.getText();
 
             // Validate if any required field is empty
             if (nomEvenement.isEmpty() || lieuEvenement.isEmpty() || dateDebut == null ||
-                    dateFin == null || typeEvenement == null || description.isEmpty()) {
+                    dateFin == null || description.isEmpty()) {
                 afficherAlerte("Veuillez remplir tous les champs !");
                 return;
             }
@@ -123,15 +119,18 @@ public class ModifierEvenement {
                 return;
             }
 
+            // Validate if the start date is before the end date
+            if (dateDebut.isAfter(dateFin)) {
+                afficherAlerte("La date de début doit être avant la date de fin !");
+                return;
+            }
+
             // Convert LocalDate to Date
             Date dateDebutConverted = java.sql.Date.valueOf(dateDebut);
             Date dateFinConverted = java.sql.Date.valueOf(dateFin);
 
-            // Convert string typeEvenement to Status
-            Status status = (typeEvenement != null && !typeEvenement.isEmpty()) ? Status.valueOf(typeEvenement) : null;
-
             // Create an Evenement object with the modified data
-            Evenement evenementModifie = new Evenement(idEvenement, nomEvenement, description, lieuEvenement, dateDebutConverted, dateFinConverted, nombreMax, status, imagePath);
+            Evenement evenementModifie = new Evenement(idEvenement, nomEvenement, description, lieuEvenement, dateDebutConverted, dateFinConverted, nombreMax, imagePath);
 
             // Get an instance of EvenementService and call the modify method
             ServiceEvenement evenementService = new ServiceEvenement();
@@ -146,14 +145,12 @@ public class ModifierEvenement {
         } catch (NumberFormatException e) {
             // Show error message for invalid number format
             afficherAlerte("Veuillez entrer un nombre valide pour le nombre maximum de participants.");
-        } catch (IllegalArgumentException e) {
-            // Show error message for invalid event type
-            afficherAlerte("Veuillez sélectionner un type d'événement.");
         } catch (SQLException e) {
             // Show error message for SQL exception
             afficherAlerte("Une erreur s'est produite lors de la mise à jour de l'événement : " + e.getMessage());
         }
     }
+
 
     @FXML
     void selectImage(ActionEvent event) {
@@ -181,3 +178,4 @@ public class ModifierEvenement {
         alert.showAndWait();
     }
 }
+

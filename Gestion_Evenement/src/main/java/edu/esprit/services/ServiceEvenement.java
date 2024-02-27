@@ -1,7 +1,6 @@
 package edu.esprit.services;
 
 import edu.esprit.entities.Evenement;
-import edu.esprit.entities.Status;
 import edu.esprit.utils.DataSource;
 
 import java.sql.*;
@@ -11,13 +10,15 @@ import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
 import java.util.List;
 
+
+
 public class ServiceEvenement implements IService<Evenement> {
 
     Connection cnx = DataSource.getInstance().getCnx();
 
     @Override
     public void ajouter(Evenement e) throws SQLException {
-        String req = "INSERT INTO `evenement`(`Nom_Event`, `Description`, `Lieu_Event`, `Date_Debut`, `Date_Fin`, `Nb_Max`, `Status`, `image`) VALUES (?,?,?,?,?,?,?,?)";
+        String req = "INSERT INTO `evenement`(`Nom_Event`, `Description`, `Lieu_Event`, `Date_Debut`, `Date_Fin`, `Nb_Max`, `image`) VALUES (?,?,?,?,?,?,?)";
         try {
             PreparedStatement ps = cnx.prepareStatement(req);
             ps.setString(1, e.getNom_Event());
@@ -26,8 +27,7 @@ public class ServiceEvenement implements IService<Evenement> {
             ps.setDate(4, new java.sql.Date(e.getDate_Debut().getTime()));
             ps.setDate(5, new java.sql.Date(e.getDate_Fin().getTime()));
             ps.setInt(6, e.getNb_Max());
-            ps.setString(7, e.getStatus().name());
-            ps.setString(8, e.getImage()); // Assuming getImage() returns String for the image path
+            ps.setString(7, e.getImage());
             ps.executeUpdate();
             System.out.println("Evenement ajouté avec succès !");
         } catch (SQLException ex) {
@@ -39,7 +39,7 @@ public class ServiceEvenement implements IService<Evenement> {
     @Override
     public void modifier(Evenement e) throws SQLException {
         try {
-            String req = "UPDATE evenement SET Nom_Event = ?, Description = ?, Lieu_Event = ?, Date_Debut = ?, Date_Fin = ?, Nb_Max = ?, Status = ?, image = ? WHERE ID_Event = ?";
+            String req = "UPDATE evenement SET Nom_Event = ?, Description = ?, Lieu_Event = ?, Date_Debut = ?, Date_Fin = ?, Nb_Max = ?, image = ? WHERE ID_Event = ?";
             PreparedStatement ps = cnx.prepareStatement(req);
             ps.setString(1, e.getNom_Event());
             ps.setString(2, e.getDescription());
@@ -47,9 +47,8 @@ public class ServiceEvenement implements IService<Evenement> {
             ps.setDate(4, new java.sql.Date(e.getDate_Debut().getTime()));
             ps.setDate(5, new java.sql.Date(e.getDate_Fin().getTime()));
             ps.setInt(6, e.getNb_Max());
-            ps.setString(7, e.getStatus().name());
-            ps.setString(8, e.getImage());
-            ps.setInt(9, e.getId_Event());
+            ps.setString(7, e.getImage());
+            ps.setInt(8, e.getId_Event());
             int rowsAffected = ps.executeUpdate();
             if (rowsAffected > 0) {
                 System.out.println("Evenement modifié avec succès !");
@@ -92,9 +91,8 @@ public class ServiceEvenement implements IService<Evenement> {
                 Date dateDebut = res.getDate("Date_Debut");
                 Date dateFin = res.getDate("Date_Fin");
                 int nbMax = res.getInt("Nb_Max");
-                Status status = Status.valueOf(res.getString("Status"));
                 String image = res.getString("image"); // Retrieving image as String
-                evenement = new Evenement(eventId, nomEvent, description, lieuEvent, dateDebut, dateFin, nbMax, status, image);
+                evenement = new Evenement(eventId, nomEvent, description, lieuEvent, dateDebut, dateFin, nbMax, image);
             }
         } catch (SQLException ex) {
             System.out.println("Erreur lors de la récupération de l'événement : " + ex.getMessage());
@@ -118,9 +116,8 @@ public class ServiceEvenement implements IService<Evenement> {
                 Date dateDebut = res.getDate("Date_Debut");
                 Date dateFin = res.getDate("Date_Fin");
                 int nbMax = res.getInt("Nb_Max");
-                Status status = Status.valueOf(res.getString("Status"));
                 String image = res.getString("image"); // Retrieving image as String
-                Evenement e = new Evenement(id, nomEvent, description, lieuEvent, dateDebut, dateFin, nbMax, status, image);
+                Evenement e = new Evenement(id, nomEvent, description, lieuEvent, dateDebut, dateFin, nbMax, image);
                 evenements.add(e);
             }
         } catch (SQLException ex) {
@@ -129,6 +126,7 @@ public class ServiceEvenement implements IService<Evenement> {
         }
         return evenements;
     }
+
     public List<Evenement> getEventsForCurrentWeek() throws SQLException {
         List<Evenement> evenementsSemaine = new ArrayList<>();
         try {
@@ -149,9 +147,8 @@ public class ServiceEvenement implements IService<Evenement> {
                 Date dateDebut = res.getDate("Date_Debut");
                 Date dateFin = res.getDate("Date_Fin");
                 int nbMax = res.getInt("Nb_Max");
-                Status status = Status.valueOf(res.getString("Status"));
                 String image = res.getString("image");
-                Evenement e = new Evenement(id, nomEvent, description, lieuEvent, dateDebut, dateFin, nbMax, status, image);
+                Evenement e = new Evenement(id, nomEvent, description, lieuEvent, dateDebut, dateFin, nbMax, image);
                 evenementsSemaine.add(e);
             }
         } catch (SQLException ex) {
@@ -160,6 +157,5 @@ public class ServiceEvenement implements IService<Evenement> {
         }
         return evenementsSemaine;
     }
-
-
 }
+

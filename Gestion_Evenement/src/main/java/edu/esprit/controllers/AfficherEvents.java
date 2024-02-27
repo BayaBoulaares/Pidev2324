@@ -119,9 +119,13 @@ public class AfficherEvents {
         descriptionLabel.setPrefWidth(800);
         eventBox.getChildren().add(descriptionLabel);
 
-        Label maxLabel = new Label("Nombre Restant :" + evenement.getNb_Max());
-        maxLabel.getStyleClass().add("max");
-        eventBox.getChildren().add(maxLabel);
+
+        int remainingParticipants = calculateRemainingParticipants(evenement);
+
+        // Create a label to display the remaining number of participants
+        Label remainingLabel = new Label("Places restantes : " + remainingParticipants);
+        remainingLabel.getStyleClass().add("remaining-label");
+        eventBox.getChildren().add(remainingLabel);
 
 
         HBox hboxButtons = new HBox(18);
@@ -181,7 +185,18 @@ public class AfficherEvents {
         return eventBox;
     }
 
-
+    private int calculateRemainingParticipants(Evenement evenement) {
+        try {
+            // Get the number of participants for the event
+            int currentParticipants = serviceParticipation.getNumberOfParticipants(evenement.getId_Event());
+            // Calculate the remaining number of participants
+            return evenement.getNb_Max() - currentParticipants;
+        } catch (SQLException e) {
+            // Handle the SQL exception
+            e.printStackTrace();
+            return -1; // Indicate an error occurred
+        }
+    }
 
     @FXML
     private void handleConsulterSponsors(Evenement evenement) {
