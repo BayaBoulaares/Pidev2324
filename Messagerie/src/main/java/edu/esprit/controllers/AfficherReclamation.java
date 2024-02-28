@@ -423,6 +423,8 @@
                     @Override
                     public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
                         ratingID.setText("Rate us " + t1 + "/5");
+                        processRatingStatistics(t1);
+
                     }
                 });
 
@@ -434,6 +436,21 @@
             Reclamation.setCellValueFactory(new PropertyValueFactory<>("reclamation"));
             Rating.setCellValueFactory(new PropertyValueFactory<>("rating"));
         }
+
+
+        public void processRatingStatistics(Number t1) {
+            if (t1.doubleValue() <= 3.0) {
+                // Rating is less than or equal to 3
+                System.out.println("Rating is low. Additional actions for low rating can be performed here.");
+                // You can add more actions or logic specific to low ratings
+            } else {
+                // Rating is greater than 3
+                System.out.println("Rating is good. Additional actions for good rating can be performed here.");
+                // You can add more actions or logic specific to good ratings
+            }
+        }
+
+
 
 
         private boolean showDeleteConfirmationDialog() {

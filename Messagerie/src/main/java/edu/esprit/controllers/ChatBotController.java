@@ -45,7 +45,7 @@ public class ChatBotController {
 
     @FXML
     private void Accueil(ActionEvent event) throws IOException {
-        Parent AjouterParent = FXMLLoader.load(getClass().getResource("/ChatBotController.fxml"));
+        Parent AjouterParent = FXMLLoader.load(getClass().getResource("/ChatBot.fxml"));
         Scene AjouterScene = new Scene(AjouterParent);
 
         //this line gets the stage by force

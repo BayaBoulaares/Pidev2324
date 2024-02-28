@@ -17,6 +17,8 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import javafx.util.Duration;
+import org.controlsfx.control.Notifications;
 import org.controlsfx.control.Rating;
 
 import java.awt.*;
@@ -29,6 +31,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
+import javafx.scene.control.Label;
+
+
 
 
 public class AjouterReclamation {
@@ -52,6 +57,8 @@ public class AjouterReclamation {
 
     @FXML
     private TextField ratingID;
+    Label ratingStatusLabel = new Label();
+
     private static final List<String> BAD_WORDS = Arrays.asList("Sick", "Bad", "Dump");
     private static final Map<String, String> EMOJI_MAP = new HashMap<>();
 
@@ -115,6 +122,27 @@ public class AjouterReclamation {
     }
 
 
+    public void processRatingStatistics(Number t1) {
+        String message;
+        if (t1.doubleValue() <= 3.0) {
+            // Rating is less than or equal to 3
+            message = "Rating is low. Additional actions for low rating can be performed here.";
+            // You can add more actions or logic specific to low ratings
+        } else {
+            // Rating is greater than 3
+            message = "Rating is good. Additional actions for good rating can be performed here.";
+            // You can add more actions or logic specific to good ratings
+        }
+
+        System.out.println(message);
+
+        // Show notification
+        Notifications.create()
+                .title("Rating Notification")
+                .text(message)
+                .hideAfter(Duration.seconds(5))  // Duration for how long the notification should be shown
+                .show();
+    }
 
     @FXML
     void Ajouter(ActionEvent event) {
@@ -290,8 +318,11 @@ public class AjouterReclamation {
             @Override
             public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
                 ratingID.setText("Rate us " + t1 + "/5");
+                processRatingStatistics(t1);
+
             }
         });
+
     }
 
     private void showNotification3() {
