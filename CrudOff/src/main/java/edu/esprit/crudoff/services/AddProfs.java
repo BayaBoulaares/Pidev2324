@@ -150,7 +150,7 @@ public class AddProfs {
             }
             Professeur pp = new Professeur(nom, prenom,adresse,sqlDate,telephone,email,mdp,disc);
             SP.ajouter(pp);
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Validation");
             alert.setContentText("Person added succesfully");
             alert.showAndWait();

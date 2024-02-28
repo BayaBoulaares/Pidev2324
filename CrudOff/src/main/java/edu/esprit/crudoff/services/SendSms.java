@@ -1,5 +1,6 @@
 package edu.esprit.crudoff.services;
 
+import edu.esprit.crudoff.utilis.DataSource;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -12,6 +13,10 @@ import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Properties;
 import java.util.SplittableRandom;
 
@@ -28,30 +33,70 @@ public class SendSms {
 
     @FXML
     private PasswordField code;
+    private String generatedOtp;
+    Connection cnx = DataSource.getInsatnce().getConnection();
 
     @FXML
     public void sendEmailAction() {
         String email = loginuser.getText();
         if (!email.isEmpty()) {
-            // Générer un code OTP
-            String otp = generateOtp(6); // 6 est la longueur du code OTP
+            // Vérifier si l'email existe dans la base de données et si l'utilisateur a le rôle de parent
+            if (emailExistsInDatabase(email)) {
+                // Générer un nouveau code OTP aléatoire à chaque envoi d'email
+                String otp = generateOtp(6); // 6 est la longueur du code OTP
+                sendEmail(email, "Sujet de l'email", "Votre code OTP est : " + otp);
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Validation");
+                alert.setContentText("Un nouvel e-mail contenant le code OTP a été envoyé avec succès à l'adresse indiquée");
+                alert.showAndWait();
 
-            // Envoyer l'e-mail avec le code OTP
-            sendEmail(email, "Sujet de l'email", "Votre code OTP est : " + otp);
+                // Stocker le nouveau code OTP dans une variable globale ou un champ de classe pour y accéder plus tard
+                this.generatedOtp = otp; // Stocker le nouveau code OTP généré dans une variable globale
+            } else {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Validation");
+                alert.setContentText("Veuillez saisir une adresse e-mail valide associée à un parent");
+                alert.showAndWait();
+            }
         } else {
-            showAlert("Erreur","Champs de l'adresse-email est manquant !.","Veuillez saisir une adresse e-mail.");
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Validation");
+            alert.setContentText("Champs de l'adresse-email est manquant ");
+            alert.showAndWait();
         }
     }
 
     @FXML
     public void verifyCodeAction() throws IOException {
-        // Vous devrez implémenter la logique pour vérifier le code OTP ici
-        System.out.println("Vérification du code OTP...");
-        /*if(code.getText().matches())
-        {}*/
-        FXMLLoader loader2 = new FXMLLoader(getClass().getResource("/fxml/MotDePasseOublie.fxml"));
-        Parent root2 = loader2.load();
-        loginuser.getScene().setRoot(root2);
+        String enteredCode = code.getText(); // Récupérer le code entré par l'utilisateur
+
+        if (!enteredCode.isEmpty()) {
+            // Comparer le code entré par l'utilisateur avec le code OTP généré précédemment
+            if (enteredCode.equals(this.generatedOtp)) {
+                // Code correct, vous pouvez autoriser l'accès à la fonctionnalité souhaitée
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Validation");
+                alert.setContentText("Le code OTP entré est incorrect. Veuillez réessayer. ");
+                alert.showAndWait();
+
+                // Ajoutez ici le code pour rediriger l'utilisateur vers la fonctionnalité souhaitée
+                FXMLLoader loader2 = new FXMLLoader(getClass().getResource("/fxml/MotDePasseOublie.fxml"));
+                Parent root2 = loader2.load();
+                loginuser.getScene().setRoot(root2);
+            } else {
+                // Code incorrect, afficher un message d'erreur
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Validation");
+                alert.setContentText("Le code OTP entré est incorrect. Veuillez réessayer. ");
+                alert.showAndWait();
+            }
+        } else {
+            // Si aucun code n'a été entré, afficher un message d'erreur
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Validation");
+            alert.setContentText("Veuillez saisir le code OTP reçu par e-mail. ");
+            alert.showAndWait();
+        }
     }
 
     public static String generateOtp(int otpLength) {
@@ -95,12 +140,21 @@ public class SendSms {
             e.printStackTrace();
         }
     }
-    public static void showAlert(String title, String header, String content) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle(title);
-        alert.setHeaderText(header);
-        alert.setContentText(content);
-        alert.showAndWait();
-    }
 
+    private boolean emailExistsInDatabase(String email) {
+        // Intégrer ici la logique pour interroger la base de données et vérifier si l'email existe
+        try {
+
+            PreparedStatement statement = cnx.prepareStatement("SELECT COUNT(*) FROM utilisateurs WHERE login = ? and role='Parent'");
+            ((PreparedStatement) statement).setString(1, email);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                int count = resultSet.getInt(1);
+                return count > 0; // Si count > 0, l'email existe dans la base de données
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false; // Renvoyer false en cas d'erreur ou si l'email n'existe pas
+    }
 }

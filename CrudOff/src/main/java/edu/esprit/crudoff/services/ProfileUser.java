@@ -150,6 +150,7 @@ public class ProfileUser {
     }
 
     public void deconnexion(ActionEvent actionEvent)throws IOException  {
+        CredentialsManager.clearCredentials();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Login.fxml"));
         Parent root = loader.load();
         ppprenom.getScene().setRoot(root);

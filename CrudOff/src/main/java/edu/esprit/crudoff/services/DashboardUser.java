@@ -24,9 +24,11 @@ public class DashboardUser {
     @FXML
     private Button toprofile;
     public void deconnexion(ActionEvent actionEvent) throws IOException  {
-        FXMLLoader loader= new FXMLLoader(getClass().getResource("/fxml/LetsGetStarted.fxml"));
-        Parent root=loader.load();
+        CredentialsManager.clearCredentials();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Login.fxml"));
+        Parent root = loader.load();
         reclamation1.getScene().setRoot(root);
+
     }
 
     public void tohisprofile(ActionEvent actionEvent) throws IOException {

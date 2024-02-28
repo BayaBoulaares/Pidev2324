@@ -78,11 +78,11 @@
          </font>
 
       </Button>
-      <ImageView fitHeight="21.0" fitWidth="25.0" layoutX="264.0" layoutY="611.0">
+      <PasswordField fx:id="mdpuser" layoutX="213.0" layoutY="424.0" prefHeight="32.0" prefWidth="287.0" />
+      <ImageView fitHeight="17.0" fitWidth="17.0" layoutX="282.0" layoutY="614.0" translateX="-7.0" translateY="-2.0">
          <image>
-            <Image url="@../images/Platform=Facebook, Color=Original.png" />
+            <Image url="@../images/Platform=Google,%20Color=Original.png" />
          </image>
       </ImageView>
-      <PasswordField fx:id="mdpuser" layoutX="213.0" layoutY="424.0" prefHeight="32.0" prefWidth="287.0" />
    </children>
 </AnchorPane>

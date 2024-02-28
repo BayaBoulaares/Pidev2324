@@ -14,6 +14,9 @@ import javafx.stage.FileChooser;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -34,6 +37,9 @@ public class EditProfileUser {
     private Button selectimage;
 
     private String imagePath;
+
+    @FXML
+    private Button profile;
 
     @FXML
     private DatePicker editdob;
@@ -74,8 +80,7 @@ public class EditProfileUser {
     @FXML
     private Label padresse;
 
-    @FXML
-    private Button profile;
+
 
     @FXML
     private Label ptel;
@@ -89,38 +94,6 @@ public class EditProfileUser {
     public ServiceUtilisateur ps = new ServiceUtilisateur();
     private ProfileUser pr = new ProfileUser();
     private ParentE user ;
-    /*@FXML
-    void modifiercompte(ActionEvent event) {
-        try{
-
-            String nom = editnom.getText();
-            System.out.println(nom);
-            String prenom = editprenom.getText();
-            System.out.println(prenom);
-            String adresse = editadresse.getText();
-            LocalDate localDate = editdob.getValue();
-            String dateString = localDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-            java.sql.Date dateNaissance = java.sql.Date.valueOf(dateString);
-            int tel = parseInt(edittel.getText());
-            String nomEnfant = editnomenfant.getText();
-            String prenomEnfant = editprenomenfant.getText();
-            LocalDate localDate2 = editdobenfant.getValue();
-            String dateString2 = localDate2.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-            java.sql.Date dateNaissance2 = java.sql.Date.valueOf(dateString2);
-            String image = String.valueOf(parentimage.getImage());
-            CredentialsManager crd = new CredentialsManager();
-            String[] crds = crd.loadCredentials();
-            ParentE parent1 = new ParentE(parseInt(crds[1]),nom, prenom, adresse, dateNaissance,tel, nomEnfant, prenomEnfant,dateNaissance2,image);
-            System.out.println("this is parent"+parent1);
-            PS.modifier(parent1);
-            System.out.println(parent1);
-
-        } catch (SQLException e) {
-
-        }
-
-
-    }*/
 
     @FXML
     void supprimercompte(ActionEvent event) throws IOException {
@@ -131,6 +104,14 @@ public class EditProfileUser {
             PS.supprimer(parseInt(crds[1]));
         viderLabels();
         System.out.println("spprimer3");
+    }
+    @FXML
+    void toprofile(ActionEvent event) throws IOException{
+        FXMLLoader loader= new FXMLLoader(getClass().getResource("/fxml/ProfileUser.fxml"));
+        Parent root=loader.load();
+        editnom.getScene().setRoot(root);
+        initialize();
+
     }
 
 
@@ -143,10 +124,11 @@ public class EditProfileUser {
         System.out.println(user);
         editnom.setText(user.getNom());
         editprenom.setText(user.getPrenom());
-        editadresse.setText(user.getPrenom());
+        editadresse.setText(user.getAdresse());
 
         // Supposons que user.getDateNaissance() retourne un objet de type java.util.Date
         java.util.Date dateNaissance = user.getDateNaissance();
+        java.util.Date dateNaissance2 = user.getDateNaissanceE();
         // Conversion de java.util.Date en java.sql.Date
         java.sql.Date sqlDateNaissance = new java.sql.Date(dateNaissance.getTime());
 
@@ -159,10 +141,10 @@ public class EditProfileUser {
         // Supposons que user.getDateNaissance() retourne un objet de type java.util.Date
         // java.util.Date dateNaissancekid =  user.getDateNaissanceE();
         // Conversion de java.util.Date en java.sql.Date
-        java.sql.Date sqlDateNaissancekid = new java.sql.Date(dateNaissance.getTime());
+        java.sql.Date sqlDateNaissancekid = new java.sql.Date(dateNaissance2.getTime());
 
         // Conversion de java.sql.Date en LocalDate (Java 8+)
-        LocalDate localDateNaissancekid = sqlDateNaissance.toLocalDate();
+        LocalDate localDateNaissancekid = sqlDateNaissancekid.toLocalDate();
 
         // Définition de la valeur du DatePicker
         editdobenfant.setValue(localDateNaissancekid);
@@ -170,12 +152,15 @@ public class EditProfileUser {
         edittel.setText(String.valueOf(user.getTel()));
         editnomenfant.setText(user.getNomE());
         editprenomenfant.setText(user.getPrenomE());
-        String imagePath = String.valueOf(user.getImage());
-        System.out.println(imagePath);
-        String image = user.getImage();
-        System.out.println(image);
-        Image image2 = new Image(new File(imagePath).toURI().toString());
+        String path = user.getImage();
+        System.out.println(path + "path");
+        Image image2 = new Image(new File(path).toURI().toString());
+        System.out.println(image2+ "image2");
         parentimage.setImage(image2);
+
+
+
+
 
 
 
@@ -189,122 +174,73 @@ public class EditProfileUser {
         Parent root=loader.load();
         editnom.getScene().setRoot(root);
     }
-
+     @FXML
     public void modifiercompte(ActionEvent actionEvent) {
-        ParentE parent2 = null;
-        try{
+        try {
+            // Récupération des nouvelles informations utilisateur
             String nom = editnom.getText();
-            System.out.println(nom);
             String prenom = editprenom.getText();
-            System.out.println(prenom);
             String adresse = editadresse.getText();
             LocalDate localDate = editdob.getValue();
             String dateString = localDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
             java.sql.Date dateNaissance = java.sql.Date.valueOf(dateString);
-            String teltext = edittel.getText();
-            int tel = parseInt(teltext);
+            int tel = Integer.parseInt(edittel.getText());
             String nomEnfant = editnomenfant.getText();
             String prenomEnfant = editprenomenfant.getText();
             LocalDate localDate2 = editdobenfant.getValue();
             String dateString2 = localDate2.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
             java.sql.Date dateNaissance2 = java.sql.Date.valueOf(dateString2);
-            String image = String.valueOf(parentimage.getImage());
-            CredentialsManager crd = new CredentialsManager();
-            String[] crds = crd.loadCredentials();
-            parent2 = PS.getByLogin(crds[0]);
-            if (!isValidName(nom)  ) {
-                showAlert("Erreur de saisie", "nom invalide", "Le nom doit contenir que des lettres !");
-                return;
+            Image image = parentimage.getImage();
+            String imagePath = ""; // initialiser avec le chemin d'accès par défaut
 
-            }
-            if (nom.length() < 3  ) {
-                showAlert("Erreur de saisie", "nom invalide", "Le nom doit au moins 3 caractéres !");
-                return;
+// Récupérer l'URL de l'image
+            String imageURL = image.getUrl();
 
-            }
-
-            if (!isValidName(prenom)) {
-                showAlert("Erreur de saisie", "prénom invalide", "Le prénom doit avoir minimum 3 caractères.");
-                return;
-
-            }
-            if (prenom.length() < 3  ) {
-                showAlert("Erreur de saisie", "nom invalide", "Le nom doit au moins 3 caractéres !");
-                return;
-
-            }
-            if (!isValidName(nomEnfant)  ) {
-                showAlert("Erreur de saisie", "nom invalide", "Le nom doit contenir que des lettres !");
-                return;
-
-            }
-            if (nomEnfant.length() < 3  ) {
-                showAlert("Erreur de saisie", "nom invalide", "Le nom doit au moins 3 caractéres !");
-                return;
-
-            }
-
-            if (!isValidName(prenomEnfant)) {
-                showAlert("Erreur de saisie", "prénom invalide", "Le prénom doit avoir minimum 3 caractères.");
-                return;
-
-            }
-            if (prenomEnfant.length() < 3  ) {
-                showAlert("Erreur de saisie", "nom invalide", "Le nom doit au moins 3 caractéres !");
-                return;
-
-            }
-            if (adresse.length() < 10  ) {
-                showAlert("Erreur de saisie", "Adresse invalide", "L'adresse doit au moins 10 caractéres !");
-                return;
-
+// Convertir l'URL en un chemin d'accès de fichier
+            if (imageURL != null) {
+                try {
+                    URI uri = new URI(imageURL);
+                    String path = uri.getPath().replace("/", "\\").substring(1);
+                    imagePath = Paths.get(path).toString();
+                    System.out.println(imagePath);
+                } catch (URISyntaxException e) {
+                    e.printStackTrace(); // Gérer l'exception correctement selon vos besoins
+                }
             }
 
 
-            if (!isValidPhoneNumber(teltext)) {
-
-                showAlert("Erreur de saisie", "numéro de téléphone invalide", "Veuillez entrer un numéro de téléphone valide.");
-                return;
-
-            }
+            // Récupération du chemin d'accès à la nouvelle image
 
 
-            // Calculer la date limite (il y a 23 ans à partir de la date actuelle)
-            //LocalDate dateLimite = LocalDate.now().minusYears(23);
-
-            // Vérifier si la date de naissance est supérieure ou égale à la date limite
-            if (localDate2 != null && localDate != null && localDate2.isBefore(localDate)) {
-                showAlert("Erreur", "Date de naissance incorrecte", "La date de naissance du parent doit être supérieure à la date de naissance de l'enfant.");
-
-            }
-
-
-            ParentE parent1 = new ParentE(parent2.getId(),nom, prenom, adresse, dateNaissance,tel, nomEnfant, prenomEnfant,dateNaissance2,image);
-            System.out.println("this is parent"+parent1);
+            // Modification des informations utilisateur
+            ParentE parent1 = new ParentE(user.getId(), nom, prenom, adresse, dateNaissance, tel, nomEnfant, prenomEnfant, dateNaissance2,imagePath);
             PS.modifier(parent1);
-            System.out.println(parent1);
+
+            // Affichage d'un message de confirmation
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Validation");
-            alert.setContentText("Person mis à jours avec succes");
+            alert.setContentText("Personne mise à jour avec succès");
             alert.showAndWait();
-            System.out.println("this is parent"+parent1);
-            /*FXMLLoader loader= new FXMLLoader(getClass().getResource("/fxml/ProfileUser.fxml"));
-            Parent root=loader.load();
-            editadresse.getScene().setRoot(root);*/
+
+            // Rafraîchissement de l'interface utilisateur
+            initialize(); // Appelez cette méthode pour rafraîchir l'interface utilisateur après modification
 
         } catch (SQLException e) {
+            // Gestion des erreurs SQL
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("SQL Exeption");
+            alert.setTitle("Erreur SQL");
             alert.setContentText(e.getMessage());
             alert.showAndWait();
+        } catch (NumberFormatException e) {
+            // Gestion des erreurs de conversion de nombre
+            showAlert("Erreur de saisie", "Numéro de téléphone invalide", "Veuillez entrer un numéro de téléphone valide.");
         }
-
     }
 
 
 
-    @FXML
 
+    @FXML
     void reselectimage(ActionEvent event) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Choisir une image");

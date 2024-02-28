@@ -29,7 +29,7 @@ public class ServiceParent implements IService<ParentE> {
         statement.setString(11, "Parent");
         statement.setString(12, "Null");
         statement.setInt(13, 0);
-        statement.setString(14, String.valueOf(parent.getImage()));
+        statement.setString(14, parent.getImage());
 
         //statement.setInt(11, parent.getNiveau());
         statement.executeUpdate();
@@ -55,7 +55,8 @@ public class ServiceParent implements IService<ParentE> {
                 statement.setDate(8, new java.sql.Date(parent.getDateNaissanceE().getTime()));
                 //statement.setInt(11, parent.getNiveau());
                 statement.setInt(10, parent.getId());
-                statement.setString(9, String.valueOf(parent.getImage()));
+                statement.setString(9, parent.getImage());
+                System.out.println(parent.getImage()+"imagz jdida");
                 statement.executeUpdate();
                 System.out.println("update parent ");
 
@@ -216,12 +217,13 @@ public class ServiceParent implements IService<ParentE> {
                         String prenomE = resultSet.getString("prenomenfant");
                         System.out.println(prenomE);
                         Date dateNaissanceE = resultSet.getDate("dobenfant");
-                        String image = resultSet.getString(12);
-                        //Blob im = resultSet.getBlob("image");
+                        //String image = resultSet.getString(12);
+
+                        String image = resultSet.getString("image");
                         System.out.println(image);
                         System.out.println(dateNaissanceE);
                         //int niveau = resultSet.getInt("niveau");
-                        util = new ParentE( id,  nom,  prenom,  adresse,  dateNaissance,  tel,  login,  mdp,  nomE,  prenomE, dateNaissanceE,image);
+                        util = new ParentE( id,  nom,  prenom,  adresse,  dateNaissance,  tel,  login,  mdp,  nomE,  prenomE, dateNaissanceE, image);
                         //utilisateur = new ParentE(id,nom, prenom, adresse, dateNaissance, tel, login, mdp, nomE, prenomE, dateNaissanceE,image);
                          System.out.println(util);
 

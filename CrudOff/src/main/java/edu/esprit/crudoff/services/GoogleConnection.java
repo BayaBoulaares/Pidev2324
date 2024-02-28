@@ -18,7 +18,7 @@ import java.util.Collections;
 public class GoogleConnection {
 
     private static final String CLIENT_SECRETS_FILE_PATH = "C://Users//USER//OneDrive//Desktop//Pidev2324//CrudOff//src//main//resources//client_secret_452055391469-0iqs7dmg959d7ro34t967b799b335406.apps.googleusercontent.com.json";
-    private static final String REDIRECT_URI = "http://localhost:8080/oauth2callback";
+    private static final String REDIRECT_URI = "http://localhost/oauth2callback";
     private static final String SCOPE = "https://www.googleapis.com/auth/userinfo.profile";
 
     private static final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();

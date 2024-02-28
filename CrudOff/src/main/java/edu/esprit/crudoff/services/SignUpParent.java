@@ -94,7 +94,7 @@ public class SignUpParent {
             if (nomParent.isEmpty() || prenomParent.isEmpty() || adresseParent.isEmpty() ||
                     dobParentValue == null || telephoneText.isEmpty() || emailParent.isEmpty() ||
                     mdpParent.isEmpty() || nomEnfant.isEmpty() || prenomEnfant.isEmpty() ||
-                    dobEnfantValue == null || cmdp.isEmpty() || imagePath == null
+                    dobEnfantValue == null || cmdp.isEmpty()
             ) {
                 showAlert("Erreur de saisie", "Tous les champs sont obligatoires ", "Veuillez remplir tous les champs.");
                 return;
@@ -176,6 +176,7 @@ public class SignUpParent {
             // Vérifier si la date de naissance est supérieure ou égale à la date limite
             if (dobEnfantValue != null && dobParentValue != null && dobEnfantValue.isBefore(dobParentValue)) {
                 showAlert("Erreur", "Date de naissance incorrecte", "La date de naissance du parent doit être supérieure à la date de naissance de l'enfant.");
+                return;
 
             }
             if (!isValidPassword(mdpParent)) {
