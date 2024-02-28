@@ -34,6 +34,7 @@
       <Label layoutX="426.0" layoutY="272.0" styleClass="info-label" stylesheets="@css/css/StyleProfile.css" text="Message" />
       <DatePicker fx:id="DateId" layoutX="676.0" layoutY="412.0" promptText="Date" styleClass="input-field" stylesheets="@css/css/StyleConnect.css" />
       <Label layoutX="449.0" layoutY="424.0" styleClass="info-label" stylesheets="@css/css/StyleProfile.css" text="Date" />
+      <Button fx:id="ChatBot" layoutX="876.0" layoutY="750.0" mnemonicParsing="false" onAction="#chat" styleClass="action-button" stylesheets="@css/css/StyleTable.css" text="ChatBot" />
    </children>
 
 </AnchorPane>

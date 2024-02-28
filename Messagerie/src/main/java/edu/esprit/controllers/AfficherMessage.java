@@ -71,6 +71,7 @@ public class AfficherMessage {
 
 
 
+
     public final ServiceMessagerie ps = new ServiceMessagerie();
     private Messagerie messagerie;
     private static final List<String> BAD_WORDS = Arrays.asList("Sick", "Bad", "Dump");
@@ -438,4 +439,6 @@ public class AfficherMessage {
             e.printStackTrace(); // Handle the exception properly in your application
         }
     }
+
+
 }

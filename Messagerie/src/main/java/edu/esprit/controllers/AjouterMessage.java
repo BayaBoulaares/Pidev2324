@@ -15,6 +15,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene; // Import Scene class
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import java.time.LocalDate;
@@ -34,6 +35,8 @@ public class AjouterMessage {
     private TextField NomId;
     @FXML
     private javafx.scene.control.Button Goback;
+    @FXML
+    private Button ChatBot;
 
 
     private void showAlert(String message) {
@@ -186,6 +189,21 @@ public class AjouterMessage {
         if (currentScene.getRoot() != root) {
             currentScene.setRoot(root);
         }
+    }
+    @FXML
+    void chat(ActionEvent event) throws IOException {
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/ChatBot.fxml"));
+        Parent root = loader.load();
+
+        // Retrieve the current scene from any control
+        Scene currentScene = DateId.getScene();
+
+        // Check if already on the "AfficherPersonne" scene before setting the root
+        if (currentScene.getRoot() != root) {
+            currentScene.setRoot(root);
+        }
+
     }
 }
 
