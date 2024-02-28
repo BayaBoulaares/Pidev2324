@@ -24,7 +24,12 @@ import java.io.IOException;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.regex.Pattern;
+
 
 public class AjouterReclamation {
 
@@ -47,8 +52,22 @@ public class AjouterReclamation {
 
     @FXML
     private TextField ratingID;
-    @FXML
-    private Rating ratingControl;
+    private static final List<String> BAD_WORDS = Arrays.asList("Sick", "Bad", "Dump");
+    private static final Map<String, String> EMOJI_MAP = new HashMap<>();
+
+    static {
+        EMOJI_MAP.put(":)", "😊");
+        EMOJI_MAP.put(":(", "😢");
+        EMOJI_MAP.put(":D", "😃");
+        EMOJI_MAP.put(":-)", "😊");
+        EMOJI_MAP.put(":-(", "😢");
+        EMOJI_MAP.put(":p", "😛");
+        EMOJI_MAP.put(";)", "😉");
+        EMOJI_MAP.put("<3", "❤️");
+        EMOJI_MAP.put(":/", "☹");
+        EMOJI_MAP.put("-_-", "😑");
+    }
+
 
 
     private void showAlert(String reclamation) {
@@ -80,6 +99,23 @@ public class AjouterReclamation {
         }
     }
 
+    private String convertSymbolsToEmojis(String text) {
+        for (Map.Entry<String, String> entry : EMOJI_MAP.entrySet()) {
+            // Escape special characters in symbols and replace symbols with emojis
+            text = text.replaceAll(Pattern.quote(entry.getKey()), entry.getValue());
+        }
+        return text;
+    }
+
+    private String capitalizeFirstLetter(String text) {
+        if (text.isEmpty()) {
+            return text;
+        }
+        return Character.toUpperCase(text.charAt(0)) + text.substring(1);
+    }
+
+
+
     @FXML
     void Ajouter(ActionEvent event) {
         try {
@@ -95,13 +131,29 @@ public class AjouterReclamation {
 
                 rs.ajouter(new Reclamation(nom, reclamation, Date.valueOf(date), rating));
 
+
+                // Automatically capitalize the first letter of the message
+                String capitalizedMessage = capitalizeFirstLetter(ratingID.getText());
+                ratingID.setText(capitalizedMessage);
+
+                // Convert symbols to emojis
+                ratingID.setText(convertSymbolsToEmojis(ratingID.getText()));
+
+
+                // Check if the reclamation has been modified
+                String censoredMessage = censorBadWords(ReclamationId.getText());
+                if (!ReclamationId.getText().equals(censoredMessage)) {
+                    showNotification3();//notification mtaa el bad words
+                } else {
+                    showNotification();//notification kn jawha bhy
+                }
                 // Affichez la réponse dans une alerte
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Confirmation");
                 alert.setContentText("Réclamation ajoutée avec succès.\nOption sélectionnée : " + reclamation);
                 alert.showAndWait();
 
-                showNotification();
+
 
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherReclamation.fxml"));
                 Parent root = loader.load();
@@ -147,7 +199,7 @@ public class AjouterReclamation {
     }
 
     private boolean validateFields() {
-        if (NomId.getText().isEmpty() || DateId.getValue() == null || ReclamationId.getText().isEmpty() || comboBox.getValue() == null) {
+        if (NomId.getText().isEmpty() || DateId.getValue() == null || ReclamationId.getText().isEmpty() ) {
             showAlert("Please fill in all fields.");
             return false;
         }
@@ -170,11 +222,7 @@ public class AjouterReclamation {
             return false;
         }
 
-        // Validate ComboBox selection
-        if (comboBox.getValue().isEmpty()) {
-            showAlert("Please select a reclamation type from the dropdown.");
-            return false;
-        }
+
 
         return true;
     }
@@ -187,7 +235,6 @@ public class AjouterReclamation {
         // Retrieve the current scene from any control
         Scene currentScene = DateId.getScene();
 
-        // Check if already on the "AfficherPersonne" scene before setting the root
         if (currentScene.getRoot() != root) {
             currentScene.setRoot(root);
         }
@@ -209,7 +256,7 @@ public class AjouterReclamation {
                 });
 
                 tray.add(trayIcon);
-                trayIcon.displayMessage("Success", "Message successfully", TrayIcon.MessageType.INFO);
+                trayIcon.displayMessage("Success", "Reclamation successfully sent", TrayIcon.MessageType.INFO);
             } catch (AWTException e) {
                 e.printStackTrace();
             } catch (Exception e) {
@@ -246,4 +293,40 @@ public class AjouterReclamation {
             }
         });
     }
+
+    private void showNotification3() {
+        if (SystemTray.isSupported()) {
+            try {
+                SystemTray tray = SystemTray.getSystemTray();
+
+                // Use the correct path
+                Image icon = Toolkit.getDefaultToolkit().getImage("C:\\Users\\omarh\\IdeaProjects\\reclamation\\src\\image\\images.png");
+
+                TrayIcon trayIcon = new TrayIcon(icon, "Notification");
+                trayIcon.setImageAutoSize(true);
+
+                trayIcon.addActionListener(e -> {
+                    // Handle the tray icon click event if needed
+                });
+
+                tray.add(trayIcon);
+                trayIcon.displayMessage("Warning", "Your reclamation will not be shown because it contains bad words.\n But we will add it", TrayIcon.MessageType.WARNING);
+            } catch (AWTException e) {
+                e.printStackTrace();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+    private String censorBadWords(String text) {
+        if (text != null) {
+            for (String badWord : BAD_WORDS) {
+                // Replace bad words with ****
+                text = text.replaceAll("(?i)" + badWord, "****");
+            }
+        }
+        return text;
+    }
+
+
 }

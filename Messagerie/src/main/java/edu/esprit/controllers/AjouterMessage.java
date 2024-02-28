@@ -5,6 +5,10 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.regex.Pattern;
 
 import edu.esprit.entities.Messagerie;
@@ -37,6 +41,22 @@ public class AjouterMessage {
     private javafx.scene.control.Button Goback;
     @FXML
     private Button ChatBot;
+    private static final List<String> BAD_WORDS = Arrays.asList("Sick", "Bad", "Dump");
+    private static final Map<String, String> EMOJI_MAP = new HashMap<>();
+
+    static {
+        EMOJI_MAP.put(":)", "😊");
+        EMOJI_MAP.put(":(", "😢");
+        EMOJI_MAP.put(":D", "😃");
+        EMOJI_MAP.put(":-)", "😊");
+        EMOJI_MAP.put(":-(", "😢");
+        EMOJI_MAP.put(":p", "😛");
+        EMOJI_MAP.put(";)", "😉");
+        EMOJI_MAP.put("<3", "❤️");
+        EMOJI_MAP.put(":/", "☹");
+        EMOJI_MAP.put("-_-", "😑");
+    }
+
 
 
     private void showAlert(String message) {
@@ -46,6 +66,22 @@ public class AjouterMessage {
         alert.setContentText(message);
         alert.showAndWait();
     }
+
+    private String capitalizeFirstLetter(String text) {
+        if (text.isEmpty()) {
+            return text;
+        }
+        return Character.toUpperCase(text.charAt(0)) + text.substring(1);
+    }
+
+    private String convertSymbolsToEmojis(String text) {
+        for (Map.Entry<String, String> entry : EMOJI_MAP.entrySet()) {
+            // Escape special characters in symbols and replace symbols with emojis
+            text = text.replaceAll(Pattern.quote(entry.getKey()), entry.getValue());
+        }
+        return text;
+    }
+
 
     @FXML
     void Ajouter(ActionEvent event) {
@@ -60,8 +96,20 @@ public class AjouterMessage {
                 message = message.substring(0, 1).toUpperCase() + message.substring(1);
 
                 ps.ajouter(new Messagerie(NomId.getText(), String.valueOf(DateId.getValue()), message));
+                // Automatically capitalize the first letter of the message
+                String capitalizedMessage = capitalizeFirstLetter(MessageId.getText());
+                MessageId.setText(capitalizedMessage);
 
-                showNotification();
+                // Convert symbols to emojis
+                MessageId.setText(convertSymbolsToEmojis(MessageId.getText()));
+
+                String censoredMessage = censorBadWords(MessageId.getText());
+                if (!MessageId.getText().equals(censoredMessage)) {
+                    showNotification3();//notification mtaa el bad words
+                } else {
+                    showNotification();//notification kn jawha bhy
+                }
+               ;
 
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Validation");
@@ -133,8 +181,7 @@ public class AjouterMessage {
 
     // Validate message method (customize based on your criteria)
     private boolean isValidMessage(String message) {
-        // Add your custom message validation logic here
-        // For example, you can check the length or specific content criteria
+
         return !message.isEmpty();
     }
 
@@ -199,11 +246,43 @@ public class AjouterMessage {
         // Retrieve the current scene from any control
         Scene currentScene = DateId.getScene();
 
-        // Check if already on the "AfficherPersonne" scene before setting the root
         if (currentScene.getRoot() != root) {
             currentScene.setRoot(root);
         }
 
+    }
+    private String censorBadWords(String text) {
+        if (text != null) {
+            for (String badWord : BAD_WORDS) {
+                // Replace bad words with ****
+                text = text.replaceAll("(?i)" + badWord, "****");
+            }
+        }
+        return text;
+    }
+    private void showNotification3() {
+        if (SystemTray.isSupported()) {
+            try {
+                SystemTray tray = SystemTray.getSystemTray();
+
+                // Use the correct path
+                Image icon = Toolkit.getDefaultToolkit().getImage("C:\\Users\\omarh\\IdeaProjects\\reclamation\\src\\image\\images.png");
+
+                TrayIcon trayIcon = new TrayIcon(icon, "Notification");
+                trayIcon.setImageAutoSize(true);
+
+                trayIcon.addActionListener(e -> {
+                    // Handle the tray icon click event if needed
+                });
+
+                tray.add(trayIcon);
+                trayIcon.displayMessage("Warning", "Your Message will not be shown because it contains bad words.\n But we will add it", TrayIcon.MessageType.WARNING);
+            } catch (AWTException e) {
+                e.printStackTrace();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 }
 

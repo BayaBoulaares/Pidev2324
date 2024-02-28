@@ -35,7 +35,7 @@ public class ChatBotController {
     private TextArea outputLabel;
 
 
-        @FXML
+    @FXML
     private void processInput(ActionEvent event) {
         String input = inputTextField.getText();
         String output = ChatBot.processInput(input);

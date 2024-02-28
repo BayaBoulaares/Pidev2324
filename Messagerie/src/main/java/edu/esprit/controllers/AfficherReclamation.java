@@ -314,11 +314,7 @@
                     // Convert symbols to emojis
                     reclamation.setReclamation(convertSymbolsToEmojis(reclamation.getReclamation()));
 
-                    // Vérifier si le message commence par une majuscule
-                    if (!capitalizedMessage.isEmpty() && !Character.isUpperCase(capitalizedMessage.charAt(0))) {
-                        showAlert("Le message doit commencer par une majuscule.");
-                        return;
-                    }
+
 
                     // Update the data in the database
                     ps.modifier(reclamation);

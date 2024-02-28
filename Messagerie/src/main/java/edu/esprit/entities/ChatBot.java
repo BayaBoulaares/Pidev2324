@@ -25,6 +25,19 @@ public class ChatBot {
                 return "A tout moment , je suis là pour vous aidez !";
             case "le concept":
                 return "fournir un espace dédié à l'education des enfants.  ";
+
+
+            case "comment puis-je accéder aux cours disponibles ?":
+                return "Vous pouvez accéder aux cours disponibles en vous connectant à \nvotre compte et en naviguant vers la section 'Cours'.";
+            case "quels types de tests proposez-vous ?":
+                return "Nous proposons différents types de tests, y compris des évaluations de connaissances,\n des quiz interactifs et des examens pratiques.";
+            case "comment puis-je inscrire mon enfant à un événement ?":
+                return "Pour inscrire votre enfant à un événement, accédez à la section 'Événements' sur la plateforme et suivez\n les instructions d'inscription.";
+            case "pouvez-vous recommander des programmes adaptés à l'âge de mon enfant ?":
+                return "Certainement ! Nous pouvons recommander des programmes éducatifs adaptés à l'âge de votre enfant.\n Veuillez fournir l'âge de votre enfant pour des suggestions personnalisées.";
+            case "comment fonctionne la fonction d'auto-apprentissage ?":
+                return "La fonction d'auto-apprentissage utilise des algorithmes intelligents pour adapter le contenu éducatif \naux besoins spécifiques de chaque enfant. Plus votre enfant utilise la plateforme, plus elle s'adapte à ses préférences d'apprentissage.";
+
             default:
                 return "Malheuresement j'ai pas une reponse à ce genre de Message , merci d'attendez nos mise à jour systeme !";
         }

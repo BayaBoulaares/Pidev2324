@@ -114,10 +114,7 @@ public class AfficherMessage {
                     messagerie.setNom(censoredNom);
                     messagerie.setMessage(convertSymbolsToEmojis(censoredMessage));
 
-                    // If the original message is different from the censored message, show the notification
-                    if (!messagerie.getMessage().equals(censoredMessage)) {
-                        showNotification3();
-                    }
+
                 });
 
 
@@ -159,7 +156,7 @@ public class AfficherMessage {
                 });
 
                 tray.add(trayIcon);
-                trayIcon.displayMessage("Warning", "Your message will not be shown because it contains bad words.", TrayIcon.MessageType.WARNING);
+                trayIcon.displayMessage("Warning", "Your message will not be shown because it contains bad words.\n But we will add it", TrayIcon.MessageType.WARNING);
             } catch (AWTException e) {
                 e.printStackTrace();
             } catch (Exception e) {
@@ -195,6 +192,7 @@ public class AfficherMessage {
         }
     }
 
+
     @FXML
     void modifiermessage(ActionEvent event) {
         try {
@@ -210,11 +208,7 @@ public class AfficherMessage {
                     // Convert symbols to emojis
                     messagerie.setMessage(convertSymbolsToEmojis(messagerie.getMessage()));
 
-                    // Vérifier si le message commence par une majuscule
-                    if (!capitalizedMessage.isEmpty() && !Character.isUpperCase(capitalizedMessage.charAt(0))) {
-                        showAlert("Le message doit commencer par une majuscule.");
-                        return;
-                    }
+
 
                     ps.modifier(messagerie);
                     // Check if the message has been modified
