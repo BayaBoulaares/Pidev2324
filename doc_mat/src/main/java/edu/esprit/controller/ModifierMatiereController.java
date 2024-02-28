@@ -72,6 +72,9 @@ public class ModifierMatiereController implements Initializable {
             } catch (SQLException | IOException e) {
                 e.printStackTrace();
                 showAlert(Alert.AlertType.ERROR, "Erreur", e.getMessage());
+            } catch (ExistanteException e) {
+                 //e.printStackTrace();
+                showAlert(Alert.AlertType.ERROR, "Erreur", e.getMessage());
             }
         } else {
             showAlert(Alert.AlertType.ERROR, "Erreur de validation", validationError);

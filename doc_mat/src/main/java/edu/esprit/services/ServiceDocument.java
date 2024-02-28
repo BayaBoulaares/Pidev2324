@@ -287,26 +287,5 @@ public class ServiceDocument implements IService<Document> {
 
          return documents;
      }
-    public int getDocumentCountPerAnnee(java.sql.Date date,Matiere mat)  {
-        Connection cnx = DataSource.getInstance().getCnx();
-        int uniqueDateeCount = 0;
-        try {
 
-
-            String req = "SELECT COUNT(*) as doc_count FROM document WHERE date=? AND id_mat=?";
-            try (PreparedStatement pstmt = cnx.prepareStatement(req)) {
-                pstmt.setDate(1, date);
-                pstmt.setInt(2, mat.getId());
-                ResultSet rs = pstmt.executeQuery();
-
-                if (rs.next()) {
-                    uniqueDateeCount = rs.getInt("doc_count");
-                }
-            }  } catch (SQLException e)
-        {
-            System.out.println(e.getMessage());
-        }
-
-        return  uniqueDateeCount;
-    }
 }

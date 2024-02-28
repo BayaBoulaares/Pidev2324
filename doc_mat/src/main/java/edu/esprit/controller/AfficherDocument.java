@@ -363,6 +363,8 @@ public class AfficherDocument {
 @FXML
     public void onShowStatitique(ActionEvent actionEvent) {
     StatistiquesAPI api = new StatistiquesAPI();
+    System.out.println("**********************///");
+    System.out.println(matiere.getId());
     List<Statistique> statistiques = api.getStatistiquesAnnee(matiere);
     showStatistics(statistiques);
     }

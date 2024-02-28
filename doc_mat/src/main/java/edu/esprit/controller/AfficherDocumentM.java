@@ -93,11 +93,11 @@ public class AfficherDocumentM {
 
 // Load the appropriate image based on the document type
         ImageView imageView;
-        Button afficherButton=null;
+       Button afficherButton=null;
         if (doc.getType() == Type.PDF) {
             imageView = new ImageView(new Image("file:C:\\Users\\benmr\\IdeaProjects\\test3\\src\\main\\resources\\image\\document.png"));
              afficherButton = new Button("telecharger");
-            openButton.setOnAction(event -> telechargerDocument(doc));
+          //  openButton.setOnAction(event -> telechargerDocument(doc));
             openButton.setStyle("-fx-background-color:  #2b3674; -fx-text-fill:  #FAFEFC; -fx-padding: 10px 20px;");
 
         } else {
@@ -110,6 +110,7 @@ public class AfficherDocumentM {
         vBox.getChildren().addAll( hBox,dateLabel, openButton);
         if (afficherButton != null) {
             vBox.getChildren().add(afficherButton);
+
         }
 
         return vBox;
@@ -144,8 +145,7 @@ public class AfficherDocumentM {
 
                 // Charger le document PDF à partir du ByteArrayInputStream
                 PDDocument pdfDocument = PDDocument.load(inputStream);
-                if(document.getTitre().substring(0,4).equals("exer"))
-                {
+
 
                     if(document.getTitre().substring(0,4).equals("exer"))
                     {
@@ -197,7 +197,7 @@ public class AfficherDocumentM {
                         frame.setLayout(new BorderLayout());
                         frame.add(new JScrollPane(panel), BorderLayout.CENTER);
                         frame.setVisible(true);
-                                    }
+
                 }
                   else {// Afficher le document PDF dans une nouvelle fenêtre
                     PDFViewer viewer = new PDFViewer("PDF Viewer", pdfDocument);
@@ -205,9 +205,10 @@ public class AfficherDocumentM {
                     viewer.setSize(800, 600);
                     viewer.setVisible(true);
 
-                    // Fermer le document PDF
-                    pdfDocument.close();
+
                 }
+                // Fermer le document PDF
+                pdfDocument.close();
             } else {
                 // Enregistrer le fichier vidéo en mémoire
                 byte[] videoBytes = ((ByteArrayOutputStream) outputStream).toByteArray();
@@ -250,14 +251,15 @@ public class AfficherDocumentM {
             } else {
                 fileId = url.substring(url.indexOf("/d/") + 3);
             }
-
+            System.out.println(url);
             // Extraire l'extension du fichier à partir de l'URL
             String extension = url.substring(url.lastIndexOf(".") + 1);
+
             // Télécharger le fichier à partir de Google Drive
             Drive service = UploadBasic.getDriveService();
 
             // Définissez le chemin où vous voulez sauvegarder le fichier
-            File outputFile = new File("C:\\Users\\benmr\\Downloads" + document.getTitre() + "." + extension);
+            File outputFile = new File("C:\\Users\\benmr\\Downloads\\" + document.getTitre() + "." + extension);
             OutputStream outputStream = new FileOutputStream(outputFile);
 
             service.files().get(fileId).executeMediaAndDownloadTo(outputStream);
@@ -266,8 +268,8 @@ public class AfficherDocumentM {
         } catch (IOException e) {
             System.out.println("Erreur lors du téléchargement du document: " + e.getMessage());
         }
+    }
 
-        }
     private List<String> extractQuestions(PDDocument document) throws IOException {
         PDFTextStripper textStripper = new PDFTextStripper();
         String text = textStripper.getText(document);

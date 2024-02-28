@@ -39,7 +39,7 @@ public class StatistiquesAPI {
         List<Document> documents = null;
 
         try {
-            documents = ds.getAll();
+            documents = ds.getAllByMatiere(mat);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
