@@ -27,7 +27,7 @@
             <TableColumn fx:id="taction" prefWidth="213.0">
               <graphic>
                  <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="27.0" prefWidth="143.0" spacing="5">
-                    <Button fx:id="edi" onAction="#editButtonClicked" prefHeight="31.0" prefWidth="52.0" styleClass="editing" translateY="2.0" />
+                    <Button fx:id="edi" prefHeight="31.0" prefWidth="52.0" styleClass="editing" translateY="2.0" />
                      <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="19.0" prefWidth="118.0" text="Actions" translateX="-10.0">
                         <opaqueInsets>
                            <Insets />
@@ -55,7 +55,7 @@
                               <Image url="@../images/Users Group Two Rounded.png" />
                            </image>
                         </ImageView>
-                        <Button fx:id="profile2" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="59.0" styleClass="bprof" text="Users" translateX="60.0" />
+                        <Button fx:id="parent" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#toParent" prefHeight="30.0" prefWidth="91.0" styleClass="bprof" text="Utilisateurs" translateX="60.0" />
                      </children>
                   </HBox>
                   <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="45.0" prefWidth="200.0">

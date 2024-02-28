@@ -79,9 +79,9 @@ public class Profile1 {
 
 
     }
-    public void supprimercompte11(int idUtilisateur) {
-        try {
-            // Appeler la fonction supprimer avec l'ID de l'utilisateur
+    public void supprimercompte11(int idUtilisateur) throws SQLException {
+        {
+// Appeler la fonction supprimer avec l'ID de l'utilisateur
             spp.supprimer(idUtilisateur);
 
             // Afficher un message de confirmation
@@ -90,12 +90,6 @@ public class Profile1 {
             alert.setContentText("Le profil de l'utilisateur a été supprimé avec succès.");
             alert.showAndWait();
             System.out.println("spprimer1");
-        } catch (SQLException e) {
-            // Gérer les erreurs de suppression du profil
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Erreur");
-            alert.setContentText("Une erreur est survenue lors de la suppression du profil : " + e.getMessage());
-            alert.showAndWait();
         }
     }
 
@@ -141,14 +135,10 @@ public class Profile1 {
     }
 
     @FXML
-    public void supprimercompte1(ActionEvent actionEvent) {
+    public void supprimercompte1(ActionEvent actionEvent) throws SQLException {
             String ll = plogin.getText();
             int idUtilisateur = spp.getIdUtilisateurParLogin(ll);
-        try {
-            spp.supprimer(idUtilisateur);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        spp.supprimer(idUtilisateur);
         viderLabels();
             System.out.println("spprimer3");
         }

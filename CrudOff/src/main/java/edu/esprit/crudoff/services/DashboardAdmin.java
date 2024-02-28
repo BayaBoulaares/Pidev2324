@@ -14,6 +14,9 @@ public class DashboardAdmin {
     @FXML
     private Button toprofesseur;
 
+    @FXML
+    private Button parent;
+
 
     @FXML
     void toProfesseurs(ActionEvent event) throws IOException {
@@ -27,5 +30,12 @@ public class DashboardAdmin {
         FXMLLoader loader= new FXMLLoader(getClass().getResource("/fxml/Login.fxml"));
         Parent root=loader.load();
         toprofesseur.getScene().setRoot(root);
+    }
+    @FXML
+    void toparent(ActionEvent event) throws IOException {
+        FXMLLoader loader= new FXMLLoader(getClass().getResource("/fxml/AffichageParent.fxml"));
+        Parent root=loader.load();
+        toprofesseur.getScene().setRoot(root);
+
     }
 }

@@ -1,12 +1,17 @@
 package edu.esprit.crudoff.services;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import java.io.IOException;
 import java.util.Properties;
 import java.util.SplittableRandom;
 
@@ -22,6 +27,9 @@ public class SendSms {
     private TextField loginuser;
 
     @FXML
+    private PasswordField code;
+
+    @FXML
     public void sendEmailAction() {
         String email = loginuser.getText();
         if (!email.isEmpty()) {
@@ -31,14 +39,19 @@ public class SendSms {
             // Envoyer l'e-mail avec le code OTP
             sendEmail(email, "Sujet de l'email", "Votre code OTP est : " + otp);
         } else {
-            System.out.println("Veuillez saisir une adresse e-mail.");
+            showAlert("Erreur","Champs de l'adresse-email est manquant !.","Veuillez saisir une adresse e-mail.");
         }
     }
 
     @FXML
-    public void verifyCodeAction() {
+    public void verifyCodeAction() throws IOException {
         // Vous devrez implémenter la logique pour vérifier le code OTP ici
         System.out.println("Vérification du code OTP...");
+        /*if(code.getText().matches())
+        {}*/
+        FXMLLoader loader2 = new FXMLLoader(getClass().getResource("/fxml/MotDePasseOublie.fxml"));
+        Parent root2 = loader2.load();
+        loginuser.getScene().setRoot(root2);
     }
 
     public static String generateOtp(int otpLength) {
@@ -69,7 +82,7 @@ public class SendSms {
         try {
             // Création de l'objet Message
             Message message = new MimeMessage(session);
-            message.setFrom(new InternetAddress("aya.boulaares@esprit.tn"));
+            message.setFrom(new InternetAddress("baya.boulaares@esprit.tn"));
             message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
             message.setSubject(subject);
             message.setText(body);
@@ -81,6 +94,13 @@ public class SendSms {
         } catch (MessagingException e) {
             e.printStackTrace();
         }
+    }
+    public static void showAlert(String title, String header, String content) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setHeaderText(header);
+        alert.setContentText(content);
+        alert.showAndWait();
     }
 
 }

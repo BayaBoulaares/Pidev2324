@@ -106,7 +106,7 @@ public class CrudAdmins {
             trole.setCellValueFactory(cellData -> new SimpleStringProperty(getUserRole(cellData.getValue())));
             tlogin.setCellValueFactory(new PropertyValueFactory<>("login"));
             tdisc.setCellValueFactory(new PropertyValueFactory<>("discpline"));
-            table.refresh();
+            //table.refresh();
             table.setItems(observableList);
             // Configuration de la colonne d'action pour afficher les boutons
             taction.setCellFactory(param -> new TableCell<Professeur, Void>() {
@@ -146,6 +146,7 @@ public class CrudAdmins {
                             stage.setTitle("Modifier Utilisateur");
                             stage.show();
                             table.refresh();
+                            //initialize();
 
 
                         } catch (IOException e) {
@@ -169,17 +170,24 @@ public class CrudAdmins {
                     if (!selectedItems.isEmpty()) {
                         // Code pour la suppression
 
-                        ServiceUtilisateur su = new ServiceUtilisateur();
+                        //erviceUtilisateur su = new ServiceUtilisateur();
+                        ServiceProfesseur sp = new ServiceProfesseur();
 
-                        try {
-                            Utilisateur _user=su.getByLogin(utilisateur.getLogin());
+
+                            Professeur _user=sp.getByLogin(utilisateur.getLogin());
                             System.out.println(_user);
                             System.out.println(_user.getId());
-                            su.supprimer(_user.getId());
-                            table.refresh();
+                        try {
+                            sp.supprimer(_user.getId());
+                            List<Professeur> updatedList = (List<Professeur>) su.getAll();
+                            observableList.clear();
+                            observableList.addAll(updatedList);
+
                         } catch (SQLException e) {
                             throw new RuntimeException(e);
                         }
+
+
 
 
 
@@ -241,10 +249,6 @@ public class CrudAdmins {
 
     }
 
-
-    @FXML
-    public void editButtonClicked(ActionEvent actionEvent) {
-    }
 
     @FXML
     public void deleteButtonClicked(ActionEvent actionEvent) {
@@ -367,5 +371,11 @@ public class CrudAdmins {
         table.setItems(sortedData);
     }
 
+    @FXML
+    public void toParent(ActionEvent actionEvent) throws IOException{
+        FXMLLoader loader= new FXMLLoader(getClass().getResource("/fxml/AffichageParent.fxml"));
+        Parent root=loader.load();
+        dcxn.getScene().setRoot(root);
 
+    }
 }

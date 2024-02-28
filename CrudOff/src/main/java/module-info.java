@@ -11,6 +11,11 @@ module edu.esprit.crudoff{
         requires eu.hansolo.tilesfx;
         requires java.sql;
     requires java.mail;
+    requires google.api.client;
+    requires com.google.api.client;
+    requires com.google.api.client.json.jackson2;
+    //requires java.mail;
+
 
 
     opens edu.esprit.crudoff.tests to javafx.fxml;

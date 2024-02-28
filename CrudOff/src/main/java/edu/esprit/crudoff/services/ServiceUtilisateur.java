@@ -68,7 +68,6 @@ public class ServiceUtilisateur implements IService<Utilisateur>{
 
     @Override
     public void modifier(Utilisateur u) throws SQLException {
-
         // Obtenez l'ID de l'utilisateur à partir de l'objet ParentE
         int userId = u.getId();
         String sql = "UPDATE utilisateurs SET nom=?, prenom=?, adresse=?, dob=?, tel=?, login=?, mdp=?,discipline=? WHERE idu=?";

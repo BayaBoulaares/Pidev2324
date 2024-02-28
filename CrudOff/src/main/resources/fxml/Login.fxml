@@ -32,7 +32,7 @@
          <font>
             <Font size="18.0" />
          </font></Button>
-      <Button layoutX="376.0" layoutY="482.0" mnemonicParsing="false" styleClass="bmdpo" stylesheets="@../css/StyleConnect.css" text="Mot de passe oublié ?">
+      <Button fx:id="mdpoublier" layoutX="376.0" layoutY="482.0" mnemonicParsing="false" onAction="#tochangemdp" styleClass="bmdpo" stylesheets="@../css/StyleConnect.css" text="Mot de passe oublié ?">
          <font>
             <Font size="13.0" />
          </font></Button>
@@ -72,7 +72,7 @@
             <Font size="13.0" />
          </font>
       </Text>
-      <Button fx:id="connexion1" layoutX="232.0" layoutY="605.0" mnemonicParsing="false" onAction="#seconnecter" prefHeight="32.0" prefWidth="293.0" styleClass="signinf" stylesheets="@../css/StyleConnect.css" text="Se connecter avec Facebook">
+      <Button fx:id="cnxgoogle" layoutX="232.0" layoutY="605.0" mnemonicParsing="false" onAction="#seconnecteravecgoogle" prefHeight="32.0" prefWidth="293.0" styleClass="signinf" stylesheets="@../css/StyleConnect.css" text="Se connecter avec Google">
          <font>
             <Font size="18.0" />
          </font>

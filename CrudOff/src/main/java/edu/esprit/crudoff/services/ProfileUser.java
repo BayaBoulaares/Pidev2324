@@ -17,6 +17,8 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import static java.lang.Integer.parseInt;
+
 public class ProfileUser {
 
     @FXML
@@ -78,6 +80,13 @@ public class ProfileUser {
 
     @FXML
     void supprimercompte(ActionEvent event) throws IOException {
+
+        String[] crds = CredentialsManager.loadCredentials();
+        //user = PS.getByLogin(crds[0]);
+
+        ps.supprimer(parseInt(crds[1]));
+        viderLabels();
+        System.out.println("spprimer3");
         FXMLLoader loader= new FXMLLoader(getClass().getResource("/fxml/LetsGetStarted.fxml"));
         Parent root=loader.load();
         ptel.getScene().setRoot(root);

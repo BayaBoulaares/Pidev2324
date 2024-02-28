@@ -9,8 +9,10 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 
 import static java.lang.Integer.parseInt;
 
@@ -187,7 +189,7 @@ public class Profile {
     }
 
         // Autres attributs et méthodes
-    /*public void setUserData(ParentE parentE) {
+    public void setUserData(ParentE parentE) {
 
 
         editnom.setText(parentE.getNom());
@@ -203,15 +205,15 @@ public class Profile {
         String dateString = sdf.format(dateNaissance);
 
         // Définir la date formatée dans le composant TextArea
-        editdobenfant.setText(dateString);
-        Date dateNaissanceEn = new Date(parentE.getDateNaissanceE().getTime());
+        //editdobenfant.setText(dateString);
+        //Date dateNaissanceEn = new Date(parentE.getDateNaissanceE().getTime());
 
         // Formater la date pour l'afficher dans le composant TextArea
-        SimpleDateFormat sdf2 = new SimpleDateFormat("dd-MM-yyyy");
-        String dateString2 = sdf.format(dateNaissanceEn);
+        //SimpleDateFormat sdf2 = new SimpleDateFormat("dd-MM-yyyy");
+        //String dateString2 = sdf.format(dateNaissanceEn);
 
         // Définir la date formatée dans le composant TextArea
-        editdob.setText(dateString2);
+        //editdob.setText(dateString2);
 
         edittel.setText(String.valueOf(parentE.getTel()));
         editmdp.setText(parentE.getAdresse());
@@ -219,6 +221,6 @@ public class Profile {
 
         // Assurez-vous d'adapter cette méthode en fonction de votre modèle d'utilisateur
 
-    }*/
+    }
 
 }

@@ -54,9 +54,11 @@ public class ServiceParent implements IService<ParentE> {
                 statement.setString(7, parent.getPrenomE());
                 statement.setDate(8, new java.sql.Date(parent.getDateNaissanceE().getTime()));
                 //statement.setInt(11, parent.getNiveau());
-                statement.setInt(9, parent.getId());
-                statement.setString(10, String.valueOf(parent.getImage()));
+                statement.setInt(10, parent.getId());
+                statement.setString(9, String.valueOf(parent.getImage()));
                 statement.executeUpdate();
+                System.out.println("update parent ");
+
             }catch (SQLException e)
             {
                 System.out.println(e.getMessage());
@@ -70,12 +72,17 @@ public class ServiceParent implements IService<ParentE> {
 
     // Méthode pour supprimer un parent de la base de données en fonction de son identifiant
     @Override
-    public void supprimer(int id) throws SQLException {
-        String sql = "DELETE FROM utilisateurs WHERE idu=? AND role='Parent'";
-        PreparedStatement statement = cnx.prepareStatement(sql);
-        statement.setInt(1, id);
-        statement.executeUpdate();
-        System.out.println("spprimerserviceparent");
+    public void supprimer(int id)  {
+        try {
+            String sql = "DELETE FROM utilisateurs WHERE idu=? AND role='Parent'";
+            PreparedStatement statement = cnx.prepareStatement(sql);
+            statement.setInt(1, id);
+            statement.executeUpdate();
+            System.out.println("spprimerserviceparent");
+        }catch (SQLException e)
+        {
+            System.out.println(e.getMessage());
+        }
     }
 
 

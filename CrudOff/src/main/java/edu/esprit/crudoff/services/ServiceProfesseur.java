@@ -42,7 +42,7 @@ public class ServiceProfesseur implements IService<Professeur> {
     @Override
     public void modifier(Professeur p) throws SQLException {
         int userId =  p.getId();
-        String req = "UPDATE utilisateurs SET nom=?, prenom=?, adresse=?, tel=?, login=?, mdp=?, discipline=? WHERE idu=? and role='Professeur'";
+        String req = "UPDATE utilisateurs SET nom=?, prenom=?, adresse=?, tel=?, login=?, mdp=?, dob=?, discipline=? WHERE idu=? and role='Professeur'";
 
         try {
             PreparedStatement ps = cnx.prepareStatement(req);
@@ -50,21 +50,21 @@ public class ServiceProfesseur implements IService<Professeur> {
             ps.setString(2, p.getPrenom());
             ps.setString(3, p.getAdresse());
             // Supposons que vous avez déjà créé votre objet Professeur et que vous l'avez appelé "professeur"
-            /*Date dateNaissance = p.getDateNaissance(); // Récupération de la date de naissance de l'objet Professeur
+            Date dateNaissance = p.getDateNaissance(); // Récupération de la date de naissance de l'objet Professeur
 
             // Convertir la date de naissance en java.sql.Date
             java.sql.Date sqlDateNaissance = new java.sql.Date(dateNaissance.getTime());
 
             // Maintenant, vous pouvez définir la date de naissance dans votre PreparedStatement
-            ps.setDate(4, sqlDateNaissance);
+            ps.setDate(7, sqlDateNaissance);
             //ps.setDate(4, new java.sql.Date(ps.getDateNaissance().getTime()));*/
 
             ps.setString(5, p.getLogin());
             ps.setString(6, p.getMdp());
             ps.setInt(4, p.getTel());
             //ps.setString(5, p.getMdp());
-            ps.setString(7, p.getDiscpline());
-            ps.setInt(8, p.getId()); // Suppose que l'objet Administrateur a une méthode getId() pour récupérer l'identifiant de l'administrateur
+            ps.setString(8, p.getDiscpline());
+            ps.setInt(9, p.getId()); // Suppose que l'objet Administrateur a une méthode getId() pour récupérer l'identifiant de l'administrateur
 
             int rowsAffected = ps.executeUpdate();
             if (rowsAffected > 0) {
@@ -81,6 +81,16 @@ public class ServiceProfesseur implements IService<Professeur> {
 
     @Override
     public void supprimer(int id) throws SQLException {
+        try {
+            String sql = "DELETE FROM utilisateurs WHERE idu=? AND role='Professeur'";
+            PreparedStatement statement = cnx.prepareStatement(sql);
+            statement.setInt(1, id);
+            statement.executeUpdate();
+            System.out.println("spprimerserviceprof");
+        }catch (SQLException e)
+        {
+            System.out.println(e.getMessage());
+        }
 
     }
 
@@ -199,4 +209,45 @@ public class ServiceProfesseur implements IService<Professeur> {
 
         return role;
     }
+    public Professeur getByLogin(String login) {
+        Professeur util = null;
+        String sql = "SELECT idu, nom, prenom, adresse, dob, tel, login, mdp, discipline from  utilisateurs WHERE role='Professeur' and login = ? ";
+
+        try (PreparedStatement statement = cnx.prepareStatement(sql)) {
+            statement.setString(1, login);
+            ResultSet resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                int id = resultSet.getInt("idu");
+                String nom = resultSet.getString("nom");
+                String prenom = resultSet.getString("prenom");
+                String adresse = resultSet.getString("adresse");
+                Date dateNaissance = resultSet.getDate("dob");
+                String mdp = resultSet.getString("mdp");
+                int tel = resultSet.getInt("tel");
+
+
+                // System.out.println("bb");
+                String discipline = resultSet.getString("discipline");
+
+
+                util = new Professeur( id,  nom,  prenom,  adresse,  dateNaissance,  tel,  login,  mdp,discipline);
+                //utilisateur = new ParentE(id,nom, prenom, adresse, dateNaissance, tel, login, mdp, nomE, prenomE, dateNaissanceE,image);
+                System.out.println(util);
+
+
+
+
+                System.out.println("got Parent : " + util);
+            } else {
+                System.out.println("Aucun utilisateur trouvé pour le login : " + login);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Gérer l'exception
+        }
+
+        return util;
+    }
+
 }

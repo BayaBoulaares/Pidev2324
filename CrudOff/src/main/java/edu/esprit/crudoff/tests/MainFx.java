@@ -23,7 +23,7 @@ public class  MainFx extends Application {
         primaryStage.setScene(scene);
         primaryStage.setWidth(screenWidth * 0.9);
         primaryStage.setHeight(screenHeight * 0.9);
-        primaryStage.setTitle("Title");
+        primaryStage.setTitle("Gestion utilisateurs");
         primaryStage.show();
 
         }

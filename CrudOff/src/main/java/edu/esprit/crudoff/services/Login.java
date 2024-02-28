@@ -13,9 +13,11 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.security.GeneralSecurityException;
 
 public class Login {
     private final ServiceUtilisateur PS = new ServiceUtilisateur();
+
     @FXML
     private TextField loginuser;
 
@@ -24,6 +26,8 @@ public class Login {
 
     @FXML
     private RadioButton rememberCheckBox;
+    @FXML
+    private Button cnxgoogle;
 
 
 
@@ -35,6 +39,9 @@ public class Login {
     // Définition des placeholders
 
         //loginuser.setPromptText("Entrez votre nom d'utilisateur");
+        @FXML
+        private Button mdpoublier;
+
 
 
 
@@ -198,8 +205,21 @@ public class Login {
         Parent root = FXMLLoader.load(getClass().getResource(fxmlPath));
         loginuser.getScene().setRoot(root);
     }*/
+    @FXML
+    void tochangemdp(ActionEvent event) throws IOException{
+        FXMLLoader loader2 = new FXMLLoader(getClass().getResource("/fxml/SendSms.fxml"));
+        Parent root2 = loader2.load();
+        loginuser.getScene().setRoot(root2);
+    }
+
+    @FXML
+    void seconnecteravecgoogle(ActionEvent event) throws GeneralSecurityException, IOException {
+       String ss = GoogleConnection.buildAuthorizationUrl();
+        System.out.println(ss);
 
 
+
+    }
 
 
 }
