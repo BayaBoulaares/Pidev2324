@@ -28,6 +28,11 @@ public class ServiceParticipation {
             pstmt.setInt(2, idUtilisateur);
             pstmt.executeUpdate();
             System.out.println("Participation added successfully!");
+
+            // Check if the maximum number of participants is reached
+            if (isMaxParticipantsReached(idEvenement)) {
+                removeEvent(idEvenement);
+            }
         } catch (SQLException ex) {
             System.out.println("Error while inserting participation: " + ex.getMessage());
             throw ex;
@@ -92,6 +97,73 @@ public class ServiceParticipation {
             throw ex;
         }
         return 0; // Return 0 if no participants found or an error occurred
+    }
+
+
+    public boolean isMaxParticipantsReached(int idEvenement) throws SQLException {
+        // Get the current number of participants for the event
+        int currentParticipants = getNumberOfParticipants(idEvenement);
+        // Get the maximum number of participants for the event
+        int maxParticipants = getMaxParticipants(idEvenement);
+        // Return true if the current number equals or exceeds the maximum
+        return currentParticipants >= maxParticipants;
+    }
+
+    private int getMaxParticipants(int idEvenement) throws SQLException {
+        String query = "SELECT Nb_Max FROM evenement WHERE Id_Event = ?";
+        try (PreparedStatement pstmt = cnx.prepareStatement(query)) {
+            pstmt.setInt(1, idEvenement);
+            try (ResultSet resultSet = pstmt.executeQuery()) {
+                if (resultSet.next()) {
+                    return resultSet.getInt("Nb_Max"); // Return the maximum number of participants
+                }
+            }
+        }
+        return -1; // Return -1 if no maximum participants found
+    }
+
+    public void removeEvent(int idEvenement) throws SQLException {
+        String query = "DELETE FROM evenement WHERE Id_Event = ?";
+        try (PreparedStatement pstmt = cnx.prepareStatement(query)) {
+            pstmt.setInt(1, idEvenement);
+            pstmt.executeUpdate();
+            System.out.println("Event removed successfully!");
+        } catch (SQLException ex) {
+            System.out.println("Error while removing event: " + ex.getMessage());
+            throw ex;
+        }
+    }
+    public void removeEventIfEnded(int idEvenement) throws SQLException {
+        String query = "DELETE FROM evenement WHERE Id_Event = ?";
+        try (PreparedStatement pstmt = cnx.prepareStatement(query)) {
+            pstmt.setInt(1, idEvenement);
+
+            // Check if the event has ended before removing it
+            if (isEventEnded(idEvenement)) {
+                pstmt.executeUpdate();
+                System.out.println("Event removed successfully because it has ended!");
+            } else {
+                System.out.println("Event has not ended yet, so it was not removed.");
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error while removing event: " + ex.getMessage());
+            throw ex;
+        }
+    }
+
+    private boolean isEventEnded(int idEvenement) throws SQLException {
+        String query = "SELECT Date_Fin FROM evenement WHERE Id_Event = ?";
+        try (PreparedStatement pstmt = cnx.prepareStatement(query)) {
+            pstmt.setInt(1, idEvenement);
+            try (ResultSet resultSet = pstmt.executeQuery()) {
+                if (resultSet.next()) {
+                    java.util.Date endDate = resultSet.getDate("Date_Fin");
+                    java.util.Date currentDate = new java.util.Date();
+                    return endDate != null && endDate.before(currentDate);
+                }
+            }
+        }
+        return false;
     }
 
 

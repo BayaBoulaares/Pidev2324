@@ -26,10 +26,7 @@ import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
+import java.util.*;
 
 public class AfficherEvents {
 
@@ -63,15 +60,32 @@ public class AfficherEvents {
         eventPairBox.setSpacing(30);
         for (Evenement evenement : events) {
             if (!displayedEvents.containsKey(evenement.getId_Event())) {
-                VBox eventBox = createEventBox(evenement);
-                eventBox.getStyleClass().add("eventBox");
-                eventPairBox.getChildren().add(eventBox);
-                displayedEvents.put(evenement.getId_Event(), true);
+                if (isEventActive(evenement)) {
+                    VBox eventBox = createEventBox(evenement);
+                    eventBox.getStyleClass().add("eventBox");
+                    eventPairBox.getChildren().add(eventBox);
+                    displayedEvents.put(evenement.getId_Event(), true);
+                } else {
+                    try {
+                        // Remove the event from the database
+                        serviceEvenement.supprimer(evenement.getId_Event());
+                        System.out.println("Event removed because its end date has passed: " + evenement.getNom_Event());
+                    } catch (SQLException ex) {
+                        System.err.println("Error removing event from database: " + ex.getMessage());
+                    }
+                }
             }
         }
         eventBox.getChildren().add(eventPairBox);
     }
 
+    private boolean isEventActive(Evenement evenement) {
+        // Get the current date
+        Date currentDate = new Date();
+
+        // Check if the current date is before the end date of the event
+        return currentDate.before(evenement.getDate_Fin());
+    }
 
 
     private VBox createEventBox(Evenement evenement) {
@@ -292,6 +306,18 @@ public class AfficherEvents {
                 return; // Exit the method
             }
 
+            // Check if the maximum number of participants is reached
+            if (serviceParticipation.isMaxParticipantsReached(eventId)) {
+                // If the maximum number of participants is reached, remove the event
+                serviceParticipation.removeEvent(eventId);
+                System.out.println("Event removed because the maximum number of participants is reached!");
+                // Refresh the display
+                List<Evenement> allEvents = serviceEvenement.getAll();
+                displayEventsInEventBox(allEvents);
+                // You can display an alert or perform any other action here
+                return; // Exit the method
+            }
+
             // Insérez la participation dans la base de données
             serviceParticipation.insertParticipation(eventId, userId);
 
@@ -303,6 +329,10 @@ public class AfficherEvents {
             alert.setHeaderText(null);
             alert.setContentText("La participation a été ajoutée avec succès!");
             alert.showAndWait();
+
+            // Refresh the display after adding the participation
+            List<Evenement> allEvents = serviceEvenement.getAll();
+            displayEventsInEventBox(allEvents);
         } catch (SQLException ex) {
             System.err.println("Erreur lors de l'ajout de la participation : " + ex.getMessage());
         }
@@ -338,7 +368,10 @@ public class AfficherEvents {
         }
     }
 
-}
+    }
+
+
+
 
 
 
