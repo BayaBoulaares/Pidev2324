@@ -22,6 +22,8 @@ public class Calendrier {
     @FXML
     private VBox calendrierBox;
 
+
+
     public void initialize() {
         // Create a new instance of the agenda
         Agenda agenda = new Agenda();
@@ -49,7 +51,7 @@ public class Calendrier {
                 for (Evenement evenement : evenementsSemaine) {
                     // Add event to agenda
                     agenda.appointments().add(new Agenda.AppointmentImplLocal()
-                            .withStartLocalDateTime(evenement.getDate_Debut().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime())
+                            .withStartLocalDateTime(evenement.getDate_Debut().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime().withHour(9).withMinute(0))
                             .withEndLocalDateTime(evenement.getDate_Fin().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime())
                             .withSummary(evenement.getNom_Event())
                             .withDescription(evenement.getDescription()));

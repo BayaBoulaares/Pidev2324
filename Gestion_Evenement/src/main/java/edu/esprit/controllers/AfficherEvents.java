@@ -201,14 +201,14 @@ public class AfficherEvents {
 
     private int calculateRemainingParticipants(Evenement evenement) {
         try {
-            // Get the number of participants for the event
+
             int currentParticipants = serviceParticipation.getNumberOfParticipants(evenement.getId_Event());
-            // Calculate the remaining number of participants
+
             return evenement.getNb_Max() - currentParticipants;
         } catch (SQLException e) {
-            // Handle the SQL exception
+
             e.printStackTrace();
-            return -1; // Indicate an error occurred
+            return -1;
         }
     }
 
@@ -265,62 +265,57 @@ public class AfficherEvents {
     }
 
     private void handleLikeEvent(Evenement evenement, boolean liked) {
-        // Implement your logic here to handle the like event
+
         if (liked) {
-            // The event was liked
+
             System.out.println("Event liked: " + evenement.getNom_Event());
-            // Add your code to update the database or perform any other actions
+
         } else {
-            // The like was removed
+
             System.out.println("Event unliked: " + evenement.getNom_Event());
-            // Add your code to update the database or perform any other actions
+
         }
     }
     @FXML
     void handleParticiperEvent(Evenement evenement) {
         try {
-            // Utilisez l'ID de l'utilisateur connu
+
             int userId = 1;
 
-            // Obtenez l'ID de l'événement
             int eventId = evenement.getId_Event();
 
-            // Check if the user has already participated in the event
             if (serviceParticipation.hasParticipated(eventId, userId)) {
-                // If the user has already participated, display an alert
                 Alert alert = new Alert(Alert.AlertType.WARNING);
                 alert.setTitle("Déjà participé");
                 alert.setHeaderText(null);
                 alert.setContentText("Vous avez déjà participé à cet événement.");
                 alert.showAndWait();
-                return; // Exit the method
+                return;
             }
 
-            // Check if the maximum number of participants is reached
+
             if (serviceParticipation.isMaxParticipantsReached(eventId)) {
-                // If the maximum number of participants is reached, remove the event
+
                 serviceParticipation.removeEvent(eventId);
                 System.out.println("Event removed because the maximum number of participants is reached!");
-                // Refresh the display
+
                 List<Evenement> allEvents = serviceEvenement.getAll();
                 displayEventsInEventBox(allEvents);
-                // You can display an alert or perform any other action here
-                return; // Exit the method
+
+                return;
             }
 
-            // Insérez la participation dans la base de données
+
             serviceParticipation.insertParticipation(eventId, userId);
 
             System.out.println("Participation ajoutée avec succès!");
 
-            // Affichez une alerte indiquant que la participation a été ajoutée avec succès
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Participation ajoutée");
             alert.setHeaderText(null);
             alert.setContentText("La participation a été ajoutée avec succès!");
             alert.showAndWait();
 
-            // Refresh the display after adding the participation
             List<Evenement> allEvents = serviceEvenement.getAll();
             displayEventsInEventBox(allEvents);
         } catch (SQLException ex) {
@@ -333,20 +328,18 @@ public class AfficherEvents {
     @FXML
     void handleLibraryButtonAction(ActionEvent event) {
         try {
-            // Récupérer les événements auxquels l'utilisateur a participé
-            List<Evenement> participatedEvents = serviceParticipation.getParticipatedEvents(1); // Utilisateur avec ID 1
+            List<Evenement> participatedEvents = serviceParticipation.getParticipatedEvents(1);
 
-            // Charger la page de participation
+
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Affichage_Participation.fxml"));
             Parent root = loader.load();
 
-            // Obtenir le contrôleur de la page de participation
+
             AffichageParticipation controller = loader.getController();
 
-// Appeler la méthode loadParticipations
+
             controller.loadParticipations(participatedEvents);
 
-            // Créer une nouvelle scène avec la page de participation et l'afficher dans un nouveau stage
             Scene scene = new Scene(root);
             Stage stage = new Stage();
             stage.setScene(scene);

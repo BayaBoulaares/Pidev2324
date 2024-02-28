@@ -6,6 +6,8 @@ import edu.esprit.utils.DataSource;
 import java.sql.*;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
 import java.util.List;
@@ -148,7 +150,11 @@ public class ServiceEvenement implements IService<Evenement> {
                 Date dateFin = res.getDate("Date_Fin");
                 int nbMax = res.getInt("Nb_Max");
                 String image = res.getString("image");
-                Evenement e = new Evenement(id, nomEvent, description, lieuEvent, dateDebut, dateFin, nbMax, image);
+
+                // Set the start time to 9:00
+                LocalDateTime dateTimeDebut = dateDebut.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime().withHour(9).withMinute(0);
+
+                Evenement e = new Evenement(id, nomEvent, description, lieuEvent, java.sql.Timestamp.valueOf(dateTimeDebut), dateFin, nbMax, image);
                 evenementsSemaine.add(e);
             }
         } catch (SQLException ex) {
@@ -157,5 +163,6 @@ public class ServiceEvenement implements IService<Evenement> {
         }
         return evenementsSemaine;
     }
+
 }
 

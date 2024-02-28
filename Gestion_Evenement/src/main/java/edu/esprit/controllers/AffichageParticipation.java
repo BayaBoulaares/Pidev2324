@@ -28,7 +28,7 @@ public class AffichageParticipation {
     private void initialize() throws SQLException {
         List<Evenement> participatedEvents = serviceParticipation.getParticipatedEvents(1);
         loadParticipations(participatedEvents);
-        participationBox.setSpacing(30); // Ajoutez cette ligne pour définir l'espacement
+        participationBox.setSpacing(30);
     }
 
     public void loadParticipations(List<Evenement> participatedEvents) {

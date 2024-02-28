@@ -113,9 +113,9 @@ public class AfficherEvenement {
         descriptionLabel.getStyleClass().add("description");
         descriptionLabel.setStyle("-fx-text-fill: gray;  -fx-wrap-text: true;");
         descriptionLabel.setWrapText(true);
-        descriptionLabel.setMaxWidth(Double.MAX_VALUE); // Permet au label de s'étendre en largeur sur plusieurs lignes
-        descriptionLabel.setMaxHeight(Double.MAX_VALUE); // Permet au label de s'étendre en hauteur sur plusieurs lignes
-        descriptionLabel.setPrefWidth(800); // Vous pouvez ajuster cette valeur en fonction de la largeur souhaitée
+        descriptionLabel.setMaxWidth(Double.MAX_VALUE);
+        descriptionLabel.setMaxHeight(Double.MAX_VALUE);
+        descriptionLabel.setPrefWidth(800);
         eventBox.getChildren().add(descriptionLabel);
 
 
@@ -124,7 +124,7 @@ public class AfficherEvenement {
         eventBox.getChildren().add(maxLabel);
 
 
-        // Créer un HBox pour les boutons
+
         HBox hboxButtons = new HBox(18); // 18 est l'espace entre les éléments
         hboxButtons.setAlignment(Pos.CENTER); // Centrer les éléments dans le HBox
 
@@ -133,12 +133,12 @@ public class AfficherEvenement {
         modifierButton.setStyle("-fx-background-color: turquoise; -fx-text-fill: white;-fx-background-radius: 5px; -fx-border-color: turquoise;");
         modifierButton.setOnAction(event -> handleModifierEvent(evenement));
 
-        // Créer l'icône pour le bouton "Modifier"
+
         ImageView editIcon = new ImageView(new Image("file:///C:/Users/ameni/Downloads/Gestion_Evenement2/src/main/java/edu/esprit/image/editer.png"));
         editIcon.setFitWidth(20);
         editIcon.setFitHeight(20);
 
-        // Ajouter l'icône au bouton "Modifier"
+
         modifierButton.setGraphic(editIcon);
 
         Button supprimerButton = new Button("Supprimer");
@@ -151,11 +151,10 @@ public class AfficherEvenement {
         deleteIcon.setFitWidth(21);
         deleteIcon.setFitHeight(21);
 
-        // Ajouter l'icône au bouton "Supprimer"
+
         supprimerButton.setGraphic(deleteIcon);
 
-        // Ajouter les boutons au HBox
-        hboxButtons.getChildren().addAll(modifierButton,supprimerButton); // supprimer à gauche, modifier à droite
+        hboxButtons.getChildren().addAll(modifierButton,supprimerButton);
 
         eventBox.getChildren().add(hboxButtons);
 
@@ -179,10 +178,9 @@ public class AfficherEvenement {
 
     private void handleSupprimerEvent(Evenement evenement) {
         try {
-            // Supprimer d'abord le sponsor lié à l'événement
+
             serviceSponsor.supprimer(evenement.getId_Event());
 
-            // Ensuite, supprimer l'événement
             serviceEvenement.supprimer(evenement.getId_Event());
 
             Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
@@ -191,18 +189,15 @@ public class AfficherEvenement {
             successAlert.setContentText("Événement et son sponsor ont été supprimés avec succès !");
             successAlert.show();
 
-            // Clear the VBox
             eventVBox.getChildren().clear();
 
-            // Repopulate the VBox with the updated list of events from the database
             List<Evenement> updatedEvents = serviceEvenement.getAll();
             HBox hbox = new HBox();
             hbox.setSpacing(30);
             for (Evenement updatedEvent : updatedEvents) {
-                // Add each event to the HBox
                 hbox.getChildren().add(createEventBox(updatedEvent));
             }
-            // Add the HBox to the VBox
+
             eventVBox.getChildren().add(hbox);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -224,7 +219,6 @@ public class AfficherEvenement {
             stage.setScene(new Scene(root));
             stage.show();
 
-            // Add a listener to refresh the list when the modification window is closed
             stage.setOnHidden(windowEvent -> {
                 eventVBox.getChildren().clear();
                 try {
@@ -232,14 +226,14 @@ public class AfficherEvenement {
                     HBox hbox = new HBox();
                     hbox.setSpacing(30);
                     for (Evenement updatedEvent : updatedEvents) {
-                        // Create an HBox for each event
+
                         hbox.getChildren().add(createEventBox(updatedEvent));
                     }
-                    // Add the HBox to the VBox
+
                     eventVBox.getChildren().add(hbox);
                 } catch (SQLException ex) {
                     System.out.println("Error refreshing event list: " + ex.getMessage());
-                    // Handle the exception appropriately, such as displaying an error message
+
                 }
             });
         } catch (IOException e) {

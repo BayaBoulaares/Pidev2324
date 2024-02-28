@@ -30,11 +30,11 @@ public class ModifierSponsor {
     @FXML
     private ComboBox<String> eventComboBox;
     @FXML
-    private ImageView sponsorImage; // ImageView for displaying the sponsor image
+    private ImageView sponsorImage;
 
 
     private int sponsorId;
-    private String imagePath; // Store the selected image path
+    private String imagePath;
 
     public void setSponsorData(Sponsor sponsor) {
         sponsorId = sponsor.getId_Sponsor();
@@ -43,7 +43,6 @@ public class ModifierSponsor {
         sponsorDescription.setText(sponsor.getDescription_s());
         sponsorFond.setValue(sponsor.getFond());
 
-        // Set the selected image
         imagePath = sponsor.getImage();
         if (imagePath != null && !imagePath.isEmpty()) {
             File file = new File(imagePath);
@@ -61,10 +60,8 @@ public class ModifierSponsor {
             ServiceEvenement serviceEvent = new ServiceEvenement();
             List<Evenement> events = serviceEvent.getAll();
 
-            // Create a list to store event names
             ObservableList<String> eventNames = FXCollections.observableArrayList();
 
-            // Add event names to the list
             for (Evenement event : events) {
                 eventNames.add(event.getNom_Event());
             }
@@ -108,13 +105,12 @@ public class ModifierSponsor {
                 return;
             }
 
-            // Check name and description length
+
             if (newName.length() < 3 || newDescription.length() < 3) {
                 afficherAlerte("nom doit avoir 3 caractére minimum!");
                 return;
             }
 
-            // Find the selected event by name
             Evenement selectedEvent = null;
             ServiceEvenement serviceEvent = new ServiceEvenement();
             List<Evenement> events = serviceEvent.getAll();
@@ -131,7 +127,7 @@ public class ModifierSponsor {
             }
 
             Sponsor updatedSponsor = new Sponsor(sponsorId, newName, newDescription, newFond, selectedEvent);
-            updatedSponsor.setImage(imagePath); // Set the updated image path
+            updatedSponsor.setImage(imagePath);
 
             ServiceSponsor sponsorService = new ServiceSponsor();
             sponsorService.modifier(updatedSponsor);

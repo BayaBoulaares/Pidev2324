@@ -7,7 +7,9 @@ import edu.esprit.utils.DataSource;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 public class ServiceSponsor implements IService<Sponsor> {
@@ -165,6 +167,26 @@ public class ServiceSponsor implements IService<Sponsor> {
         }
 
         return sponsors;
+    }
+    public Map<String, Integer> getNombreEvenementsParSponsor() throws SQLException {
+        Map<String, Integer> nombreEvenementsParSponsor = new HashMap<>();
+
+        try (Connection cnx = DataSource.getInstance().getCnx()) {
+            String query = "SELECT Nom, COUNT(Id_Event) AS nombre_evenements FROM sponsor GROUP BY Nom";
+            try (PreparedStatement pstmt = cnx.prepareStatement(query);
+                 ResultSet resultSet = pstmt.executeQuery()) {
+                while (resultSet.next()) {
+                    String nomSponsor = resultSet.getString("Nom");
+                    int nombre = resultSet.getInt("nombre_evenements");
+                    nombreEvenementsParSponsor.put(nomSponsor, nombre);
+                }
+            }
+        } catch (SQLException ex) {
+            System.out.println("Erreur lors de la récupération du nombre d'événements par sponsor : " + ex.getMessage());
+            throw ex;
+        }
+
+        return nombreEvenementsParSponsor;
     }
 
 }

@@ -20,7 +20,7 @@ public class ServiceParticipation {
         cnx = DataSource.getInstance().getCnx();
     }
 
-    // Méthode pour insérer une participation dans la base de données
+
     public void insertParticipation(int idEvenement, int idUtilisateur) throws SQLException {
         String query = "INSERT INTO participation (Id_Event, Id_User) VALUES (?, ?)";
         try (PreparedStatement pstmt = cnx.prepareStatement(query)) {
@@ -29,7 +29,6 @@ public class ServiceParticipation {
             pstmt.executeUpdate();
             System.out.println("Participation added successfully!");
 
-            // Check if the maximum number of participants is reached
             if (isMaxParticipantsReached(idEvenement)) {
                 removeEvent(idEvenement);
             }
@@ -83,13 +82,12 @@ public class ServiceParticipation {
         return false;
     }
     public int getNumberOfParticipants(int Id_Event) throws SQLException {
-        // Execute a SQL query to count the number of participants for the event
         String query = "SELECT COUNT(*) FROM participation WHERE Id_Event = ?";
         try (PreparedStatement statement = cnx.prepareStatement(query)) {
             statement.setInt(1, Id_Event);
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
-                    return resultSet.getInt(1); // Return the count of participants
+                    return resultSet.getInt(1);
                 }
             }
         } catch (SQLException ex) {
@@ -101,11 +99,11 @@ public class ServiceParticipation {
 
 
     public boolean isMaxParticipantsReached(int idEvenement) throws SQLException {
-        // Get the current number of participants for the event
+
         int currentParticipants = getNumberOfParticipants(idEvenement);
-        // Get the maximum number of participants for the event
+
         int maxParticipants = getMaxParticipants(idEvenement);
-        // Return true if the current number equals or exceeds the maximum
+
         return currentParticipants >= maxParticipants;
     }
 
@@ -119,7 +117,7 @@ public class ServiceParticipation {
                 }
             }
         }
-        return -1; // Return -1 if no maximum participants found
+        return -1;
     }
 
     public void removeEvent(int idEvenement) throws SQLException {
@@ -138,7 +136,6 @@ public class ServiceParticipation {
         try (PreparedStatement pstmt = cnx.prepareStatement(query)) {
             pstmt.setInt(1, idEvenement);
 
-            // Check if the event has ended before removing it
             if (isEventEnded(idEvenement)) {
                 pstmt.executeUpdate();
                 System.out.println("Event removed successfully because it has ended!");

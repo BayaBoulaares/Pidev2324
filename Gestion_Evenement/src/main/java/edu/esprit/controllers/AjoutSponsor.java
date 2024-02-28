@@ -179,24 +179,37 @@ public class AjoutSponsor {
         alert.setContentText(message);
         alert.showAndWait();
     }
+
     @FXML
     void consulterStatistique(ActionEvent event) {
         try {
-            // Charger le fichier FXML de la vue de statistiques
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("Statistique.fxml"));
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Statistique.fxml"));
             Parent root = loader.load();
 
-            // Créer une nouvelle scène
-            Scene scene = new Scene(root);
 
-            // Créer une nouvelle fenêtre (ou dialogue)
             Stage stage = new Stage();
             stage.setTitle("Statistiques des sponsors");
-            stage.setScene(scene);
+            stage.setScene(new Scene(root));
 
-            // Afficher la fenêtre
+
             stage.show();
         } catch (IOException e) {
+            // Handle any IO exceptions
             e.printStackTrace();
+            showAlert("Erreur", "Erreur lors du chargement de la vue de statistiques", e.getMessage());
+        } catch (Exception e) {
+            // Handle any other exceptions
+            e.printStackTrace();
+            showAlert("Erreur", "Une erreur inattendue s'est produite", e.getMessage());
         }
-    }}
+    }
+
+    private void showAlert(String title, String header, String content) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setHeaderText(header);
+        alert.setContentText(content);
+        alert.showAndWait();
+    }
+}

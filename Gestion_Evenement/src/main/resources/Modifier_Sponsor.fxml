@@ -76,7 +76,7 @@
         </VBox>
         <Label layoutX="286.0" layoutY="118.0" text="Nom du sponsor*" textFill="#09026e" />
         <TextField fx:id="sponsorName" layoutX="394.0" layoutY="111.0" promptText="Saisir le nom du sponsor" />
-        <TextField fx:id="sponsorDescription" layoutX="403.0" layoutY="167.0" prefHeight="71.0" prefWidth="282.0" promptText="Saisir la description du sponsor" />
+        <TextField fx:id="sponsorDescription" layoutX="403.0" layoutY="167.0" prefHeight="80.0" prefWidth="349.0" promptText="Saisir la description du sponsor" />
 
         <ComboBox fx:id="sponsorFond" layoutX="403.0" layoutY="256.0" prefWidth="230.0" promptText="Sélectionner le fond du sponsor">
             <items>

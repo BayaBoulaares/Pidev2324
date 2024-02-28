@@ -110,12 +110,27 @@
 
         <!-- Button for adding sponsor -->
         <Button layoutX="412.0" layoutY="400.0" mnemonicParsing="false" onAction="#ajouter" prefHeight="34.0" prefWidth="161.0" style="-fx-background-color: turquoise; -fx-font-size: 14px; -fx-text-fill: white; -fx-background-radius: 5px;" text="Ajouter" />
-        <Button fx:id="selectImageButton" layoutX="680.0" layoutY="345.0" mnemonicParsing="false" onAction="#selectImage" prefHeight="34.0" prefWidth="150.0" style="-fx-background-color: turquoise; -fx-font-size: 14px; -fx-text-fill: white; -fx-background-radius: 5px;" text="Choisir une image" />
+        <Button fx:id="selectImageButton" layoutX="680.0" layoutY="345.0" mnemonicParsing="false" onAction="#selectImage" prefHeight="34.0" prefWidth="190.0" style="-fx-background-color: turquoise; -fx-font-size: 14px; -fx-text-fill: white; -fx-background-radius: 5px;" text="      Choisir une image" />
         <ImageView fitHeight="123.0" fitWidth="116.0" layoutX="995.0" layoutY="14.0">
             <image>
                 <Image url="@images/financement-participatif.png" />
             </image>
         </ImageView>
-      <Button layoutX="920.0" layoutY="633.0" mnemonicParsing="false" onAction="#consulterStatistique" prefHeight="34.0" prefWidth="161.0" style="-fx-background-color: turquoise; -fx-font-size: 14px; -fx-text-fill: white; -fx-background-radius: 5px;" text="Consulter Statisque" />
+      <Button layoutX="912.0" layoutY="641.0" mnemonicParsing="false" onAction="#consulterStatistique" prefHeight="34.0" prefWidth="190.0" style="-fx-background-color: turquoise; -fx-font-size: 14px; -fx-text-fill: white; -fx-background-radius: 5px;" text="          Consulter Statisque" />
+      <ImageView fitHeight="34.0" fitWidth="32.0" layoutX="691.0" layoutY="345.0">
+         <image>
+            <Image url="@images/upload.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="21.0" fitWidth="20.0" layoutX="429.0" layoutY="407.0">
+         <image>
+            <Image url="@images/add.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="31.0" fitWidth="32.0" layoutX="921.0" layoutY="643.0">
+         <image>
+            <Image url="@images/data.png" />
+         </image>
+      </ImageView>
     </children>
 </AnchorPane>
