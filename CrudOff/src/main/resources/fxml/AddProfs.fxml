@@ -136,6 +136,7 @@
                         <Button fx:id="totableprof" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#totableprof" prefHeight="46.0" prefWidth="78.0" styleClass="bdoc" text="Professeurs" translateX="60.0" />
                      </children>
                   </HBox>
+                  <ProgressBar maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="6.0" prefWidth="30.0" progress="0.0" rotate="-89.4" styleClass="pbpr" translateX="125.0" translateY="-34.0" />
                   <ImageView translateX="-30.0" translateY="40.0">
                      <image>
                         <Image url="@../images/Logout 2.png" />

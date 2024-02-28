@@ -1,5 +1,6 @@
 package edu.esprit.crudoff.services;
 
+import edu.esprit.crudoff.entities.ParentE;
 import edu.esprit.crudoff.utilis.DataSource;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -25,15 +26,18 @@ public class MotDePasseOublie {
 
     @FXML
     void confirmernvmdp(ActionEvent event) {
+        CredentialsManager crd = new CredentialsManager();
+        String[] crds = SendSms.loadCredentials();
+      String nouvmdp =nvmdp.getText();
+      String cnouvmdp=confirmermdp.getText();
 
-        /*if (nvmdp.equals(confirmermdp)) {
-            // Les deux mots de passe correspondent, changer le mot de passe dans la base de données
-            String email = SendSms.class.loginuser.getText(); // Récupérer l'email de l'utilisateur
+        if (nouvmdp.equals(cnouvmdp)) {
+
             SendSms sm = new SendSms();
-            String login = sm.
+            String email = SendSms.loadCredentials()[0];
             if (!email.isEmpty()) {
                 // Mettre à jour le mot de passe dans la base de données
-                if (updatePasswordInDatabase(email,nvmdp)) {
+                if (updatePasswordInDatabase(email, nouvmdp)) {
                     Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                     alert.setTitle("Validation");
                     alert.setContentText("Votre mot de passe a été changé avec succès.");
@@ -56,7 +60,7 @@ public class MotDePasseOublie {
             alert.setTitle("Validation");
             alert.setContentText("Les deux mots de passe saisis ne correspondent pas. Veuillez réessayer.");
             alert.showAndWait();
-        }*/
+        }
 
     }
     private boolean updatePasswordInDatabase(String email, String newPassword) {

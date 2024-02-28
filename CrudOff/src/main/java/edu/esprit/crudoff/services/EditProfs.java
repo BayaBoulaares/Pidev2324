@@ -134,13 +134,6 @@ public class EditProfs {
                 showAlert("Erreur de saisie", "Adresse e-mail invalide", "Veuillez entrer une adresse e-mail valide.");
                 return;
             }
-            // Vérifier si l'email est unique
-            if (!isEmailUnique(email)) {
-
-                showAlert("Erreur de saisie", "Adresse e-mail existante !", "Cet email existe déjà. Veuillez en choisir un autre.");
-
-                return;
-            }
             // Calculer la date limite (il y a 23 ans à partir de la date actuelle)
             LocalDate dateLimite = LocalDate.now().minusYears(23);
 

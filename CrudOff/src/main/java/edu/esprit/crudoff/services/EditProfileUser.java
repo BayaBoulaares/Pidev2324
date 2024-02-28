@@ -266,6 +266,7 @@ public class EditProfileUser {
         editnomenfant.setText("");
         editprenomenfant.setText("");
         editdobenfant.setValue(null);
+        parentimage.setImage(null);
 
 
         // Ajoutez d'autres labels à vider si nécessaire

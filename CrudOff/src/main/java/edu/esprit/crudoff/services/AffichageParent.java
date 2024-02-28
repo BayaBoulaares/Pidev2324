@@ -1,6 +1,7 @@
 package edu.esprit.crudoff.services;
 
 import edu.esprit.crudoff.entities.ParentE;
+import edu.esprit.crudoff.entities.Professeur;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -117,7 +118,17 @@ public class AffichageParent {
                             System.out.println(_user);
                             System.out.println(_user.getId());
                             su.supprimer(_user.getId());
-                         observableList.remove(_user);
+
+                        try {
+                            su.supprimer(_user.getId());
+                            List<ParentE> updatedList = null;
+                            updatedList = (List<ParentE>)su.getAll();
+                            observableList.clear();
+                            observableList.addAll(updatedList);
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
+
 
 
 

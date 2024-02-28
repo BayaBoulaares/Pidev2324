@@ -12,7 +12,7 @@ import javafx.scene.control.TextField;
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-import java.io.IOException;
+import java.io.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -36,9 +36,35 @@ public class SendSms {
     private String generatedOtp;
     Connection cnx = DataSource.getInsatnce().getConnection();
 
+    private static final String FILENAME = "credentials2.txt";
+
+
+    public static void saveCredentials(String login) throws IOException {
+        try (PrintWriter writer = new PrintWriter(new FileWriter(FILENAME))) {
+
+            writer.println(login);
+
+            System.out.println(login);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    public static String[] loadCredentials() {
+        try (BufferedReader reader = new BufferedReader(new FileReader(FILENAME))) {
+            String login = reader.readLine();
+
+            return new String[]{login};
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+
     @FXML
-    public void sendEmailAction() {
+    public void sendEmailAction() throws IOException {
         String email = loginuser.getText();
+        saveCredentials(email);
         if (!email.isEmpty()) {
             // Vérifier si l'email existe dans la base de données et si l'utilisateur a le rôle de parent
             if (emailExistsInDatabase(email)) {
