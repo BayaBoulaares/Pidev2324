@@ -84,9 +84,8 @@ public class AjoutSponsor {
                 return;
             }
 
-            if (nomSponsor.length() < 3 || descriptionSponsor.length() < 3) {
-                setFieldAsInvalid(sponsorName);
-                setFieldAsInvalid(sponsorDescription);
+            if (nomSponsor.length() < 4 || descriptionSponsor.length() < 4) {
+                afficherAlerte("Le nom du sponsor et la description doivent contenir au moins 4 caractères.");
                 return;
             }
 
@@ -132,6 +131,7 @@ public class AjoutSponsor {
             afficherAlerte("Une erreur de type " + e.getClass().getSimpleName() + " s'est produite lors de l'ajout du sponsor : " + e.getMessage());
         }
     }
+
 
     @FXML
     void selectImage(ActionEvent event) {

@@ -6,31 +6,77 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.HBox?>
-<AnchorPane prefHeight="614.0" prefWidth="786.0" stylesheets="@Design.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.ModifierSponsor">
+<AnchorPane prefHeight="614.0" prefWidth="1058.0" stylesheets="@Design.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.ModifierSponsor">
     <children>
-        <VBox fx:id="navBar" prefHeight="613.0" prefWidth="174.0" spacing="10" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
-            <Label styleClass="navTitle" text="Auto+Learn">
+        <VBox fx:id="navBar" prefHeight="614.0" prefWidth="154.0" spacing="10" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <ImageView fitHeight="123.0" fitWidth="128.0">
+            <image>
+               <Image url="@images/78520233 - Copy.png" />
+            </image>
+         </ImageView>
+            <Label styleClass="navTitle" text="Auti+Learn">
                 <font>
-                    <Font name="Arial Rounded MT Bold" size="18.0" />
+                    <Font name="DM sans" size="18.0" />
                 </font>
             </Label>
-            <Label fx:id="firstLabel" text="Accueil" textFill="#ece7e7" />
-            <Label text="Utilisateurs" textFill="WHITE" />
-            <Label text="Documents" textFill="WHITE" />
-            <Label text="Événements" textFill="WHITE" />
-            <Label text="Messagerie" textFill="WHITE" />
-            <Label text="Réservations" textFill="WHITE" />
-            <Label fx:id="lastLabel" text="Profil" textFill="WHITE" />
+            <Button fx:id="firstButton" prefHeight="34.0" prefWidth="101.0" style="-fx-background-color: transparent;" text="Users" textFill="#ece7e7">
+                <graphic>
+                    <ImageView fitHeight="24" fitWidth="24" pickOnBounds="true" preserveRatio="true" smooth="true">
+                        <Image url="@images/IconUsers.png" />
+                    </ImageView>
+                </graphic>
+            </Button>
+
+            <Button prefHeight="42.0" prefWidth="110.0" style="-fx-background-color: transparent;" text="Documents" textFill="WHITE">
+                <graphic>
+                    <ImageView fitHeight="24" fitWidth="24" pickOnBounds="true" preserveRatio="true" smooth="true">
+                        <Image url="@images/IconDoc.png" />
+                    </ImageView>
+                </graphic>
+            </Button>
+
+            <Button prefHeight="34.0" prefWidth="108.0" style="-fx-background-color: transparent;" text="Evaluations" textFill="WHITE">
+                <graphic>
+                    <ImageView fitHeight="24" fitWidth="24" pickOnBounds="true" preserveRatio="true" smooth="true">
+                        <Image url="@images/test.png" />
+                    </ImageView>
+                </graphic>
+            </Button>
+
+            <Button prefHeight="34.0" prefWidth="115.0" style="-fx-background-color: transparent;" text="Événements" textFill="WHITE">
+                <graphic>
+                    <ImageView fitHeight="24" fitWidth="24" pickOnBounds="true" preserveRatio="true" smooth="true">
+                        <Image url="@images/calendar-check.png" />
+                    </ImageView>
+                </graphic>
+            </Button>
+
+            <Button prefHeight="34.0" prefWidth="119.0" style="-fx-background-color: transparent;" text="Réclamation" textFill="WHITE">
+                <graphic>
+                    <ImageView fitHeight="24" fitWidth="24" pickOnBounds="true" preserveRatio="true" smooth="true">
+                        <Image url="@images/Iconrec.png" />
+                    </ImageView>
+                </graphic>
+            </Button>
+
+            <Button prefHeight="34.0" prefWidth="116.0" style="-fx-background-color: transparent;" text="Professeurs" textFill="WHITE">
+                <graphic>
+                    <ImageView fitHeight="24" fitWidth="24" pickOnBounds="true" preserveRatio="true" smooth="true">
+                        <Image url="@images/Glasses.png" />
+                    </ImageView>
+                </graphic>
+            </Button>
         </VBox>
         <Label layoutX="286.0" layoutY="118.0" text="Nom du sponsor*" textFill="#09026e" />
         <TextField fx:id="sponsorName" layoutX="394.0" layoutY="111.0" promptText="Saisir le nom du sponsor" />
-        <TextField fx:id="sponsorDescription" layoutX="394.0" layoutY="169.0" prefHeight="65.0" prefWidth="230.0" promptText="Saisir la description du sponsor" />
+        <TextField fx:id="sponsorDescription" layoutX="403.0" layoutY="167.0" prefHeight="71.0" prefWidth="282.0" promptText="Saisir la description du sponsor" />
 
         <ComboBox fx:id="sponsorFond" layoutX="403.0" layoutY="256.0" prefWidth="230.0" promptText="Sélectionner le fond du sponsor">
             <items>
@@ -44,10 +90,10 @@
             <!-- This list will be filled with your events -->
         </ComboBox>
 
-        <Button layoutX="386.0" layoutY="394.0" mnemonicParsing="false" onAction="#saveSponsorData" style="-fx-background-color: turquoise; -fx-font-size: 14px; -fx-text-fill: white; -fx-background-radius: 5px;" text="Confirmer" />
+        <Button layoutX="435.0" layoutY="458.0" mnemonicParsing="false" onAction="#saveSponsorData" prefHeight="34.0" prefWidth="128.0" style="-fx-background-color: turquoise; -fx-font-size: 14px; -fx-text-fill: white; -fx-background-radius: 5px;" text="Confirmer" />
 
         <Label layoutX="258.0" layoutY="176.0" text="Description du sponsor*" textFill="#09026e" />
-        <Label layoutX="368.0" layoutY="50.0" styleClass="navTitle" text="Modifier Sponsor" textFill="#09026e">
+        <Label layoutX="411.0" layoutY="49.0" styleClass="navTitle" text="Modifier Sponsor" textFill="#09026e">
             <font>
                 <Font name="Arial Rounded MT Bold" size="17.0" />
             </font>
@@ -57,7 +103,21 @@
         <HBox layoutX="218.0" layoutY="450.0" spacing="10">
             <ImageView fx:id="sponsorImage" fitHeight="1" fitWidth="1" />
         </HBox>
-        <Button fx:id="selectImageButton" layoutX="696.0" layoutY="360.0" mnemonicParsing="false" onAction="#selectSponsorImage" style="-fx-background-color: turquoise; -fx-font-size: 14px; -fx-text-fill: white; -fx-background-radius: 5px;" text="Sélectionner une image"  />
-        <ImageView fitHeight="200.0" fitWidth="200.0" layoutX="306.0" layoutY="51.0" />
+        <Button fx:id="selectImageButton" layoutX="599.0" layoutY="365.0" mnemonicParsing="false" onAction="#selectSponsorImage" prefHeight="34.0" prefWidth="214.0" style="-fx-background-color: turquoise; -fx-font-size: 14px; -fx-text-fill: white; -fx-background-radius: 5px;" text="Sélectionner une image" />
+      <ImageView fitHeight="123.0" fitWidth="128.0" layoutX="902.0" layoutY="28.0">
+         <image>
+            <Image url="@images/financement-participatif.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="22.0" fitWidth="18.0" layoutX="439.0" layoutY="464.0">
+         <image>
+            <Image url="@images/check-mark.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="31.0" fitWidth="28.0" layoutX="602.0" layoutY="367.0">
+         <image>
+            <Image url="@images/upload.png" />
+         </image>
+      </ImageView>
     </children>
 </AnchorPane>

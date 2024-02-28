@@ -27,19 +27,68 @@
                <Image url="@images/logo.png" />
             </image>
          </ImageView>
-            <Label styleClass="navTitle" text="Auti+Learn" textFill="#fffdfd">
+            <Label styleClass="navTitle" text="  Auti+Learn  " textFill="#fffdfd">
                 <font>
                     <Font size="18.0" />
                 </font>
             </Label>
-            <Button style="-fx-background-color: transparent; -fx-text-fill: white;" text="Accueil" />
-            <Button style="-fx-background-color: transparent; -fx-text-fill: white;" text="Utilisateurs" />
-            <Button style="-fx-background-color: transparent; -fx-text-fill: white;" text="Documents" />
-            <Button style="-fx-background-color: transparent; -fx-text-fill: white;" text="Événements" />
-            <Button style="-fx-background-color: transparent; -fx-text-fill: white;" text="Messagerie" />
-            <Button style="-fx-background-color: transparent; -fx-text-fill: white;" text="Réservations" />
-            <Button style="-fx-background-color: transparent; -fx-text-fill: white;" text="Profil" />
-            <Button onAction="#AjouterSponsors" style="-fx-background-color: transparent; -fx-text-fill: white;" text="Ajouter Sponsors" />
+            <Button fx:id="firstButton" prefHeight="34.0" prefWidth="101.0" style="-fx-background-color: transparent;" text="Users" textFill="#ece7e7">
+                <graphic>
+                    <ImageView fitHeight="24" fitWidth="24" pickOnBounds="true" preserveRatio="true" smooth="true">
+                        <Image url="@images/IconUsers.png" />
+                    </ImageView>
+                </graphic>
+            </Button>
+
+            <Button prefHeight="42.0" prefWidth="110.0" style="-fx-background-color: transparent;" text="Documents" textFill="WHITE">
+                <graphic>
+                    <ImageView fitHeight="24" fitWidth="24" pickOnBounds="true" preserveRatio="true" smooth="true">
+                        <Image url="@images/IconDoc.png" />
+                    </ImageView>
+                </graphic>
+            </Button>
+
+            <Button prefHeight="34.0" prefWidth="108.0" style="-fx-background-color: transparent;" text="Evaluations" textFill="WHITE">
+                <graphic>
+                    <ImageView fitHeight="24" fitWidth="24" pickOnBounds="true" preserveRatio="true" smooth="true">
+                        <Image url="@images/test.png" />
+                    </ImageView>
+                </graphic>
+            </Button>
+
+            <Button prefHeight="34.0" prefWidth="115.0" style="-fx-background-color: transparent;" text="Événements" textFill="WHITE">
+                <graphic>
+                    <ImageView fitHeight="24" fitWidth="24" pickOnBounds="true" preserveRatio="true" smooth="true">
+                        <Image url="@images/calendar-check.png" />
+                    </ImageView>
+                </graphic>
+            </Button>
+
+            <Button prefHeight="34.0" prefWidth="119.0" style="-fx-background-color: transparent;" text="Réclamation" textFill="WHITE">
+                <graphic>
+                    <ImageView fitHeight="24" fitWidth="24" pickOnBounds="true" preserveRatio="true" smooth="true">
+                        <Image url="@images/Iconrec.png" />
+                    </ImageView>
+                </graphic>
+            </Button>
+
+            <Button prefHeight="34.0" prefWidth="116.0" style="-fx-background-color: transparent;" text="Professeurs" textFill="WHITE">
+                <graphic>
+                    <ImageView fitHeight="24" fitWidth="24" pickOnBounds="true" preserveRatio="true" smooth="true">
+                        <Image url="@images/Glasses.png" />
+                    </ImageView>
+                </graphic>
+            </Button>
+            <Button onAction="#AjouterSponsors" style="-fx-background-color: transparent; -fx-text-fill: white;" text="Ajouter Sponsors">
+                <graphic>
+                    <ImageView fitHeight="24" fitWidth="24">
+                        <image>
+                            <Image url="@images/User Plus.png" />
+                        </image>
+                    </ImageView>
+                </graphic>
+            </Button>
+
 
 
 

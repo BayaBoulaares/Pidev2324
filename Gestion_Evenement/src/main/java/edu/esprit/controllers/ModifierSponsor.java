@@ -104,13 +104,13 @@ public class ModifierSponsor {
 
             // Check for empty fields
             if (newName == null || newName.isEmpty() || newFond == null || selectedEventName == null) {
-                afficherAlerte("Please fill in all required fields.");
+                afficherAlerte("Remplir tout les champs.");
                 return;
             }
 
             // Check name and description length
             if (newName.length() < 3 || newDescription.length() < 3) {
-                afficherAlerte("Sponsor name and description must be at least 3 characters long!");
+                afficherAlerte("nom doit avoir 3 caractére minimum!");
                 return;
             }
 
@@ -126,7 +126,7 @@ public class ModifierSponsor {
             }
 
             if (selectedEvent == null) {
-                afficherAlerte("The selected event could not be found.");
+                afficherAlerte("lelement n'est pas trouvé.");
                 return;
             }
 
@@ -138,7 +138,7 @@ public class ModifierSponsor {
 
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Success");
-            alert.setContentText("Sponsor updated successfully!");
+            alert.setContentText("Sponsor Modifié!");
             alert.showAndWait();
         } catch (SQLException e) {
             afficherAlerte("Error updating sponsor: " + e.getMessage());

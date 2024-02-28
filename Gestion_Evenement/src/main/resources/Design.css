@@ -78,6 +78,9 @@
     -fx-border-color: #ffffff;
     -fx-text-fill: #ffffff;
 }
+.date-picker .text-field .prompt-text {
+    -fx-text-fill: turquoise;
+}
 
 .eventBox {
     -fx-background-color: #ffffff;
