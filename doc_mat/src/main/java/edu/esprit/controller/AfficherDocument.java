@@ -1,10 +1,14 @@
 package edu.esprit.controller;
+import edu.esprit.APIapploadfichier.*;
+import edu.esprit.services.SeviceMatiere;
+import javafx.scene.Scene;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.CategoryAxis;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import com.google.api.services.drive.Drive;
-import edu.esprit.APIapploadfichier.PDFViewer;
-import edu.esprit.APIapploadfichier.UploadBasic;
-import edu.esprit.APIapploadfichier.VideoPlayer;
 import edu.esprit.entities.Document;
 import edu.esprit.entities.Matiere;
 import edu.esprit.entities.Niveau;
@@ -21,6 +25,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import org.apache.pdfbox.pdmodel.PDDocument;
 
 import javax.swing.*;
@@ -33,6 +38,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.List;
+
 import javafx.scene.control.ListView;
 
 public class AfficherDocument {
@@ -69,10 +76,12 @@ public class AfficherDocument {
             private Button deleteButton = new Button("Supprimer");
             private Button afficheButton = new Button("Afficher");
 
+
             {
                 editButton.setOnAction(event -> onEditButtonClicked(getItem()));
                 deleteButton.setOnAction(event -> onDeleteButtonClicked(getItem()));
                 afficheButton.setOnAction(event -> onAfficheClicked(getItem()));
+
 
                 editButton.setStyle("-fx-background-color: transparent; -fx-text-fill:#a3aed0;-fx-font-weight: bold ");
                 deleteButton.setStyle("-fx-background-color:transparent; -fx-text-fill: #a3aed0;-fx-font-weight: bold ");
@@ -81,6 +90,7 @@ public class AfficherDocument {
                 editButton.setMaxWidth(200);
                 deleteButton.setMaxWidth(200);
                 afficheButton.setMaxWidth(200);
+
             }
 
             @Override
@@ -238,6 +248,31 @@ public class AfficherDocument {
         }
     }
 
+    private void showStatistics(List<Statistique> statistiques) {
+        Stage stage = new Stage();
+        stage.setTitle("Statistiques");
+
+        CategoryAxis xAxis = new CategoryAxis();
+        NumberAxis yAxis = new NumberAxis();
+
+
+        BarChart<String, Number> barChart = new BarChart<>(xAxis, yAxis);
+        barChart.setTitle("Statistiques des documents par annee");
+
+        XYChart.Series<String, Number> series = new XYChart.Series<>();
+        for (Statistique statistique : statistiques) {
+            String matiere = statistique.getTitre();
+            int  date = statistique.getNembre();
+       // Convert date to milliseconds
+            series.getData().add(new XYChart.Data<>(matiere, date));
+        }
+
+        barChart.getData().add(series);
+
+        Scene scene = new Scene(barChart, 800, 600);
+        stage.setScene(scene);
+        stage.show();
+    }
     public void retourMatiere(ActionEvent actionEvent) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherMatiere.fxml"));
@@ -307,14 +342,28 @@ public class AfficherDocument {
             e.printStackTrace();
         }
     }
-
+    @FXML
     public void retourAjouterDoc(ActionEvent actionEvent) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/AjouterDocument.fxml"));
             Parent root = loader.load();
-            idaj.getScene().setRoot(root);
+            AjouterDocument ajouterdoc= loader.getController();
+            SeviceMatiere serviceMatiere=new SeviceMatiere();
+            Matiere me=serviceMatiere.getOne(matiere.getId());
+            if( me!=null)
+
+            { ajouterdoc.setMatToAdd(me);}
+                    idaj.getScene().setRoot(root);
         } catch (IOException e) {
             e.printStackTrace();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
+    }
+@FXML
+    public void onShowStatitique(ActionEvent actionEvent) {
+    StatistiquesAPI api = new StatistiquesAPI();
+    List<Statistique> statistiques = api.getStatistiquesAnnee(matiere);
+    showStatistics(statistiques);
     }
 }

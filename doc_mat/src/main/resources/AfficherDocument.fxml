@@ -72,19 +72,19 @@
          </font>
       </Label>
       <AnchorPane layoutX="187.0" layoutY="89.0" />
-      <Button fx:id="idretour" layoutX="768.0" layoutY="550.0" mnemonicParsing="false" onAction="#retourMatiere" prefHeight="26.0" prefWidth="50.0" style="-fx-background-color: #27DEC1; -fx-background-radius: 5;" text="Retour" textFill="WHITE">
+      <Button fx:id="idretour" layoutX="768.0" layoutY="550.0" mnemonicParsing="false" onAction="#retourMatiere" prefHeight="26.0" prefWidth="50.0" stylesheets="@style.css" text="Retour" textFill="WHITE">
          <font>
             <Font name="System Bold" size="8.0" />
          </font>
       </Button>
-      <Line endX="497.199951171875" endY="1.52587890625E-5" layoutX="330.0" layoutY="116.0" startX="-147.99998474121094" startY="1.52587890625E-5" stroke="#a3aed0" />
-      <Button fx:id="idaj" layoutX="202.0" layoutY="89.0" mnemonicParsing="false" onAction="#retourAjouterDoc" prefHeight="26.0" prefWidth="80.0" style="-fx-background-color: transparent;" text="Ajouter" textFill="#a3aed0" />
-      <Button layoutX="484.0" layoutY="89.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="80.0" style="-fx-background-color: transparent;" text="Consulter" textFill="#27dec1" />
-      <Button layoutX="728.0" layoutY="89.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="80.0" style="-fx-background-color: transparent;" text="Statistique" textFill="#a3aed0" />
-      <Line endX="17.39996337890625" endY="1.52587890625E-5" layoutX="570.0" layoutY="115.0" startX="-100.0" stroke="#27dec1" />
+      <Line endX="443.5999755859375" endY="1.52587890625E-5" layoutX="330.0" layoutY="116.0" startX="-147.99998474121094" startY="1.52587890625E-5" stroke="#a3aed0" />
+      <Button fx:id="idaj" layoutX="270.0" layoutY="89.0" mnemonicParsing="false" onAction="#retourAjouterDoc" prefHeight="26.0" prefWidth="80.0" style="-fx-background-color: transparent;" text="Ajouter" textFill="#a3aed0" />
+      <Button layoutX="588.0" layoutY="89.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="80.0" style="-fx-background-color: transparent;" text="Consulter" textFill="#27dec1" />
+      <Line endX="17.39996337890625" endY="1.52587890625E-5" layoutX="681.0" layoutY="115.0" startX="-100.0" stroke="#27dec1" />
       <ComboBox fx:id="idl" layoutX="459.0" layoutY="131.0" prefHeight="26.0" prefWidth="130.0" style="-fx-background-radius: 5; -fx-border-radius: 5; -fx-background-color: transparent; -fx-border-color: #a3aed0;" />
-      <Button layoutX="393.0" layoutY="132.0" mnemonicParsing="false" onAction="#trier" style="-fx-border-radius: 5; -fx-background-radius: 5; -fx-background-color: #27DEC1;" text="trier" textFill="WHITE" />
+      <Button layoutX="393.0" layoutY="132.0" mnemonicParsing="false" onAction="#trier" stylesheets="@style.css" text="trier" textFill="WHITE" />
       <DatePicker fx:id="datePicker" layoutX="194.0" layoutY="132.0" onAction="#rechercheDate" style="-fx-background-color: transparent; -fx-background-color: #a3aed0; -fx-background-radius: 5; -fx-border-radius: 5;" />
       <ListView fx:id="idListView" layoutX="184.0" layoutY="185.0" prefHeight="330.0" prefWidth="638.0" style="-fx-background-color: transparent;" />
+      <Button layoutX="642.0" layoutY="132.0" mnemonicParsing="false" onAction="#onShowStatitique" prefHeight="30.0" prefWidth="98.0" stylesheets="@style.css" text="statistique" textFill="#fafefc" />
    </children>
 </AnchorPane>

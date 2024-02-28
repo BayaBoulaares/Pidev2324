@@ -1,17 +1,32 @@
 package edu.esprit.controller;
 
+import edu.esprit.APIapploadfichier.Statistique;
+import edu.esprit.APIapploadfichier.StatistiquesAPI;
 import edu.esprit.entities.Matiere;
 import edu.esprit.services.ServiceDocument;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.CategoryAxis;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
 import java.io.IOException;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import java.util.List;
+
+import javafx.stage.Stage;
+import org.json.JSONArray;
 
 public class DetailMatiere {
     @FXML
@@ -26,6 +41,8 @@ public class DetailMatiere {
     private TextField idnom;
     @FXML
     private TextField idnembre;
+    @FXML
+    private Button idstate;
 
     @FXML
     private Button idret;
@@ -64,4 +81,5 @@ public class DetailMatiere {
         }
 
     }
+
 }

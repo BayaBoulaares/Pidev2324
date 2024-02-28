@@ -1,5 +1,7 @@
 package edu.esprit.controller;
 
+import edu.esprit.APIapploadfichier.Statistique;
+import edu.esprit.APIapploadfichier.StatistiquesAPI;
 import javafx.animation.PauseTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -8,6 +10,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.CategoryAxis;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -39,6 +46,8 @@ public class AffichageMatiereController {
 
     @FXML
     private TextField idrecherche;
+    @FXML
+    private Button idstate;
     private ObservableList<Matiere> filteredMatieres = FXCollections.observableArrayList();
 
 
@@ -99,6 +108,7 @@ public class AffichageMatiereController {
                         "-fx-padding: 3px; " +
                         "-fx-border-radius: 5px; " +
                         "-fx-text-fill: #2b3674;" +
+                        "-fx-border-color:#2b3674;" +
                         "-fx-background-radius: 5px;"
         );
 
@@ -129,7 +139,8 @@ public class AffichageMatiereController {
 
         // Ajouter le label et les boutons dans le VBox
         vBox.getChildren().addAll(label, deleteButton, editButton, ajouterDocumentButton, afficherDocumentButton, detailmatierebutton);
-
+        vBox.setPrefWidth(180); // Replace 200 with your desired width
+        vBox.setPrefHeight(180); // Replace 200 with your desired height
         return vBox;
     }
     public void handleDeleteButtonClick(Matiere matiere) {
@@ -181,11 +192,10 @@ public class AffichageMatiereController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/AjouterDocument.fxml"));
             Parent root = loader.load();
 
-            // Accéder au contrôleur du formulaire de modification
             AjouterDocument ajouterdoc= loader.getController();
             Matiere me=serviceMatiere.test(matiere);
             if( me!=null)
-            // Appeler la méthode pour passer la matière à modifier
+
             { ajouterdoc.setMatToAdd(me);}
 
             // Changer la scène pour afficher le formulaire de modification
@@ -214,7 +224,7 @@ public void handleAfficherDocumentButtonClick( Matiere matiere){
     { throw new RuntimeException(e);}
 
 }
-
+@FXML
     public void ajouterMatiere(ActionEvent actionEvent) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/AjouterMatiere.fxml"));
@@ -306,6 +316,35 @@ public void handleAfficherDocumentButtonClick( Matiere matiere){
                 System.out.println(e.getMessage());
             }
         }
+    }
+    @FXML
+    public void showState(ActionEvent actionEvent) {
+        StatistiquesAPI api = new StatistiquesAPI();
+        List<Statistique> statistiques = api.getStatistiques();
+        showStatistics(statistiques);
+    }
+    private void showStatistics(List<Statistique> statistiques) {
+        Stage stage = new Stage();
+        stage.setTitle("Statistiques");
+
+        CategoryAxis xAxis = new CategoryAxis();
+        NumberAxis yAxis = new NumberAxis();
+
+        BarChart<String, Number> barChart = new BarChart<>(xAxis, yAxis);
+        barChart.setTitle("Statistiques des documents par matière");
+
+        XYChart.Series<String, Number> series = new XYChart.Series<>();
+        for (Statistique statistique : statistiques) {
+            String matiere = statistique.getTitre();
+            int nombreDocuments = statistique.getNembre();
+            series.getData().add(new XYChart.Data<>(matiere, nombreDocuments));
+        }
+
+        barChart.getData().add(series);
+
+        Scene scene = new Scene(barChart, 800, 600);
+        stage.setScene(scene);
+        stage.show();
     }
 
 }

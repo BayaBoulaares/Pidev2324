@@ -83,12 +83,11 @@
          </font>
       </Label>
       <TextArea fx:id="iddesc" layoutX="180.0" layoutY="333.0" prefHeight="114.0" prefWidth="313.0" promptText="Description" />
-      <Line endX="487.5999755859375" endY="1.52587890625E-5" layoutX="330.0" layoutY="110.0" startX="-147.99998474121094" startY="1.52587890625E-5" stroke="#a3aed0" />
-      <Button layoutX="202.0" layoutY="83.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="80.0" style="-fx-background-color: transparent;" text="Ajouter" textFill="#27dec1" />
-      <Button fx:id="idc" layoutX="441.0" layoutY="83.0" mnemonicParsing="false" onAction="#consulterMatiere" prefHeight="26.0" prefWidth="80.0" style="-fx-background-color: transparent;" text="Consulter" textFill="#a3aed0" />
-      <Button layoutX="717.0" layoutY="83.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="80.0" style="-fx-background-color: transparent;" text="Statistique" textFill="#a3aed0" />
-      <Line endX="17.39996337890625" endY="1.52587890625E-5" layoutX="281.0" layoutY="110.0" startX="-100.0" stroke="#27dec1" />
-      <Button fx:id="idcon" layoutX="627.0" layoutY="504.0" mnemonicParsing="false" onAction="#ajouterMatiere" prefHeight="30.0" prefWidth="67.0" style="-fx-background-color: #27DEC1; -fx-background-radius: 5;" text="confirmet" textFill="WHITE" />
+      <Line endX="443.5999755859375" endY="1.52587890625E-5" layoutX="330.0" layoutY="110.0" startX="-106.80001831054688" startY="1.52587890625E-5" stroke="#a3aed0" />
+      <Button layoutX="270.0" layoutY="83.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="80.0" style="-fx-background-color: transparent;" text="Ajouter" textFill="#27dec1" />
+      <Button fx:id="idc" layoutX="635.0" layoutY="83.0" mnemonicParsing="false" onAction="#consulterMatiere" prefHeight="26.0" prefWidth="80.0" style="-fx-background-color: transparent;" text="Consulter" textFill="#a3aed0" />
+      <Line endX="17.39996337890625" endY="1.52587890625E-5" layoutX="356.0" layoutY="110.0" startX="-100.0" stroke="#27dec1" />
+      <Button fx:id="idcon" layoutX="627.0" layoutY="504.0" mnemonicParsing="false" onAction="#ajouterMatiere" prefHeight="30.0" prefWidth="67.0" stylesheets="@style.css" text="confirmet" textFill="WHITE" />
       <Button fx:id="idret" layoutX="723.0" layoutY="504.0" mnemonicParsing="false" onAction="#RetourAffichage" prefHeight="30.0" prefWidth="67.0" style="-fx-background-color: transparent; -fx-background-radius: 5; -fx-border-color: #27DEC1; -fx-border-radius: 5;" text="Retour" textFill="#27dec1" />
       <ComboBox fx:id="idcat" layoutX="558.0" layoutY="201.0" prefHeight="27.0" prefWidth="260.0" style="-fx-background-radius: 10; -fx-background-color: transparent; -fx-border-radius: 10; -fx-border-color: a3aed0;" />
       <Label layoutX="558.0" layoutY="314.0" text="Annee*" textFill="#2b3674">

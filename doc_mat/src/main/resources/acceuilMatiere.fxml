@@ -21,42 +21,42 @@
          </font>
       </Label>
       <AnchorPane layoutX="177.0" layoutY="79.0" />
-      <Button fx:id="ide" layoutX="771.0" layoutY="559.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="58.0" style="-fx-background-color: #27DEC1; -fx-background-radius: 5;" text="Retour" textFill="WHITE">
+      <Button fx:id="ide" layoutX="771.0" layoutY="559.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="58.0" stylesheets="@style.css" text="Retour" textFill="WHITE">
          <font>
             <Font size="8.0" />
          </font>
       </Button>
-      <Button fx:id="id1" layoutX="252.0" layoutY="108.0" mnemonicParsing="false" onAction="#affiche1" prefHeight="46.0" prefWidth="493.0" style="-fx-background-radius: 5; -fx-border-radius: 5; -fx-background-color: #27DEC1;" text="1 ere annee" textFill="#2b3674">
+      <Button fx:id="id1" layoutX="252.0" layoutY="108.0" mnemonicParsing="false" onAction="#affiche1" prefHeight="46.0" prefWidth="493.0" stylesheets="@style.css" text="1 ere annee" textFill="#2b3674">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Button>
-      <Button fx:id="id2" layoutX="252.0" layoutY="170.0" mnemonicParsing="false" onAction="#afficher2" prefHeight="46.0" prefWidth="493.0" style="-fx-background-radius: 5; -fx-border-radius: 5; -fx-background-color: #27DEC1;" text="2 eme annee" textFill="#2b3674">
+      <Button fx:id="id2" layoutX="252.0" layoutY="170.0" mnemonicParsing="false" onAction="#afficher2" prefHeight="46.0" prefWidth="493.0" stylesheets="@style.css" text="2 eme annee" textFill="#2b3674">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Button>
-      <Button fx:id="id3" layoutX="252.0" layoutY="235.0" mnemonicParsing="false" onAction="#afficher3" prefHeight="46.0" prefWidth="493.0" style="-fx-background-radius: 5; -fx-border-radius: 5; -fx-background-color: #27DEC1;" text="3 eme annee" textFill="#2b3674">
+      <Button fx:id="id3" layoutX="252.0" layoutY="235.0" mnemonicParsing="false" onAction="#afficher3" prefHeight="46.0" prefWidth="493.0" stylesheets="@style.css" text="3 eme annee" textFill="#2b3674">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Button>
-      <Button fx:id="id4" layoutX="252.0" layoutY="305.0" mnemonicParsing="false" onAction="#afficher4" prefHeight="46.0" prefWidth="493.0" style="-fx-background-radius: 5; -fx-border-radius: 5; -fx-background-color: #27DEC1;" text="4 eme annee" textFill="#2b3674">
+      <Button fx:id="id4" layoutX="252.0" layoutY="305.0" mnemonicParsing="false" onAction="#afficher4" prefHeight="46.0" prefWidth="493.0" stylesheets="@style.css" text="4 eme annee" textFill="#2b3674">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Button>
-      <Button fx:id="id5" layoutX="252.0" layoutY="366.0" mnemonicParsing="false" onAction="#afficher5" prefHeight="46.0" prefWidth="493.0" style="-fx-background-radius: 5; -fx-border-radius: 5; -fx-background-color: #27DEC1;" text="5 eme annee" textFill="#2b3674">
+      <Button fx:id="id5" layoutX="252.0" layoutY="366.0" mnemonicParsing="false" onAction="#afficher5" prefHeight="46.0" prefWidth="493.0" stylesheets="@style.css" text="5 eme annee" textFill="#2b3674">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Button>
-      <Button fx:id="id6" layoutX="252.0" layoutY="435.0" mnemonicParsing="false" onAction="#afficher6" prefHeight="46.0" prefWidth="493.0" style="-fx-background-radius: 5; -fx-border-radius: 5; -fx-background-color: #27DEC1;" text="6 eme annee" textFill="#2b3674">
+      <Button fx:id="id6" layoutX="252.0" layoutY="435.0" mnemonicParsing="false" onAction="#afficher6" prefHeight="46.0" prefWidth="493.0" stylesheets="@style.css" text="6 eme annee" textFill="#2b3674">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Button>
-      <VBox layoutX="-46.0" prefHeight="610.0" prefWidth="184.0" style="-fx-background-color: #27DEC1; -fx-background-radius: 5;">
+      <VBox layoutX="-46.0" prefHeight="610.0" prefWidth="184.0" style="-fx-background-color: #27DEC1;; -fx-background-radius: 5;">
          <children>
             <ImageView fitHeight="147.0" fitWidth="143.0" style="-fx-translate-x: 45; -fx-translate-y: 10;">
                <image>

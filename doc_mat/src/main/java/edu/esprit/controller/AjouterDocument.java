@@ -90,11 +90,24 @@ public class AjouterDocument  implements Initializable {
     }
 
     @FXML
-    void RetourMatiere(javafx.event.ActionEvent event) {
+    void RetourMatiere(javafx.event.ActionEvent event) {//retour afficher document
         try {
-            FXMLLoader loader = new FXMLLoader(this.getClass().getResource("/AfficherMatiere.fxml"));
-            Parent root = (Parent) loader.load();
-            this.idtt.getScene().setRoot(root);
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherDocument.fxml"));
+            Parent root = loader.load();
+
+            System.out.println("aabbb/n " +mt);
+            // Accéder au contrôleur du formulaire d'affichage de documents
+            AfficherDocument affichedoc = loader.getController();
+
+            // Passer la matière au contrôleur
+            if (mt != null) {
+
+                affichedoc.setMatToShow(mt);
+            }
+
+            // Changer la scène pour afficher les documents de la matière sélectionnée
+            idtt.getScene().setRoot(root);
+
         } catch (IOException e) {
             e.printStackTrace();
             showAlert(Alert.AlertType.ERROR, "Erreur de chargement", "Impossible de charger la page d'affichage");
@@ -321,7 +334,7 @@ public class AjouterDocument  implements Initializable {
 
         alert.showAndWait();
     }
-
+    @FXML
     public void condulterDocument(ActionEvent actionEvent) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherDocument.fxml"));

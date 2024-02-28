@@ -11,12 +11,12 @@ import java.util.ArrayList;
 
 public class ServiceDocument implements IService<Document> {
 
-    private boolean docExists(String url, String titre) throws SQLException {
+    private boolean docExists( String titre,Matiere mat) throws SQLException {
         Connection cnx = DataSource.getInstance().getCnx();
-        String req = "SELECT * FROM document WHERE titre=? AND  url=?";
+        String req = "SELECT * FROM document WHERE titre=? AND id_mat=?";
         PreparedStatement pstmt = cnx.prepareStatement(req);
         pstmt.setString(1, titre);
-        pstmt.setString(2, url);
+        pstmt.setInt(2, mat.getId());
         ResultSet rs = pstmt.executeQuery();
 
         // Si une ligne est renvoyée, la matière existe déjà
@@ -26,7 +26,7 @@ public class ServiceDocument implements IService<Document> {
     public void ajouter(Document v) throws SQLException , ExistanteException  {
         Connection cnx = DataSource.getInstance().getCnx();
 
-        if (!docExists(v.getUrl(), v.getTitre())) {
+        if (!docExists(v.getTitre(),v.getMat())) {
             String req = "INSERT INTO document(titre,type,url,niveau,date,id_mat) VALUES (?, ?,?,?,?,?)";
             PreparedStatement pstmt = cnx.prepareStatement(req);
             pstmt.setString(1, v.getTitre());
@@ -287,4 +287,26 @@ public class ServiceDocument implements IService<Document> {
 
          return documents;
      }
+    public int getDocumentCountPerAnnee(java.sql.Date date,Matiere mat)  {
+        Connection cnx = DataSource.getInstance().getCnx();
+        int uniqueDateeCount = 0;
+        try {
+
+
+            String req = "SELECT COUNT(*) as doc_count FROM document WHERE date=? AND id_mat=?";
+            try (PreparedStatement pstmt = cnx.prepareStatement(req)) {
+                pstmt.setDate(1, date);
+                pstmt.setInt(2, mat.getId());
+                ResultSet rs = pstmt.executeQuery();
+
+                if (rs.next()) {
+                    uniqueDateeCount = rs.getInt("doc_count");
+                }
+            }  } catch (SQLException e)
+        {
+            System.out.println(e.getMessage());
+        }
+
+        return  uniqueDateeCount;
+    }
 }

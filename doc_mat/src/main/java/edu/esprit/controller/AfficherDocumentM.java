@@ -26,10 +26,7 @@ import org.apache.pdfbox.pdmodel.PDDocument;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.sql.SQLException;
@@ -96,17 +93,24 @@ public class AfficherDocumentM {
 
 // Load the appropriate image based on the document type
         ImageView imageView;
+        Button afficherButton=null;
         if (doc.getType() == Type.PDF) {
             imageView = new ImageView(new Image("file:C:\\Users\\benmr\\IdeaProjects\\test3\\src\\main\\resources\\image\\document.png"));
+             afficherButton = new Button("telecharger");
+            openButton.setOnAction(event -> telechargerDocument(doc));
+            openButton.setStyle("-fx-background-color:  #2b3674; -fx-text-fill:  #FAFEFC; -fx-padding: 10px 20px;");
+
         } else {
             imageView = new ImageView(new Image("file:C:\\Users\\benmr\\IdeaProjects\\test3\\src\\main\\resources\\image\\video.png"));
         }
         imageView.setFitHeight(20); // Adjust the size of the image
         imageView.setFitWidth(20);
-        HBox hBox = new HBox(imageView,titleLabel); // Combinaison de l'icône avec le titre
+        HBox hBox = new HBox(imageView,titleLabel ); // Combinaison de l'icône avec le titre
         hBox.setSpacing(10);
-
         vBox.getChildren().addAll( hBox,dateLabel, openButton);
+        if (afficherButton != null) {
+            vBox.getChildren().add(afficherButton);
+        }
 
         return vBox;
     }
@@ -236,6 +240,34 @@ public class AfficherDocumentM {
             e.printStackTrace();
         }
     }
+    private void telechargerDocument(Document document) {
+        try {
+            // Extraire l'ID du fichier à partir de l'URL
+            String url = document.getUrl();
+            String fileId;
+            if (url.contains("/view")) {
+                fileId = url.substring(url.indexOf("/d/") + 3, url.indexOf("/view"));
+            } else {
+                fileId = url.substring(url.indexOf("/d/") + 3);
+            }
+
+            // Extraire l'extension du fichier à partir de l'URL
+            String extension = url.substring(url.lastIndexOf(".") + 1);
+            // Télécharger le fichier à partir de Google Drive
+            Drive service = UploadBasic.getDriveService();
+
+            // Définissez le chemin où vous voulez sauvegarder le fichier
+            File outputFile = new File("C:\\Users\\benmr\\Downloads" + document.getTitre() + "." + extension);
+            OutputStream outputStream = new FileOutputStream(outputFile);
+
+            service.files().get(fileId).executeMediaAndDownloadTo(outputStream);
+
+            System.out.println("Téléchargement terminé!");
+        } catch (IOException e) {
+            System.out.println("Erreur lors du téléchargement du document: " + e.getMessage());
+        }
+
+        }
     private List<String> extractQuestions(PDDocument document) throws IOException {
         PDFTextStripper textStripper = new PDFTextStripper();
         String text = textStripper.getText(document);

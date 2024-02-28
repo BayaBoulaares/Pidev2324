@@ -76,12 +76,11 @@
          </font>
       </Label>
       <TextField fx:id="idtt" layoutX="182.0" layoutY="152.0" prefHeight="18.0" prefWidth="199.0" promptText="Titre" style="-fx-background-radius: 10;" />
-      <Line endX="494.0" endY="1.52587890625E-5" layoutX="330.0" layoutY="110.0" startX="-147.99998474121094" startY="1.52587890625E-5" stroke="#a3aed0" />
-      <Button layoutX="202.0" layoutY="83.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="80.0" style="-fx-background-color: transparent;" text="Ajouter" textFill="#27dec1" />
-      <Button fx:id="idc" layoutX="463.0" layoutY="83.0" mnemonicParsing="false" onAction="#condulterDocument" prefHeight="26.0" prefWidth="80.0" style="-fx-background-color: transparent;" text="Consulter" textFill="#a3aed0" />
-      <Button layoutX="739.0" layoutY="83.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="80.0" style="-fx-background-color: transparent;" text="Statistique" textFill="#a3aed0" />
-      <Line endX="17.39996337890625" endY="1.52587890625E-5" layoutX="281.0" layoutY="110.0" startX="-100.0" stroke="#27dec1" />
-      <Button fx:id="idconf" layoutX="598.0" layoutY="538.0" mnemonicParsing="false" onAction="#ajouterDocument" prefHeight="30.0" prefWidth="80.0" style="-fx-background-color: #27DEC1; -fx-background-radius: 5;" text="confirmer" textFill="WHITE" />
+      <Line endX="290.0" endY="1.52587890625E-5" layoutX="431.0" layoutY="110.0" startX="-225.39999389648438" startY="1.52587890625E-5" stroke="#a3aed0" />
+      <Button layoutX="244.0" layoutY="83.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="80.0" style="-fx-background-color: transparent;" text="Ajouter" textFill="#27dec1" />
+      <Button fx:id="idc" layoutX="576.0" layoutY="83.0" mnemonicParsing="false" onAction="#condulterDocument" prefHeight="26.0" prefWidth="80.0" style="-fx-background-color: transparent;" text="Consulter" textFill="#a3aed0" />
+      <Line endX="17.39996337890625" endY="1.52587890625E-5" layoutX="325.0" layoutY="110.0" startX="-100.0" stroke="#27dec1" />
+      <Button fx:id="idconf" layoutX="598.0" layoutY="538.0" mnemonicParsing="false" onAction="#ajouterDocument" prefHeight="30.0" prefWidth="80.0" stylesheets="@style.css" text="confirmer" textFill="WHITE" />
       <Button layoutX="712.0" layoutY="540.0" mnemonicParsing="false" onAction="#RetourMatiere" prefHeight="14.0" prefWidth="53.0" style="-fx-background-color: transparent; -fx-background-radius: 5; -fx-border-color: #27DEC1; -fx-border-radius: 5;" text="Retour" textFill="#27dec1" />
       <ComboBox fx:id="idtype" layoutX="184.0" layoutY="241.0" opacity="0.47" prefHeight="26.0" prefWidth="199.0" style="-fx-background-radius: 10; -fx-background-color: transparent; -fx-border-color: a3aed0; -fx-border-radius: 10;" />
       <Label layoutX="169.0" layoutY="212.0" text="Type *" textFill="#2b3674">
@@ -100,7 +99,7 @@
          </font>
       </Label>
       <ComboBox fx:id="idniveau" layoutX="182.0" layoutY="437.0" prefHeight="26.0" prefWidth="199.0" style="-fx-background-radius: 10; -fx-background-color: transparent; -fx-border-color: a3aed0; -fx-border-radius: 10;" />
-      <Button fx:id="idurl" layoutX="395.0" layoutY="327.0" mnemonicParsing="false" onAction="#choisirFichier" prefHeight="19.0" prefWidth="68.0" style="-fx-border-radius: 10; -fx-background-radius: 10; -fx-background-color: #27DEC1;" text="Url" textFill="#a3aed0" />
+      <Button fx:id="idurl" layoutX="395.0" layoutY="327.0" mnemonicParsing="false" onAction="#choisirFichier" prefHeight="19.0" prefWidth="68.0" stylesheets="@style.css" text="Url" textFill="#a3aed0" />
       <TextField fx:id="idurt" editable="false" layoutX="184.0" layoutY="327.0" prefHeight="18.0" prefWidth="199.0" promptText="Url" style="-fx-background-radius: 10;" />
    </children>
 </AnchorPane>

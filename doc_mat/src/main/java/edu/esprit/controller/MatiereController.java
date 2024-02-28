@@ -85,33 +85,41 @@ public class MatiereController {
     @FXML
     private String validateInput() {
         String nom = idnom.getText();
+        CAT categorie = idcat.getValue();
         String desc = iddesc.getText();
-        String anne=idannee.getValue();
-        CAT categorie=idcat.getValue();
+        String anne = idannee.getValue();
+
         StringBuilder validationError = new StringBuilder();
-        if(nom.matches("[a-zA-Z]+"))   validationError.append("Le nom ne doit pas des nembres .\n");
 
-        else {
-            if(nom.isEmpty()||nom.length() >= 3)
-        {
-            validationError.append("Le nom doit avoir au moins 3 caractères.\n");
-        }}
-        // Check if nom is "mathematique", "science", or "physique" and categorie is not SCIENTIFIQUE
-        if ((nom.equalsIgnoreCase("mathematique") || nom.equalsIgnoreCase("science") || nom.equalsIgnoreCase("physique")) && categorie != CAT.SCIENTIFIQUE) {
-            validationError.append("Le nom ne fait pas party de cette categorie .\n");
+        if (nom.isEmpty() || nom.length() < 3 || !nom.matches("[a-zA-Z]+")) {
+            validationError.append("Le nom doit avoir au moins 3 caractères et ne doit pas contenir de chiffres.\n");
         }
 
-        // Check if nom is "francais", "anglais", or "arabe" and categorie is not LANGUE
-        if ((nom.equalsIgnoreCase("francais") || nom.equalsIgnoreCase("anglais") || nom.equalsIgnoreCase("arabe")) && categorie != CAT.LANGUE) {
-            validationError.append("Le nom ne fait pas party de cette categorie .\n");
+        if (categorie == null) {
+            validationError.append("Veuillez sélectionner une catégorie.\n");
         }
-        if(desc.isEmpty()|| desc.length() >= 5 )
-        { validationError.append("La description doit contenir aux moins 5 carracteres .\n");}
-        if(anne.isEmpty()||categorie ==null )
-        { validationError.append("Remplir la case manquante .\n");}
+
+        if (desc.isEmpty() || desc.length() < 5) {
+            validationError.append("La description doit contenir aux moins 5 caractères.\n");
+        }
+
+        if (anne == null || anne.isEmpty()) {
+            validationError.append("Veuillez spécifier une année.\n");
+        }
+        // Additional validation for category based on the name prefix
+        if (nom.equals("mathematique") || nom.equals("physique") || nom.equals("science")) {
+            if (categorie != CAT.SCIENTIFIQUE) {
+                validationError.append("Le nom de la matière indique une catégorie scientifique, veuillez sélectionner 'Scientifique' comme catégorie.\n");
+            }
+        } else if (nom.equals("arabe") || nom.equals("francais") || nom.equals("anglais")) {
+            if (categorie != CAT.LANGUE) {
+                validationError.append("Le nom de la matière indique une catégorie langue, veuillez sélectionner 'Langue' comme catégorie.\n");
+            }
+        }
+
         return validationError.toString().trim(); // No leading/trailing whitespaces
-
     }
+
     @FXML
     private void showAlert(Alert.AlertType alertType, String title, String content) {
         Alert alert = new Alert(alertType);

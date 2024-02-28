@@ -53,6 +53,7 @@ public class ModiffierDocument  implements Initializable {
         idtt.setText(doc.getTitre());
         idtype.setValue(doc.getType());
         idurt.setText(doc.getUrl());
+        fileUrl=doc.getUrl();
         idniveau.setValue(doc.getNiveau());
         id=doc.getId();
         mt=doc.getMat();
@@ -63,6 +64,7 @@ public class ModiffierDocument  implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         // Charger les options pour le ComboBox Niveau
         idniveau.getItems().addAll(Niveau.values());
+
 
         // Charger les options pour le ComboBox Type
         idtype.getItems().addAll(Type.values());

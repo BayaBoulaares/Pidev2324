@@ -48,12 +48,15 @@ public class ModifierMatiereController implements Initializable {
         id=matiere.getId();
         idannee.getItems().add(matiere.getAnnee());
         idcat.getItems().add(matiere.getCategorie());
+        idcat.setValue(matiere.getCategorie());
+        idannee.setValue(matiere.getAnnee());
         // Vous pouvez également stocker la matière dans une variable de classe pour une utilisation ultérieure lors de la modification
     }
 
     public void ModifierMatiere(ActionEvent actionEvent) {
+        String validationError = validateInput();
 
-        if (validateInput()) {
+        if (validationError.isEmpty()) {
             try {
 
 
@@ -71,24 +74,47 @@ public class ModifierMatiereController implements Initializable {
                 showAlert(Alert.AlertType.ERROR, "Erreur", e.getMessage());
             }
         } else {
-            showAlert(Alert.AlertType.ERROR, "Error", "Veuillez remplir tous les champs!");
+            showAlert(Alert.AlertType.ERROR, "Erreur de validation", validationError);
         }
     }
 
     @FXML
-    private boolean validateInput() {
+    private String validateInput() {
         String nom = idnom.getText();
+        CAT categorie = idcat.getValue();
         String desc = iddesc.getText();
-        String anne=idannee.getValue();
-        CAT categorie=idcat.getValue();
+        String anne = idannee.getValue();
 
-        // Check if nom contains only letters
-        boolean isNomValid = nom.matches("[a-zA-Z]+");
+        StringBuilder validationError = new StringBuilder();
 
-        return isNomValid && nom.length() >= 3 && desc.length() >= 5 && !nom.isEmpty() && !desc.isEmpty() &&  !anne.isEmpty() && categorie != null;
+        if (nom.isEmpty() || nom.length() < 3 || !nom.matches("[a-zA-Z]+")) {
+            validationError.append("Le nom doit avoir au moins 3 caractères et ne doit pas contenir de chiffres.\n");
+        }
 
+        if (categorie == null) {
+            validationError.append("Veuillez sélectionner une catégorie.\n");
+        }
+
+        if (desc.isEmpty() || desc.length() < 5) {
+            validationError.append("La description doit contenir aux moins 5 caractères.\n");
+        }
+
+        if (anne == null || anne.isEmpty()) {
+            validationError.append("Veuillez spécifier une année.\n");
+        }
+        // Additional validation for category based on the name prefix
+        if (nom.equals("mathematique") || nom.equals("physique") || nom.equals("science")) {
+            if (categorie != CAT.SCIENTIFIQUE) {
+                validationError.append("Le nom de la matière indique une catégorie scientifique, veuillez sélectionner 'Scientifique' comme catégorie.\n");
+            }
+        } else if (nom.equals("arabe") || nom.equals("francais") || nom.equals("anglais")) {
+            if (categorie != CAT.LANGUE) {
+                validationError.append("Le nom de la matière indique une catégorie langue, veuillez sélectionner 'Langue' comme catégorie.\n");
+            }
+        }
+
+        return validationError.toString().trim(); // No leading/trailing whitespaces
     }
-
     @FXML
     private void showAlert(Alert.AlertType alertType, String title, String content) {
         Alert alert = new Alert(alertType);
