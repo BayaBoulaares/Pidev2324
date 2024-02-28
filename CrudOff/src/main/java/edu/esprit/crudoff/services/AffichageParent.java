@@ -102,7 +102,7 @@ public class AffichageParent {
 
                 private final Button deletebutton = new Button("Supprimer");
 
-                {deletebutton.setStyle("-fx-background-color: #8F9BBA; -fx-background-radius: 3px; -fx-min-width: 15px; -fx-min-height: 15px;");
+                {deletebutton.setStyle("-fx-background-color: #2B3674; -fx-background-radius: 3px; -fx-min-width: 10px; -fx-min-height: 10px;");
 
                 deletebutton.setOnAction(event -> {
                     ObservableList<ParentE> selectedItems = table.getSelectionModel().getSelectedItems();
@@ -208,6 +208,10 @@ public class AffichageParent {
 
     }
 
-
-
+    @FXML
+    public void toaccueil(ActionEvent actionEvent) throws IOException{
+        FXMLLoader loader= new FXMLLoader(getClass().getResource("/fxml/DashobardAdmin.fxml"));
+        Parent root=loader.load();
+        dcxn.getScene().setRoot(root);
+    }
 }

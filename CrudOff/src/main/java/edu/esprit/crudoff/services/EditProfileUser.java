@@ -170,6 +170,7 @@ public class EditProfileUser {
 
 
     public void déconnxion(ActionEvent actionEvent) throws IOException {
+        CredentialsManager.clearCredentials();
         FXMLLoader loader= new FXMLLoader(getClass().getResource("/fxml/LetsGetStarted.fxml"));
         Parent root=loader.load();
         editnom.getScene().setRoot(root);
@@ -343,7 +344,17 @@ public class EditProfileUser {
         }
         return false; // En cas d'erreur ou de problème de connexion, retourner false par défaut
     }
+
+
+
+    @FXML
+    public void toaccueil(ActionEvent actionEvent)throws IOException {
+        FXMLLoader loader= new FXMLLoader(getClass().getResource("/fxml/DasboardUser.fxml"));
+        Parent root=loader.load();
+        editadresse.getScene().setRoot(root);
+
     }
+}
 
 
 

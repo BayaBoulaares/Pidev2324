@@ -16,9 +16,9 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.crudoff.services.EditProfileUser">
    <children>
-      <AnchorPane prefHeight="972.0" prefWidth="1728.0" styleClass="parent" stylesheets="@../css/StyleProfile.css">
+      <AnchorPane prefHeight="1098.0" prefWidth="1728.0" styleClass="parent" stylesheets="@../css/StyleProfile.css">
          <children>
-            <VBox prefHeight="972.0" prefWidth="235.0" styleClass="sidebar" stylesheets="@../css/StyleProfile.css">
+            <VBox prefHeight="1098.0" prefWidth="250.0" styleClass="sidebar" stylesheets="@../css/StyleProfile.css">
                <children>
                   <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" stylesheets="@../css/StyleProfile.css">
                      <VBox.margin>
@@ -32,6 +32,16 @@
                         </ImageView>
                         <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="442.0" prefWidth="235.0" spacing="10.0" styleClass="sidebar" translateY="20.0">
                            <children>
+                              <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="45.0" prefWidth="200.0">
+                                 <children>
+                                    <ImageView translateX="30.0" translateY="6.0">
+                                       <image>
+                                          <Image url="@../images/IconAccueil.png" />
+                                       </image>
+                                    </ImageView>
+                                    <Button fx:id="toaccueil" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#toaccueil" prefHeight="40.0" prefWidth="57.0" styleClass="bprof" text="Accueil" translateX="33.0" />
+                                 </children>
+                              </HBox>
                               <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="45.0" prefWidth="200.0">
                                  <children>
                                     <ImageView translateX="30.0" translateY="5.0">
@@ -82,33 +92,34 @@
                                     <Button fx:id="reclamation" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="36.0" prefWidth="91.0" styleClass="brec" text="Réclamation" translateX="30.0" />
                                  </children>
                               </HBox>
-                              <Button fx:id="modifierprofile" mnemonicParsing="false" prefHeight="33.0" prefWidth="136.0" styleClass="bmodifier" text="Modifier  compte" translateX="-1.0" translateY="70.0" />
-                              <ImageView fitHeight="15.0" fitWidth="15.0" translateX="-66.0" translateY="35.0">
+                              <Button fx:id="modifierprofile" mnemonicParsing="false" prefHeight="33.0" prefWidth="136.0" styleClass="bmodifier" text="Modifier  compte" translateX="-7.0" translateY="70.0" />
+                              <ImageView fitHeight="15.0" fitWidth="15.0" translateX="-70.0" translateY="35.0">
                                  <image>
                                     <Image url="@../images/edituser.png" />
                                  </image>
                               </ImageView>
+                              <ProgressBar maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="6.0" prefWidth="30.0" progress="0.0" rotate="90.0" styleClass="pbpr" stylesheets="@../css/StyleFormProf.css" translateX="122.0" translateY="15.0" />
                            </children>
                         </VBox>
                      </children>
                   </VBox>
                   <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="45.0" prefWidth="200.0">
                      <children>
-                        <ImageView fitHeight="24.0" fitWidth="24.0" translateX="40.0" translateY="21.0">
+                        <ImageView fitHeight="24.0" fitWidth="24.0" translateX="40.0" translateY="40.0">
                            <image>
                               <Image url="@../images/User Minus.png" />
                            </image>
                         </ImageView>
-                        <Button fx:id="supprimer" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#supprimercompte" prefHeight="30.0" prefWidth="121.0" styleClass="deletep" text="Supprimer compte" translateX="37.0" translateY="20.0" />
+                        <Button fx:id="supprimer" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#supprimercompte" prefHeight="30.0" prefWidth="121.0" styleClass="deletep" text="Supprimer compte" translateX="37.0" translateY="40.0" />
                      </children>
                   </HBox>
-                  <Button fx:id="dx" mnemonicParsing="false" onAction="#déconnxion" styleClass="dcxn" text="Déconnexion" translateX="70.0" translateY="120.0" />
+                  <Button fx:id="dx" mnemonicParsing="false" onAction="#déconnxion" styleClass="dcxn" text="Déconnexion" translateX="70.0" translateY="170.0" />
                   <ImageView translateX="600.0" translateY="90.0">
                      <image>
                         <Image url="@../images/Logout 2.png" />
                      </image>
                   </ImageView>
-                  <ImageView translateX="45.0" translateY="67.0">
+                  <ImageView translateX="45.0" translateY="118.0">
                      <image>
                         <Image url="@../images/Logout 2.png" />
                      </image>
@@ -161,7 +172,7 @@
                         <Font size="13.0" />
                      </font>
                   </Label>
-                  <DatePicker fx:id="editdob" prefHeight="31.0" prefWidth="200.0" translateX="70.0" translateY="20.0" />
+                  <DatePicker fx:id="editdob" prefHeight="31.0" prefWidth="200.0" styleClass="date" stylesheets="@../css/StyleSignUp.css" translateX="70.0" translateY="20.0" />
                </children>
             </HBox>
             <HBox layoutX="277.0" layoutY="713.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="77.0" prefWidth="568.0" styleClass="hboxadresse" stylesheets="@../css/StyleProfile.css">
@@ -230,7 +241,7 @@
                         <Font size="13.0" />
                      </font>
                   </Label>
-                  <DatePicker fx:id="editdobenfant" prefHeight="30.0" prefWidth="203.0" translateX="-4.0" translateY="20.0" />
+                  <DatePicker fx:id="editdobenfant" prefHeight="30.0" prefWidth="203.0" styleClass="date" stylesheets="@../css/StyleSignUp.css" translateX="-4.0" translateY="20.0" />
                </children>
             </HBox>
             <Label layoutX="298.0" layoutY="652.0" prefHeight="17.0" prefWidth="93.0" text="Contacts" textFill="#a3aed0">
@@ -246,7 +257,7 @@
                </font>
             </Label>
             <ProgressBar layoutX="929.0" layoutY="316.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="2.0" prefWidth="260.0" progress="0.0" />
-            <ImageView fitHeight="336.0" fitWidth="335.0" layoutX="1364.0" layoutY="616.0">
+            <ImageView fitHeight="336.0" fitWidth="335.0" layoutX="1385.0" layoutY="748.0">
                <image>
                   <Image url="@../images/account, user, profile, description, profile picture, image, man, people.png" />
                </image>

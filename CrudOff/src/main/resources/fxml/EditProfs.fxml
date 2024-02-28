@@ -33,12 +33,12 @@
          <font>
             <Font size="14.0" />
          </font></Text>
-      <Button fx:id="breturn" layoutX="880.0" layoutY="692.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="140.0" styleClass="breturn" text="Retourner" textFill="#27dec1">
+      <Button fx:id="breturn" layoutX="873.0" layoutY="729.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="140.0" styleClass="breturn" text="Retourner" textFill="#27dec1">
          <cursor>
             <Cursor fx:constant="DEFAULT" />
          </cursor>
       </Button>
-      <Button fx:id="bconfirm" layoutX="1039.0" layoutY="692.0" mnemonicParsing="false" onAction="#confirmchanges" prefHeight="37.0" prefWidth="140.0" styleClass="bconfirm" stylesheets="@../css/StyleFormProf.css" text="Confirmer">
+      <Button fx:id="bconfirm" layoutX="1039.0" layoutY="729.0" mnemonicParsing="false" onAction="#confirmchanges" prefHeight="37.0" prefWidth="140.0" styleClass="bconfirm" stylesheets="@../css/StyleFormProf.css" text="Confirmer">
          <font>
             <Font size="16.0" />
          </font></Button>
@@ -48,23 +48,23 @@
       <Text fill="#2b3674" layoutX="922.0" layoutY="304.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Adresse" />
       <TextField fx:id="editptelfield" layoutX="968.0" layoutY="495.0" prefHeight="32.0" prefWidth="148.0" />
       <Text fill="#2b3674" layoutX="922.0" layoutY="481.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Numéro de téléphone" />
-      <Text fill="#2b3674" layoutX="260.0" layoutY="90.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Changements !">
+      <Text fill="#2b3674" layoutX="428.0" layoutY="106.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Changements !">
          <font>
             <Font name="System Bold" size="30.0" />
          </font>
       </Text>
-      <Text fill="#707eae" layoutX="257.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Pages / Accueil">
+      <Text fill="#707eae" layoutX="436.0" layoutY="68.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Professeurs/ Ajouter">
          <font>
             <Font size="18.0" />
          </font></Text>
-      <ProgressBar layoutX="598.0" layoutY="209.0" prefHeight="1.5" prefWidth="533.0" progress="0.0" styleClass="pbpr" stylesheets="@../css/StyleFormProf.css" />
+      <ProgressBar layoutX="598.0" layoutY="209.0" prefHeight="1.5" prefWidth="533.0" progress="0.0" styleClass="pbpr2" stylesheets="@../css/StyleFormProf.css" />
       <Button fx:id="proform1" layoutX="605.0" layoutY="162.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="140.0" styleClass="bpr" text="Professeur" textFill="#27dec1" />
       <ImageView fitHeight="309.0" fitWidth="312.0" layoutX="1306.0" layoutY="606.0">
          <image>
             <Image url="@../images/environment, planet, earth, world, man, people, climate.png" />
          </image>
       </ImageView>
-      <VBox alignment="CENTER" layoutX="-8.0" layoutY="-1.0" maxWidth="-Infinity" prefHeight="972.0" prefWidth="235.0" styleClass="sidebar">
+      <VBox alignment="CENTER" layoutX="-8.0" layoutY="-1.0" maxWidth="-Infinity" prefHeight="978.0" prefWidth="235.0" styleClass="sidebar">
          <children>
             <ImageView fitHeight="193.0" fitWidth="171.0" translateY="-134.0">
                <image>
@@ -131,14 +131,15 @@
                            </image>
                         </ImageView>
                         <Button fx:id="toprof" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#toprof" prefHeight="46.0" prefWidth="78.0" styleClass="bdoc" text="Professeurs" translateX="60.0" />
+                        <ProgressBar maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="6.0" prefWidth="30.0" progress="0.0" rotate="90.0" styleClass="pbpr" stylesheets="@../css/StyleFormProf.css" translateX="107.0" translateY="18.0" />
                      </children>
                   </HBox>
-                  <ImageView translateX="-30.0" translateY="129.0">
+                  <ImageView translateX="-30.0" translateY="160.0">
                      <image>
                         <Image url="@../images/Logout 2.png" />
                      </image>
                   </ImageView>
-                  <Button fx:id="dcxn" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#deconnexion" prefHeight="35.0" prefWidth="77.0" styleClass="dcxn" text="Déconnexion" translateX="24.0" translateY="90.0" />
+                  <Button fx:id="dcxn" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#deconnexion" prefHeight="35.0" prefWidth="77.0" styleClass="dcxn" text="Déconnexion" translateX="24.0" translateY="120.0" />
                </children>
             </VBox>
          </children>
@@ -151,5 +152,15 @@
       <DatePicker fx:id="editdob" layoutX="916.0" layoutY="574.0" prefHeight="32.0" prefWidth="200.0" styleClass="date" />
       <Label layoutX="922.0" layoutY="547.0" prefHeight="17.0" prefWidth="117.0" text="Date de naissance" textFill="#2b3674" />
       <ComboBox fx:id="listcode" layoutX="918.0" layoutY="496.0" prefHeight="30.0" prefWidth="50.0" />
+      <Button fx:id="rtologin" layoutX="275.0" layoutY="28.0" mnemonicParsing="false" onAction="#returntologin" prefHeight="33.0" prefWidth="112.0" styleClass="breturn" stylesheets="@../css/StyleSignUp.css" text="Retourner" textFill="#27dec1">
+         <cursor>
+            <Cursor fx:constant="DEFAULT" />
+         </cursor>
+      </Button>
+      <ImageView layoutX="263.0" layoutY="37.0" translateX="5.0">
+         <image>
+            <Image url="@../images/Reply%202.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

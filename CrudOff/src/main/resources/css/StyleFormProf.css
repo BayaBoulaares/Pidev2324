@@ -95,6 +95,13 @@
 .pbpr .track {
     -fx-background-color: #FFFFFF;
 }
+.pbpr2{
+    -fx-accent: #27DEC1; /* Couleur de remplissage */
+
+}
+.pbpr2 .track {
+    -fx-background-color: #27DEC1;
+}
 .bacc{
     -fx-background-color: #27DEC1; /* Couleur de fond */
     -fx-text-fill: #ffffff; /* Couleur du texte */

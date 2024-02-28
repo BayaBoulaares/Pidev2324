@@ -1,12 +1,10 @@
 package edu.esprit.crudoff.services;
 
-import edu.esprit.crudoff.entities.ParentE;
 import edu.esprit.crudoff.utilis.DataSource;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.PasswordField;
+import javafx.scene.control.*;
+import javafx.scene.input.KeyEvent;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -23,6 +21,89 @@ public class MotDePasseOublie {
     @FXML
     private PasswordField nvmdp;
     Connection cnx = DataSource.getInsatnce().getConnection();
+    PasswordField passwordField = new PasswordField();
+    Label strengthLabel = new Label();
+
+    @FXML
+    private Label fmdp;
+
+
+
+    @FXML
+    private ToggleButton shownmdp;
+    @FXML
+    void forcemdp(KeyEvent event) {
+
+    }
+
+    @FXML
+    void toggmeButton(ActionEvent event) {
+        if(shownmdp.isSelected())
+        {
+        }
+        else {
+
+        }
+
+    }
+
+
+    private int calculatePasswordStrength(String password) {
+        int strength = 0;
+
+        // Longueur du mot de passe
+        int length = password.length();
+        if (length >= 8) {
+            strength += 10;
+        } else if (length >= 6) {
+            strength += 5;
+        }
+
+        // Vérifier la présence de chiffres
+        if (password.matches(".*\\d.*")) {
+            strength += 10;
+        }
+
+        // Vérifier la présence de caractères spéciaux
+        if (password.matches(".*[!@#$%^&*()-_+=?/<>,.].*")) {
+            strength += 10;
+        }
+
+        // Vérifier la présence de lettres majuscules et minuscules
+        if (password.matches(".*[A-Z].*") && password.matches(".*[a-z].*")) {
+            strength += 10;
+        }
+
+        return strength;
+    }
+    @FXML
+    private void initialize() {
+        // Ajout de l'événement setOnKeyReleased pour appeler updatePasswordFieldStyle
+        //passwordField.setOnKeyTyped(event -> updatePasswordFieldStyle(passwordField));
+        // Création d'une liaison bidirectionnelle avec la propriété text du champ de mot de passe
+        // Ajout d'un écouteur sur la propriété text du champ de mot de passe
+        passwordField.textProperty().addListener((observable, oldValue, newValue) -> {
+            updatePasswordFieldStyle(passwordField);
+        });
+
+
+    }
+    // Méthode pour mettre à jour le style du champ de mot de passe en fonction de la force du mot de passe
+    private void updatePasswordFieldStyle(PasswordField passwordField) {
+        String password = passwordField.getText();
+        int strength = calculatePasswordStrength(password);
+
+        if (strength < 50) {
+            passwordField.setStyle("-fx-control-inner-background: #FFC0CB;"); // Couleur rouge pour un mot de passe faible
+            strengthLabel.setText("Faible");
+        } else if (strength < 80) {
+            passwordField.setStyle("-fx-control-inner-background: #FFA500;"); // Couleur orange pour un mot de passe moyen
+            strengthLabel.setText("Moyen");
+        } else {
+            passwordField.setStyle("-fx-control-inner-background: #98FB98;"); // Couleur verte pour un mot de passe fort
+            strengthLabel.setText("Fort");
+        }
+    }
 
     @FXML
     void confirmernvmdp(ActionEvent event) {

@@ -38,4 +38,10 @@ public class DashboardAdmin {
         toprofesseur.getScene().setRoot(root);
 
     }
+
+    public void toaccueil(ActionEvent actionEvent)throws IOException {
+        FXMLLoader loader= new FXMLLoader(getClass().getResource("/fxml/DashobardAdmin.fxml"));
+        Parent root=loader.load();
+        toprofesseur.getScene().setRoot(root);
+    }
 }

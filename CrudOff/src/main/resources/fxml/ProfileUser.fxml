@@ -12,9 +12,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="parent" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="972.0" prefWidth="1800.0" styleClass="parent" stylesheets="@../css/StyleProfile.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.crudoff.services.ProfileUser">
+<AnchorPane fx:id="parent" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1133.0" prefWidth="1800.0" styleClass="parent" stylesheets="@../css/StyleProfile.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.crudoff.services.ProfileUser">
    <children>
-      <VBox prefHeight="972.0" prefWidth="235.0" styleClass="sidebar" stylesheets="@../css/StyleProfile.css">
+      <VBox prefHeight="1133.0" prefWidth="250.0" styleClass="sidebar" stylesheets="@../css/StyleProfile.css">
          <children>
             <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" stylesheets="@../css/StyleProfile.css">
                <VBox.margin>
@@ -28,6 +28,16 @@
                   </ImageView>
                   <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="442.0" prefWidth="235.0" spacing="10.0" styleClass="sidebar" translateY="20.0">
                      <children>
+                        <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="45.0" prefWidth="200.0">
+                           <children>
+                              <ImageView translateX="30.0" translateY="7.0">
+                                 <image>
+                                    <Image url="@../images/IconAccueil.png" />
+                                 </image>
+                              </ImageView>
+                              <Button fx:id="toaccueil" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#toaccueil" prefHeight="40.0" prefWidth="59.0" styleClass="bprof" text="Accueil" translateX="30.0" />
+                           </children>
+                        </HBox>
                         <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="45.0" prefWidth="200.0">
                            <children>
                               <ImageView translateX="30.0" translateY="5.0">
@@ -78,6 +88,7 @@
                               <Button fx:id="reclamation" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="36.0" prefWidth="91.0" styleClass="brec" text="Réclamation" translateX="30.0" />
                            </children>
                         </HBox>
+                        <ProgressBar maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="6.0" prefWidth="30.0" progress="0.0" rotate="90.0" styleClass="pbpr" stylesheets="@../css/StyleFormProf.css" translateX="121.0" translateY="-260.0" />
                         <Button fx:id="modifierprofile" mnemonicParsing="false" onAction="#tomodifier" prefHeight="33.0" prefWidth="136.0" styleClass="bmodifier" text="Modifier  compte" translateX="-1.0" translateY="70.0" />
                         <ImageView fitHeight="15.0" fitWidth="15.0" translateX="-66.0" translateY="35.0">
                            <image>
@@ -88,7 +99,7 @@
                   </VBox>
                </children>
             </VBox>
-            <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="45.0" prefWidth="200.0">
+            <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="45.0" prefWidth="200.0" translateX="10.0" translateY="30.0">
                <children>
                   <ImageView fitHeight="24.0" fitWidth="24.0" translateX="40.0" translateY="21.0">
                      <image>
@@ -98,13 +109,13 @@
                   <Button fx:id="supprimer" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#supprimercompte" prefHeight="30.0" prefWidth="121.0" styleClass="deletep" text="Supprimer compte" translateX="37.0" translateY="20.0" />
                </children>
             </HBox>
-            <Button fx:id="dxcn" mnemonicParsing="false" onAction="#deconnexion" styleClass="dcxn" text="Déconnexion" translateX="70.0" translateY="120.0" />
+            <Button fx:id="dxcn" mnemonicParsing="false" onAction="#deconnexion" styleClass="dcxn" text="Déconnexion" translateX="70.0" translateY="190.0" />
             <ImageView translateX="600.0" translateY="90.0">
                <image>
                   <Image url="@../images/Logout 2.png" />
                </image>
             </ImageView>
-            <ImageView translateX="45.0" translateY="67.0">
+            <ImageView translateX="45.0" translateY="135.0">
                <image>
                   <Image url="@../images/Logout 2.png" />
                </image>

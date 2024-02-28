@@ -39,4 +39,10 @@ public class DashboardUser {
 
 
     }
+
+    public void toacceuiel(ActionEvent actionEvent) throws IOException {
+        FXMLLoader loader= new FXMLLoader(getClass().getResource("/fxml/DasboardUser.fxml"));
+        Parent root=loader.load();
+        reclamation1.getScene().setRoot(root);
+    }
 }

@@ -118,7 +118,7 @@ public class CrudAdmins {
 
 
 
-                {editButton.setStyle("-fx-background-color: #8F9BBA; -fx-background-radius: 3px; -fx-min-width: 15px; -fx-min-height: 15px;");
+                {editButton.setStyle("-fx-background-color: #2B3674; -fx-background-radius: 3px; -fx-min-width: 10px; -fx-min-height: 10px;");
                 editButton.setOnAction(event -> {
                     // Récupérer l'utilisateur sélectionné dans la TableView
                     Professeur utilisateur = getTableView().getItems().get(getIndex());
@@ -161,7 +161,7 @@ public class CrudAdmins {
 
                 });
 
-                deleteButton.setStyle("-fx-background-color: #8F9BBA; -fx-background-radius: 3px; -fx-min-width: 15px; -fx-min-height: 15px;");
+                deleteButton.setStyle("-fx-background-color: #2B3674; -fx-background-radius: 3px; -fx-min-width: 10px; -fx-min-height: 10px;");
 
                 deleteButton.setOnAction(event -> {
                     ObservableList<Professeur> selectedItems = table.getSelectionModel().getSelectedItems();
@@ -377,5 +377,11 @@ public class CrudAdmins {
         Parent root=loader.load();
         dcxn.getScene().setRoot(root);
 
+    }
+
+    public void toaccueil(ActionEvent actionEvent) throws IOException{
+        FXMLLoader loader= new FXMLLoader(getClass().getResource("/fxml/DashobardAdmin.fxml"));
+        Parent root=loader.load();
+        dcxn.getScene().setRoot(root);
     }
 }

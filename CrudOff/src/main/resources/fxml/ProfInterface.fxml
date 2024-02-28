@@ -13,7 +13,7 @@
          <children>
             <ImageView fitHeight="193.0" fitWidth="171.0" translateY="-30.0">
                <image>
-                  <Image url="@../images/78520233%20-%20Copy.png" />
+                  <Image url="@../images/78520233 - Copy.png" />
                </image>
             </ImageView>
             <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="412.0" prefWidth="235.0" spacing="10.0" translateY="30.0">
@@ -60,14 +60,14 @@
                   </HBox>
                   <ImageView translateX="-30.0" translateY="95.0">
                      <image>
-                        <Image url="@../images/Logout%202.png" />
+                        <Image url="@../images/Logout 2.png" />
                      </image>
                   </ImageView>
                   <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="45.0" prefWidth="200.0" translateY="-40.0">
                      <children>
                         <ImageView translateX="60.0" translateY="13.0">
                            <image>
-                              <Image url="@../images/Chat%20Line.png" />
+                              <Image url="@../images/Chat Line.png" />
                            </image>
                         </ImageView>
                         <Button fx:id="reclamation11" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="37.0" prefWidth="87.0" styleClass="brec" text="Messagerie" translateX="60.0" translateY="5.0" />

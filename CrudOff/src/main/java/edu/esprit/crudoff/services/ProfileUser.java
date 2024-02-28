@@ -168,4 +168,10 @@ public class ProfileUser {
         padresse.setText("");
         // Ajoutez d'autres labels à vider si nécessaire
     }
+    @FXML
+    public void toaccueil(ActionEvent actionEvent) throws IOException{
+        FXMLLoader loader= new FXMLLoader(getClass().getResource("/fxml/DasboardUser.fxml"));
+        Parent root=loader.load();
+        pdob.getScene().setRoot(root);
+    }
 }

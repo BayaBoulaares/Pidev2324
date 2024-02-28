@@ -3,6 +3,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
@@ -11,10 +12,11 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="928.0" prefWidth="1972.0" styleClass="table" stylesheets="@../css/StyleTable.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.crudoff.services.CrudAdmins">
+<AnchorPane prefHeight="971.0" prefWidth="1972.0" styleClass="table" stylesheets="@../css/StyleTable.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.crudoff.services.CrudAdmins">
    <children>
-      <TableView fx:id="table" layoutX="492.0" layoutY="165.0" prefHeight="499.0" prefWidth="1172.0" styleClass="table">
+      <TableView fx:id="table" layoutX="299.0" layoutY="192.0" prefHeight="499.0" prefWidth="1172.0" styleClass="table">
         <columns>
           <TableColumn fx:id="tnom" prefWidth="134.0" text="Nom" />
             <TableColumn fx:id="tprenom" prefWidth="102.0" text="Prénom" />
@@ -39,15 +41,25 @@
            </TableColumn>
         </columns>
       </TableView>
-      <VBox alignment="CENTER" maxWidth="-Infinity" prefHeight="939.0" prefWidth="235.0" styleClass="sidebar">
+      <VBox alignment="CENTER" maxWidth="-Infinity" prefHeight="988.0" prefWidth="235.0" styleClass="sidebar">
          <children>
             <ImageView fitHeight="185.0" fitWidth="194.0" translateY="-134.0">
                <image>
                   <Image url="@../images/78520233 - Copy.png" />
                </image>
             </ImageView>
-            <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="442.0" prefWidth="235.0" spacing="10.0" translateX="-10.0" translateY="30.0">
+            <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="442.0" prefWidth="235.0" spacing="10.0" translateX="-15.0" translateY="30.0">
                <children>
+                  <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="45.0" prefWidth="200.0">
+                     <children>
+                        <ImageView translateX="62.0" translateY="4.0">
+                           <image>
+                              <Image url="@../images/IconAccueil.png" />
+                           </image>
+                        </ImageView>
+                        <Button fx:id="accueil" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#toaccueil" prefHeight="30.0" prefWidth="76.0" styleClass="bprof" text="Accueil" translateX="60.0" />
+                     </children>
+                  </HBox>
                   <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="45.0" prefWidth="200.0">
                      <children>
                         <ImageView translateX="60.0" translateY="3.5">
@@ -108,32 +120,45 @@
                         <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="46.0" prefWidth="87.0" styleClass="bdoc" text="Professeurs" translateX="60.0" />
                      </children>
                   </HBox>
-                  <ImageView translateX="-30.0" translateY="40.0">
+                  <ProgressBar maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="6.0" prefWidth="30.0" progress="0.0" rotate="90.0" styleClass="pbpr" stylesheets="@../css/StyleFormProf.css" translateX="130.0" translateY="-36.0" />
+                  <ImageView translateX="-30.0" translateY="110.0">
                      <image>
                         <Image url="@../images/Logout 2.png" />
                      </image>
                   </ImageView>
-                  <Button fx:id="dcxn" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#deconnexion" prefHeight="34.0" prefWidth="74.0" styleClass="dcxn" text="Déconnexion" translateX="30.0" />
+                  <Button fx:id="dcxn" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#deconnexion" prefHeight="34.0" prefWidth="74.0" styleClass="dcxn" text="Déconnexion" translateX="25.0" translateY="70.0" />
                </children>
             </VBox>
          </children>
       </VBox>
-      <ImageView fitHeight="199.0" fitWidth="224.0" layoutX="246.0" layoutY="24.0">
+      <ImageView fitHeight="225.0" fitWidth="253.0" layoutX="268.0" layoutY="729.0">
          <image>
             <Image url="@../images/undefined.png" />
          </image>
       </ImageView>
-      <Button fx:id="addprof" layoutX="1551.0" layoutY="108.0" mnemonicParsing="false" onAction="#toaddprof" prefHeight="30.0" prefWidth="119.0" text="Ajouter" />
+      <Button fx:id="addprof" layoutX="1360.0" layoutY="123.0" mnemonicParsing="false" onAction="#toaddprof" prefHeight="30.0" prefWidth="119.0" text="Ajouter" />
       <ImageView fitHeight="18.0" fitWidth="16.0" layoutX="1638.0" layoutY="114.0">
          <image>
             <Image url="@../images/User Plus.png" />
          </image>
       </ImageView>
-      <TextField fx:id="filterField" layoutX="1410.0" layoutY="41.0" prefHeight="32.0" prefWidth="246.0" promptText=" Rechercher" styleClass="filterField" />
-      <ImageView layoutX="1626.0" layoutY="51.0">
+      <TextField fx:id="filterField" layoutX="1206.0" layoutY="50.0" prefHeight="32.0" prefWidth="246.0" promptText=" Rechercher" styleClass="filterField" />
+      <ImageView layoutX="1422.0" layoutY="60.0">
          <image>
             <Image url="@../images/Search Icon.png" />
          </image>
       </ImageView>
+      <ImageView fitHeight="367.0" fitWidth="367.0" layoutX="1544.0" layoutY="192.0">
+         <image>
+            <Image url="@../images/discount, percentage, percent, increase, man, document, paper, page (1).png" />
+         </image>
+      </ImageView>
+      <Label layoutX="299.0" layoutY="128.0" prefHeight="21.0" prefWidth="162.0" styleClass="label-bright" stylesheets="@../css/StyleConnect.css" text="mm" textFill="#800d0d">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="360.0" layoutY="145.0" styleClass="mmmm" stylesheets="@../css/StyleConnect.css" text="Label" />
+      <Button accessibleRole="TEXT" layoutX="251.0" layoutY="60.0" mnemonicParsing="false" prefHeight="68.0" prefWidth="253.0" styleClass="breturn2" stylesheets="@../css/StyleSignUp.css" text="Professeurs" />
    </children>
 </AnchorPane>
