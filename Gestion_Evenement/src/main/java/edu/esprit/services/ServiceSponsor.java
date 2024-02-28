@@ -24,7 +24,7 @@ public class ServiceSponsor implements IService<Sponsor> {
             pstmt.setString(3, s.getDescription_s());
             pstmt.setString(4, s.getFond().toString());
             pstmt.setInt(5, s.getEvenement().getId_Event());
-            pstmt.setString(6, s.getEvenement().getImage());
+            pstmt.setString(6, s.getImage());
             pstmt.executeUpdate();
             System.out.println("Sponsor ajouté avec succès");
         } catch (SQLException ex) {
@@ -43,7 +43,7 @@ public class ServiceSponsor implements IService<Sponsor> {
             pstmt.setString(2, s.getDescription_s());
             pstmt.setString(3, s.getFond().toString());
             pstmt.setInt(4, s.getEvenement().getId_Event());
-            pstmt.setString(5, s.getEvenement().getImage());
+            pstmt.setString(5, s.getImage());
             pstmt.setInt(6, s.getId_Sponsor());
 
             pstmt.executeUpdate();
@@ -92,8 +92,7 @@ public class ServiceSponsor implements IService<Sponsor> {
                 Fond fond = Fond.valueOf(fondStr);
                 Evenement evenement = serviceEvenement.getOneById(idEvent);
 
-                Sponsor sponsor = new Sponsor(idSponsor, nomSponsor, description, fond, evenement);
-                sponsor.getEvenement().setImage(image);
+                Sponsor sponsor = new Sponsor(idSponsor, nomSponsor, description, fond, evenement,image);
                 sponsors.add(sponsor);
             }
         } catch (SQLException ex) {
@@ -126,8 +125,8 @@ public class ServiceSponsor implements IService<Sponsor> {
                 Fond fond = Fond.valueOf(fondStr);
                 Evenement evenement = serviceEvenement.getOneById(idEvent);
 
-                sponsor = new Sponsor(idSponsor, nomSponsor, description, fond, evenement);
-                sponsor.getEvenement().setImage(image);
+                sponsor = new Sponsor(idSponsor, nomSponsor, description, fond, evenement,image);
+
             }
         } catch (SQLException ex) {
             System.out.println("Erreur lors de la récupération du sponsor : " + ex.getMessage());
@@ -158,8 +157,7 @@ public class ServiceSponsor implements IService<Sponsor> {
                 Fond fond = Fond.valueOf(fondStr);
                 Evenement evenement = serviceEvenement.getOneById(idEvent);
 
-                Sponsor sponsor = new Sponsor(idSponsor, nomSponsor, description, fond, evenement);
-                sponsor.getEvenement().setImage(image);
+                Sponsor sponsor = new Sponsor(idSponsor, nomSponsor, description, fond, evenement,image);
                 sponsors.add(sponsor);
             }
         } catch (SQLException ex) {

@@ -59,15 +59,20 @@ public class AfficherSponsor {
         String imagePath = sponsor.getImage(); // Assuming getImage() returns the path to the image file
         if (imagePath != null && !imagePath.isEmpty()) {
             try {
-                Image image = new Image(new File(imagePath).toURI().toString());
-                if (image.isError()) {
-                    System.err.println("Error loading image: " + image.getException());
+                File file = new File(imagePath);
+                if (file.exists()) {
+                    Image image = new Image(file.toURI().toString());
+                    if (image.isError()) {
+                        System.err.println("Error loading image: " + image.getException());
+                    } else {
+                        sponsorImage.setImage(image);
+                        sponsorImage.setFitWidth(250);
+                        sponsorImage.setFitHeight(200);
+                        sponsorImage.setPreserveRatio(true);
+                        sponsorBox.getChildren().add(sponsorImage);
+                    }
                 } else {
-                    sponsorImage.setImage(image);
-                    sponsorImage.setFitWidth(250);
-                    sponsorImage.setFitHeight(200);
-                    sponsorImage.setPreserveRatio(true);
-                    sponsorBox.getChildren().add(sponsorImage);
+                    System.err.println("Image file does not exist: " + imagePath);
                 }
             } catch (Exception e) {
                 System.err.println("Error loading image: " + e.getMessage());
@@ -110,6 +115,7 @@ public class AfficherSponsor {
 
         return sponsorBox;
     }
+
 
     private void handleSupprimerEvent(Sponsor sponsor) {
         try {

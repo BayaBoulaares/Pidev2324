@@ -71,6 +71,6 @@
                 <Image url="@images/financement-participatif.png" />
             </image>
         </ImageView>
-      <Button layoutX="920.0" layoutY="633.0" mnemonicParsing="false" onAction="#ajouter" prefHeight="34.0" prefWidth="161.0" style="-fx-background-color: turquoise; -fx-font-size: 14px; -fx-text-fill: white; -fx-background-radius: 5px;" text="Consulter Statisque" />
+      <Button layoutX="920.0" layoutY="633.0" mnemonicParsing="false" onAction="#consulterStatistique" prefHeight="34.0" prefWidth="161.0" style="-fx-background-color: turquoise; -fx-font-size: 14px; -fx-text-fill: white; -fx-background-radius: 5px;" text="Consulter Statisque" />
     </children>
 </AnchorPane>

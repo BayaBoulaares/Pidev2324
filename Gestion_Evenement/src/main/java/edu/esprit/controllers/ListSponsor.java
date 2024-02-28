@@ -40,21 +40,19 @@ public class ListSponsor {
         }
     }
 
-    @FXML
     public void displaySponsors(List<Sponsor> sponsors) {
-        HBox sponsorContainer = new HBox(); // Utilisez HBox pour un affichage horizontal
-        sponsorContainer.setSpacing(25); // Ajoutez un espacement entre les sponsors
+        HBox sponsorContainer = new HBox();
+        sponsorContainer.setSpacing(20);
 
         for (Sponsor sponsor : sponsors) {
-            if (!displayedSponsors.containsKey(sponsor.getId_Sponsor())) {
-                VBox sponsorBox = createSponsorBox(sponsor);
-                sponsorContainer.getChildren().add(sponsorBox);
-                displayedSponsors.put(sponsor.getId_Sponsor(), true);
-            }
+            VBox sponsorBox = createSponsorBox(sponsor);
+            sponsorContainer.getChildren().add(sponsorBox);
         }
 
+        sponsorBox.getChildren().clear();
         sponsorBox.getChildren().add(sponsorContainer);
     }
+
 
 
     private VBox createSponsorBox(Sponsor sponsor) {

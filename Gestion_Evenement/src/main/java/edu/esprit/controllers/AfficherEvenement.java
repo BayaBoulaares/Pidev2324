@@ -265,18 +265,7 @@ public class AfficherEvenement {
             e.printStackTrace();
         }
     }
-    @FXML
-    private void ConsulterSponsors() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Afficher_Sponsor.fxml"));
-            Parent root = loader.load();
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+
     @FXML
     private void AjouterSponsors() {
         try {

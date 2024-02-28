@@ -227,18 +227,8 @@ public class AfficherEvents {
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
-            // Handle the exception here, e.g., show an error message to the user
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText("Failed to load sponsors");
-            alert.setContentText("An error occurred while loading sponsors for the event. Please try again.");
-            alert.showAndWait();
-        } catch (Exception e) {
-            e.printStackTrace();
-            // Handle any other exceptions here
         }
     }
-
 
 
     @FXML
