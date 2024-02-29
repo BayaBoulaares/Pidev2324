@@ -116,7 +116,7 @@ public class EditProfileUser {
 
 
 
-    @FXML
+    /*@FXML
     void initialize() {
         CredentialsManager crd = new CredentialsManager();
         String[] crds = crd.loadCredentials();
@@ -153,10 +153,15 @@ public class EditProfileUser {
         editnomenfant.setText(user.getNomE());
         editprenomenfant.setText(user.getPrenomE());
         String path = user.getImage();
-        System.out.println(path + "path");
-        Image image2 = new Image(new File(path).toURI().toString());
-        System.out.println(image2+ "image2");
-        parentimage.setImage(image2);
+        if(path.equals(null))
+        {
+            Image image2 = new Image(new File(path).toURI().toString());
+        }else {
+            System.out.println(path + "path");
+            Image image2 = new Image(new File(path).toURI().toString());
+            System.out.println(image2+ "image2");
+            parentimage.setImage(image2);
+        }
 
 
 
@@ -165,7 +170,65 @@ public class EditProfileUser {
 
 
 
+
+
+    }*/
+    @FXML
+    void initialize() {
+        CredentialsManager crd = new CredentialsManager();
+        String[] crds = crd.loadCredentials();
+        user = PS.getByLogin(crds[0]);
+
+        if (user != null) {
+            editnom.setText(user.getNom());
+            editprenom.setText(user.getPrenom());
+            editadresse.setText(user.getAdresse());
+
+            // Supposons que user.getDateNaissance() retourne un objet de type java.util.Date
+            java.util.Date dateNaissance = user.getDateNaissance();
+            java.util.Date dateNaissance2 = user.getDateNaissanceE();
+
+            if (dateNaissance != null) {
+                // Conversion de java.util.Date en java.sql.Date
+                java.sql.Date sqlDateNaissance = new java.sql.Date(dateNaissance.getTime());
+
+                // Conversion de java.sql.Date en LocalDate (Java 8+)
+                LocalDate localDateNaissance = sqlDateNaissance.toLocalDate();
+
+                // Définition de la valeur du DatePicker
+                editdob.setValue(localDateNaissance);
+            }
+
+            if (dateNaissance2 != null) {
+                // Conversion de java.util.Date en java.sql.Date
+                java.sql.Date sqlDateNaissancekid = new java.sql.Date(dateNaissance2.getTime());
+
+                // Conversion de java.sql.Date en LocalDate (Java 8+)
+                LocalDate localDateNaissancekid = sqlDateNaissancekid.toLocalDate();
+
+                // Définition de la valeur du DatePicker
+                editdobenfant.setValue(localDateNaissancekid);
+            }
+
+            //int tel = Integer.parseInt(edittel.getText());
+            edittel.setText(String.valueOf(user.getTel()));
+            editnomenfant.setText(user.getNomE());
+            editprenomenfant.setText(user.getPrenomE());
+            String path = null;
+
+            if (path == null) {
+                parentimage.setImage(null);
+
+
+            }
+            else {
+                path=user.getImage();
+                Image image2 = new Image(new File(path).toURI().toString());
+                parentimage.setImage(image2);
+            }
+        }
     }
+
 
 
 

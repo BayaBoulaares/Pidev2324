@@ -159,7 +159,7 @@
       </Button>
       <ImageView layoutX="263.0" layoutY="37.0" translateX="5.0">
          <image>
-            <Image url="@../images/Reply%202.png" />
+            <Image url="@../images/Reply 2.png" />
          </image>
       </ImageView>
    </children>

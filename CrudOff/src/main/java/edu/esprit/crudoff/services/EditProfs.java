@@ -278,6 +278,9 @@ public class EditProfs {
         }
         return false; // En cas d'erreur ou de problème de connexion, retourner false par défaut
     }
+
+    public void returntologin(ActionEvent actionEvent) {
+    }
 }
 
 
