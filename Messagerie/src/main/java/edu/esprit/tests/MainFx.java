@@ -19,7 +19,7 @@ public class MainFx extends Application {
         stage.setScene(scene);
         //scene.getStylesheets().add(getClass().getResource("Style.css").toExternalForm());
 
-        stage.setTitle("ChatBot");
+        stage.setTitle("AUTO_LEARN");
         stage.show();
     }
 

@@ -34,16 +34,16 @@
 
       <Button fx:id="Modifier" layoutX="733.0" layoutY="314.0" mnemonicParsing="false" onAction="#modifier_reclamation" prefHeight="63.0" prefWidth="135.0" styleClass="action-button" stylesheets="@css/css/StyleTable.css" text="Modifier" />
       <Button fx:id="Supprimer" layoutX="576.0" layoutY="314.0" mnemonicParsing="false" onAction="#supprimer_reclamation" prefHeight="63.0" prefWidth="135.0" styleClass="action-button" stylesheets="@css/css/StyleTable.css" text="Supprimer" />
-      <Button fx:id="goback" layoutY="750.0" mnemonicParsing="false" onAction="#goback" prefHeight="63.0" prefWidth="135.0" stylesheets="@css/css/StyleTable.css" text="&lt;- Go Back" />
-      <VBox fx:id="navBar" prefHeight="750.0" prefWidth="272.0" spacing="10" styleClass="side-bar" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <Label prefHeight="49.0" prefWidth="191.0" styleClass="navTitle" text="Auto+Learn" />
-         <Label text="Accueil" />
-         <Label text="Utilisateurs" />
-         <Label text="Documents" />
-         <Label text="Événements" />
-         <Label text="Messagerie" />
-         <Label text="Réservations" />
-         <Label text="Profil" />
+      <Button fx:id="goback" layoutX="1083.0" layoutY="744.0" mnemonicParsing="false" onAction="#goback" prefHeight="63.0" prefWidth="135.0" stylesheets="@css/css/StyleTable.css" text="&lt;- Go Back" />
+      <VBox fx:id="navBar" prefHeight="813.0" prefWidth="272.0" spacing="10" styleClass="sidebar" stylesheets="@css/css/StyleTable.css" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <Label prefHeight="49.0" prefWidth="191.0" styleClass="brec" stylesheets="@css/css/StyleProfile.css" text="Auto+Learn" />
+         <Label styleClass="brec" stylesheets="@css/css/StyleProfile.css" text="Accueil" />
+         <Label styleClass="brec" stylesheets="@css/css/StyleProfile.css" text="Utilisateurs" />
+         <Label styleClass="brec" stylesheets="@css/css/StyleProfile.css" text="Documents" />
+         <Label styleClass="brec" stylesheets="@css/css/StyleProfile.css" text="Événements" />
+         <Label styleClass="brec" stylesheets="@css/css/StyleProfile.css" text="Messagerie" />
+         <Label styleClass="brec" stylesheets="@css/css/StyleProfile.css" text="Réservations" />
+         <Label styleClass="brec" stylesheets="@css/css/StyleProfile.css" text="Profil" />
       </VBox>
       <TextField fx:id="searchField" layoutX="330.0" layoutY="343.0" onAction="#recherche" promptText="recherche" stylesheets="@css/css/StyleConnect.css" />
       <Rating fx:id="rating" layoutX="349.0" layoutY="728.0" />

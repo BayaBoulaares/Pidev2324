@@ -17,7 +17,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.Scene; // Import Scene class
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
@@ -193,7 +193,7 @@ public class AjouterMessage {
         // Retrieve the current scene from any control
         Scene currentScene = DateId.getScene();
 
-        // Check if already on the "AfficherPersonne" scene before setting the root
+        // Check if already on the "AfficherMessage" scene before setting the root
         if (currentScene.getRoot() != root) {
             currentScene.setRoot(root);
         }
@@ -232,7 +232,7 @@ public class AjouterMessage {
         // Retrieve the current scene from any control
         Scene currentScene = DateId.getScene();
 
-        // Check if already on the "AfficherPersonne" scene before setting the root
+        // Check if already on the "AfficherMessage" scene before setting the root
         if (currentScene.getRoot() != root) {
             currentScene.setRoot(root);
         }
