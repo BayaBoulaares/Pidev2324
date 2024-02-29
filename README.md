@@ -11,7 +11,6 @@ gestiondesDocumentetMatiers :
 
 gestionTests :
 
-![image](https://github.com/BayaBoulaares/Pidev2324/assets/100842661/72bd87db-c49a-4332-b4ba-6f6ee7378f7d)
 ![image](https://github.com/BayaBoulaares/Pidev2324/assets/100842661/b718aeb6-25c4-454c-94d7-4575ebd713f8)
 
 gestionEvents : 
