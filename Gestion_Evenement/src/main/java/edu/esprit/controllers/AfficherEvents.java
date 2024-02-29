@@ -6,6 +6,7 @@ import edu.esprit.entities.User;
 import edu.esprit.services.ServiceEvenement;
 import edu.esprit.services.ServiceParticipation;
 import edu.esprit.services.ServiceSponsor;
+import javafx.concurrent.Worker;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -22,12 +23,22 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+
+import java.awt.*;
 import java.io.File;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.List;
 
+import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebView;
 public class AfficherEvents {
 
     @FXML
@@ -111,10 +122,16 @@ public class AfficherEvents {
         locationIcon.setFitWidth(20);
         locationIcon.setFitHeight(20);
 
+        // Create the location button
+        Button locationButton = new Button();
+        locationButton.setGraphic(locationIcon);
+        locationButton.setStyle("-fx-background-color: transparent; -fx-border-color: transparent;");
+        locationButton.setOnAction(event -> handleLocationButtonClick(evenement));
+
         // Create the location label
         Label lieuLabel = new Label(evenement.getLieu_Event());
         lieuLabel.getStyleClass().add("lieu");
-        hbox.getChildren().addAll(locationIcon, lieuLabel);
+        hbox.getChildren().addAll(locationButton, lieuLabel);
         eventBox.getChildren().add(hbox);
 
         SimpleDateFormat formatter = new SimpleDateFormat("EEE, dd MMM", Locale.FRENCH);
@@ -201,14 +218,14 @@ public class AfficherEvents {
 
     private int calculateRemainingParticipants(Evenement evenement) {
         try {
-
+            // Get the number of participants for the event
             int currentParticipants = serviceParticipation.getNumberOfParticipants(evenement.getId_Event());
-
+            // Calculate the remaining number of participants
             return evenement.getNb_Max() - currentParticipants;
         } catch (SQLException e) {
-
+            // Handle the SQL exception
             e.printStackTrace();
-            return -1;
+            return -1; // Indicate an error occurred
         }
     }
 
@@ -265,57 +282,62 @@ public class AfficherEvents {
     }
 
     private void handleLikeEvent(Evenement evenement, boolean liked) {
-
+        // Implement your logic here to handle the like event
         if (liked) {
-
+            // The event was liked
             System.out.println("Event liked: " + evenement.getNom_Event());
-
+            // Add your code to update the database or perform any other actions
         } else {
-
+            // The like was removed
             System.out.println("Event unliked: " + evenement.getNom_Event());
-
+            // Add your code to update the database or perform any other actions
         }
     }
     @FXML
     void handleParticiperEvent(Evenement evenement) {
         try {
-
+            // Utilisez l'ID de l'utilisateur connu
             int userId = 1;
 
+            // Obtenez l'ID de l'événement
             int eventId = evenement.getId_Event();
 
+            // Check if the user has already participated in the event
             if (serviceParticipation.hasParticipated(eventId, userId)) {
+                // If the user has already participated, display an alert
                 Alert alert = new Alert(Alert.AlertType.WARNING);
                 alert.setTitle("Déjà participé");
                 alert.setHeaderText(null);
                 alert.setContentText("Vous avez déjà participé à cet événement.");
                 alert.showAndWait();
-                return;
+                return; // Exit the method
             }
 
-
+            // Check if the maximum number of participants is reached
             if (serviceParticipation.isMaxParticipantsReached(eventId)) {
-
+                // If the maximum number of participants is reached, remove the event
                 serviceParticipation.removeEvent(eventId);
                 System.out.println("Event removed because the maximum number of participants is reached!");
-
+                // Refresh the display
                 List<Evenement> allEvents = serviceEvenement.getAll();
                 displayEventsInEventBox(allEvents);
-
-                return;
+                // You can display an alert or perform any other action here
+                return; // Exit the method
             }
 
-
+            // Insérez la participation dans la base de données
             serviceParticipation.insertParticipation(eventId, userId);
 
             System.out.println("Participation ajoutée avec succès!");
 
+            // Affichez une alerte indiquant que la participation a été ajoutée avec succès
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Participation ajoutée");
             alert.setHeaderText(null);
             alert.setContentText("La participation a été ajoutée avec succès!");
             alert.showAndWait();
 
+            // Refresh the display after adding the participation
             List<Evenement> allEvents = serviceEvenement.getAll();
             displayEventsInEventBox(allEvents);
         } catch (SQLException ex) {
@@ -328,18 +350,20 @@ public class AfficherEvents {
     @FXML
     void handleLibraryButtonAction(ActionEvent event) {
         try {
-            List<Evenement> participatedEvents = serviceParticipation.getParticipatedEvents(1);
+            // Récupérer les événements auxquels l'utilisateur a participé
+            List<Evenement> participatedEvents = serviceParticipation.getParticipatedEvents(1); // Utilisateur avec ID 1
 
-
+            // Charger la page de participation
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Affichage_Participation.fxml"));
             Parent root = loader.load();
 
-
+            // Obtenir le contrôleur de la page de participation
             AffichageParticipation controller = loader.getController();
 
-
+// Appeler la méthode loadParticipations
             controller.loadParticipations(participatedEvents);
 
+            // Créer une nouvelle scène avec la page de participation et l'afficher dans un nouveau stage
             Scene scene = new Scene(root);
             Stage stage = new Stage();
             stage.setScene(scene);
@@ -350,8 +374,41 @@ public class AfficherEvents {
             throw new RuntimeException(e);
         }
     }
-
+    private void handleLocationButtonClick(Evenement evenement) {
+        // Assuming you have a method to open the map for the given location
+        openMapForLocation(evenement.getLieu_Event());
     }
+    private void openMapForLocation(String location) {
+        // Create a WebView
+        WebView webView = new WebView();
+
+        // Get the WebEngine to load content into the WebView
+        WebEngine webEngine = webView.getEngine();
+
+        // Encode the location string to be used in a URL
+        String encodedLocation = "";
+        try {
+            encodedLocation = URLEncoder.encode(location, StandardCharsets.UTF_8.toString());
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+
+        // Create a Google Maps URL with the encoded location
+        String googleMapsUrl = "https://www.google.com/maps/search/?api=1&query=" + encodedLocation;
+
+        // Load the Google Maps URL into the WebView
+        webEngine.load(googleMapsUrl);
+
+        // Create a new stage to display the map
+        Stage stage = new Stage();
+        stage.setTitle("Map for Location: " + location);
+        stage.setScene(new Scene(webView, 800, 600));
+        stage.show();
+    }
+
+
+
+}
 
 
 

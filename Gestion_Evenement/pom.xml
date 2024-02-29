@@ -40,8 +40,11 @@
             <version>8.0-r6</version>
         </dependency>
 
-
-
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-web</artifactId>
+            <version>20.0.2</version>
+        </dependency>
 
     </dependencies>
 
