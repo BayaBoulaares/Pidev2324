@@ -45,6 +45,7 @@ public class Calendrier {
 
         // Get events for the current week and add them to the agenda
         Platform.runLater(() -> {
+            System.out.println("Inside Platform.runLater block"); // Print statement
             try {
                 ServiceEvenement serviceEvenement = new ServiceEvenement();
                 List<Evenement> evenementsSemaine = serviceEvenement.getEventsForCurrentWeek();
@@ -68,4 +69,5 @@ public class Calendrier {
             }
         });
     }
+
 }

@@ -1,16 +1,21 @@
 package edu.esprit.controllers;
 
-
 import edu.esprit.services.ServiceSponsor;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.Alert;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.util.Duration;
 
 import java.sql.SQLException;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicInteger;
+
 public class AfficherStatistique {
 
     @FXML
@@ -26,15 +31,41 @@ public class AfficherStatistique {
         try {
             Map<String, Integer> nombreEvenementsParSponsor = serviceSponsor.getNombreEvenementsParSponsor();
 
-
             ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
 
+            // Define your colors
+            Color[] pieColors = {
+                    Color.web("#40E0D0"),  // Turquoise
+                    Color.web("#00008B"),  // Dark Blue
+                    Color.web("#ADD8E6"),  // Light Blue
+                    Color.web("#808080")   // Gray
+            };
+
+            AtomicInteger colorIndex = new AtomicInteger(0);
 
             for (Map.Entry<String, Integer> entry : nombreEvenementsParSponsor.entrySet()) {
-                pieChartData.add(new PieChart.Data(entry.getKey(), entry.getValue()));
+                PieChart.Data data = new PieChart.Data(entry.getKey(), entry.getValue());
+                pieChartData.add(data);
+
+                // Set the color of the pie slice
+                data.nodeProperty().addListener((observable, oldValue, newValue) -> {
+                    if (newValue != null) {
+                        newValue.setStyle("-fx-pie-color: " + toRGBCode(pieColors[colorIndex.get() % pieColors.length]) + ";");
+                        colorIndex.getAndIncrement();
+                    }
+                });
             }
 
             pieChart.setData(pieChartData);
+
+            // Add animation
+            Timeline timeline = new Timeline();
+            timeline.setCycleCount(Timeline.INDEFINITE);
+            timeline.setAutoReverse(false);
+            timeline.getKeyFrames().add(new KeyFrame(Duration.millis(100), (e) -> {
+                pieChart.setStartAngle(pieChart.getStartAngle() + 1);
+            }));
+            timeline.play();
 
             pieChartContainer.getChildren().add(pieChart);
         } catch (SQLException ex) {
@@ -45,5 +76,12 @@ public class AfficherStatistique {
             alert.setContentText(ex.getMessage());
             alert.showAndWait();
         }
+    }
+
+    private static String toRGBCode(Color color) {
+        return String.format("#%02X%02X%02X",
+                (int) (color.getRed() * 255),
+                (int) (color.getGreen() * 255),
+                (int) (color.getBlue() * 255));
     }
 }

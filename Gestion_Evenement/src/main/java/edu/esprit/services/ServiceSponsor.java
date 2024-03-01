@@ -170,8 +170,12 @@ public class ServiceSponsor implements IService<Sponsor> {
     }
     public Map<String, Integer> getNombreEvenementsParSponsor() throws SQLException {
         Map<String, Integer> nombreEvenementsParSponsor = new HashMap<>();
+        Connection cnx = null;
 
-        try (Connection cnx = DataSource.getInstance().getCnx()) {
+        try {
+            // Get the connection
+            cnx = DataSource.getInstance().getCnx();
+
             String query = "SELECT Nom, COUNT(Id_Event) AS nombre_evenements FROM sponsor GROUP BY Nom";
             try (PreparedStatement pstmt = cnx.prepareStatement(query);
                  ResultSet resultSet = pstmt.executeQuery()) {
@@ -188,6 +192,8 @@ public class ServiceSponsor implements IService<Sponsor> {
 
         return nombreEvenementsParSponsor;
     }
+
+
 
 }
 

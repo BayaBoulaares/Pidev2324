@@ -132,11 +132,11 @@ public class ServiceEvenement implements IService<Evenement> {
     public List<Evenement> getEventsForCurrentWeek() throws SQLException {
         List<Evenement> evenementsSemaine = new ArrayList<>();
         try {
-            // Obtenez la date de début et de fin de la semaine actuelle
+            // Get the start and end date of the current week
             LocalDate debutSemaine = LocalDate.now().with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY));
-            LocalDate finSemaine = debutSemaine.plusDays(6); // Dimanche est le dernier jour de la semaine
+            LocalDate finSemaine = debutSemaine.plusDays(6); // Sunday is the last day of the week
 
-            String req = "SELECT * FROM evenement WHERE Date_Fin >= ? AND Date_Debut <= ?";
+            String req = "SELECT * FROM evenement WHERE Date_Debut >= ? AND Date_Fin <= ?";
             PreparedStatement ps = cnx.prepareStatement(req);
             ps.setDate(1, java.sql.Date.valueOf(debutSemaine));
             ps.setDate(2, java.sql.Date.valueOf(finSemaine));
@@ -158,11 +158,12 @@ public class ServiceEvenement implements IService<Evenement> {
                 evenementsSemaine.add(e);
             }
         } catch (SQLException ex) {
-            System.out.println("Erreur lors de la récupération des événements de la semaine : " + ex.getMessage());
+            System.out.println("Error while fetching events for the week: " + ex.getMessage());
             throw ex;
         }
         return evenementsSemaine;
     }
+
 
 }
 
