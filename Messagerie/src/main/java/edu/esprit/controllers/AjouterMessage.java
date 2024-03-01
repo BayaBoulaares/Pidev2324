@@ -3,6 +3,7 @@ package edu.esprit.controllers;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.sql.Date;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.Arrays;
@@ -92,10 +93,11 @@ public class AjouterMessage {
                 LocalDate date = DateId.getValue();
                 String message = MessageId.getText();
 
+
                 // Capitalize the first letter of the message
                 message = message.substring(0, 1).toUpperCase() + message.substring(1);
 
-                ps.ajouter(new Messagerie(NomId.getText(), String.valueOf(DateId.getValue()), message));
+                ps.ajouter(new Messagerie(NomId.getText(), Date.valueOf(DateId.getValue()), message, 1));
                 // Automatically capitalize the first letter of the message
                 String capitalizedMessage = capitalizeFirstLetter(MessageId.getText());
                 MessageId.setText(capitalizedMessage);

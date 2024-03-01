@@ -13,7 +13,7 @@ public class Main {
     public static void main(String[] args) {
         DataSource dataSource = DataSource.getInstance();
         ServiceMessagerie sm = new ServiceMessagerie();
-        Messagerie m = new Messagerie("baya","23/01/2024","aloooo");
+        //Messagerie m = new Messagerie("baya","23/01/2024","aloooo");
         //sm.ajouter(m);
         //String nom = "baya";
         //sm.supprimer(4);

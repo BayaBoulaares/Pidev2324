@@ -13,12 +13,14 @@ public class ServiceMessagerie implements IServices<Messagerie> {
     @Override
     public void ajouter(Messagerie m) throws SQLException {
         if (m != null && m.getNom() != null && m.getMessage() != null) {
-            String req = "INSERT INTO `messagerie`(`nom`, `date`,`message`) VALUES (?, ?, ?)";
+            String req = "INSERT INTO `messagerie`(`nom`, `date`, `message`, `idu`) VALUES (?, ?, ?, ?)";
             try (PreparedStatement ps = cnx.prepareStatement(req)) {
                 ps.setString(1, m.getNom());
-                ps.setDate(2, new Date(System.currentTimeMillis()));
+                ps.setTimestamp(2, new Timestamp(System.currentTimeMillis()));
                 String validatedMessage = m.getMessage().substring(0, 1).toUpperCase() + m.getMessage().substring(1);
                 ps.setString(3, validatedMessage);
+                // Assuming idu is available in Messagerie class
+                ps.setInt(4, m.getIdu());
 
                 ps.executeUpdate();
                 System.out.println("Messagerie added!");
@@ -28,19 +30,20 @@ public class ServiceMessagerie implements IServices<Messagerie> {
         } else {
             System.out.println("Invalid Messagerie object provided.");
         }
-
     }
-
 
     @Override
     public void modifier(Messagerie m) {
         if (m != null && m.getNom() != null && m.getMessage() != null) {
-            String req = "UPDATE messagerie SET nom=?,message=?, date=?  WHERE id=?";
+            String req = "UPDATE messagerie SET nom=?, message=?, date=?, idu=? WHERE id=?";
             try (PreparedStatement ps = cnx.prepareStatement(req)) {
                 ps.setString(1, m.getNom());
                 ps.setString(2, m.getMessage());
-                ps.setDate(3, new Date(System.currentTimeMillis()));
-                ps.setInt(4, m.getId());
+                ps.setTimestamp(3, new Timestamp(System.currentTimeMillis()));
+                // Assuming idu is available in Messagerie class
+                ps.setInt(4, m.getIdu());
+                ps.setInt(5, m.getId());
+
                 ps.executeUpdate();
                 System.out.println("Messagerie updated!");
             } catch (SQLException e) {
@@ -84,7 +87,8 @@ public class ServiceMessagerie implements IServices<Messagerie> {
                 Date date = res.getDate("date");
                 String message = res.getString("message");
 
-                m = new Messagerie( id, nom, date,message);
+
+                m = new Messagerie(id, nom, date, message);
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -96,24 +100,25 @@ public class ServiceMessagerie implements IServices<Messagerie> {
 
     @Override
     public HashSet<Messagerie> getAll() throws SQLException {
-        Connection cnx =DataSource.getInstance().getCnx();
+        Connection cnx = DataSource.getInstance().getCnx();
         HashSet<Messagerie> messageries = new HashSet<>();
 
-
-
-            String req = "SELECT * FROM messagerie";
-            Statement st = cnx.createStatement();
-            ResultSet res = st.executeQuery(req);
+        String req = "SELECT * FROM messagerie";
+        try (Statement st = cnx.createStatement();
+             ResultSet res = st.executeQuery(req)) {
             while (res.next()) {
                 int id = res.getInt("id");
                 String nom = res.getString("nom");
                 Date date = res.getDate(3);
                 String message = res.getString("message");
-                Messagerie m = new Messagerie(id, nom, date, message);
+                // Assuming idu is available in Messagerie class
+                int idu = res.getInt("idu");
+                Messagerie m = new Messagerie(id, nom, date,message);
                 messageries.add(m);
             }
-
-
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
 
         return messageries;
     }

@@ -147,49 +147,38 @@ public class AjouterReclamation {
     @FXML
     void Ajouter(ActionEvent event) {
         try {
-            // Validation des champs
             if (validateFields()) {
                 String nom = NomId.getText();
                 String reclamation = ReclamationId.getText();
                 LocalDate date = DateId.getValue();
-                String rating = ratingID.getText();
+                String ratingValue = ratingID.getText();
 
-                // Capitalize the first letter of the message
                 reclamation = reclamation.substring(0, 1).toUpperCase() + reclamation.substring(1);
 
-                rs.ajouter(new Reclamation(nom, reclamation, Date.valueOf(date), rating));
+                rs.ajouter(new Reclamation(nom, reclamation, Date.valueOf(date), ratingValue, 1));
 
-
-                // Automatically capitalize the first letter of the message
                 String capitalizedMessage = capitalizeFirstLetter(ratingID.getText());
                 ratingID.setText(capitalizedMessage);
 
-                // Convert symbols to emojis
                 ratingID.setText(convertSymbolsToEmojis(ratingID.getText()));
 
-
-                // Check if the reclamation has been modified
                 String censoredMessage = censorBadWords(ReclamationId.getText());
                 if (!ReclamationId.getText().equals(censoredMessage)) {
-                    showNotification3();//notification mtaa el bad words
+                    showNotification3();
                 } else {
-                    showNotification();//notification kn jawha bhy
+                    showNotification();
                 }
-                // Affichez la réponse dans une alerte
+
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Confirmation");
                 alert.setContentText("Réclamation ajoutée avec succès.\nOption sélectionnée : " + reclamation);
                 alert.showAndWait();
 
-
-
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherReclamation.fxml"));
                 Parent root = loader.load();
 
-                // Retrieve the current scene from any control
                 Scene currentScene = NomId.getScene();
 
-                // Check if already on the "AfficherMessage" scene before setting the root
                 if (currentScene.getRoot() != root) {
                     currentScene.setRoot(root);
                 }
@@ -199,13 +188,11 @@ public class AjouterReclamation {
             alert.setTitle("SQL Exception");
             alert.setContentText(e.getMessage());
             alert.showAndWait();
-            e.printStackTrace(); // Handle the exception appropriately
-
+            e.printStackTrace();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
-
 
     // Validate date method
     private boolean isValidDate(LocalDate date) {

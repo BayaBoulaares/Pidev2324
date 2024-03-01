@@ -313,7 +313,7 @@ public class AfficherReclamation {
         try {
             if (validateSelection1() && validateInput()) {
                 ServiceReclamation ps = new ServiceReclamation();
-                reclamation = new Reclamation(reclamation.getId(), NomID.getText(), ReclamationID.getText(),DateID.getValue(),ratingID.getText());
+                reclamation = new Reclamation(reclamation.getId(), NomID.getText(), ReclamationID.getText(),DateID.getValue(),ratingID.getText(),1);
 
 
                 // Automatically capitalize the first letter of the message

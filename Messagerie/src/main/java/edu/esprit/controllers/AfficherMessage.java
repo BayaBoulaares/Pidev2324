@@ -199,7 +199,7 @@ public class AfficherMessage {
             if (validateSelection1()) {
                 if (validateInput()) {
                     ServiceMessagerie ps = new ServiceMessagerie();
-                    messagerie = new Messagerie(messagerie.getId(), NomID.getText(), MeesageID.getText());
+                    messagerie = new Messagerie(messagerie.getId(), NomID.getText(), MeesageID.getText(),1);
 
                     // Automatically capitalize the first letter of the message
                     String capitalizedMessage = capitalizeFirstLetter(messagerie.getMessage());
@@ -436,3 +436,4 @@ public class AfficherMessage {
 
 
 }
+
