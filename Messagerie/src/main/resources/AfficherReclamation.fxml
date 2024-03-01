@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.chart.PieChart?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
@@ -15,7 +16,7 @@
 
    <children>
 
-      <TableView fx:id="TableView" layoutX="292.0" layoutY="16.0" onMouseClicked="#mouceClicked" prefHeight="287.0" prefWidth="893.0" styleClass="custom-table-view" stylesheets="@css/css/StyleTable.css">
+      <TableView fx:id="TableView" layoutX="287.0" layoutY="14.0" onMouseClicked="#mouceClicked" prefHeight="287.0" prefWidth="893.0" styleClass="custom-table-view" stylesheets="@css/css/StyleTable.css">
          <columns>
             <TableColumn fx:id="Nom" prefWidth="150.0" text="Nom" />
             <TableColumn fx:id="Reclamation" minWidth="0.0" prefWidth="274.0" text="Reclamation" />
@@ -49,5 +50,6 @@
       <Rating fx:id="rating" layoutX="349.0" layoutY="728.0" />
       <TextField fx:id="ratingID" layoutX="363.0" layoutY="769.0" promptText="rate us ..." stylesheets="@css/css/StyleConnect.css" />
       <ComboBox fx:id="comboBox" layoutX="369.0" layoutY="602.0" onAction="#comboboxselected" prefWidth="150.0" promptText="type de reclamation" stylesheets="@css/css/StyleConnect.css" />
+      <PieChart fx:id="piechart" layoutX="964.0" layoutY="380.0" prefHeight="200.0" prefWidth="200.0" />
    </children>
 </AnchorPane>

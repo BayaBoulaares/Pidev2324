@@ -10,6 +10,18 @@ import java.util.Set;
 
 public class ServiceReclamation implements IServices<Reclamation> {
 
+    private static final ServiceReclamation instance = new ServiceReclamation();
+
+    // Private constructor to prevent instantiation
+    public ServiceReclamation() {
+        // Initialization code, if any
+    }
+
+    // Method to get the singleton instance
+    public static ServiceReclamation getInstance() {
+        return instance;
+    }
+
     Connection cnx = DataSource.getInstance().getCnx();
 
     @Override
@@ -102,20 +114,20 @@ public class ServiceReclamation implements IServices<Reclamation> {
 
 
 
-            String req = "SELECT * FROM reclamation";
-            Statement st = cnx.createStatement();
-            ResultSet res = st.executeQuery(req);
-            while (res.next()) {
-                int id = res.getInt("id");
-                String reclamation = res.getString("reclamation");
+        String req = "SELECT * FROM reclamation";
+        Statement st = cnx.createStatement();
+        ResultSet res = st.executeQuery(req);
+        while (res.next()) {
+            int id = res.getInt("id");
+            String reclamation = res.getString("reclamation");
 
-                String nom = res.getString("nom");
+            String nom = res.getString("nom");
 
-                Date date = res.getDate("date");
-                String rating =res.getString("rating");
-                Reclamation r = new Reclamation(id, nom, reclamation, date.toLocalDate(), rating);
-                reclamations.add(r);
-            }
+            Date date = res.getDate("date");
+            String rating =res.getString("rating");
+            Reclamation r = new Reclamation(id, nom, reclamation, date.toLocalDate(), rating);
+            reclamations.add(r);
+        }
 
         return reclamations;
     }

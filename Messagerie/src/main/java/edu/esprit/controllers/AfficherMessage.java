@@ -418,9 +418,9 @@ public class AfficherMessage {
                     String lowerCaseFilter = newValue.toLowerCase();
 
                     // Check if any property of the Messagerie contains the filter text
-                    return messagerie.getNom().toLowerCase().contains(lowerCaseFilter)
-                            || messagerie.getMessage().toLowerCase().contains(lowerCaseFilter)
-                            || String.valueOf(messagerie.getDate()).toLowerCase().contains(lowerCaseFilter);
+                    return censorBadWords(messagerie.getNom().toLowerCase()).contains(lowerCaseFilter)
+                            || censorBadWords(messagerie.getMessage().toLowerCase()).contains(lowerCaseFilter)
+                            || censorBadWords(String.valueOf(messagerie.getDate()).toLowerCase()).contains(lowerCaseFilter);
                 });
             });
 
