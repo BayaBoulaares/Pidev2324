@@ -1,28 +1,29 @@
 package edu.esprit.controllers;
 
-import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.layout.VBox;
-import jfxtras.scene.control.agenda.Agenda;
-import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.stage.Stage;
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.time.format.TextStyle;
-import java.util.Locale;
-import java.sql.SQLException;
-import java.util.List;
 import edu.esprit.entities.Evenement;
 import edu.esprit.services.ServiceEvenement;
+import javafx.fxml.FXML;
+import javafx.scene.control.Label;
+import javafx.scene.layout.VBox;
+import jfxtras.scene.control.agenda.Agenda;
+import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.TextStyle;
+import java.util.List;
+import java.util.Locale;
 import javafx.application.Platform;
 
 public class Calendrier {
 
     @FXML
     private VBox calendrierBox;
+    private ServiceEvenement serviceEvenement; // Assuming you have a ServiceEvenement instance
 
-
+    public Calendrier() {
+        serviceEvenement = new ServiceEvenement(); // Initialize serviceEvenement in the constructor
+    }
 
     public void initialize() {
         // Create a new instance of the agenda
@@ -43,31 +44,28 @@ public class Calendrier {
         calendrierBox.getChildren().addAll(monthLabel, agenda);
         calendrierBox.setStyle("-fx-background-color: #6ce3d6;"); // Set background color
 
-        // Get events for the current week and add them to the agenda
-        Platform.runLater(() -> {
-            System.out.println("Inside Platform.runLater block"); // Print statement
-            try {
-                ServiceEvenement serviceEvenement = new ServiceEvenement();
-                List<Evenement> evenementsSemaine = serviceEvenement.getEventsForCurrentWeek();
-                for (Evenement evenement : evenementsSemaine) {
-                    // Add event to agenda
-                    agenda.appointments().add(new Agenda.AppointmentImplLocal()
-                            .withStartLocalDateTime(evenement.getDate_Debut().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime().withHour(9).withMinute(0))
-                            .withEndLocalDateTime(evenement.getDate_Fin().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime())
-                            .withSummary(evenement.getNom_Event())
-                            .withDescription(evenement.getDescription()));
-                }
-            } catch (SQLException ex) {
-                ex.printStackTrace();
-                // Handle exception
-                // Show an error dialog with the exception message
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Erreur");
-                alert.setHeaderText("Une erreur s'est produite lors de la récupération des événements.");
-                alert.setContentText(ex.getMessage());
-                alert.showAndWait();
-            }
-        });
+
+        try {
+            List<Evenement> events = serviceEvenement.getAll(); // Get events using your existing method
+            addEventsToAgenda(events, agenda);
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
     }
+
+    public void addEventsToAgenda(List<Evenement> events, Agenda agenda) {
+        for (Evenement event : events) {
+            LocalDate startDate = new java.util.Date(event.getDate_Debut().getTime()).toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            LocalDateTime start = startDate.atTime(9, 0); // Set start time at 10 o'clock
+            LocalDate endDate = new java.util.Date(event.getDate_Fin().getTime()).toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            LocalDateTime end = endDate.atTime(13, 0); // Set end time at 10 o'clock
+
+            agenda.appointments().add(new Agenda.AppointmentImplLocal()
+                    .withStartLocalDateTime(start)
+                    .withEndLocalDateTime(end)
+                    .withSummary(event.getNom_Event()));
+        }
+    }
+
 
 }

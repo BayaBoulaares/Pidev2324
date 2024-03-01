@@ -182,3 +182,30 @@
     -fx-background-radius: 5px; /* Rounded corners */
     -fx-border-radius: 5px; /* Rounded corners */
 }
+.event0 .appointment .appointment-rectangle {
+    -fx-fill: #808080; /* Grey */
+}
+
+.event1 .appointment .appointment-rectangle {
+    -fx-fill: #ADD8E6; /* Light Blue */
+}
+
+.event2 .appointment .appointment-rectangle {
+    -fx-fill: #FF7F7F; /* Light Red */
+}
+
+.event3 .appointment .appointment-rectangle {
+    -fx-fill: #eee3ac; /* Gold */
+}
+
+.event4 .appointment .appointment-rectangle {
+    -fx-fill: #b5ecb5; /* Lime Green */
+}
+
+.event5 .appointment .appointment-rectangle {
+    -fx-fill: #ecd3a6; /* Orange */
+}
+
+.event6 .appointment .appointment-rectangle {
+    -fx-fill: #d286d2; /* Purple */
+}
