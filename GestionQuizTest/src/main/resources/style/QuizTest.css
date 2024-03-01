@@ -1,0 +1,177 @@
+.main-page-container{
+    -fx-background-color: #ffffff;
+}
+.nav-bar{
+    -fx-background-color: #30d5c8;
+    -fx-background-radius: 0 16 16 0;
+    -fx-border-radius: 0 16 16 0;
+}
+.menu-btn{
+    -fx-background-color: transparent;
+    -fx-font-family: "Jost Medium";
+    -fx-font-size: 20;
+    -fx-text-fill: #ffffff;
+    -fx-cursor: hand;
+}
+.menu-btn:hover{
+    -fx-opacity: 0.6;
+}
+.title-page{
+    -fx-font-family: "Jost SemiBold";
+    -fx-font-size: 32;
+    -fx-text-fill: #000000;
+}
+.scroll-pane{
+    -fx-background-color: #ffffff;
+}
+.scroll-pane .scroll-bar:vertical{
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-padding: 2px;
+}
+.scroll-pane .scroll-bar:vertical .thumb {
+    -fx-background-color: #30d5c8;
+}
+.scroll-pane .scroll-bar:vertical .thumb:hover {
+    -fx-opacity: 0.8;
+}
+.scroll-pane .scroll-bar:vertical .increment-button,
+.scroll-pane .scroll-bar:vertical .decrement-button {
+    -fx-background-color: transparent;
+}
+.list-quiz-container{
+    -fx-background-color: #ffffff;
+}
+.quiz-card-admin{
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 16;
+    -fx-border-radius: 16;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 10, 0, 4, 0);
+}
+.card-text-admin{
+    -fx-font-family: "Jost Medium";
+    -fx-font-size: 18;
+    -fx-text-fill: #000000;
+}
+.delete-btn{
+    -fx-background-color: red;
+    -fx-border-radius: 18;
+    -fx-background-radius: 18;
+    -fx-cursor: hand;
+}
+.edit-btn{
+    -fx-background-color: #30d5c8;
+    -fx-border-radius: 18;
+    -fx-background-radius: 18;
+    -fx-cursor: hand;
+}
+.edit-btn:hover, .delete-btn:hover{
+    -fx-opacity: 0.6;
+}
+.normal-btn{
+    -fx-background-color: #30d5c8;
+    -fx-border-radius: 12;
+    -fx-background-radius: 12;
+    -fx-font-family: "Jost Medium";
+    -fx-font-size: 20;
+    -fx-text-fill: #ffffff;
+    -fx-cursor: hand;
+}
+.normal-btn:hover{
+    -fx-opacity: 0.6;
+}
+.combo-box {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #ced4da;
+    -fx-border-width: 1px;
+    -fx-border-radius: 4px;
+    -fx-padding: 4px;
+    -fx-font-family: "Jost Medium";
+    -fx-text-fill: #000000;
+    -fx-font-size: 14px;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 10, 0, 4, 0);
+}
+.combo-box .arrow-button {
+    -fx-background-color: transparent;
+    -fx-padding: 2px;
+}
+.combo-box .arrow-button .arrow {
+    -fx-background-color: #30d5c8;
+    -fx-background-insets: 0;
+}
+.combo-box:hover .arrow-button .arrow {
+    -fx-background-color: #30d5c8;
+}
+.combo-box .list-cell {
+    -fx-background-color: #ffffff;
+    -fx-padding: 4px;
+    -fx-font-size: 14px;
+}
+.combo-box .list-cell:hover {
+    -fx-background-color: #d4edda;
+}
+.add-quiz-input{
+    -fx-background-color: #fff;
+    -fx-border-radius: 6px;
+    -fx-border-color: #999;
+    -fx-background-radius: 6px;
+    -fx-prompt-text-fill: #999;
+    -fx-font-family: "Jost Medium";
+    -fx-font-weight: 600;
+    -fx-font-size: 16px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 10, 0, 4, 0);
+}
+.add-quiz-input:focused, .description-input:focused{
+    -fx-border-color: #30d5c8;
+}
+.add-quiz-input:hover, .description-input:hover{
+    -fx-border-color: #30d5c8;
+}
+.label-form{
+    -fx-font-family: "Jost Medium";
+    -fx-font-size: 24;
+    -fx-fill: #000000;
+}
+.label-form{
+    -fx-font-family: "Jost Medium";
+    -fx-font-size: 20;
+    -fx-fill: #000000;
+}
+.label-correcte{
+    -fx-font-family: "Jost Medium";
+    -fx-font-size: 20;
+    -fx-fill: #0ad30a;
+}
+.checkbox-quizz {
+    -fx-font-family: "Jost Medium";
+    -fx-font-size: 20px;
+    -fx-text-fill: #202124;
+}
+
+.checkbox-quizz > .box {
+    -fx-background-color: #fff;
+    -fx-border-color: #30d5c8;
+}
+
+.checkbox-quizz:selected > .box {
+    -fx-background-color: #30d5c8;
+    -fx-border-color: #30d5c8;
+    -fx-border-radius: 100px;
+}
+
+.checkbox-quizz:selected > .box > .mark {
+    -fx-background-color: #fff;
+}
+
+.checkbox-quizz > .box:hover {
+    -fx-background-color: #e9fdec;
+}
+
+.checkbox-quizz:selected > .box:hover {
+    -fx-background-color: #30d5c8;
+}
+
+.checkbox-quizz > .box > .mark {
+    -fx-background-color: transparent;
+}
