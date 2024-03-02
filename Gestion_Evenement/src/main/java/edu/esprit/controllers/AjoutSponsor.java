@@ -84,17 +84,34 @@ public class AjoutSponsor {
                 return;
             }
 
+            // Validate sponsor name and description length
             if (nomSponsor.length() < 3 || descriptionSponsor.length() < 3) {
                 setFieldAsInvalid(sponsorName);
                 setFieldAsInvalid(sponsorDescription);
                 return;
             }
 
+            // Validate sponsor name: length and absence of digits
             if (nomSponsor.length() > 20 || nomSponsor.matches(".*\\d.*")) {
                 setFieldAsInvalid(sponsorName);
                 return;
             }
 
+            // Validate sponsor name and description: absence of special characters
+            if (contientCaracteresSpeciaux(nomSponsor) || contientCaracteresSpeciaux(descriptionSponsor)) {
+                return;
+            }
+
+            // Check if the sponsor is already assigned to this event
+            ServiceSponsor serviceSponsor = new ServiceSponsor();
+            boolean sponsorExists = serviceSponsor.sponsorExistsForEvent(selectedEvent.getNom_Event());
+            if (sponsorExists) {
+                setFieldAsInvalid(sponsorName);
+                afficherAlerte("Ce sponsor est déjà attribué à cet événement !");
+                return;
+            }
+
+            // Validate if all required fields are filled
             if (nomSponsor.isEmpty() || descriptionSponsor.isEmpty() || fondSponsor == null || imagePath.isEmpty()) {
                 setFieldAsInvalid(sponsorName);
                 setFieldAsInvalid(sponsorDescription);
@@ -107,31 +124,45 @@ public class AjoutSponsor {
             setFieldAsValid(sponsorDescription);
             setFieldAsValid(sponsorFond);
 
-            // Créer un nouvel objet Sponsor avec les informations fournies
+            // Create a new Sponsor object with the provided information
             Sponsor nouveauSponsor = new Sponsor();
             nouveauSponsor.setNomSponsor(nomSponsor);
             nouveauSponsor.setDescription_s(descriptionSponsor);
             nouveauSponsor.setFond(fondSponsor);
             nouveauSponsor.setEvenement(selectedEvent);
-            nouveauSponsor.setImage(imagePath); // Définir le chemin de l'image
+            nouveauSponsor.setImage(imagePath); // Set the image path
 
-            // Appeler le service pour ajouter le nouveau sponsor
-            ServiceSponsor serviceSponsor = new ServiceSponsor();
+            // Call the service to add the new sponsor
             serviceSponsor.ajouter(nouveauSponsor);
 
             afficherAlerte("Sponsor ajouté avec succès");
 
-            // Réinitialiser les champs après l'ajout
+            // Reset the fields after adding
             sponsorName.clear();
             sponsorDescription.clear();
             eventComboBox.getSelectionModel().clearSelection();
             sponsorFond.getSelectionModel().clearSelection();
-            imagePath = ""; // Réinitialiser le chemin de l'image
+            imagePath = ""; // Reset the image path
 
         } catch (SQLException | NumberFormatException e) {
             afficherAlerte("Une erreur de type " + e.getClass().getSimpleName() + " s'est produite lors de l'ajout du sponsor : " + e.getMessage());
         }
     }
+
+    private boolean contientCaracteresSpeciaux(String text) {
+        if (text.matches(".*\\d.*")) {
+            afficherAlerte("Le nom de l'événement ne peut pas contenir de chiffres !");
+            return true; // Contains digits
+        } else if (!text.matches("[a-zA-ZÀ-ÿ\\s]*")) {
+            afficherAlerte("Le nom de l'événement ne doit pas contenir de caractères spéciaux !");
+            return true; // Contains special characters
+        } else if (text.matches(".*[^a-zA-ZÀ-ÿ0-9\\s].*")) {
+            afficherAlerte("La description de l'événement ne doit pas contenir de caractères spéciaux !");
+            return true; // Contains special characters
+        }
+        return false; // No digits or special characters
+    }
+
 
     @FXML
     void selectImage(ActionEvent event) {
@@ -174,7 +205,7 @@ public class AjoutSponsor {
     }
 
     private void afficherAlerte(String message) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Information");
         alert.setContentText(message);
         alert.showAndWait();

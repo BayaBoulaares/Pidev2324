@@ -49,7 +49,6 @@ public class AjoutEvenement {
     private ImageView eventImage;
 
     private String imagePath;
-
     @FXML
     void ajouter(ActionEvent event) {
         try {
@@ -76,8 +75,13 @@ public class AjoutEvenement {
                 return;
             }
 
-            if (contientChiffres(nomEvenement)) {
-                afficherAlerte("Le nom de l'événement ne peut pas contenir de chiffres !");
+            if (!lieuEvenement.matches("^[a-zA-ZÀ-ÿ0-9\\s]{3,}$")) {
+                afficherAlerte("Le lieu de l'événement doit avoir au moins 3 caractères et ne doit pas contenir de caractères spéciaux !");
+                return;
+            }
+
+            if (contientCaracteresSpeciaux(nomEvenement) || contientCaracteresSpeciaux(descriptionEvenement)) {
+                afficherAlerte("Le nom et la description de l'événement ne doivent pas contenir de caractères spéciaux !");
                 return;
             }
 
@@ -89,6 +93,13 @@ public class AjoutEvenement {
             // Validate if the start date is before the end date
             if (dateDebut.isAfter(dateFin)) {
                 afficherAlerte("La date de début doit être avant la date de fin !");
+                return;
+            }
+
+            // Check if the event already exists
+            boolean eventExists = serviceEvenement.eventExists(nomEvenement);
+            if (eventExists) {
+                afficherAlerte("Cet événement existe déjà !");
                 return;
             }
 
@@ -116,6 +127,18 @@ public class AjoutEvenement {
             afficherAlerte("Une erreur s'est produite : " + e.getMessage());
         }
     }
+
+    private boolean contientCaracteresSpeciaux(String text) {
+        if (text.matches(".*\\d.*")) {
+            afficherAlerte("Le nom de l'événement ne peut pas contenir de chiffres !");
+            return true; // Contains digits
+        } else if (!text.matches("[a-zA-ZÀ-ÿ\\s]*")) {
+            afficherAlerte("Le nom de l'événement ne doit pas contenir de caractères spéciaux !");
+            return true; // Contains special characters
+        }
+        return false; // No digits or special characters
+    }
+
 
 
     @FXML

@@ -105,9 +105,8 @@ public class ModifierSponsor {
                 return;
             }
 
-
-            if (newName.length() < 3 || newDescription.length() < 3) {
-                afficherAlerte("nom doit avoir 3 caractére minimum!");
+            // Validate name and description for length and special characters
+            if (!validateInput(newName, newDescription)) {
                 return;
             }
 
@@ -122,7 +121,7 @@ public class ModifierSponsor {
             }
 
             if (selectedEvent == null) {
-                afficherAlerte("lelement n'est pas trouvé.");
+                afficherAlerte("l'élément n'est pas trouvé.");
                 return;
             }
 
@@ -133,13 +132,33 @@ public class ModifierSponsor {
             sponsorService.modifier(updatedSponsor);
 
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Success");
+            alert.setTitle("Succès");
             alert.setContentText("Sponsor Modifié!");
             alert.showAndWait();
         } catch (SQLException e) {
-            afficherAlerte("Error updating sponsor: " + e.getMessage());
+            afficherAlerte("Erreur lors de la modification du sponsor : " + e.getMessage());
         }
     }
+
+
+    private boolean validateInput(String name, String description) {
+        if (name.matches(".*\\d.*")) {
+            afficherAlerte("Le nom de sponsor ne peut pas contenir de chiffres !");
+            return false; // Contains digits
+        } else if (!name.matches("[a-zA-ZÀ-ÿ\\s]*")) {
+            afficherAlerte("Le nom de sponsor ne doit pas contenir de caractères spéciaux !");
+            return false; // Contains special characters
+        } else if (description.matches(".*\\d.*")) {
+            afficherAlerte("La description de sponsor ne peut pas contenir de chiffres !");
+            return false; // Contains digits
+        } else if (!description.matches("[a-zA-ZÀ-ÿ\\s]*")) {
+            afficherAlerte("La description de sponsor ne doit pas contenir de caractères spéciaux !");
+            return false; // Contains special characters
+        }
+        return true; // Valid input
+    }
+
+
 
     private void afficherAlerte(String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR);

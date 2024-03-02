@@ -193,7 +193,25 @@ public class ServiceSponsor implements IService<Sponsor> {
         return nombreEvenementsParSponsor;
     }
 
+    public boolean sponsorExistsForEvent(String eventName) {
+        Connection cnx = DataSource.getInstance().getCnx();
 
+        try {
+            String query = "SELECT COUNT(*) AS count FROM sponsor s JOIN evenement e ON s.Id_Event = e.Id_Event WHERE e.Nom_Event = ?";
+            try (PreparedStatement pstmt = cnx.prepareStatement(query)) {
+                pstmt.setString(1, eventName);
+                ResultSet rs = pstmt.executeQuery();
+                if (rs.next()) {
+                    int count = rs.getInt("count");
+                    return count > 0;
+                }
+            }
+        } catch (SQLException ex) {
+            System.out.println("Erreur lors de la vérification de l'existence du sponsor pour l'événement : " + ex.getMessage());
+        }
+
+        return false;
+    }
 
 }
 

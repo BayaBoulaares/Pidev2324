@@ -11,12 +11,12 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
+import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ToggleButton;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
@@ -165,7 +165,7 @@ public class AfficherEvents {
         Button participerButton = new Button("Participer");
         participerButton.getStyleClass().add("action-button");
         participerButton.setStyle("-fx-background-color: white; -fx-text-fill:turquoise;-fx-background-radius: 5px; -fx-border-color: turquoise;");
-        participerButton.setOnAction(event -> handleParticiperEvent(evenement));
+        participerButton.setOnAction(event -> handleParticiperEvent(participerButton,evenement));
 
         ImageView participerIcon = new ImageView(new Image("file:///C:/Users/ameni/Downloads/Gestion_Evenement2/src/main/java/edu/esprit/image/verifier.png"));
         participerIcon.setFitWidth(20);
@@ -187,31 +187,7 @@ public class AfficherEvents {
 
         eventBox.getChildren().add(hboxButtons);
 
-        ToggleButton likeButton = new ToggleButton();
-        likeButton.getStyleClass().addAll("like-button");
-        likeButton.setSelected(false);
-        likeButton.setStyle("-fx-background-color: transparent;");
-        ImageView likeIconNotLiked = new ImageView(new Image("file:///C:/Users/ameni/Downloads/Gestion_Evenement2/src/main/java/edu/esprit/image/like2.png"));
-        ImageView likeIconLiked = new ImageView(new Image("file:///C:/Users/ameni/Downloads/Gestion_Evenement2/src/main/java/edu/esprit/image/like.png"));
-        likeIconNotLiked.setFitWidth(20);
-        likeIconNotLiked.setFitHeight(20);
-        likeIconLiked.setFitWidth(20);
-        likeIconLiked.setFitHeight(20);
-        likeButton.setGraphic(likeIconNotLiked);
-        eventBox.getChildren().add(likeButton);
-        Pane pane = new Pane();
-        likeButton.setOnAction(event -> {
-            if (likeButton.isSelected()) {
-                likeButton.setGraphic(likeIconLiked);
-                handleLikeEvent(evenement, true);
-            } else {
-                likeButton.setGraphic(likeIconNotLiked);
-                handleLikeEvent(evenement, false);
-            }
-            likeButton.setLayoutX(400);
-            likeButton.setLayoutY(300);
-            eventBox.getChildren().add(pane);
-        });
+
 
         return eventBox;
     }
@@ -281,25 +257,14 @@ public class AfficherEvents {
         }
     }
 
-    private void handleLikeEvent(Evenement evenement, boolean liked) {
-        // Implement your logic here to handle the like event
-        if (liked) {
-            // The event was liked
-            System.out.println("Event liked: " + evenement.getNom_Event());
-            // Add your code to update the database or perform any other actions
-        } else {
-            // The like was removed
-            System.out.println("Event unliked: " + evenement.getNom_Event());
-            // Add your code to update the database or perform any other actions
-        }
-    }
+
     @FXML
-    void handleParticiperEvent(Evenement evenement) {
+    private void handleParticiperEvent(Button participerButton, Evenement evenement) {
         try {
-            // Utilisez l'ID de l'utilisateur connu
+            // Utilize the ID of the known user
             int userId = 1;
 
-            // Obtenez l'ID de l'événement
+            // Get the ID of the event
             int eventId = evenement.getId_Event();
 
             // Check if the user has already participated in the event
@@ -313,39 +278,86 @@ public class AfficherEvents {
                 return; // Exit the method
             }
 
-            // Check if the maximum number of participants is reached
-            if (serviceParticipation.isMaxParticipantsReached(eventId)) {
-                // If the maximum number of participants is reached, remove the event
-                serviceParticipation.removeEvent(eventId);
-                System.out.println("Event removed because the maximum number of participants is reached!");
-                // Refresh the display
-                List<Evenement> allEvents = serviceEvenement.getAll();
-                displayEventsInEventBox(allEvents);
-                // You can display an alert or perform any other action here
+            // Check if the remaining number of participants is 0
+            int remainingParticipants = calculateRemainingParticipants(evenement);
+            if (remainingParticipants <= 0) {
+                // If the remaining number of participants is 0, remove the event from the view
+                removeEventFromView(participerButton);
+                // Display an alert
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Nombre maximum atteint");
+                alert.setHeaderText(null);
+                alert.setContentText("Désolé, le nombre maximum de participants pour cet événement est atteint.");
+                alert.showAndWait();
                 return; // Exit the method
             }
 
-            // Insérez la participation dans la base de données
+            // Check if the maximum number of participants is reached
+            if (serviceParticipation.isMaxParticipantsReached(eventId)) {
+                // Display an alert
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Maximum Participants Reached");
+                alert.setHeaderText(null);
+                alert.setContentText("Désolé, le nombre maximum de participants pour cet événement a été atteint.");
+                alert.showAndWait();
+
+                // Remove the event from the view
+                removeEventFromView(participerButton);
+
+                // Remove the event from the database
+                ServiceEvenement serviceEvenement = new ServiceEvenement();
+                serviceEvenement.supprimer(eventId);
+
+                return; // Exit the method
+            }
+
+            // Insert the participation into the database
             serviceParticipation.insertParticipation(eventId, userId);
 
-            System.out.println("Participation ajoutée avec succès!");
+            System.out.println("Participation successfully added!");
 
-            // Affichez une alerte indiquant que la participation a été ajoutée avec succès
+            // Display an alert indicating that the participation has been successfully added
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Participation ajoutée");
+            alert.setTitle("Participation Ajoutée");
             alert.setHeaderText(null);
-            alert.setContentText("La participation a été ajoutée avec succès!");
+            alert.setContentText("Participation ajoutée avec succès!");
             alert.showAndWait();
 
-            // Refresh the display after adding the participation
-            List<Evenement> allEvents = serviceEvenement.getAll();
-            displayEventsInEventBox(allEvents);
+            // Update the remaining number of participants
+            remainingParticipants = calculateRemainingParticipants(evenement);
+            // Update the label displaying the remaining number of participants
+            for (Node node : participerButton.getParent().getParent().getChildrenUnmodifiable()) {
+                if (node instanceof Label && node.getStyleClass().contains("remaining-label")) {
+                    ((Label) node).setText("Places restantes : " + remainingParticipants);
+                    break;
+                }
+            }
+
+            // Change the button text and style to "Participated"
+            participerButton.setText("Participated");
+            participerButton.getStyleClass().clear(); // Clear existing styles
+            participerButton.getStyleClass().add("participated-button"); // Add new style
+            // Set the width and height of the button to match "Participer" button
+            participerButton.setMinWidth(participerButton.getWidth());
+            participerButton.setPrefWidth(participerButton.getWidth());
+            participerButton.setMinHeight(participerButton.getHeight());
+            participerButton.setPrefHeight(participerButton.getHeight());
+
         } catch (SQLException ex) {
-            System.err.println("Erreur lors de l'ajout de la participation : " + ex.getMessage());
+            System.err.println("Erreur lors de l'ajout de la participation: " + ex.getMessage());
         }
     }
 
 
+
+    private void removeEventFromView(Button participerButton) {
+        // Find the parent node of the button (the event box) and remove it
+        Node eventBox = participerButton.getParent().getParent();
+        if (eventBox instanceof VBox) {
+            VBox parentVBox = (VBox) eventBox;
+            parentVBox.getChildren().remove(eventBox);
+        }
+    }
 
     @FXML
     void handleLibraryButtonAction(ActionEvent event) {

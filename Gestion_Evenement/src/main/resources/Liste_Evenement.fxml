@@ -27,15 +27,7 @@
                <Image url="@images/Calendar-bro.png" />
             </image>
          </ImageView>
-            <Button style="-fx-background-color: transparent; -fx-border-color: transparent; -fx-padding: 0;">
-                <graphic>
-                    <ImageView fitHeight="24" fitWidth="24">
-                        <image>
-                            <Image url="@images/livre.png" />
-                        </image>
-                    </ImageView>
-                </graphic>
-            </Button>
+
         </HBox>
     </top>
 

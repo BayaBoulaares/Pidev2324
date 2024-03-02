@@ -18,6 +18,8 @@ public class ServiceEvenement implements IService<Evenement> {
 
     Connection cnx = DataSource.getInstance().getCnx();
 
+
+
     @Override
     public void ajouter(Evenement e) throws SQLException {
         String req = "INSERT INTO `evenement`(`Nom_Event`, `Description`, `Lieu_Event`, `Date_Debut`, `Date_Fin`, `Nb_Max`, `image`) VALUES (?,?,?,?,?,?,?)";
@@ -129,41 +131,22 @@ public class ServiceEvenement implements IService<Evenement> {
         return evenements;
     }
 
-    public List<Evenement> getEventsForCurrentWeek() throws SQLException {
-        List<Evenement> evenementsSemaine = new ArrayList<>();
+    public boolean eventExists(String nomEvenement) throws SQLException {
+        String req = "SELECT COUNT(*) FROM evenement WHERE Nom_Event = ?";
         try {
-            // Get the start and end date of the current week
-            LocalDate debutSemaine = LocalDate.now().with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY));
-            LocalDate finSemaine = debutSemaine.plusDays(6); // Sunday is the last day of the week
-
-            String req = "SELECT * FROM evenement WHERE Date_Debut >= ? AND Date_Fin <= ?";
             PreparedStatement ps = cnx.prepareStatement(req);
-            ps.setDate(1, java.sql.Date.valueOf(debutSemaine));
-            ps.setDate(2, java.sql.Date.valueOf(finSemaine));
+            ps.setString(1, nomEvenement);
             ResultSet res = ps.executeQuery();
-            while (res.next()) {
-                int id = res.getInt("Id_Event");
-                String nomEvent = res.getString("Nom_Event");
-                String description = res.getString("Description");
-                String lieuEvent = res.getString("Lieu_Event");
-                Date dateDebut = res.getDate("Date_Debut");
-                Date dateFin = res.getDate("Date_Fin");
-                int nbMax = res.getInt("Nb_Max");
-                String image = res.getString("image");
-
-                // Set the start time to 9:00
-                LocalDateTime dateTimeDebut = dateDebut.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime().withHour(9).withMinute(0);
-
-                Evenement e = new Evenement(id, nomEvent, description, lieuEvent, java.sql.Timestamp.valueOf(dateTimeDebut), dateFin, nbMax, image);
-                evenementsSemaine.add(e);
+            if (res.next()) {
+                int count = res.getInt(1);
+                return count > 0;
             }
         } catch (SQLException ex) {
-            System.out.println("Error while fetching events for the week: " + ex.getMessage());
+            System.out.println("Erreur lors de la vérification de l'existence de l'événement : " + ex.getMessage());
             throw ex;
         }
-        return evenementsSemaine;
+        return false;
     }
-
 
 }
 

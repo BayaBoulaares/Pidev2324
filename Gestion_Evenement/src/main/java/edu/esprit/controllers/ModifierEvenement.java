@@ -97,7 +97,13 @@ public class ModifierEvenement {
             LocalDate dateDebut = eventStartDate.getValue();
             LocalDate dateFin = eventEndDate.getValue();
             String lieuEvenement = eventLocation.getText();
-            int nombreMax = Integer.parseInt(maxNumber.getText());
+            int nombreMax;
+            try {
+                nombreMax = Integer.parseInt(maxNumber.getText());
+            } catch (NumberFormatException ex) {
+                afficherAlerte("Veuillez entrer un nombre valide pour le nombre maximum de participants.");
+                return;
+            }
             String description = eventDescription.getText();
 
             // Validate if any required field is empty
@@ -125,7 +131,23 @@ public class ModifierEvenement {
                 return;
             }
 
-            // Convert LocalDate to Date
+            // Validate lieuEvenement
+            if (!lieuEvenement.matches("^[a-zA-ZÀ-ÿ0-9\\s]{3,}$")) {
+                afficherAlerte("Le lieu de l'événement doit avoir au moins 3 caractères et ne doit pas contenir de caractères spéciaux !");
+                return;
+            }
+
+            // Validate if the event name contains special characters or digits
+            if (contientCaracteresSpeciaux(nomEvenement)) {
+                return; // Stop execution if the event name contains special characters
+            }
+
+            // Validate if the description contains special characters
+            if (contientCaracteresSpeciaux(description)) {
+                return; // Stop execution if the description contains special characters
+            }
+
+            // Create Date objects from LocalDate
             Date dateDebutConverted = java.sql.Date.valueOf(dateDebut);
             Date dateFinConverted = java.sql.Date.valueOf(dateFin);
 
@@ -142,14 +164,23 @@ public class ModifierEvenement {
             alert.setContentText("Événement modifié avec succès !");
             alert.showAndWait();
 
-        } catch (NumberFormatException e) {
-            // Show error message for invalid number format
-            afficherAlerte("Veuillez entrer un nombre valide pour le nombre maximum de participants.");
         } catch (SQLException e) {
             // Show error message for SQL exception
             afficherAlerte("Une erreur s'est produite lors de la mise à jour de l'événement : " + e.getMessage());
         }
     }
+
+    private boolean contientCaracteresSpeciaux(String text) {
+        if (text.matches(".*\\d.*")) {
+            afficherAlerte("Le nom de l'événement et la description ne peuvent pas contenir de chiffres !");
+            return true; // Contains digits
+        } else if (!text.matches("[a-zA-ZÀ-ÿ\\s]*")) {
+            afficherAlerte("Le nom de l'événement et la description ne peuvent pas contenirde caractères spéciaux !");
+            return true; // Contains special characters
+        }
+        return false; // No digits or special characters
+    }
+
 
 
     @FXML
