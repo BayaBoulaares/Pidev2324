@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" opacity="0.85" prefHeight="750.0" prefWidth="1200.0" style="-fx-background-color: #FAFEFC;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controller.MatiersAffichage">
+   <children>
+      <VBox layoutY="-2.0" prefHeight="762.0" prefWidth="178.0" styleClass="sidebar" stylesheets="@../css/StyleDashboardUser.css">
+         <children>
+            <ImageView fitHeight="186.0" fitWidth="179.0">
+               <image>
+                  <Image url="@../images/78520233 - Copy.png" />
+               </image>
+            </ImageView>
+            <VBox prefHeight="392.0" prefWidth="179.0">
+               <children>
+                  <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="46.0" prefWidth="172.0">
+                     <children>
+                        <ImageView translateX="63.0" translateY="4.0">
+                           <image>
+                              <Image url="@../images/IconAccueil.png" />
+                           </image>
+                        </ImageView>
+                        <Button fx:id="toaccueil" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#toacceuiel" prefHeight="30.0" prefWidth="57.0" styleClass="bprof" text="Accueil" translateX="62.0" />
+                     </children>
+                  </HBox>
+                  <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="46.0" prefWidth="168.0">
+                     <children>
+                        <ImageView translateX="63.0" translateY="2.0">
+                           <image>
+                              <Image url="@../images/IconProfile.png" />
+                           </image>
+                        </ImageView>
+                        <Button fx:id="toprofile" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#tohisprofile" prefHeight="30.0" prefWidth="60.0" styleClass="bprof" text="Profile" translateX="60.0" />
+                     </children>
+                  </HBox>
+                  <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="46.0" prefWidth="178.0">
+                     <children>
+                        <ImageView fitHeight="24.0" fitWidth="28.0" translateX="63.0" translateY="8.0">
+                           <image>
+                              <Image url="@../images/IconDoc.png" />
+                           </image>
+                        </ImageView>
+                        <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#toMatiere" prefHeight="46.0" prefWidth="86.0" styleClass="bdoc" text="Documents" translateX="60.0" />
+                     </children>
+                  </HBox>
+                  <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="46.0" prefWidth="179.0">
+                     <children>
+                        <ImageView translateX="60.0" translateY="10.0">
+                           <image>
+                              <Image url="@../images/IconCalendar.png" />
+                           </image>
+                        </ImageView>
+                        <Button fx:id="evenements1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="45.0" prefWidth="86.0" styleClass="bee" text="Evenements" translateX="60.0" />
+                     </children>
+                  </HBox>
+                  <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="46.0" prefWidth="179.0">
+                     <children>
+                        <ImageView translateX="60.0" translateY="10.0">
+                           <image>
+                              <Image url="@../images/Iconrec.png" />
+                           </image>
+                        </ImageView>
+                        <Button fx:id="reclamation1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="37.0" prefWidth="85.0" styleClass="brec" text="Réclamation" translateX="60.0" translateY="5.0" />
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+            <HBox prefHeight="58.0" prefWidth="179.0">
+               <children>
+                  <HBox prefHeight="86.0" prefWidth="179.0">
+                     <children>
+                        <ImageView fitHeight="54.0" fitWidth="57.0">
+                           <image>
+                              <Image url="@../images/Logout 2.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </HBox>
+                  <Button fx:id="dcxn1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#deconnexion" prefHeight="58.0" prefWidth="114.0" styleClass="dcxn" stylesheets="@../css/StyleDashboardAd.css" text="Déconnexion" />
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+      <Label layoutX="239.0" layoutY="40.0" text="Pages / Acceuil" textFill="#a3aed0">
+         <font>
+            <Font name="System Bold" size="7.0" />
+         </font>
+      </Label>
+      <Label fx:id="idmat" layoutX="243.0" layoutY="46.0" prefHeight="46.0" prefWidth="129.0" text="Matiere !" textFill="#2b3674">
+         <font>
+            <Font name="System Bold" size="22.0" />
+         </font>
+      </Label>
+      <AnchorPane layoutX="177.0" layoutY="79.0" />
+      <Button fx:id="idret" layoutX="1080.0" layoutY="653.0" mnemonicParsing="false" onAction="#retourMAtiere" prefHeight="46.0" prefWidth="78.0" stylesheets="@../css/style.css" text="Retour" textFill="WHITE">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Button>
+      <ScrollPane layoutX="239.0" layoutY="172.0" prefHeight="463.0" prefWidth="805.0">
+         <content>
+            <FlowPane fx:id="matiereFlowPane" prefHeight="455.0" prefWidth="793.0" style="-fx-background-radius: 5; -fx-border-radius: 5; -fx-background-color: #FAFEFC;" />
+         </content>
+      </ScrollPane>
+      <Line endX="-148.00001525878906" endY="550.7999877929688" layoutX="357.0" layoutY="98.0" startX="-148.00001525878906" startY="75.60000610351562" stroke="#a3aed0" />
+      <Button fx:id="ida" layoutX="177.0" layoutY="254.0" mnemonicParsing="false" onAction="#handleAlphabetButtonClick" prefHeight="11.0" prefWidth="32.0" style="-fx-background-color: transparent;" text="A" textFill="#a3aed0" />
+      <Button fx:id="idb" layoutX="177.0" layoutY="280.0" mnemonicParsing="false" onAction="#handleAlphabetButtonClick" prefHeight="18.0" prefWidth="32.0" style="-fx-background-color: transparent;" text="B" textFill="#a3aed0" />
+      <Button fx:id="idb1" layoutX="177.0" layoutY="306.0" mnemonicParsing="false" onAction="#handleAlphabetButtonClick" prefHeight="18.0" prefWidth="32.0" style="-fx-background-color: transparent;" text="C" textFill="#a3aed0" />
+      <Button fx:id="idb11" layoutX="177.0" layoutY="330.0" mnemonicParsing="false" onAction="#handleAlphabetButtonClick" prefHeight="18.0" prefWidth="32.0" style="-fx-background-color: transparent;" text="D" textFill="#a3aed0" />
+      <Button fx:id="idb111" layoutX="177.0" layoutY="356.0" mnemonicParsing="false" onAction="#handleAlphabetButtonClick" prefHeight="18.0" prefWidth="32.0" style="-fx-background-color: transparent;" text="E" textFill="#a3aed0" />
+      <Button fx:id="idb1111" layoutX="177.0" layoutY="376.0" mnemonicParsing="false" onAction="#handleAlphabetButtonClick" prefHeight="18.0" prefWidth="32.0" style="-fx-background-color: transparent;" text="F" textFill="#a3aed0" />
+      <Button fx:id="idb11111" layoutX="177.0" layoutY="402.0" mnemonicParsing="false" onAction="#handleAlphabetButtonClick" prefHeight="18.0" prefWidth="32.0" style="-fx-background-color: transparent;" text="G" textFill="#a3aed0" />
+      <Button layoutX="177.0" layoutY="428.0" mnemonicParsing="false" onAction="#handleAlphabetButtonClick" prefHeight="18.0" prefWidth="32.0" style="-fx-background-color: transparent;" text="H" textFill="#a3aed0" />
+      <Button layoutX="177.0" layoutY="454.0" mnemonicParsing="false" onAction="#handleAlphabetButtonClick" prefHeight="18.0" prefWidth="32.0" style="-fx-background-color: transparent;" text="I" textFill="#a3aed0" />
+      <Button layoutX="177.0" layoutY="480.0" mnemonicParsing="false" onAction="#handleAlphabetButtonClick" prefHeight="18.0" prefWidth="32.0" style="-fx-background-color: transparent;" text="J" textFill="#a3aed0" />
+      <Button layoutX="177.0" layoutY="506.0" mnemonicParsing="false" onAction="#handleAlphabetButtonClick" prefHeight="18.0" prefWidth="32.0" style="-fx-background-color: transparent;" text="K" textFill="#a3aed0" />
+      <Button layoutX="177.0" layoutY="532.0" mnemonicParsing="false" onAction="#handleAlphabetButtonClick" prefHeight="18.0" prefWidth="32.0" style="-fx-background-color: transparent;" text="L" textFill="#a3aed0" />
+      <Button layoutX="177.0" layoutY="558.0" mnemonicParsing="false" onAction="#handleAlphabetButtonClick" prefHeight="18.0" prefWidth="32.0" style="-fx-background-color: transparent;" text="M" textFill="#a3aed0" />
+      <Button layoutX="177.0" layoutY="584.0" mnemonicParsing="false" onAction="#handleAlphabetButtonClick" prefHeight="18.0" prefWidth="32.0" style="-fx-background-color: transparent;" text="N" textFill="#a3aed0" />
+      <Button layoutX="211.0" layoutY="254.0" mnemonicParsing="false" onAction="#handleAlphabetButtonClick" prefHeight="18.0" prefWidth="32.0" style="-fx-background-color: transparent;" text="O" textFill="#a3aed0" />
+      <Button layoutX="211.0" layoutY="267.0" mnemonicParsing="false" onAction="#handleAlphabetButtonClick" prefHeight="18.0" prefWidth="32.0" style="-fx-background-color: transparent;" text="P" textFill="#a3aed0" />
+      <Button layoutX="211.0" layoutY="293.0" mnemonicParsing="false" onAction="#handleAlphabetButtonClick" prefHeight="18.0" prefWidth="32.0" style="-fx-background-color: transparent;" text="Q" textFill="#a3aed0" />
+      <Button layoutX="211.0" layoutY="343.0" mnemonicParsing="false" onAction="#handleAlphabetButtonClick" prefHeight="18.0" prefWidth="32.0" style="-fx-background-color: transparent;" text="S" textFill="#a3aed0" />
+      <Button layoutX="211.0" layoutY="376.0" mnemonicParsing="false" onAction="#handleAlphabetButtonClick" prefHeight="18.0" prefWidth="32.0" style="-fx-background-color: transparent;" text="T" textFill="#a3aed0" />
+      <Button layoutX="211.0" layoutY="402.0" mnemonicParsing="false" onAction="#handleAlphabetButtonClick" prefHeight="18.0" prefWidth="32.0" style="-fx-background-color: transparent;" text="U" textFill="#a3aed0" />
+      <Button layoutX="211.0" layoutY="428.0" mnemonicParsing="false" onAction="#handleAlphabetButtonClick" prefHeight="18.0" prefWidth="32.0" style="-fx-background-color: transparent;" text="V" textFill="#a3aed0" />
+      <Button layoutX="211.0" layoutY="454.0" mnemonicParsing="false" onAction="#handleAlphabetButtonClick" prefHeight="18.0" prefWidth="32.0" style="-fx-background-color: transparent;" text="W" textFill="#a3aed0" />
+      <Button layoutX="208.0" layoutY="519.0" mnemonicParsing="false" onAction="#handleAlphabetButtonClick" prefHeight="18.0" prefWidth="32.0" style="-fx-background-color: transparent;" text="X" textFill="#a3aed0" />
+      <Button layoutX="208.0" layoutY="558.0" mnemonicParsing="false" onAction="#handleAlphabetButtonClick" prefHeight="18.0" prefWidth="32.0" style="-fx-background-color: transparent;" text="Y" textFill="#a3aed0" />
+      <Button layoutX="208.0" layoutY="584.0" mnemonicParsing="false" onAction="#handleAlphabetButtonClick" prefHeight="18.0" prefWidth="32.0" style="-fx-background-color: transparent;" text="Z" textFill="#a3aed0" />
+      <Button layoutX="211.0" layoutY="317.0" mnemonicParsing="false" onAction="#handleAlphabetButtonClick" prefHeight="18.0" prefWidth="32.0" style="-fx-background-color: transparent;" text="R" textFill="#a3aed0" />
+      <Button layoutX="211.0" layoutY="622.0" mnemonicParsing="false" onAction="#affichertout" prefHeight="18.0" prefWidth="32.0" style="-fx-background-color: transparent;" text="#" textFill="#a3aed0" />
+      <ImageView fitHeight="134.0" fitWidth="178.0" layoutX="991.0" layoutY="12.0">
+         <image>
+            <Image url="@../images/GG-July-39.jpg" />
+         </image>
+      </ImageView>
+      <Button fx:id="dcxn" layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#deconnexion" prefHeight="35.0" prefWidth="90.0" styleClass="dcxn" stylesheets="@../css/StyleDashboardAd.css" text="Déconnexion" />
+   </children>
+</AnchorPane>

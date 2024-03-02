@@ -1,0 +1,122 @@
+/* DarkTheme.css */
+.parent{
+    -fx-background-color: #F4FEF9;
+    -fx-background-radius: 30px;
+}
+.sidebar{
+    -fx-background-color: #27DEC1;
+    -fx-background-radius: 0px 10px 10px 0px;
+    -fx-font-family: dm-sans;
+    -fx-font-size: 16px;
+    -fx-font-weight:Bold;
+
+}
+
+.label {
+    -fx-font-size: 11pt;
+    -fx-font-family: dm-sans;
+    -fx-text-fill: white;
+    -fx-opacity: 0.6;
+}
+
+.label-bright {
+    -fx-font-size: 11pt;
+    -fx-font-family:dm-sans;
+    -fx-text-fill: white;
+    -fx-opacity: 1;
+}
+
+.label-header {
+    -fx-font-size: 32pt;
+    -fx-font-family: dm-sans;
+    -fx-text-fill: white;
+    -fx-opacity: 1;
+}
+
+/* DarkTheme.css */
+
+/* Couleur de fond globale */
+/* Style du tableau */
+.table {
+    -fx-background-color: #FFFFFF; /* Couleur de fond */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 4, 0, 0, 0);
+}
+
+/* Style des lignes */
+.table-row-cell {
+    -fx-background-color: #ffffff; /* Couleur de fond des lignes */
+}
+
+/* Style des cellules */
+.table-cell {
+    -fx-border-color: #FFFFFF; /* Couleur de la bordure des cellules */
+    -fx-border-width: 0.5px; /* Épaisseur de la bordure */
+    -fx-padding: 5px; /* Espacement à l'intérieur de la cellule */
+    -fx-alignment: center;
+}
+/* Style de l'en-tête du tableau */
+.table-view .column-header {
+    -fx-background-color: #FFFFFF; /* Couleur de fond */
+
+}
+/* Style des cellules de la colonne */
+/* Style du texte dans l'en-tête des colonnes */
+.table-view .column-header .label {
+    -fx-text-fill: #707EAE; /* Couleur du texte */
+
+    /* Police régulière */
+    -fx-font-family: "dm-sans";
+    -fx-font-size: 12px;
+
+}
+
+/* Style du bouton */
+.button {
+    -fx-background-color: #27DEC1; /* Couleur de fond */
+    -fx-text-fill: white; /* Couleur du texte */
+    -fx-font-size: 14px; /* Taille de police */
+    -fx-font-family: "dm-sans"; /* Famille de police */
+    /*-fx-border-radius: 5em; /* Rayon de la bordure */
+    -fx-border-color: transparent; /* Couleur de la bordure */
+    -fx-border-width: 0.5px;
+    -fx-padding: 5;
+    -fx-background-radius:1em;
+    -fx-font-size: 10px;
+
+}
+.deleting{
+    -fx-background-color: #ffffff; /* Couleur de fond */
+    -fx-text-fill: #858585; /* Couleur du texte */
+    -fx-font-size: 13px; /* Taille de police */
+    -fx-font-family: "dm-sans"; /* Famille de police */
+    /*-fx-border-radius: 5em; /* Rayon de la bordure */
+    -fx-border-color: transparent; /* Couleur de la bordure */
+
+
+}
+.editing {
+    -fx-background-color: #ffffff; /* Couleur de fond */
+    -fx-text-fill: #858585; /* Couleur du texte */
+    -fx-font-size: 13px; /* Taille de police */
+    -fx-font-family: "dm-sans"; /* Famille de police */
+    /*-fx-border-radius: 5em; /* Rayon de la bordure */
+    -fx-border-color: transparent; /* Couleur de la bordure */
+
+
+}
+.table-row-cell:selected {
+    -fx-background-color: #858585; /* Changer la couleur de fond de la sélection */
+    -fx-text-fill: white; /* Changer la couleur du texte */
+}
+.filterField {
+        -fx-background-color: #F4FEF9; /* Couleur de fond */
+        -fx-text-fill: #333333; /* Couleur du texte */
+        -fx-font-size: 14px; /* Taille de police */
+        -fx-font-family: "dm-sans"; /* Famille de police */
+        -fx-prompt-text-fill: #8F9BBA; /* Couleur du texte de l'invite */
+        -fx-border-color: #F4FEF9; /* Couleur de la bordure */
+        -fx-border-width: 0.2px; /* Épaisseur de la bordure */
+        -fx-background-radius: 15px; /* Rayon de la bordure */
+        -fx-padding: 3px; /* Espacement à l'intérieur du champ de texte */
+        -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 4, 0, 0, 0);
+    }

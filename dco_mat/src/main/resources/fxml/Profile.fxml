@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1038.0" prefWidth="1235.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.services.Profile">
+   <left>
+      <VBox prefHeight="961.0" prefWidth="223.0" styleClass="sidebar" stylesheets="@../css/StyleProfile.css" BorderPane.alignment="CENTER">
+         <children>
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" stylesheets="@../css/StyleProfile.css">
+               <VBox.margin>
+                  <Insets top="50.0" />
+               </VBox.margin>
+               <children>
+                  <ImageView fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" />
+                  <Label fx:id="labelnom" prefHeight="39.0" prefWidth="37.0" text="Label" translateY="-15.0" />
+                  <Button fx:id="modifierprofile" mnemonicParsing="false" styleClass="bmodifier" text="Modifier votre profile" />
+                  <ImageView fitHeight="20.0" fitWidth="19.0" translateX="-80.0" translateY="-30.0">
+                     <image>
+                        <Image url="@../images/edituser.png" />
+                     </image>
+                  </ImageView>
+                  <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="442.0" prefWidth="235.0" spacing="10.0" styleClass="sidebar" translateY="20.0">
+                     <children>
+                        <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="45.0" prefWidth="200.0">
+                           <children>
+                              <ImageView translateX="30.0" translateY="5.0">
+                                 <image>
+                                    <Image url="@../images/IconProfile.png" />
+                                 </image>
+                              </ImageView>
+                              <Button fx:id="profile" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="40.0" prefWidth="59.0" styleClass="bprof" text="Profile" translateX="30.0" />
+                           </children>
+                        </HBox>
+                        <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="45.0" prefWidth="200.0">
+                           <children>
+                              <ImageView translateX="30.0" translateY="8.0">
+                                 <image>
+                                    <Image url="@../images/Documents.png" />
+                                 </image>
+                              </ImageView>
+                              <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="43.0" prefWidth="89.0" styleClass="bdoc" text="Documents" translateX="30.0" />
+                           </children>
+                        </HBox>
+                        <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="45.0" prefWidth="200.0">
+                           <children>
+                              <ImageView fitHeight="24.0" fitWidth="27.0" translateX="30.0" translateY="8.0">
+                                 <image>
+                                    <Image url="@../images/test.png" />
+                                 </image>
+                              </ImageView>
+                              <Button fx:id="evaluation" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="44.0" prefWidth="80.0" styleClass="bev" text="Evaluation" translateX="30.0" />
+                           </children>
+                        </HBox>
+                        <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="45.0" prefWidth="200.0">
+                           <children>
+                              <ImageView translateX="30.0" translateY="5.0">
+                                 <image>
+                                    <Image url="@../images/IconCalendar.png" />
+                                 </image>
+                              </ImageView>
+                              <Button fx:id="evenements" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="39.0" prefWidth="93.0" styleClass="bee" text="Evenements" translateX="30.0" />
+                           </children>
+                        </HBox>
+                        <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="45.0" prefWidth="200.0">
+                           <children>
+                              <ImageView translateX="30.0" translateY="5.0">
+                                 <image>
+                                    <Image url="@../images/Iconrec.png" />
+                                 </image>
+                              </ImageView>
+                              <Button fx:id="reclamation" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="36.0" prefWidth="91.0" styleClass="brec" text="Réclamation" translateX="30.0" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+               </children>
+            </VBox>
+            <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="45.0" prefWidth="200.0">
+               <children>
+                  <ImageView fitHeight="24.0" fitWidth="27.0" translateX="36.0" translateY="17.0">
+                     <image>
+                        <Image url="@../images/User Minus.png" />
+                     </image>
+                  </ImageView>
+                  <Button fx:id="supprimer" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#supprimercompte" prefHeight="30.0" prefWidth="129.0" styleClass="deletep" text="Supprimer compte" translateX="30.0" translateY="20.0" />
+               </children></HBox>
+            <Button mnemonicParsing="false" styleClass="dcxn" text="Déconnexion" translateX="70.0" translateY="120.0" />
+            <ImageView translateX="600.0" translateY="90.0">
+               <image>
+                  <Image url="@../images/Logout 2.png" />
+               </image>
+            </ImageView>
+            <ImageView translateX="45.0" translateY="65.0">
+               <image>
+                  <Image url="@../images/Logout 2.png" />
+               </image>
+            </ImageView>
+         </children>
+      </VBox>
+   </left>
+   <center>
+      <VBox prefHeight="200.0" prefWidth="100.0" styleClass="vbox1" translateX="20.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label prefHeight="17.0" prefWidth="1028.0" stylesheets="@../css/StyleProfile.css" text="Paramétres de profile " textFill="#27dec1" translateX="20.0">
+               <font>
+                  <Font size="30.0" />
+               </font>
+               <padding>
+                  <Insets bottom="30.0" left="50.0" right="50.0" top="30.0" />
+               </padding>
+            </Label>
+            <ImageView translateX="20.0" translateY="-70.0">
+               <image>
+                  <Image url="@../images/Settings.png" />
+               </image>
+            </ImageView>
+            <VBox prefHeight="200.0" prefWidth="100.0" translateX="40.0">
+               <children>
+                  <Label prefHeight="17.0" prefWidth="1028.0" text="Détails de votre profile" textFill="#a3aed0">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                     <padding>
+                        <Insets bottom="30.0" left="50.0" right="50.0" top="30.0" />
+                     </padding>
+                  </Label>
+                  <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="77.0" prefWidth="650.0" styleClass="hboxnome" stylesheets="@../css/StyleProfile.css" translateY="-10.0">
+                     <children>
+                        <Label prefHeight="77.0" prefWidth="302.0" text="Nom" textFill="#2b3674">
+                           <padding>
+                              <Insets bottom="30.0" left="50.0" right="50.0" top="30.0" />
+                           </padding>
+                        </Label>
+                        <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="55.0" prefWidth="24.0" />
+                        <TextArea fx:id="editnom" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="200.0" translateY="22.0" />
+                     </children>
+                  </HBox>
+                  <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="77.0" prefWidth="650.0" styleClass="hboxnome" stylesheets="@../css/StyleProfile.css">
+                     <children>
+                        <Label prefHeight="77.0" prefWidth="302.0" text="Prénom" textFill="#2b3674">
+                           <padding>
+                              <Insets bottom="30.0" left="50.0" right="50.0" top="30.0" />
+                           </padding>
+                        </Label>
+                        <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="55.0" prefWidth="24.0" />
+                        <TextArea fx:id="editprenom" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="200.0" translateY="22.0" />
+                     </children>
+                  </HBox>
+                  <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="77.0" prefWidth="650.0" styleClass="hboxdobe" stylesheets="@../css/StyleProfile.css" translateY="10.0">
+                     <children>
+                        <Label prefHeight="77.0" prefWidth="302.0" text="Votre Date de naissance " textFill="#2b3674">
+                           <padding>
+                              <Insets bottom="30.0" left="50.0" right="50.0" top="30.0" />
+                           </padding>
+                        </Label>
+                        <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="55.0" prefWidth="24.0" />
+                        <DatePicker fx:id="editdob" prefHeight="31.0" prefWidth="200.0" translateY="20.0" />
+                     </children>
+                  </HBox>
+                  <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="77.0" prefWidth="650.0" styleClass="hboxtel" stylesheets="@../css/StyleProfile.css" translateY="20.0">
+                     <children>
+                        <Label prefHeight="77.0" prefWidth="302.0" text="Adresse" textFill="#2b3674">
+                           <padding>
+                              <Insets bottom="30.0" left="50.0" right="50.0" top="30.0" />
+                           </padding>
+                        </Label>
+                        <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="55.0" prefWidth="24.0" />
+                        <TextArea fx:id="editadresse" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="200.0" translateY="22.0" />
+                     </children>
+                  </HBox>
+                  <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="77.0" prefWidth="650.0" styleClass="hboxtel" stylesheets="@../css/StyleProfile.css" translateY="30.0">
+                     <children>
+                        <Label prefHeight="77.0" prefWidth="302.0" text="Numéro de téléphone" textFill="#2b3674">
+                           <padding>
+                              <Insets bottom="30.0" left="50.0" right="50.0" top="30.0" />
+                           </padding>
+                        </Label>
+                        <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="55.0" prefWidth="24.0" />
+                        <TextArea fx:id="edittel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="200.0" translateY="22.0" />
+                     </children>
+                  </HBox>
+                  <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="77.0" prefWidth="650.0" styleClass="hboxmdp" stylesheets="@../css/StyleProfile.css" translateY="40.0">
+                     <children>
+                        <Label prefHeight="77.0" prefWidth="302.0" text="Mot de passe" textFill="#2b3674">
+                           <padding>
+                              <Insets bottom="30.0" left="50.0" right="50.0" top="30.0" />
+                           </padding>
+                        </Label>
+                        <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="55.0" prefWidth="24.0" />
+                        <TextArea fx:id="editmdp" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="200.0" translateY="22.0" />
+                     </children>
+                  </HBox>
+                  <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="77.0" prefWidth="650.0" styleClass="hboxnome" stylesheets="@../css/StyleProfile.css" translateY="50.0">
+                     <children>
+                        <Label prefHeight="77.0" prefWidth="302.0" text="Nom de votre enfant" textFill="#2b3674">
+                           <padding>
+                              <Insets bottom="30.0" left="50.0" right="50.0" top="30.0" />
+                           </padding>
+                        </Label>
+                        <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="55.0" prefWidth="24.0" />
+                        <TextArea fx:id="editnomenfant" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="200.0" translateY="22.0" />
+                     </children>
+                  </HBox>
+                  <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="77.0" prefWidth="650.0" styleClass="hboxnome" stylesheets="@../css/StyleProfile.css" translateY="60.0">
+                     <children>
+                        <Label prefHeight="77.0" prefWidth="302.0" text="Prénom de votre enfant" textFill="#2b3674">
+                           <padding>
+                              <Insets bottom="30.0" left="50.0" right="50.0" top="30.0" />
+                           </padding>
+                        </Label>
+                        <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="55.0" prefWidth="24.0" />
+                        <TextArea fx:id="editprenomenfant" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="200.0" translateY="22.0" />
+                     </children>
+                  </HBox>
+                  <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="77.0" prefWidth="650.0" styleClass="hboxnome" stylesheets="@../css/StyleProfile.css" translateY="70.0">
+                     <children>
+                        <Label prefHeight="77.0" prefWidth="302.0" text="Date de naissance de votre enfant" textFill="#2b3674">
+                           <padding>
+                              <Insets bottom="30.0" left="50.0" right="50.0" top="30.0" />
+                           </padding>
+                        </Label>
+                        <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="55.0" prefWidth="24.0" />
+                        <DatePicker fx:id="editdobenfant" prefHeight="30.0" prefWidth="203.0" translateY="20.0" />
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+            <Button fx:id="modifierpr" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#modifiercompte" prefHeight="30.0" prefWidth="200.0" styleClass="dcxn" stylesheets="@../css/StyleProfile.css" text="Confirmer les changements" translateX="750.0" translateY="70.0" />
+         </children>
+      </VBox>
+   </center>
+</BorderPane>
