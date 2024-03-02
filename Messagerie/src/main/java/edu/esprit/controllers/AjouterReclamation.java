@@ -1,7 +1,9 @@
 package edu.esprit.controllers;
 
 import edu.esprit.entities.Reclamation;
+import edu.esprit.entities.User;
 import edu.esprit.services.ServiceReclamation;
+import edu.esprit.services.ServiceUser;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -148,14 +150,30 @@ public class AjouterReclamation {
     void Ajouter(ActionEvent event) {
         try {
             if (validateFields()) {
-                String nom = NomId.getText();
-                String reclamation = ReclamationId.getText();
+                String userName = NomId.getText();;
+
+                NomId.setText(userName);                String reclamation = ReclamationId.getText();
                 LocalDate date = DateId.getValue();
                 String ratingValue = ratingID.getText();
 
                 reclamation = reclamation.substring(0, 1).toUpperCase() + reclamation.substring(1);
+// Assuming you have a UserService instance named userService
+                ServiceUser userService = new ServiceUser();
 
-                rs.ajouter(new Reclamation(nom, reclamation, Date.valueOf(date), ratingValue, 1));
+                // Replace 1 with the actual user ID you want to retrieve
+                int userId = 1;
+
+                // Fetch the user by ID
+                User user = userService.getUserById(userId);
+
+                // Get the name from the user object
+                userName = user.getNom();
+                NomId.setText(userName);
+
+
+                // Use the userName as needed in your code
+                System.out.println("User Name: " + userName);
+                rs.ajouter(new Reclamation(userName, reclamation, Date.valueOf(date), ratingValue, 1));
 
                 String capitalizedMessage = capitalizeFirstLetter(ratingID.getText());
                 ratingID.setText(capitalizedMessage);
@@ -214,10 +232,7 @@ public class AjouterReclamation {
     }
 
     private boolean validateFields() {
-        if (NomId.getText().isEmpty() || DateId.getValue() == null || ReclamationId.getText().isEmpty() ) {
-            showAlert("Please fill in all fields.");
-            return false;
-        }
+
 
         // Validate date
         if (!isValidDate(DateId.getValue())) {

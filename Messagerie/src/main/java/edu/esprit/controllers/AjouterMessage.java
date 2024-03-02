@@ -13,7 +13,9 @@ import java.util.Map;
 import java.util.regex.Pattern;
 
 import edu.esprit.entities.Messagerie;
+import edu.esprit.entities.User;
 import edu.esprit.services.ServiceMessagerie;
+import edu.esprit.services.ServiceUser;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -87,17 +89,40 @@ public class AjouterMessage {
     @FXML
     void Ajouter(ActionEvent event) {
         try {
+
             // Validation des champs
             if (validateFields()) {
-                String nom = NomId.getText();
+                String userName = NomId.getText();;
+
+                NomId.setText(userName);
+
                 LocalDate date = DateId.getValue();
                 String message = MessageId.getText();
-
 
                 // Capitalize the first letter of the message
                 message = message.substring(0, 1).toUpperCase() + message.substring(1);
 
-                ps.ajouter(new Messagerie(NomId.getText(), Date.valueOf(DateId.getValue()), message, 1));
+                // Assuming you have a UserService instance named userService
+                ServiceUser userService = new ServiceUser();
+
+                // Replace 1 with the actual user ID you want to retrieve
+                int userId = 1;
+
+                // Fetch the user by ID
+                User user = userService.getUserById(userId);
+
+                // Get the name from the user object
+                userName = user.getNom();
+                NomId.setText(userName);
+
+
+                // Use the userName as needed in your code
+                System.out.println("User Name: " + userName);
+
+                // Rest of the existing code...
+
+                ps.ajouter(new Messagerie(userName, Date.valueOf(date), message, 1));
+
                 // Automatically capitalize the first letter of the message
                 String capitalizedMessage = capitalizeFirstLetter(MessageId.getText());
                 MessageId.setText(capitalizedMessage);
@@ -107,11 +132,10 @@ public class AjouterMessage {
 
                 String censoredMessage = censorBadWords(MessageId.getText());
                 if (!MessageId.getText().equals(censoredMessage)) {
-                    showNotification3();//notification mtaa el bad words
+                    showNotification3(); // notification mtaa el bad words
                 } else {
-                    showNotification();//notification kn jawha bhy
+                    showNotification(); // notification kn jawha bhy
                 }
-               ;
 
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Validation");
@@ -142,10 +166,6 @@ public class AjouterMessage {
 
     // Méthode pour valider les champs
     private boolean validateFields() {
-        if (NomId.getText().isEmpty() || DateId.getValue() == null || MessageId.getText().isEmpty()) {
-            showAlert("Please fill in all fields.");
-            return false;
-        }
 
         // Validate date
         if (!isValidDate(DateId.getValue())) {
@@ -155,7 +175,7 @@ public class AjouterMessage {
 
         // Validate name (no symbols allowed)
         if (!isValidName(NomId.getText())) {
-            showAlert("Invalid name. It cannot contain symbols (@ # $ *).");
+            showAlert("Invalid name. It cannot contain symbols (@ # $ *).or write u'r correct name");
             return false;
         }
 

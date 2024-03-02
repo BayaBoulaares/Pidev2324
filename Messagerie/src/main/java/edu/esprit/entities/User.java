@@ -19,7 +19,7 @@
         private String niveau;
         private String image;
 
-        public User(int idu, String nom, String prenom, String adresse, Date dob, String login, String tel, String role, String mdp, String discipline, String nomEnfant, String prenomEnfant, Date dobEnfant, String niveau, String image) {
+        public User(int idu, String nom) {
             this.idu = idu;
             this.nom = nom;
             this.prenom = prenom;

@@ -198,8 +198,12 @@ public class AfficherMessage {
         try {
             if (validateSelection1()) {
                 if (validateInput()) {
+
                     ServiceMessagerie ps = new ServiceMessagerie();
-                    messagerie = new Messagerie(messagerie.getId(), NomID.getText(), MeesageID.getText(),1);
+
+                    // Assuming messagerie is already initialized
+                    // Modify only the message, leaving the name unchanged
+                    messagerie = new Messagerie(messagerie.getId(), messagerie.getNom(), MeesageID.getText(), 1);
 
                     // Automatically capitalize the first letter of the message
                     String capitalizedMessage = capitalizeFirstLetter(messagerie.getMessage());
@@ -208,15 +212,14 @@ public class AfficherMessage {
                     // Convert symbols to emojis
                     messagerie.setMessage(convertSymbolsToEmojis(messagerie.getMessage()));
 
-
-
                     ps.modifier(messagerie);
+
                     // Check if the message has been modified
                     String censoredMessage = censorBadWords(messagerie.getMessage());
                     if (!messagerie.getMessage().equals(censoredMessage)) {
-                        showNotification3();//notification mtaa el bad words
+                        showNotification3(); // notification mtaa el bad words
                     } else {
-                        showNotification1();//notification kn jawha bhy
+                        showNotification1(); // notification kn jawha bhy
                     }
 
                     // After modifying the data, update the TableView
@@ -229,6 +232,7 @@ public class AfficherMessage {
             e.printStackTrace();
         }
     }
+
 
     private String capitalizeFirstLetter(String text) {
         if (text.isEmpty()) {

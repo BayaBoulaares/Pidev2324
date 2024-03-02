@@ -105,6 +105,7 @@ public class AfficherReclamation {
     @FXML
     private PieChart piechart;
 
+
     @FXML
     private Pane statisticsPane = new Pane();
     public final ServiceReclamation ps = new ServiceReclamation();
@@ -313,8 +314,10 @@ public class AfficherReclamation {
         try {
             if (validateSelection1() && validateInput()) {
                 ServiceReclamation ps = new ServiceReclamation();
-                reclamation = new Reclamation(reclamation.getId(), NomID.getText(), ReclamationID.getText(),DateID.getValue(),ratingID.getText(),1);
 
+                // Assuming reclamation is already initialized
+                // Modify only the reclamation details, leaving the name unchanged
+                reclamation = new Reclamation(reclamation.getId(), reclamation.getNom(), ReclamationID.getText(), DateID.getValue(), ratingID.getText(), 1);
 
                 // Automatically capitalize the first letter of the message
                 String capitalizedMessage = capitalizeFirstLetter(reclamation.getReclamation());
@@ -322,8 +325,6 @@ public class AfficherReclamation {
 
                 // Convert symbols to emojis
                 reclamation.setReclamation(convertSymbolsToEmojis(reclamation.getReclamation()));
-
-
 
                 // Update the data in the database
                 ps.modifier(reclamation);
@@ -339,13 +340,13 @@ public class AfficherReclamation {
                 // Refresh the TableView
                 updateTableView();
                 initialize();
-
             }
         } catch (Exception e) {
             e.printStackTrace();
             showAlert("Erreur lors de la modification : " + e.getMessage());
         }
     }
+
 
 
     @FXML
