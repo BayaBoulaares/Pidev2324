@@ -182,8 +182,8 @@ public class ClientFormController {
 
 
 
-                    statement.executeUpdate(insertQuery);
                 }
+
 
                 dataOutputStream.writeUTF((isAdminClient() ? "Admin" : clientName) + "-" + msgToSend);
                 dataOutputStream.flush();
