@@ -4,21 +4,13 @@ import edu.esprit.entities.Evenement;
 import edu.esprit.utils.DataSource;
 
 import java.sql.*;
-import java.time.DayOfWeek;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
-
-
 
 public class ServiceEvenement implements IService<Evenement> {
 
     Connection cnx = DataSource.getInstance().getCnx();
-
-
 
     @Override
     public void ajouter(Evenement e) throws SQLException {
@@ -80,33 +72,7 @@ public class ServiceEvenement implements IService<Evenement> {
     }
 
     @Override
-    public Evenement getOneById(int id) throws SQLException {
-        Evenement evenement = null;
-        try {
-            String req = "SELECT * FROM evenement WHERE ID_Event = ?";
-            PreparedStatement ps = cnx.prepareStatement(req);
-            ps.setInt(1, id);
-            ResultSet res = ps.executeQuery();
-            if (res.next()) {
-                int eventId = res.getInt("Id_Event");
-                String nomEvent = res.getString("Nom_Event");
-                String description = res.getString("Description");
-                String lieuEvent = res.getString("Lieu_Event");
-                Date dateDebut = res.getDate("Date_Debut");
-                Date dateFin = res.getDate("Date_Fin");
-                int nbMax = res.getInt("Nb_Max");
-                String image = res.getString("image"); // Retrieving image as String
-                evenement = new Evenement(eventId, nomEvent, description, lieuEvent, dateDebut, dateFin, nbMax, image);
-            }
-        } catch (SQLException ex) {
-            System.out.println("Erreur lors de la récupération de l'événement : " + ex.getMessage());
-            throw ex;
-        }
-        return evenement;
-    }
-
-    @Override
-    public List<Evenement> getAll() throws SQLException {
+    public Collection<Evenement> getAll() throws SQLException {
         List<Evenement> evenements = new ArrayList<>();
         try {
             String req = "SELECT * FROM evenement";
@@ -131,6 +97,36 @@ public class ServiceEvenement implements IService<Evenement> {
         return evenements;
     }
 
+    @Override
+    public Evenement getOne(int id) throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public Evenement getOneById(int id) throws SQLException {
+        Evenement evenement = null;
+        try {
+            String req = "SELECT * FROM evenement WHERE ID_Event = ?";
+            PreparedStatement ps = cnx.prepareStatement(req);
+            ps.setInt(1, id);
+            ResultSet res = ps.executeQuery();
+            if (res.next()) {
+                int eventId = res.getInt("Id_Event");
+                String nomEvent = res.getString("Nom_Event");
+                String description = res.getString("Description");
+                String lieuEvent = res.getString("Lieu_Event");
+                Date dateDebut = res.getDate("Date_Debut");
+                Date dateFin = res.getDate("Date_Fin");
+                int nbMax = res.getInt("Nb_Max");
+                String image = res.getString("image"); // Retrieving image as String
+                evenement = new Evenement(eventId, nomEvent, description, lieuEvent, dateDebut, dateFin, nbMax, image);
+            }
+        } catch (SQLException ex) {
+            System.out.println("Erreur lors de la récupération de l'événement : " + ex.getMessage());
+            throw ex;
+        }
+        return evenement;
+    }
     public boolean eventExists(String nomEvenement) throws SQLException {
         String req = "SELECT COUNT(*) FROM evenement WHERE Nom_Event = ?";
         try {
@@ -147,6 +143,4 @@ public class ServiceEvenement implements IService<Evenement> {
         }
         return false;
     }
-
 }
-

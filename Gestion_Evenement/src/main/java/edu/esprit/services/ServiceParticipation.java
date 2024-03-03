@@ -19,7 +19,6 @@ public class ServiceParticipation {
         cnx = DataSource.getInstance().getCnx();
     }
 
-    // Méthode pour insérer une participation dans la base de données
     public void insertParticipation(int idEvenement, int idUtilisateur) throws SQLException {
         String query = "INSERT INTO participation (Id_Event, Id_User) VALUES (?, ?)";
         try (PreparedStatement pstmt = cnx.prepareStatement(query)) {

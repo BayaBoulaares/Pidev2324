@@ -6,10 +6,7 @@ import edu.esprit.entities.Sponsor;
 import edu.esprit.utils.DataSource;
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 public class ServiceSponsor implements IService<Sponsor> {
@@ -73,7 +70,7 @@ public class ServiceSponsor implements IService<Sponsor> {
 
 
     @Override
-    public List<Sponsor> getAll() throws SQLException {
+    public Collection<Sponsor> getAll() throws SQLException {
         Connection cnx = DataSource.getInstance().getCnx();
         List<Sponsor> sponsors = new ArrayList<>();
         ServiceEvenement serviceEvenement = new ServiceEvenement();
@@ -103,7 +100,6 @@ public class ServiceSponsor implements IService<Sponsor> {
 
         return sponsors;
     }
-
     @Override
     public Sponsor getOneById(int id) throws SQLException {
         Connection cnx = DataSource.getInstance().getCnx();
@@ -212,6 +208,10 @@ public class ServiceSponsor implements IService<Sponsor> {
 
         return false;
     }
-
+    @Override
+    public Sponsor getOne(int id) throws SQLException {
+        // Implement logic to get one sponsor by ID
+        return null;
+    }
 }
 
