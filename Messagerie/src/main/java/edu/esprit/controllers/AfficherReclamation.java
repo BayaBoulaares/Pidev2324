@@ -25,6 +25,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -436,14 +437,14 @@ public class AfficherReclamation {
                     processRatingStatistics(t1);
 
                     // Call loadStatistics with the current rating value (t1)
-                    loadStatistics(t1);
+                    loadStatistics();
                 }
             });
 
             TableView.setItems(observableList);
 
             // Call loadStatistics with a default value or any specific value you want
-            loadStatistics(3.5);
+            loadStatistics();
         }
 
         Nom.setCellValueFactory(new PropertyValueFactory<>("nom"));
@@ -514,42 +515,66 @@ public class AfficherReclamation {
 
 
 
-    private void loadStatistics(Number t1) {
+    private void loadStatistics() {
         try {
             // Fetch ratings from Reclamation Service with associated event IDs
             List<Reclamation> ratings = new ArrayList<>(ServiceReclamation.getInstance().getAll());
 
-            int dislikesCount = 0;
-            int likesCount = 0;
+            // Count the total number of ratings
+            int totalRatings = ratings.size();
 
-            // Count likes and dislikes based on the t1 condition
+            // Create a map to store the count of each rating category
+            Map<String, Integer> ratingCountMap = new HashMap<>();
+
+            // Count the occurrences of each rating category
             for (Reclamation rating : ratings) {
-                String ratingValueStr = rating.getRating().toUpperCase();
+                String ratingValue = rating.getRating();
 
-                // Assuming t1 is a double, you may need to convert it to a string for comparison
-                String t1Str = String.valueOf(t1);
-
-                if (ratingValueStr.compareToIgnoreCase(t1Str) <= 0) {
-                    dislikesCount++;
-                } else {
-                    likesCount++;
-                }
+                // Update the count for the specific rating category
+                ratingCountMap.put(ratingValue, ratingCountMap.getOrDefault(ratingValue, 0) + 1);
             }
 
             // Create data for the PieChart
-            ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList(
-                    new PieChart.Data("Dislike", dislikesCount),
-                    new PieChart.Data("Like", likesCount)
-            );
+            ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
+
+            // Calculate percentage for each rating category and add it to the PieChart data
+            for (Map.Entry<String, Integer> entry : ratingCountMap.entrySet()) {
+                String ratingValue = entry.getKey();
+                int count = entry.getValue();
+
+                double percentage = (count * 100.0) / totalRatings;
+
+                // Add data with explicit title to the PieChart
+                String title = ratingValue.isEmpty() ? "No Rating" : "" + ratingValue + "";
+                title += " (" + String.format("%.2f", percentage) + "%)";
+
+                // Use PieChart.Data constructor with explicit title
+                PieChart.Data data = new PieChart.Data(title, count);
+                pieChartData.add(data);
+            }
+
+            // Print the titles and counts for verification
+            for (PieChart.Data data : pieChartData) {
+                System.out.println("Title: " + data.getName() + ", Count: " + data.getPieValue());
+            }
 
             // Configure the PieChart
             piechart.setData(pieChartData);
             piechart.setTitle("Rating Statistics");
+            piechart.setLegendVisible(true); // Show legend
+            piechart.setLabelsVisible(true); // Show labels
 
         } catch (Exception e) {
+            // Handle specific exceptions if needed
             e.printStackTrace();
         }
     }
+
+
+
+
+
+
 
 
 

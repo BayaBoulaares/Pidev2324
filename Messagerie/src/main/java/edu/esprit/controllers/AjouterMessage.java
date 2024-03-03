@@ -25,8 +25,14 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
-import java.time.LocalDate;
-import java.util.regex.Pattern;
+import javafx.application.Platform;
+import server.Launcher;
+import server.ServerLauncher;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+
+
+
 
 public class AjouterMessage {
 
@@ -46,6 +52,8 @@ public class AjouterMessage {
     private Button ChatBot;
     private static final List<String> BAD_WORDS = Arrays.asList("Sick", "Bad", "Dump");
     private static final Map<String, String> EMOJI_MAP = new HashMap<>();
+    private static boolean javaFXApplicationLaunched = false;
+
 
     static {
         EMOJI_MAP.put(":)", "😊");
@@ -306,7 +314,14 @@ public class AjouterMessage {
             }
         }
     }
+
+
+
+
+
 }
+
+
 
 
 
