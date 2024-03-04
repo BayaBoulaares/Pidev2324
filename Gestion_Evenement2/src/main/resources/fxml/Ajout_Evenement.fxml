@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="814.0" prefWidth="1403.0" stylesheets="/css/Design.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controller.AjoutEvenement">
+    <VBox fx:id="navBar" prefHeight="814.0" prefWidth="178.0" spacing="10" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <ImageView fitHeight="143.0" fitWidth="149.0">
+         <image>
+            <Image url="/fxml/images/785202333.png" />
+         </image>
+      </ImageView>
+        <Label prefHeight="22.0" prefWidth="126.0" styleClass="navTitle" text="   Auti+Learn">
+            <font>
+                <Font name="DM sans" size="18.0" />
+            </font>
+        </Label>
+        <Button onAction="#toacceuiel" fx:id="firstButton" prefHeight="34.0" prefWidth="101.0" style="-fx-background-color: transparent;" text="Acceuil" textFill="#ece7e7">
+            <graphic>
+                <ImageView fitHeight="24" fitWidth="24" pickOnBounds="true" preserveRatio="true" smooth="true">
+                    <Image url="@images/IconAccueil.png" />
+                </ImageView>
+            </graphic>
+        </Button>
+        <Button onAction="#tohisprofile"  prefHeight="34.0" prefWidth="101.0" style="-fx-background-color: transparent;" text="profil" textFill="#ece7e7">
+            <graphic>
+                <ImageView fitHeight="24" fitWidth="24" pickOnBounds="true" preserveRatio="true" smooth="true">
+                    <Image url="@images/IconProfile.png" />
+                </ImageView>
+            </graphic>
+        </Button>
+
+        <Button onAction="#toMatiere" prefHeight="42.0" prefWidth="110.0" style="-fx-background-color: transparent;" text="Documents" textFill="WHITE">
+            <graphic>
+                <ImageView fitHeight="24" fitWidth="24" pickOnBounds="true" preserveRatio="true" smooth="true">
+                    <Image url="@images/IconDoc.png" />
+                </ImageView>
+            </graphic>
+        </Button>
+
+        <Button prefHeight="34.0" prefWidth="108.0" style="-fx-background-color: transparent;" text="Evaluations" textFill="WHITE">
+            <graphic>
+                <ImageView fitHeight="24" fitWidth="24" pickOnBounds="true" preserveRatio="true" smooth="true">
+                    <Image url="@images/test.png" />
+                </ImageView>
+            </graphic>
+        </Button>
+
+        <Button prefHeight="34.0" prefWidth="115.0" style="-fx-background-color: transparent;" text="Événements" textFill="WHITE">
+            <graphic>
+                <ImageView fitHeight="24" fitWidth="24" pickOnBounds="true" preserveRatio="true" smooth="true">
+                    <Image url="@images/calendar-check.png" />
+                </ImageView>
+            </graphic>
+        </Button>
+
+        <Button prefHeight="34.0" prefWidth="119.0" style="-fx-background-color: transparent;" text="Réclamation" textFill="WHITE">
+            <graphic>
+                <ImageView fitHeight="24" fitWidth="24" pickOnBounds="true" preserveRatio="true" smooth="true">
+                    <Image url="@images/Iconrec.png" />
+                </ImageView>
+            </graphic>
+        </Button>
+        <Button onAction="#deconnexion" style="-fx-background-color: transparent; -fx-text-fill: white;">
+            <graphic>
+                <ImageView fitHeight="24" fitWidth="24">
+                    <image>
+                        <Image url="@images/deconnexion.png" />
+                    </image>
+                </ImageView>
+            </graphic>
+        </Button>
+
+    </VBox>
+    <Text fill="#020269" layoutX="737.0" layoutY="42.0" text="Créer un nouveau Événement!" />
+    <Label layoutX="399.0" layoutY="118.0" text="Nom d'événement*" textFill="#020269" />
+    <TextField fx:id="eventName" layoutX="528.0" layoutY="112.0" prefHeight="32.0" prefWidth="215.0" promptText="Saisir Nom d'événement" />
+    <DatePicker fx:id="eventStartDate" layoutX="955.0" layoutY="112.0" prefHeight="32.0" prefWidth="202.0" promptText="Choisir Date début" />
+    <Label layoutX="863.0" layoutY="118.0" text="Date début*" textFill="#020269" />
+    <TextField fx:id="eventLocation" layoutX="955.0" layoutY="209.0" prefHeight="32.0" prefWidth="215.0" promptText="Choisir Lieu " />
+    <Label layoutX="884.0" layoutY="214.0" text="Lieu*" textFill="#020269" />
+    <DatePicker fx:id="eventEndDate" layoutX="535.0" layoutY="208.0" prefHeight="32.0" prefWidth="186.0" promptText="Choisir Date fin " />
+    <Label layoutX="447.0" layoutY="214.0" text="Date fin*" textFill="#020269" />
+
+
+    <Button layoutX="673.0" layoutY="647.0" mnemonicParsing="false" onAction="#ajouter" prefHeight="34.0" prefWidth="161.0" style="-fx-background-color: turquoise; -fx-font-size: 14px; -fx-text-fill: white; -fx-background-radius: 5px;" text="Ajouter" />
+    <Label layoutX="843.0" layoutY="343.0" prefHeight="22.0" prefWidth="82.0" text="Description *" textFill="#020269" />
+
+    <TextField fx:id="maxNumber" layoutX="528.0" layoutY="311.0" prefHeight="32.0" prefWidth="215.0" promptText="Donner Nombre max" />
+    <TextArea fx:id="eventDescription" layoutX="935.0" layoutY="343.0" prefHeight="106.0" prefWidth="433.0" promptText="Description" />
+    <Label layoutX="424.0" layoutY="316.0" text="Nombre max*" textFill="#020269" />
+    <Button layoutX="1163.0" layoutY="734.0" mnemonicParsing="false" onAction="#afficherEvenements" prefHeight="34.0" prefWidth="178.0" style="-fx-background-color: turquoise; -fx-font-size: 14px; -fx-text-fill: white; -fx-background-radius: 5px;" text="Consulter" />
+    <Text fill="#50508c" layoutX="206.0" layoutY="31.0" text="Page/Événement">
+        <font>
+            <Font size="10.0" />
+        </font>
+    </Text>
+    <HBox layoutX="218.0" layoutY="450.0" spacing="10">
+        <ImageView fx:id="eventImage" fitHeight="1" fitWidth="1" />
+    </HBox>
+     <Button fx:id="selectImageButton" layoutX="596.0" layoutY="433.0" mnemonicParsing="false" onAction="#selectImage" prefHeight="34.0" prefWidth="191.0"  style="-fx-background-color: turquoise; -fx-font-size: 14px; -fx-text-fill: white; -fx-background-radius: 5px;" text="Choisir une image" />
+   <ImageView fitHeight="266.0" fitWidth="270.0" layoutX="206.0" layoutY="470.0">
+      <image>
+         <Image url="@images/Schedule-rafiki.png" />
+      </image>
+   </ImageView>
+   <ImageView fitHeight="32.0" fitWidth="31.0" layoutX="605.0" layoutY="434.0">
+      <image>
+         <Image url="@images/upload.png" />
+      </image>
+   </ImageView>
+   <ImageView fitHeight="32.0" fitWidth="30.0" layoutX="1180.0" layoutY="735.0">
+      <image>
+         <Image url="@images/clipboard.png" />
+      </image>
+   </ImageView>
+   <ImageView fitHeight="18.0" fitWidth="16.0" layoutX="694.0" layoutY="655.0">
+      <image>
+         <Image url="@images/add.png" />
+      </image>
+   </ImageView>
+</AnchorPane>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" styleClass="parent" stylesheets="@../css/StyleMdpOublie.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.services.SendSms">
+   <children>
+      <TextField fx:id="loginuser" layoutX="141.0" layoutY="157.0" prefHeight="32.0" prefWidth="267.0" promptText=" exemple@exemple.com" styleClass="login" stylesheets="@../css/StyleMdpOublie.css" />
+      <Text fill="#2b3674" layoutX="148.0" layoutY="133.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Adresse-email" translateY="10.0">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Text>
+      <Text fill="#2b3674" layoutX="148.0" layoutY="226.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Entrez le code">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Text>
+      <PasswordField fx:id="code" layoutX="141.0" layoutY="235.0" prefHeight="32.0" prefWidth="267.0" stylesheets="@../css/StyleMdpOublie.css" translateY="5.0" />
+      <Button fx:id="sendEmailButton" layoutX="443.0" layoutY="158.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#sendEmailAction" prefHeight="32.0" prefWidth="99.0" styleClass="bconfirm" text="Envoyer code" />
+      <Button fx:id="verifyCodeButton" layoutX="442.0" layoutY="241.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#verifyCodeAction" prefHeight="32.0" prefWidth="99.0" styleClass="bconfirm" text="Vérifier" />
+      <Label layoutX="41.0" layoutY="40.0" text="Changer Mot de passe !" textFill="#2b3674">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="142.0" fitWidth="136.0" layoutY="140.0">
+         <image>
+            <Image url="/fxml/images/Anatomy scene builder.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>

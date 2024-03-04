@@ -1,0 +1,29 @@
+.parent{
+    -fx-background-color: #FFFFFF;
+
+}
+.text-field {
+    -fx-background-color: #FFFFFF; /* Couleur de fond */
+    -fx-text-fill: #333333; /* Couleur du texte */
+    -fx-font-size: 14px; /* Taille de police */
+    -fx-font-family: "dm-sans"; /* Famille de police */
+    -fx-prompt-text-fill: #A3AED0; /* Couleur du texte de l'invite */
+    -fx-border-color: #A3AED0; /* Couleur de la bordure */
+    -fx-border-width: 0.5px; /* Épaisseur de la bordure */
+    -fx-border-radius: 15px; /* Rayon de la bordure */
+    -fx-padding: 5px; /* Espacement à l'intérieur du champ de texte */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 2, 0, 0, 0);
+}
+.bconfirm{
+    -fx-background-color: #27DEC1; /* Couleur de fond */
+    -fx-text-fill: white; /* Couleur du texte */
+    -fx-font-size: 12px; /* Taille de police */
+    -fx-font-family: "dm-sans"; /* Famille de police */
+    /*-fx-border-radius: 5em; /* Rayon de la bordure */
+    -fx-border-color: transparent; /* Couleur de la bordure */
+    -fx-border-width: 2px;
+    -fx-padding: 5;
+    -fx-background-radius:1em;
+
+
+}
