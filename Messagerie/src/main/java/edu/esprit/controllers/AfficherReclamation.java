@@ -12,6 +12,7 @@ import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Side;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -545,7 +546,7 @@ public class AfficherReclamation {
                 double percentage = (count * 100.0) / totalRatings;
 
                 // Add data with explicit title to the PieChart
-                String title = ratingValue.isEmpty() ? "No Rating" : "" + ratingValue + "";
+                String title = ratingValue.isEmpty() ? "No Rating" : ratingValue;
                 title += " (" + String.format("%.2f", percentage) + "%)";
 
                 // Use PieChart.Data constructor with explicit title
@@ -564,12 +565,30 @@ public class AfficherReclamation {
             piechart.setLegendVisible(true); // Show legend
             piechart.setLabelsVisible(true); // Show labels
 
+            // Set custom data labels with titles and percentages
+            for (PieChart.Data data : piechart.getData()) {
+                String originalTitle = data.getName();
+                double count = data.getPieValue();
+
+                // Extract the rating value from the title
+                String ratingValue = originalTitle.split("\\s+")[0]; // Assuming rating is the first word
+
+                // Calculate percentage for the current data
+                double percentage = (count * 100.0) / totalRatings;
+
+                // Set the label with the rating value and percentage
+                String label = ratingValue + " (" + String.format("%.2f", percentage) + "%)";
+                data.setName(label);
+                // Additional configurations
+                piechart.setLabelLineLength(10);
+                piechart.setLegendSide(Side.LEFT); // Import javafx.geometry.Side if not already imported
+            }
+
         } catch (Exception e) {
             // Handle specific exceptions if needed
             e.printStackTrace();
         }
     }
-
 
 
 

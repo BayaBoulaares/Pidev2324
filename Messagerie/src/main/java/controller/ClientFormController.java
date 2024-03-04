@@ -27,12 +27,11 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.sql.Timestamp;
+import java.sql.*;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+
+import static controller.ServerFormController.receiveMessage;
 
 public class ClientFormController {
     public AnchorPane pane;
@@ -49,6 +48,8 @@ public class ClientFormController {
     private boolean isAdminClient = false;
     private static boolean adminConnected = false;
     private DataSource dataSource;
+
+
 
     public void initialize() {
         // Initialize your data source (database connection)
@@ -85,6 +86,8 @@ public class ClientFormController {
         this.vBox.heightProperty().addListener((observableValue, oldValue, newValue) -> scrollPain.setVvalue((Double) newValue));
 
         emoji();
+        // Load conversation history when initializing the chat window
+        loadConversationHistory();
     }
 
     private void setAdminClient(boolean isAdmin) {
@@ -194,6 +197,31 @@ public class ClientFormController {
             txtMsg.clear();
         }
     }
+    private void loadConversationHistory() {
+        try {
+            ServiceUser serviceUser = new ServiceUser();
+            int userId = 1; // Adjust this based on your user identification mechanism
+            User user = serviceUser.getUserById(userId);
+
+
+            String loadHistoryQuery = "SELECT * FROM messagerie WHERE idu = ?";
+            try (PreparedStatement preparedStatement = dataSource.getCnx().prepareStatement(loadHistoryQuery)) {
+                preparedStatement.setInt(1, userId);
+                ResultSet resultSet = preparedStatement.executeQuery();
+
+                while (resultSet.next()) {
+                    String senderName = resultSet.getString("nom");
+                    String message = resultSet.getString("message");
+                    String fullMessage = senderName + "-" + message;
+
+                    // Display the historical message in the chat window
+                    receiveMessage(fullMessage, vBox);
+                }
+            }
+        } catch (SQLException | IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     private void sendImage(String msgToSend) {
         Image image = new Image(msgToSend);
@@ -287,3 +315,5 @@ public class ClientFormController {
         clientName = name;
     }
 }
+
+
