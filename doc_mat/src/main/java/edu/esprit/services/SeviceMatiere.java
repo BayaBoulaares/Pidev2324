@@ -49,7 +49,7 @@ public class SeviceMatiere implements IService<Matiere> {
     public void modifier(Matiere v)  throws SQLException,ExistanteException{
         Connection cnx = DataSource.getInstance().getCnx();
 
-        if (!matiereExists(v.getNommatiere(),v.getAnnee())) {
+
             String req = "UPDATE matiere SET nom_matiere=?, description=?, annee=? , categorie=? WHERE id=?";
             PreparedStatement pstmt = cnx.prepareStatement(req);
             pstmt.setString(1, v.getNommatiere());
@@ -60,10 +60,7 @@ public class SeviceMatiere implements IService<Matiere> {
 
             pstmt.executeUpdate();
             System.out.println("Matiere modifiee avec succes");
-        } else {
-            System.out.println("Matiere avec le meme nom existe deja");
-            throw new ExistanteException("Matiere  existe déjà");
-        }
+
 
 
     }

@@ -19,7 +19,7 @@ public class User {
     private String niveau;
     private String image;
 
-    public User(int id, String nom, String prenom, String adresse, Date dob, String login, String tel, String role, String mdp, String discipline, String nomEnfant, String prenomEnfant, Date dobEnfant, String niveau, String image) {
+    public User(int id, String nom) {
         this.id = id;
         this.nom = nom;
         this.prenom = prenom;

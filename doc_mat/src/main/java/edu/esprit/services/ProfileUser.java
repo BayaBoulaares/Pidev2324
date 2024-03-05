@@ -1,6 +1,8 @@
 package edu.esprit.services;
 
 import edu.esprit.controller.AcceuilMatiereC;
+import edu.esprit.controller.AfficherEvents;
+import edu.esprit.controller.AjouterReclamation;
 import edu.esprit.controller.MatiersAffichage;
 import edu.esprit.entities.ParentE;
 import javafx.event.ActionEvent;
@@ -189,5 +191,23 @@ public class ProfileUser {
         am.getPe(ep);
         pdob.getScene().setRoot(root);
 
+    }
+
+    public void toRecl(ActionEvent actionEvent) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/AjouterReclamation.fxml"));
+        Parent root = loader.load();
+        AjouterReclamation controller = loader.getController();
+
+      //  controller.setProftoGet(ep);
+        pdob.getScene().setRoot(root);
+    }
+
+    public void toEvent(ActionEvent actionEvent) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Liste_Evenement.fxml"));
+        Parent root = loader.load();
+        AfficherEvents controller = loader.getController();
+
+        controller.initialize();
+        pdob.getScene().setRoot(root);
     }
 }

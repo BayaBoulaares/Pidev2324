@@ -14,18 +14,18 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseMoved="#showexplication" prefHeight="750.0" prefWidth="1200.0" style="-fx-background-color: #FAFEFC;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controller.AjouterDocument">
    <children>
-      <VBox layoutX="-10.0" prefHeight="750.0" prefWidth="168.0" styleClass="sidebar" stylesheets="@../css/StyleDashboardUser.css">
+      <VBox layoutX="-10.0" prefHeight="750.0" prefWidth="168.0" styleClass="sidebar" stylesheets="/css/StyleDashboardUser.css">
          <children>
             <ImageView fitHeight="166.0" fitWidth="158.0">
                <image>
-                  <Image url="@../images/78520233 - Copy.png" />
+                  <Image url="@images/78520233 - Copy.png" />
                </image>
             </ImageView>
             <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="38.0" prefWidth="161.0">
                <children>
                   <ImageView translateX="63.0" translateY="2.0">
                      <image>
-                        <Image url="@../images/IconProfile.png" />
+                        <Image url="@images/IconProfile.png" />
                      </image>
                   </ImageView>
                   <Button fx:id="toprofile" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#tohisprofile" prefHeight="30.0" prefWidth="70.0" styleClass="bprof" text="Profile" translateX="60.0" />
@@ -35,7 +35,7 @@
                <children>
                   <ImageView fitHeight="19.0" fitWidth="21.0" translateX="63.0" translateY="8.0">
                      <image>
-                        <Image url="@../images/IconDoc.png" />
+                        <Image url="@images/IconDoc.png" />
                      </image>
                   </ImageView>
                   <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#toMatiere" prefHeight="33.0" prefWidth="70.0" styleClass="bdoc" text="Matiers" translateX="60.0" />
@@ -45,18 +45,28 @@
                <children>
                   <ImageView translateX="60.0" translateY="8.0">
                      <image>
-                        <Image url="@../images/test.png" />
+                        <Image url="@images/test.png" />
                      </image>
                   </ImageView>
                   <Button fx:id="evaluation1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="40.0" prefWidth="78.0" styleClass="bev" text="Evaluation" translateX="60.0" />
                </children>
             </HBox>
+            <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="47.0" prefWidth="242.0">
+               <children>
+                  <ImageView translateX="60.0" translateY="8.0">
+                     <image>
+                        <Image url="@images/test.png" />
+                     </image>
+                  </ImageView>
+                  <Button fx:id="message" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#tomessage" prefHeight="40.0" prefWidth="78.0" styleClass="bev" text="message" translateX="60.0" />
+               </children>
+            </HBox>
             <HBox prefHeight="45.0" prefWidth="159.0">
                <children>
-                  <Button fx:id="dcxn" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#deconnexion" prefHeight="46.0" prefWidth="124.0" styleClass="dcxn" stylesheets="@../css/StyleDashboardAd.css" text="Déconnexion" />
+                  <Button fx:id="dcxn" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#deconnexion" prefHeight="46.0" prefWidth="124.0" styleClass="dcxn" stylesheets="/css/StyleDashboardAd.css" text="Déconnexion" />
                   <ImageView fitHeight="47.0" fitWidth="40.0">
                      <image>
-                        <Image url="@../images/Logout 2.png" />
+                        <Image url="@images/Logout_2.png" />
                      </image>
                   </ImageView>
                </children>
@@ -89,7 +99,7 @@
             <Font size="14.0" />
          </font></Button>
       <Line endX="47.0" endY="7.62939453125E-6" layoutX="325.0" layoutY="121.0" startX="-100.0" stroke="#27dec1" />
-      <Button fx:id="idconf" layoutX="902.0" layoutY="354.0" mnemonicParsing="false" onAction="#ajouterDocument" prefHeight="42.0" prefWidth="86.0" stylesheets="@../css/style.css" text="confirmer" textFill="WHITE" />
+      <Button fx:id="idconf" layoutX="902.0" layoutY="354.0" mnemonicParsing="false" onAction="#ajouterDocument" prefHeight="42.0" prefWidth="86.0" stylesheets="/css/style.css" text="confirmer" textFill="WHITE" />
       <Button layoutX="1068.0" layoutY="677.0" mnemonicParsing="false" onAction="#RetourMatiere" prefHeight="42.0" prefWidth="74.0" style="-fx-background-color: transparent; -fx-background-radius: 5; -fx-border-color: #27DEC1; -fx-border-radius: 5;" text="Retour" textFill="#27dec1" />
       <ComboBox fx:id="idtype" layoutX="184.0" layoutY="323.0" opacity="0.47" prefHeight="30.0" prefWidth="318.0" style="-fx-background-radius: 10; -fx-background-color: transparent; -fx-border-color: a3aed0; -fx-border-radius: 10;" />
       <Label layoutX="182.0" layoutY="256.0" text="Type *" textFill="#2b3674">
@@ -108,11 +118,11 @@
          </font>
       </Label>
       <ComboBox fx:id="idniveau" layoutX="743.0" layoutY="187.0" prefHeight="27.0" prefWidth="317.0" style="-fx-background-radius: 10; -fx-background-color: transparent; -fx-border-color: a3aed0; -fx-border-radius: 10;" />
-      <Button fx:id="idurl" layoutX="566.0" layoutY="489.0" mnemonicParsing="false" onAction="#choisirFichier" prefHeight="19.0" prefWidth="68.0" stylesheets="@../css/style.css" text="Url" textFill="#a3aed0" />
+      <Button fx:id="idurl" layoutX="566.0" layoutY="489.0" mnemonicParsing="false" onAction="#choisirFichier" prefHeight="19.0" prefWidth="68.0" stylesheets="/css/style.css" text="Url" textFill="#a3aed0" />
       <TextField fx:id="idurt" editable="false" layoutX="188.0" layoutY="485.0" prefHeight="30.0" prefWidth="318.0" promptText="Url" style="-fx-background-radius: 10;" />
       <ImageView fitHeight="265.0" fitWidth="295.0" layoutX="650.0" layoutY="471.0">
          <image>
-            <Image url="@../images/environment, planet, earth, world, man, people, climate.png" />
+            <Image url="@images/environment, planet, earth, world, man, people, climate.png" />
          </image>
       </ImageView>
    </children>
