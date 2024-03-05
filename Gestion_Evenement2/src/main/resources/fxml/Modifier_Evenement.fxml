@@ -17,7 +17,7 @@
     <VBox fx:id="navBar" prefHeight="714.0" prefWidth="162.0" spacing="10" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
       <ImageView fitHeight="134.0" fitWidth="131.0">
          <image>
-            <Image url="/fxml/images/785202333.png" />
+            <Image url="@images/785202333.png" />
          </image>
       </ImageView>
 

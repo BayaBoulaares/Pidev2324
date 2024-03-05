@@ -33,7 +33,6 @@ import server.ServerLauncher;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
-import static edu.esprit.services.DashboardUser.userId;
 import static org.bouncycastle.crypto.tls.ConnectionEnd.server;
 
 
@@ -127,13 +126,7 @@ public class AjouterMessage {
                 ServiceUser userService = new ServiceUser();
 
                 // Replace 1 with the actual user ID you want to retrieve
-                if (prod != null) {
-                    int userId = prod.getId();
-                    // Other operations with prod
-                } else {
-                    // Handle the case where prod is null, maybe log an error or throw an exception
-                    System.err.println("Error: prod is null");
-                }
+                int userId = prod.getId();
 
                 // Fetch the user by ID
                 User user = userService.getUserById(userId);

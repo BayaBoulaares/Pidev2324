@@ -33,7 +33,7 @@
       </Label>
       <ImageView fitHeight="142.0" fitWidth="136.0" layoutY="140.0">
          <image>
-            <Image url="/fxml/images/Anatomy scene builder.png" />
+            <Image url="@../images/Anatomy scene builder.png" />
          </image>
       </ImageView>
    </children>

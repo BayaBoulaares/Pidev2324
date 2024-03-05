@@ -22,13 +22,13 @@
             <graphic>
                 <ImageView fitHeight="28.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
                     <image>
-                        <Image url="/fxml/images/send-icon.png" />
+                        <Image url="@images/send-icon.png" />
                     </image>
                 </ImageView>
             </graphic></JFXButton>
         <ImageView fitHeight="87.0" fitWidth="81.0" layoutX="-10.0" layoutY="-11.0" pickOnBounds="true" preserveRatio="true">
             <image>
-                <Image url="/fxml/images/EChat-logo-img.png" />
+                <Image url="@images/EChat-logo-img.png" />
             </image>
         </ImageView>
         <Text fill="#0d47a1" layoutX="65.0" layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0" text="EChat">
@@ -45,7 +45,7 @@
             <graphic>
                 <ImageView fitHeight="26.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
                     <image>
-                        <Image url="/fxml/images/emoji-icon.png" />
+                        <Image url="@images/emoji-icon.png" />
                     </image>
                 </ImageView>
             </graphic>
@@ -54,7 +54,7 @@
             <graphic>
                 <ImageView fitHeight="21.0" fitWidth="19.0" pickOnBounds="true" preserveRatio="true">
                     <image>
-                        <Image url="/fxml/images/attachment-icon.png" />
+                        <Image url="@images/attachment-icon.png" />
                     </image>
                 </ImageView>
             </graphic>

@@ -16,7 +16,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="750.0" prefWidth="1200.0" styleClass="parent" stylesheets="/fxml/css/StyleFormProf.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.services.AddProfs">
+<AnchorPane prefHeight="750.0" prefWidth="1200.0" styleClass="parent" stylesheets="@css/StyleFormProf.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.services.AddProfs">
    <children>
       <TextField fx:id="addpnomfield" layoutX="442.0" layoutY="330.0" prefHeight="32.0" prefWidth="200.0" />
       <Text fill="#2b3674" layoutX="448.0" layoutY="317.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nom*">
@@ -64,14 +64,14 @@
       <Button fx:id="proform1" layoutX="449.0" layoutY="189.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="129.0" styleClass="bpr" text="Professeur" textFill="#27dec1" />
       <ImageView fitHeight="288.0" fitWidth="290.0" layoutX="1267.0" layoutY="619.0">
          <image>
-            <Image url="/fxml/images/environment, planet, earth, world, man, people, climate.png" />
+            <Image url="@images/environment, planet, earth, world, man, people, climate.png" />
          </image>
       </ImageView>
       <VBox alignment="CENTER" layoutX="-8.0" maxWidth="-Infinity" prefHeight="933.0" prefWidth="218.0" styleClass="sidebar">
          <children>
             <ImageView fitHeight="220.0" fitWidth="195.0" translateY="30.0">
                <image>
-                  <Image url="/fxml/images/785202333.png" />
+                  <Image url="@images/785202333.png" />
                </image>
             </ImageView>
             <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="713.0" prefWidth="229.0" spacing="10.0" translateX="-10.0">
@@ -80,7 +80,7 @@
                      <children>
                         <ImageView translateX="60.0" translateY="3.5">
                            <image>
-                              <Image url="/fxml/images/Users Group Two Rounded.png" />
+                              <Image url="@images/Users Group Two Rounded.png" />
                            </image>
                         </ImageView>
                         <Button fx:id="tousers" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#toUsers" prefHeight="30.0" prefWidth="90.0" styleClass="users" text="Utilisateurs" translateX="60.0" />
@@ -90,7 +90,7 @@
                      <children>
                         <ImageView translateX="63.0" translateY="8.0">
                            <image>
-                              <Image url="/fxml/images/IconDoc.png" />
+                              <Image url="@images/IconDoc.png" />
                            </image>
                         </ImageView>
                         <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="46.0" prefWidth="90.0" styleClass="bdoc" text="Documents" translateX="60.0" />
@@ -100,7 +100,7 @@
                      <children>
                         <ImageView translateX="60.0" translateY="8.0">
                            <image>
-                              <Image url="/fxml/images/test.png" />
+                              <Image url="@images/test.png" />
                            </image>
                         </ImageView>
                         <Button fx:id="evaluation1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="40.0" prefWidth="85.0" styleClass="bev" text="Evaluation" translateX="60.0" />
@@ -110,7 +110,7 @@
                      <children>
                         <ImageView translateX="60.0" translateY="10.0">
                            <image>
-                              <Image url="/fxml/images/IconCalendar.png" />
+                              <Image url="@images/IconCalendar.png" />
                            </image>
                         </ImageView>
                         <Button fx:id="evenements1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="45.0" prefWidth="86.0" styleClass="bee" text="Evenements" translateX="60.0" />
@@ -120,7 +120,7 @@
                      <children>
                         <ImageView translateX="60.0" translateY="10.0">
                            <image>
-                              <Image url="/fxml/images/Iconrec.png" />
+                              <Image url="@images/Iconrec.png" />
                            </image>
                         </ImageView>
                         <Button fx:id="reclamation1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="37.0" prefWidth="84.0" styleClass="brec" text="Réclamation" translateX="60.0" translateY="5.0" />
@@ -130,7 +130,7 @@
                      <children>
                         <ImageView translateX="60.0" translateY="8.0">
                            <image>
-                              <Image url="/fxml/images/Glasses.png" />
+                              <Image url="@images/Glasses.png" />
                            </image>
                         </ImageView>
                         <Button fx:id="totableprof" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#totableprof" prefHeight="46.0" prefWidth="78.0" styleClass="bdoc" text="Professeurs" translateX="60.0" />
@@ -139,7 +139,7 @@
                   <ProgressBar maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="6.0" prefWidth="30.0" progress="0.0" rotate="-89.4" styleClass="pbpr" translateX="125.0" translateY="-34.0" />
                   <ImageView translateX="-30.0" translateY="40.0">
                      <image>
-                        <Image url="/fxml/images/Logout 2.png" />
+                        <Image url="@images/Logout_2.png" />
                      </image>
                   </ImageView>
                   <Button fx:id="dcxn" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#deconnexion" prefHeight="35.0" prefWidth="79.0" styleClass="dcxn" text="Déconnexion" translateX="25.0" />

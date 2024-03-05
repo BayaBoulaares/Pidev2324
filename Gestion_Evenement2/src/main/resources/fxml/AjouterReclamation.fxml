@@ -19,7 +19,7 @@
                     <Font name="Arial Rounded MT Bold" size="18.0" />
                 </font>
             </Label>
-            <Label fx:id="firstLabel" onMouseClicked="#Accueil" styleClass="brec" stylesheets="@/css/StyleProfile.css" text="Accueil" />
+            <Label fx:id="firstLabel" styleClass="brec" stylesheets="@/css/StyleProfile.css" text="Accueil" />
             <Label styleClass="brec" stylesheets="@/css/StyleProfile.css" text="Utilisateurs" />
             <Label styleClass="brec" stylesheets="@/css/StyleProfile.css" text="Documents" />
             <Label styleClass="brec" stylesheets="@/css/StyleProfile.css" text="Événements" />

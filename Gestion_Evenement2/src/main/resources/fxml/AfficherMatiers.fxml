@@ -18,7 +18,7 @@
          <children>
             <ImageView fitHeight="186.0" fitWidth="179.0">
                <image>
-                  <Image url="/fxml/images/785202333.png" />
+                  <Image url="@images/785202333.png" />
                </image>
             </ImageView>
             <VBox prefHeight="392.0" prefWidth="179.0">
@@ -27,7 +27,7 @@
                      <children>
                         <ImageView translateX="63.0" translateY="4.0">
                            <image>
-                              <Image url="/fxml/images/IconAccueil.png" />
+                              <Image url="@images/IconAccueil.png" />
                            </image>
                         </ImageView>
                         <Button fx:id="toaccueil" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#toacceuiel" prefHeight="30.0" prefWidth="57.0" styleClass="bprof" text="Accueil" translateX="62.0" />
@@ -37,7 +37,7 @@
                      <children>
                         <ImageView translateX="63.0" translateY="2.0">
                            <image>
-                              <Image url="/fxml/images/IconProfile.png" />
+                              <Image url="@images/IconProfile.png" />
                            </image>
                         </ImageView>
                         <Button fx:id="toprofile" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#tohisprofile" prefHeight="30.0" prefWidth="60.0" styleClass="bprof" text="Profile" translateX="60.0" />
@@ -47,7 +47,7 @@
                      <children>
                         <ImageView fitHeight="24.0" fitWidth="28.0" translateX="63.0" translateY="8.0">
                            <image>
-                              <Image url="/fxml/images/IconDoc.png" />
+                              <Image url="@images/IconDoc.png" />
                            </image>
                         </ImageView>
                         <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#toMatiere" prefHeight="46.0" prefWidth="86.0" styleClass="bdoc" text="Documents" translateX="60.0" />
@@ -57,7 +57,7 @@
                      <children>
                         <ImageView translateX="60.0" translateY="10.0">
                            <image>
-                              <Image url="/fxml/images/IconCalendar.png" />
+                              <Image url="@images/IconCalendar.png" />
                            </image>
                         </ImageView>
                         <Button fx:id="evenements1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="45.0" prefWidth="86.0" styleClass="bee" text="Evenements" translateX="60.0" />
@@ -67,7 +67,7 @@
                      <children>
                         <ImageView translateX="60.0" translateY="10.0">
                            <image>
-                              <Image url="/fxml/images/Iconrec.png" />
+                              <Image url="@images/Iconrec.png" />
                            </image>
                         </ImageView>
                         <Button fx:id="reclamation1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="37.0" prefWidth="85.0" styleClass="brec" text="Réclamation" translateX="60.0" translateY="5.0" />
@@ -81,7 +81,7 @@
                      <children>
                         <ImageView fitHeight="54.0" fitWidth="57.0">
                            <image>
-                              <Image url="/fxml/images/Logout 2.png" />
+                              <Image url="@images/Logout_2.png" />
                            </image>
                         </ImageView>
                      </children>
@@ -142,7 +142,7 @@
       <Button layoutX="211.0" layoutY="622.0" mnemonicParsing="false" onAction="#affichertout" prefHeight="18.0" prefWidth="32.0" style="-fx-background-color: transparent;" text="#" textFill="#a3aed0" />
       <ImageView fitHeight="134.0" fitWidth="178.0" layoutX="991.0" layoutY="12.0">
          <image>
-            <Image url="/fxml/images/GG-July-39.jpg" />
+            <Image url="@images/GG-July-39.jpg" />
          </image>
       </ImageView>
       <Button fx:id="dcxn" layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#deconnexion" prefHeight="35.0" prefWidth="90.0" styleClass="dcxn" stylesheets="/css/StyleDashboardAd.css" text="Déconnexion" />

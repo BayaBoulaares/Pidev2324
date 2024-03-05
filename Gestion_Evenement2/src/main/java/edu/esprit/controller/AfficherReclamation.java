@@ -41,8 +41,6 @@ import java.sql.SQLException;
 import java.util.*;
 import java.util.List;
 import java.util.regex.Pattern;
-import static edu.esprit.services.DashboardUser.userId;
-
 
 
 public class AfficherReclamation {
@@ -118,7 +116,6 @@ public class AfficherReclamation {
     private static final List<String> BAD_WORDS = Arrays.asList("Sick", "Bad", "Dump");
 
     private static final Map<String, String> EMOJI_MAP = new HashMap<>();
-
 
     static {
         EMOJI_MAP.put(":)", "😊");
@@ -322,7 +319,7 @@ public class AfficherReclamation {
 
                 // Assuming reclamation is already initialized
                 // Modify only the reclamation details, leaving the name unchanged
-                reclamation = new Reclamation(reclamation.getId(), reclamation.getNom(), ReclamationID.getText(), DateID.getValue(), ratingID.getText(), userId);
+                reclamation = new Reclamation(reclamation.getId(), reclamation.getNom(), ReclamationID.getText(), DateID.getValue(), ratingID.getText(), 1);
 
                 // Automatically capitalize the first letter of the message
                 String capitalizedMessage = capitalizeFirstLetter(reclamation.getReclamation());

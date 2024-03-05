@@ -8,7 +8,6 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.Objects;
 
 public class ClientLauncher extends Application {
     public static void main(String[] args) {
@@ -25,7 +24,7 @@ public class ClientLauncher extends Application {
         Stage stage = new Stage();
         stage.initModality(Modality.WINDOW_MODAL);
         stage.initOwner(primaryStage.getScene().getWindow());
-        stage.setScene(new Scene(FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/fxml/LoginForm.fxml")))));
+        stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/fxml/LoginForm.fxml"))));
         stage.setTitle("EChat");
         stage.centerOnScreen();
         stage.setResizable(false);

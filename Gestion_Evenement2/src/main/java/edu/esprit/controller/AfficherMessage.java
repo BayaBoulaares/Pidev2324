@@ -31,9 +31,8 @@ import java.time.LocalDate;
 import java.util.*;
 import java.util.List;
 import java.util.regex.Pattern;
+
 import static edu.esprit.services.DashboardUser.userId;
-
-
 import static java.awt.SystemColor.text;
 
 public class AfficherMessage {
@@ -204,45 +203,45 @@ public class AfficherMessage {
         System.out.println(prod);
 
     }
-        @FXML
-        void modifiermessage(ActionEvent event) {
-            try {
-                if (validateSelection1()) {
-                    if (validateInput()) {
+    @FXML
+    void modifiermessage(ActionEvent event) {
+        try {
+            if (validateSelection1()) {
+                if (validateInput()) {
 
-                        ServiceMessagerie ps = new ServiceMessagerie();
+                    ServiceMessagerie ps = new ServiceMessagerie();
 
-                        // Assuming messagerie is already initialized
-                        // Modify only the message, leaving the name unchanged
-                        messagerie = new Messagerie(messagerie.getId(), messagerie.getNom(), MeesageID.getText(), userId );
+                    // Assuming messagerie is already initialized
+                    // Modify only the message, leaving the name unchanged
+                    messagerie = new Messagerie(messagerie.getId(), messagerie.getNom(), MeesageID.getText(), userId );
 
-                        // Automatically capitalize the first letter of the message
-                        String capitalizedMessage = capitalizeFirstLetter(messagerie.getMessage());
-                        messagerie.setMessage(capitalizedMessage);
+                    // Automatically capitalize the first letter of the message
+                    String capitalizedMessage = capitalizeFirstLetter(messagerie.getMessage());
+                    messagerie.setMessage(capitalizedMessage);
 
-                        // Convert symbols to emojis
-                        messagerie.setMessage(convertSymbolsToEmojis(messagerie.getMessage()));
+                    // Convert symbols to emojis
+                    messagerie.setMessage(convertSymbolsToEmojis(messagerie.getMessage()));
 
-                        ps.modifier(messagerie);
+                    ps.modifier(messagerie);
 
-                        // Check if the message has been modified
-                        String censoredMessage = censorBadWords(messagerie.getMessage());
-                        if (!messagerie.getMessage().equals(censoredMessage)) {
-                            showNotification3(); // notification mtaa el bad words
-                        } else {
-                            showNotification1(); // notification kn jawha bhy
-                        }
-
-                        // After modifying the data, update the TableView
-                        updateTableView();
-
-                        initialize(); // You may not need to call initialize() again, depending on your requirements
+                    // Check if the message has been modified
+                    String censoredMessage = censorBadWords(messagerie.getMessage());
+                    if (!messagerie.getMessage().equals(censoredMessage)) {
+                        showNotification3(); // notification mtaa el bad words
+                    } else {
+                        showNotification1(); // notification kn jawha bhy
                     }
+
+                    // After modifying the data, update the TableView
+                    updateTableView();
+
+                    initialize(); // You may not need to call initialize() again, depending on your requirements
                 }
-            } catch (Exception e) {
-                e.printStackTrace();
             }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+    }
 
 
     private String capitalizeFirstLetter(String text) {

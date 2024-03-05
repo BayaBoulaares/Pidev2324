@@ -2,6 +2,7 @@ package controller;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
+import edu.esprit.entities.ParentE;
 import edu.esprit.entities.User;
 import edu.esprit.services.ServiceUser;
 import edu.esprit.utils.DataSource;
@@ -63,7 +64,7 @@ public class ClientFormController {
                 System.out.println("Client connected");
 
                 // Fetch user data from the database and set clientName
-                int userId = 1; // You may need to adjust this based on your user identification mechanism
+                int userId = 5; // You may need to adjust this based on your user identification mechanism
                 ServiceUser serviceUser = new ServiceUser();
                 User user = serviceUser.getUserById(userId);
                 setClientName(user.getNom());
@@ -139,7 +140,15 @@ public class ClientFormController {
     public void sendButtonOnAction(ActionEvent actionEvent) {
         sendMsg(txtMsg.getText());
     }
+    private ParentE prod;
+    public void setProftoGet(ParentE prof)
+    {
+        System.out.println("bbbbbbbbbbbbbbbbbbbbbbbbbbbb");
 
+        prod=prof;
+        System.out.println(prod);
+
+    }
     private void sendMsg(String msgToSend) {
         if (!msgToSend.isEmpty()) {
             HBox hBox = new HBox();
@@ -179,7 +188,7 @@ public class ClientFormController {
                         preparedStatement.setString(1, isAdminClient() ? "Admin" : clientName);
                         preparedStatement.setTimestamp(2, new Timestamp(System.currentTimeMillis()));
                         preparedStatement.setString(3, msgToSend);
-                        preparedStatement.setInt(4, 1);  // Replace with the actual value for 'idu'
+                        preparedStatement.setInt(4,prod.getId() );  // Replace with the actual value for 'idu'
                         preparedStatement.executeUpdate();
                     }
 
@@ -197,11 +206,14 @@ public class ClientFormController {
             txtMsg.clear();
         }
     }
+
+
     private void loadConversationHistory() {
         try {
             ServiceUser serviceUser = new ServiceUser();
-            int userId = 1; // Adjust this based on your user identification mechanism
+            int userId = prod.getId(); // Adjust this based on your user identification mechanism
             User user = serviceUser.getUserById(userId);
+            System.out.println(user);
 
 
             String loadHistoryQuery = "SELECT * FROM messagerie WHERE idu = ?";

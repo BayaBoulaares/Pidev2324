@@ -15,7 +15,7 @@
          <graphic>
             <ImageView fitHeight="33.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="/fxml/images/add-icon.png" />
+                  <Image url="@images/add-icon.png" />
                </image>
             </ImageView>
          </graphic>
@@ -27,7 +27,7 @@
       </ScrollPane>
       <ImageView fitHeight="87.0" fitWidth="81.0" layoutX="-10.0" layoutY="-11.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="/fxml/images/EChat-logo-img.png" />
+            <Image url="@images/EChat-logo-img.png" />
          </image>
       </ImageView>
       <Text fill="#0d47a1" layoutX="65.0" layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0" text="EChat">

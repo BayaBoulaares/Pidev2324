@@ -25,7 +25,6 @@ import org.controlsfx.control.Notifications;
 import org.controlsfx.control.Rating;
 
 import java.awt.*;
-import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.sql.Date;
 import java.sql.SQLException;
@@ -203,8 +202,7 @@ public class AjouterReclamation {
                 alert.setContentText("Réclamation ajoutée avec succès.\nOption sélectionnée : " + reclamation);
                 alert.showAndWait();
 
-                FXMLLoader loader = new FXMLLoader();
-                loader.setLocation(getClass().getResource("fxml/AfficherReclamation.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherReclamation.fxml"));
                 Parent root = loader.load();
 
                 Scene currentScene = NomId.getScene();
@@ -370,19 +368,6 @@ public class AjouterReclamation {
             }
         }
         return text;
-    }
-
-
-    @FXML
-    void Accueil(MouseEvent event) throws SQLException, IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/DashobardAdmin.fxml"));
-
-        Parent root = loader.load();
-        System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-
-        AfficherReclamation controller = loader.getController();
-        controller.initialize();
-        DateId.getScene().setRoot(root);
     }
 
 

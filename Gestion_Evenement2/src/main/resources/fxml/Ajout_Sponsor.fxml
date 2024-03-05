@@ -25,7 +25,7 @@
         <VBox fx:id="navBar" prefHeight="650.0" prefWidth="162.0" spacing="10" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
             <ImageView fitHeight="143.0" fitWidth="149.0">
                 <image>
-                    <Image url="/fxml/images/785202333.png" />
+                    <Image url="@images/785202333.png" />
                 </image>
             </ImageView>
             <Label prefHeight="22.0" prefWidth="126.0" styleClass="navTitle" text="   Auti+Learn">

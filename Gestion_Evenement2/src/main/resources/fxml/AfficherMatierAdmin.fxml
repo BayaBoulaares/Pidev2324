@@ -16,11 +16,11 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" opacity="0.85" prefHeight="810.0" prefWidth="1200.0" style="-fx-background-color: #FAFEFC;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controller.AfficherMatiereAdmin">
     <children>
-        <VBox alignment="CENTER" layoutX="-9.0" maxWidth="-Infinity" prefHeight="814.0" prefWidth="203.0" styleClass="sidebar" stylesheets="/fxml/css/StyleDashboardAd.css">
+        <VBox alignment="CENTER" layoutX="-9.0" maxWidth="-Infinity" prefHeight="814.0" prefWidth="203.0" styleClass="sidebar" stylesheets="/css/StyleDashboardAd.css">
             <children>
                 <ImageView fitHeight="193.0" fitWidth="199.0" translateX="10.0" translateY="-134.0">
                     <image>
-                        <Image url="/fxml/images/785202333.png" />
+                        <Image url="@images/785202333.png" />
                     </image>
                 </ImageView>
                 <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="442.0" prefWidth="235.0" spacing="10.0" translateX="-10.0" translateY="30.0">
@@ -29,7 +29,7 @@
                             <children>
                                 <ImageView translateX="63.0" translateY="4.0">
                                     <image>
-                                        <Image url="/fxml/images/IconAccueil.png" />
+                                        <Image url="@images/IconAccueil.png" />
                                     </image>
                                 </ImageView>
                                 <Button fx:id="idaccueil" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#toaccueil" prefHeight="30.0" prefWidth="86.0" styleClass="bprof" text="Accueil" translateX="60.0" />
@@ -39,7 +39,7 @@
                             <children>
                                 <ImageView translateX="63.0" translateY="3.5">
                                     <image>
-                                        <Image url="/fxml/images/Users Group Two Rounded.png" />
+                                        <Image url="@images/Users Group Two Rounded.png" />
                                     </image>
                                 </ImageView>
                                 <Button fx:id="parent" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#toparent" prefHeight="30.0" prefWidth="86.0" styleClass="bprof" text="Utilisateurs" translateX="60.0" />
@@ -49,7 +49,7 @@
                             <children>
                                 <ImageView fitHeight="24.0" fitWidth="28.0" translateX="63.0" translateY="8.0">
                                     <image>
-                                        <Image url="/fxml/images/IconDoc.png" />
+                                        <Image url="@images/IconDoc.png" />
                                     </image>
                                 </ImageView>
                                 <Button fx:id="idcm" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#ConsulterMatiere" prefHeight="46.0" prefWidth="86.0" styleClass="bdoc" text="Documents" translateX="60.0" />
@@ -59,7 +59,7 @@
                             <children>
                                 <ImageView translateX="60.0" translateY="8.0">
                                     <image>
-                                        <Image url="/fxml/images/test.png" />
+                                        <Image url="@images/test.png" />
                                     </image>
                                 </ImageView>
                                 <Button fx:id="evaluation1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="40.0" prefWidth="78.0" styleClass="bev" text="Evaluation" translateX="60.0" />
@@ -69,7 +69,7 @@
                             <children>
                                 <ImageView translateX="60.0" translateY="10.0">
                                     <image>
-                                        <Image url="/fxml/images/IconCalendar.png" />
+                                        <Image url="@images/IconCalendar.png" />
                                     </image>
                                 </ImageView>
                                 <Button fx:id="evenements1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="45.0" prefWidth="86.0" styleClass="bee" text="Evenements" translateX="60.0" />
@@ -79,7 +79,7 @@
                             <children>
                                 <ImageView translateX="60.0" translateY="10.0">
                                     <image>
-                                        <Image url="/fxml/images/Iconrec.png" />
+                                        <Image url="@images/Iconrec.png" />
                                     </image>
                                 </ImageView>
                                 <Button fx:id="reclamation1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="37.0" prefWidth="85.0" styleClass="brec" text="Réclamation" translateX="60.0" translateY="5.0" />
@@ -89,7 +89,7 @@
                             <children>
                                 <ImageView translateX="60.0" translateY="8.0">
                                     <image>
-                                        <Image url="/fxml/images/Glasses.png" />
+                                        <Image url="@images/Glasses.png" />
                                     </image>
                                 </ImageView>
                                 <Button fx:id="toprofesseur" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#toProfesseurs" prefHeight="46.0" prefWidth="79.0" styleClass="bdoc" text="Professeurs" translateX="60.0" />
@@ -97,13 +97,13 @@
                         </HBox>
                         <ImageView translateX="-30.0" translateY="90.0">
                             <image>
-                                <Image url="/fxml/images/Logout 2.png" />
+                                <Image url="@images/Logout_2.png" />
                             </image>
                         </ImageView>
-                        <Button fx:id="dcxn" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#deconnexion" prefHeight="35.0" prefWidth="84.0" styleClass="dcxn" stylesheets="/fxml/css/StyleDashboardAd.css" text="Déconnexion" translateX="28.0" translateY="50.0" />
+                        <Button fx:id="dcxn" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#deconnexion" prefHeight="35.0" prefWidth="84.0" styleClass="dcxn" stylesheets="/css/StyleDashboardAd.css" text="Déconnexion" translateX="28.0" translateY="50.0" />
                     </children>
                 </VBox>
-                <ProgressBar maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="6.0" prefWidth="30.0" progress="0.0" rotate="90.0" styleClass="pbpr" stylesheets="/fxml/css/StyleFormProf.css" translateX="116.0" translateY="-407.0" />
+                <ProgressBar maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="6.0" prefWidth="30.0" progress="0.0" rotate="90.0" styleClass="pbpr" stylesheets="/css/StyleFormProf.css" translateX="116.0" translateY="-407.0" />
             </children>
         </VBox>
         <Label layoutX="275.0" layoutY="35.0" text="Pages / Acceuil" textFill="#a3aed0">
@@ -147,7 +147,7 @@
         <Button layoutX="284.0" layoutY="701.0" mnemonicParsing="false" onAction="#affichertout" prefHeight="18.0" prefWidth="32.0" style="-fx-background-color: transparent;" text="#" textFill="#a3aed0" />
         <TextField fx:id="idrecherche" layoutX="656.0" layoutY="23.0" onAction="#chercherMatiers" prefHeight="26.0" prefWidth="175.0" promptText="recherche" style="-fx-background-radius: 10; -fx-border-radius: 10;" />
         <Label layoutX="587.0" layoutY="28.0" text="Recherche" textFill="#a3aed0" />
-        <Button fx:id="idstate" layoutX="896.0" layoutY="24.0" mnemonicParsing="false" onAction="#showState" stylesheets="/fxml/css/style.css" text="Statistique" textFill="#2b3674">
+        <Button fx:id="idstate" layoutX="896.0" layoutY="24.0" mnemonicParsing="false" onAction="#showState" stylesheets="/css/style.css" text="Statistique" textFill="#2b3674">
             <font>
                 <Font name="System Bold" size="12.0" />
             </font>
@@ -157,7 +157,7 @@
                 <FlowPane fx:id="matiereFlowPane" prefHeight="530.0" prefWidth="633.0" style="-fx-background-radius: 5; -fx-border-radius: 5; -fx-background-color: #FAFEFC;" />
             </content>
         </ScrollPane>
-      <Button fx:id="idretour" layoutX="1010.0" layoutY="22.0" mnemonicParsing="false" onAction="#retourAceuil" prefHeight="40.0" prefWidth="114.0" stylesheets="/fxml/css/style.css" text="Retour" textFill="#2b3674" />
+      <Button fx:id="idretour" layoutX="1010.0" layoutY="22.0" mnemonicParsing="false" onAction="#retourAceuil" prefHeight="40.0" prefWidth="114.0" stylesheets="/css/style.css" text="Retour" textFill="#2b3674" />
 
     </children>
 </AnchorPane>
