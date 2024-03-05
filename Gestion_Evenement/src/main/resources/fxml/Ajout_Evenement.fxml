@@ -25,14 +25,14 @@
                 <Font name="DM sans" size="18.0" />
             </font>
         </Label>
-        <Button onAction="#toacceuiel" fx:id="firstButton" prefHeight="34.0" prefWidth="101.0" style="-fx-background-color: transparent;" text="Acceuil" textFill="#ece7e7">
+        <Button fx:id="firstButton" onAction="#toacceuiel" prefHeight="34.0" prefWidth="101.0" style="-fx-background-color: transparent;" text="Acceuil" textFill="#ece7e7">
             <graphic>
                 <ImageView fitHeight="24" fitWidth="24" pickOnBounds="true" preserveRatio="true" smooth="true">
                     <Image url="@images/IconAccueil.png" />
                 </ImageView>
             </graphic>
         </Button>
-        <Button onAction="#tohisprofile"  prefHeight="34.0" prefWidth="101.0" style="-fx-background-color: transparent;" text="profil" textFill="#ece7e7">
+        <Button onAction="#tohisprofile" prefHeight="34.0" prefWidth="101.0" style="-fx-background-color: transparent;" text="profil" textFill="#ece7e7">
             <graphic>
                 <ImageView fitHeight="24" fitWidth="24" pickOnBounds="true" preserveRatio="true" smooth="true">
                     <Image url="@images/IconProfile.png" />
@@ -63,8 +63,15 @@
                 </ImageView>
             </graphic>
         </Button>
+        <Button onAction="#toProfe" prefHeight="34.0" prefWidth="119.0" style="-fx-background-color: transparent;" text="Professeur" textFill="WHITE">
+            <graphic>
+                <ImageView fitHeight="24" fitWidth="24" pickOnBounds="true" preserveRatio="true" smooth="true">
+                    <Image url="@images/Glasses.png" />
+                </ImageView>
+            </graphic>
+        </Button>
 
-        <Button prefHeight="34.0" prefWidth="119.0" style="-fx-background-color: transparent;" text="Réclamation" textFill="WHITE">
+        <Button onAction="#toReclamation" prefHeight="34.0" prefWidth="119.0" style="-fx-background-color: transparent;" text="Réclamation" textFill="WHITE">
             <graphic>
                 <ImageView fitHeight="24" fitWidth="24" pickOnBounds="true" preserveRatio="true" smooth="true">
                     <Image url="@images/Iconrec.png" />
@@ -108,7 +115,7 @@
     <HBox layoutX="218.0" layoutY="450.0" spacing="10">
         <ImageView fx:id="eventImage" fitHeight="1" fitWidth="1" />
     </HBox>
-     <Button fx:id="selectImageButton" layoutX="596.0" layoutY="433.0" mnemonicParsing="false" onAction="#selectImage" prefHeight="34.0" prefWidth="191.0"  style="-fx-background-color: turquoise; -fx-font-size: 14px; -fx-text-fill: white; -fx-background-radius: 5px;" text="Choisir une image" />
+     <Button fx:id="selectImageButton" layoutX="596.0" layoutY="433.0" mnemonicParsing="false" onAction="#selectImage" prefHeight="34.0" prefWidth="191.0" style="-fx-background-color: turquoise; -fx-font-size: 14px; -fx-text-fill: white; -fx-background-radius: 5px;" text="Choisir une image" />
    <ImageView fitHeight="266.0" fitWidth="270.0" layoutX="206.0" layoutY="470.0">
       <image>
          <Image url="@images/Schedule-rafiki.png" />

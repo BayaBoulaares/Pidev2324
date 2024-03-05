@@ -105,17 +105,17 @@
       <BorderPane layoutX="6.0" layoutY="1088.0" prefHeight="43.0" prefWidth="1768.0" styleClass="borderpane" stylesheets="@../css/StyleSignUp.css" />
       <ImageView layoutX="30.0" layoutY="23.0" translateX="10.0" translateY="2.0">
          <image>
-            <Image url="@../images/Reply 2.png" />
+            <Image url="@images/Reply 2.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="219.0" fitWidth="230.0" layoutX="1496.0" layoutY="1.0">
          <image>
-            <Image url="@../images/785202333.png" />
+            <Image url="@images/78520233 - Copy.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="243.0" fitWidth="243.0" layoutX="25.0" layoutY="787.0">
          <image>
-            <Image url="@../images/shipping, delivery, destination, location, airplane, plane, aeroplane, deliver.png" />
+            <Image url="@images/shipping, delivery, destination, location, airplane, plane, aeroplane, deliver.png" />
          </image>
       </ImageView>
       <ImageView fx:id="parentimage" fitHeight="150.0" fitWidth="200.0" layoutX="36.0" layoutY="169.0" pickOnBounds="true" preserveRatio="true" />

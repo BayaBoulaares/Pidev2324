@@ -1,9 +1,8 @@
 package edu.esprit.services;
 
-import edu.esprit.controller.AffichageMatiereController;
-import edu.esprit.controller.AfficherEvenement;
-import edu.esprit.controller.AfficherEvents;
+import edu.esprit.controller.*;
 import edu.esprit.entities.Matiere;
+import edu.esprit.entities.ParentE;
 import edu.esprit.entities.Professeur;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -26,6 +25,10 @@ public class DashboardAdmin {
     private Button parent;
 
     private Professeur po;
+    private ParentE ep;
+    @FXML
+    private Button reclamation1;
+
 
     @FXML
     void toProfesseurs(ActionEvent event) throws IOException {
@@ -68,5 +71,13 @@ public class DashboardAdmin {
         Parent root = loader.load();
         toprofesseur.getScene().setRoot(root);
 
+    }
+@FXML
+    public void AfficherReclamation(ActionEvent actionEvent) throws IOException {
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/AfficherReclamation.fxml"));
+        Parent root = loader.load();
+
+        reclamation1.getScene().setRoot(root);
     }
 }

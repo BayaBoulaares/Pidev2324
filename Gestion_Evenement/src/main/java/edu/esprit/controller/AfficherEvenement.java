@@ -328,5 +328,11 @@ public class AfficherEvenement {
         ((Node) actionEvent.getSource()).getScene().setRoot(root);
     }
 
+@FXML
+    public void AfficherReclamation(ActionEvent actionEvent) throws IOException {
+    FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/AfficherReclamation.fxml"));
+    Parent root = loader.load();
 
-   }
+    ((Node) actionEvent.getSource()).getScene().setRoot(root);
+    }
+}

@@ -39,11 +39,11 @@ public class MatiersAffichage {
 
 private String annee;
     private SeviceMatiere serviceMatiere = new SeviceMatiere();
-    private ParentE ep;
-    public  void getPe(ParentE ep)
+    private ParentE ep=DashboardUser.ep;
+   /* public  void getPe(ParentE ep)
     {
         this.ep=ep;
-    }
+    }*/
 
     @FXML
     public void initialize() {
@@ -150,7 +150,7 @@ private String annee;
             if( me!=null)
             // Appeler la méthode pour passer la matière à modifier
             { ajouterdoc.setMatToCh(me,ep);}
-            serviceMatiere.ajouterIdMatierzIduser(me,ep);
+            serviceMatiere.ajouterIdMatierzIduser(me,DashboardUser.ep);
             // Changer la scène pour afficher le formulaire de modification
             idret.getScene().setRoot(root);
         } catch (IOException e) {
@@ -246,6 +246,28 @@ private String annee;
     CredentialsManager.clearCredentials();
     FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Login.fxml"));
     Parent root = loader.load();
+    idret.getScene().setRoot(root);
+    }
+@FXML
+    public void toReclamation(ActionEvent actionEvent) throws IOException {
+    FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/AjouterReclamation.fxml"));
+    Parent root = loader.load();
+    AjouterReclamation controller = loader.getController();
+
+   // controller.setProftoGet(ep);
+    idret.getScene().setRoot(root);
+
+    }
+@FXML
+    public void toEvoluation(ActionEvent actionEvent) {
+    }
+@FXML
+    public void toEvent(ActionEvent actionEvent) throws IOException {
+    FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Liste_Evenement.fxml"));
+    Parent root = loader.load();
+    AfficherEvents controller = loader.getController();
+
+    controller.initialize();
     idret.getScene().setRoot(root);
     }
 }

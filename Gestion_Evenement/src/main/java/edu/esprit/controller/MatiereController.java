@@ -35,7 +35,7 @@ public class MatiereController {
     @FXML
     private TextField idnom;
     private final SeviceMatiere MS = new SeviceMatiere();
-    private Professeur prof;
+    private Professeur prof=AffichageMatiereController.prod;
     private int currentStep = 0;
     @FXML
     public void initialize() {
@@ -45,12 +45,12 @@ public class MatiereController {
         afficherGuideUtilisation();
     }
 
-public void professGet(Professeur prof)
+/*public void professGet(Professeur prof)
 {
     System.out.println("//////////////////");
     System.out.println(prof);
     this.prof=prof;
-}
+}*/
     public  MatiereController(){
 
     }
@@ -227,5 +227,11 @@ public void professGet(Professeur prof)
         alert.setHeaderText(null);
         alert.setContentText(content);
         return alert;
+    }
+@FXML
+    public void tomessage(ActionEvent actionEvent) throws IOException {
+    FXMLLoader loader= new FXMLLoader(getClass().getResource("/fxml/AfficherMessage.fxml"));
+    Parent root=loader.load();
+    idc.getScene().setRoot(root);
     }
 }

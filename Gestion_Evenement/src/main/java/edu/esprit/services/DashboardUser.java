@@ -2,14 +2,18 @@ package edu.esprit.services;
 
 import edu.esprit.controller.AcceuilMatiereC;
 import edu.esprit.controller.AfficherEvents;
+import edu.esprit.controller.AfficherReclamation;
+import edu.esprit.controller.AjouterReclamation;
 import edu.esprit.entities.ParentE;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 public class DashboardUser {
     @FXML
@@ -26,7 +30,7 @@ public class DashboardUser {
 
     @FXML
     private Button toprofile;
-    private ParentE ep;
+    public static ParentE ep;
     public static int userId;
     public void getPe(ParentE ep)
     {
@@ -78,6 +82,18 @@ public class DashboardUser {
 
     public void setUserId(int userId) {
         this.userId = userId;
+    }
+
+
+    @FXML
+    void AfficherReclamation(ActionEvent event) throws IOException, SQLException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/AjouterReclamation.fxml"));
+        Parent root = loader.load();
+        AjouterReclamation controller = loader.getController();
+
+       // controller.setProftoGet(ep);
+        reclamation1.getScene().setRoot(root);
+
     }
 
 }

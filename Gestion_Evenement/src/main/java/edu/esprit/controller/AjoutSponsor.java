@@ -207,7 +207,7 @@ public class AjoutSponsor {
     }
 
     private void afficherAlerte(String message) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Information");
         alert.setContentText(message);
         alert.showAndWait();
@@ -277,4 +277,12 @@ public class AjoutSponsor {
         Parent root = loader.load();
         // Utilisez getRoot() au lieu de getScene()
         ((Node) actionEvent.getSource()).getScene().setRoot(root);
-    }}
+    }
+@FXML
+    public void toRdclamation(ActionEvent actionEvent) throws IOException {
+    FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/AfficherReclamation.fxml"));
+    Parent root = loader.load();
+
+    ((Node) actionEvent.getSource()).getScene().setRoot(root);
+    }
+}

@@ -11,9 +11,9 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1200.0" styleClass="parent" stylesheets="@../css/StyleConnect.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.services.Login">
+<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1200.0" styleClass="parent" stylesheets="/css/StyleConnect.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.services.Login">
    <children>
-      <TextField fx:id="loginuser" layoutX="176.0" layoutY="254.0" prefHeight="32.0" prefWidth="287.0" promptText="email@exemple.com" styleClass="login" stylesheets="@../css/StyleConnect.css" />
+      <TextField fx:id="loginuser" layoutX="176.0" layoutY="254.0" prefHeight="32.0" prefWidth="287.0" promptText="email@exemple.com" styleClass="login" stylesheets="/css/StyleConnect.css" />
       <Text fill="#2b3674" layoutX="182.0" layoutY="241.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Login*">
          <font>
             <Font size="14.0" />
@@ -28,11 +28,11 @@
          <font>
             <Font size="13.0" />
          </font></RadioButton>
-      <Button fx:id="connexion" layoutX="176.0" layoutY="448.0" mnemonicParsing="false" onAction="#seconnecter" prefHeight="32.0" prefWidth="293.0" styleClass="bconnexion" stylesheets="@../css/StyleConnect.css" text="Connexion">
+      <Button fx:id="connexion" layoutX="176.0" layoutY="448.0" mnemonicParsing="false" onAction="#seconnecter" prefHeight="32.0" prefWidth="293.0" styleClass="bconnexion" stylesheets="/css/StyleConnect.css" text="Connexion">
          <font>
             <Font size="18.0" />
          </font></Button>
-      <Button fx:id="mdpoublier" layoutX="339.0" layoutY="401.0" mnemonicParsing="false" onAction="#tochangemdp" styleClass="bmdpo" stylesheets="@../css/StyleConnect.css" text="Mot de passe oublié ?">
+      <Button fx:id="mdpoublier" layoutX="339.0" layoutY="401.0" mnemonicParsing="false" onAction="#tochangemdp" styleClass="bmdpo" stylesheets="/css/StyleConnect.css" text="Mot de passe oublié ?">
          <font>
             <Font size="13.0" />
          </font></Button>
@@ -47,15 +47,15 @@
          </font>
       </Text>
       <Text fill="#2b3674" layoutX="183.0" layoutY="598.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Vous n'avez pas encore un compte ?" />
-      <Button fx:id="creercompte" layoutX="379.0" layoutY="579.0" mnemonicParsing="false" onAction="#addaccount" styleClass="creercompte" stylesheets="@../css/StyleConnect.css" text="Créer un compte">
+      <Button fx:id="creercompte" layoutX="379.0" layoutY="579.0" mnemonicParsing="false" onAction="#addaccount" styleClass="creercompte" stylesheets="/css/StyleConnect.css" text="Créer un compte">
          <font>
             <Font size="14.0" />
          </font></Button>
-      <AnchorPane layoutX="697.0" prefHeight="750.0" prefWidth="506.0" styleClass="sidebar2" stylesheets="@../css/StyleConnect.css">
+      <AnchorPane layoutX="697.0" prefHeight="750.0" prefWidth="506.0" styleClass="sidebar2" stylesheets="/css/StyleConnect.css">
          <children>
             <ImageView fitHeight="322.0" fitWidth="335.0" layoutX="97.0" layoutY="279.0">
                <image>
-                  <Image url="@../images/78520233 - Copy.png" />
+                  <Image url="@images/78520233 - Copy.png" />
                </image>
             </ImageView>
             <Text fill="WHITE" layoutX="90.0" layoutY="171.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="seconnecter" text="Bienvenue de nouveau !" wrappingWidth="387.5113525390625">
@@ -72,7 +72,7 @@
             <Font size="13.0" />
          </font>
       </Text>
-      <Button fx:id="cnxgoogle" layoutX="195.0" layoutY="524.0" mnemonicParsing="false" onAction="#seconnecteravecgoogle" prefHeight="32.0" prefWidth="293.0" styleClass="signinf" stylesheets="@../css/StyleConnect.css" text="Se connecter avec Google">
+      <Button fx:id="cnxgoogle" layoutX="195.0" layoutY="524.0" mnemonicParsing="false" onAction="#seconnecteravecgoogle" prefHeight="32.0" prefWidth="293.0" styleClass="signinf" stylesheets="/css/StyleConnect.css" text="Se connecter avec Google">
          <font>
             <Font size="18.0" />
          </font>
@@ -81,7 +81,7 @@
       <PasswordField fx:id="mdpuser" layoutX="176.0" layoutY="343.0" prefHeight="32.0" prefWidth="287.0" />
       <ImageView fitHeight="17.0" fitWidth="17.0" layoutX="245.0" layoutY="533.0" translateX="-7.0" translateY="-2.0">
          <image>
-            <Image url="@../images/Platform=Google, Color=Original.png" />
+            <Image url="@images/Platform=Google, Color=Original.png" />
          </image>
       </ImageView>
    </children>

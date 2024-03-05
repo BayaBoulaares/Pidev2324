@@ -13,11 +13,11 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" opacity="0.85" prefHeight="750.0" prefWidth="1200.0" style="-fx-background-color: #FAFEFC;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controller.AfficherDocumentM">
    <children>
-      <VBox prefHeight="750.0" prefWidth="231.0" styleClass="sidebar" stylesheets="@../css/StyleDashboardUser.css">
+      <VBox prefHeight="750.0" prefWidth="231.0" styleClass="sidebar" stylesheets="/css/StyleDashboardUser.css">
          <children>
             <ImageView fitHeight="210.0" fitWidth="203.0" style="-fx-translate-x: 45; -fx-translate-y: 10;">
                <image>
-                  <Image url="@../images/78520233 - Copy.png" />
+                  <Image url="@images/78520233 - Copy.png" />
                </image>
             </ImageView>
             <VBox prefHeight="340.0" prefWidth="243.0">
@@ -26,18 +26,18 @@
                      <children>
                         <ImageView translateX="63.0" translateY="4.0">
                            <image>
-                              <Image url="@../images/IconAccueil.png" />
+                              <Image url="@images/IconAccueil.png" />
                            </image>
                         </ImageView>
                         <Button fx:id="toaccueil" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#toacceuiel" prefHeight="30.0" prefWidth="57.0" styleClass="bprof" text="Accueil" translateX="62.0" />
-                        <ProgressBar maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="6.0" prefWidth="30.0" progress="0.0" rotate="90.0" styleClass="pbpr" stylesheets="@../css/StyleFormProf.css" translateX="128.0" translateY="9.0" />
+                        <ProgressBar maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="6.0" prefWidth="30.0" progress="0.0" rotate="90.0" styleClass="pbpr" stylesheets="/css/StyleFormProf.css" translateX="128.0" translateY="9.0" />
                      </children>
                   </HBox>
                   <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="46.0" prefWidth="238.0">
                      <children>
                         <ImageView translateX="63.0" translateY="2.0">
                            <image>
-                              <Image url="@../images/IconProfile.png" />
+                              <Image url="@images/IconProfile.png" />
                            </image>
                         </ImageView>
                         <Button fx:id="toprofile" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#tohisprofile" prefHeight="30.0" prefWidth="60.0" styleClass="bprof" text="Profile" translateX="60.0" />
@@ -47,7 +47,7 @@
                      <children>
                         <ImageView fitHeight="24.0" fitWidth="28.0" translateX="63.0" translateY="8.0">
                            <image>
-                              <Image url="@../images/IconDoc.png" />
+                              <Image url="@images/IconDoc.png" />
                            </image>
                         </ImageView>
                         <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#toMatiere" prefHeight="46.0" prefWidth="86.0" styleClass="bdoc" text="Documents" translateX="60.0" />
@@ -57,7 +57,7 @@
                      <children>
                         <ImageView translateX="60.0" translateY="8.0">
                            <image>
-                              <Image url="@../images/test.png" />
+                              <Image url="@images/test.png" />
                            </image>
                         </ImageView>
                         <Button fx:id="evaluation1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="40.0" prefWidth="78.0" styleClass="bev" text="Evaluation" translateX="60.0" />
@@ -67,20 +67,20 @@
                      <children>
                         <ImageView translateX="60.0" translateY="10.0">
                            <image>
-                              <Image url="@../images/IconCalendar.png" />
+                              <Image url="@images/IconCalendar.png" />
                            </image>
                         </ImageView>
-                        <Button fx:id="evenements1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="45.0" prefWidth="86.0" styleClass="bee" text="Evenements" translateX="60.0" />
+                        <Button fx:id="evenements1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#ToEvent" prefHeight="45.0" prefWidth="86.0" styleClass="bee" text="Evenements" translateX="60.0" />
                      </children>
                   </HBox>
                   <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="46.0" prefWidth="243.0">
                      <children>
                         <ImageView translateX="60.0" translateY="10.0">
                            <image>
-                              <Image url="@../images/Iconrec.png" />
+                              <Image url="@images/Iconrec.png" />
                            </image>
                         </ImageView>
-                        <Button fx:id="reclamation1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="37.0" prefWidth="85.0" styleClass="brec" text="Réclamation" translateX="60.0" translateY="5.0" />
+                        <Button fx:id="reclamation1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#toReclamation" prefHeight="37.0" prefWidth="85.0" styleClass="brec" text="Réclamation" translateX="60.0" translateY="5.0" />
                      </children>
                   </HBox>
                </children>
@@ -89,10 +89,10 @@
                <children>
                   <ImageView fitHeight="46.0" fitWidth="51.0">
                      <image>
-                        <Image url="@../images/Logout 2.png" />
+                        <Image url="@images/Logout_2.png" />
                      </image>
                   </ImageView>
-                  <Button fx:id="dcxn" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#deconnexion" prefHeight="46.0" prefWidth="104.0" styleClass="dcxn" stylesheets="@../css/StyleDashboardAd.css" text="Déconnexion" />
+                  <Button fx:id="dcxn" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#deconnexion" prefHeight="46.0" prefWidth="104.0" styleClass="dcxn" stylesheets="/css/StyleDashboardAd.css" text="Déconnexion" />
                </children>
             </HBox>
          </children>
@@ -107,7 +107,7 @@
             <Font name="System Bold" size="22.0" />
          </font>
       </Label>
-      <Button fx:id="idret" layoutX="839.0" layoutY="688.0" mnemonicParsing="false" onAction="#retourMatiere" prefHeight="34.0" prefWidth="80.0" stylesheets="@../css/style.css" text="Retour" textFill="WHITE">
+      <Button fx:id="idret" layoutX="839.0" layoutY="688.0" mnemonicParsing="false" onAction="#retourMatiere" prefHeight="34.0" prefWidth="80.0" stylesheets="/css/style.css" text="Retour" textFill="WHITE">
          <font>
             <Font size="8.0" />
          </font>
@@ -119,7 +119,7 @@
       </ScrollPane>
       <ImageView fitHeight="150.0" fitWidth="277.0" layoutX="263.0" layoutY="586.0">
          <image>
-            <Image url="@../images/istockphoto-165502645-612x612.jpg" />
+            <Image url="@images/istockphoto-165502645-612x612.jpg" />
          </image>
       </ImageView>
    </children>

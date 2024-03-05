@@ -57,7 +57,7 @@ public class AcceuilMatiereC {
 
             // Accéder au contrôleur du formulaire de matiers affichage
             MatiersAffichage affichematiere= loader.getController();
-           affichematiere.getPe(ep);
+          // affichematiere.getPe(ep);
             affichematiere.afficherSeulentAnnee(btnText);
             affichematiere.initialize(); // New method to initialize data
 
@@ -80,7 +80,7 @@ public class AcceuilMatiereC {
 
             // Accéder au contrôleur du formulaire de matiers affichage
             MatiersAffichage affichematiere= loader.getController();
-            affichematiere.getPe(ep);
+           // affichematiere.getPe(ep);
             affichematiere.afficherSeulentAnnee(btnText);
             affichematiere.initialize(); // New method to initialize data
 
@@ -103,7 +103,7 @@ public class AcceuilMatiereC {
 
             // Accéder au contrôleur du formulaire de matiers affichage
             MatiersAffichage affichematiere= loader.getController();
-            affichematiere.getPe(ep);
+          //  affichematiere.getPe(ep);
             affichematiere.afficherSeulentAnnee(btnText);
             affichematiere.initialize(); // New method to initialize data
 
@@ -126,7 +126,7 @@ public class AcceuilMatiereC {
 
             // Accéder au contrôleur du formulaire de matiers affichage
             MatiersAffichage affichematiere= loader.getController();
-            affichematiere.getPe(ep);
+           // affichematiere.getPe(ep);
             affichematiere.afficherSeulentAnnee(btnText);
             affichematiere.initialize(); // New method to initialize data
 
@@ -149,7 +149,7 @@ public class AcceuilMatiereC {
 
             // Accéder au contrôleur du formulaire de matiers affichage
             MatiersAffichage affichematiere= loader.getController();
-            affichematiere.getPe(ep);
+           // affichematiere.getPe(ep);
             affichematiere.afficherSeulentAnnee(btnText);
             affichematiere.initialize(); // New method to initialize data
 
@@ -172,7 +172,7 @@ public class AcceuilMatiereC {
 
             // Accéder au contrôleur du formulaire de matiers affichage
             MatiersAffichage affichematiere= loader.getController();
-            affichematiere.getPe(ep);
+          //  affichematiere.getPe(ep);
             affichematiere.afficherSeulentAnnee(btnText);
             affichematiere.initialize(); // New method to initialize data
 
@@ -218,6 +218,21 @@ public class AcceuilMatiereC {
     CredentialsManager.clearCredentials();
     FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Login.fxml"));
     Parent root = loader.load();
+    id1.getScene().setRoot(root);
+    }
+@FXML
+    public void toEvent(ActionEvent actionEvent) throws IOException {
+    CredentialsManager.clearCredentials();
+    FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Liste_Evenement.fxml"));
+    Parent root = loader.load();
+    id1.getScene().setRoot(root);
+    }
+@FXML
+    public void toReclametion(ActionEvent actionEvent) throws IOException {
+    FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/AjouterReclamation.fxml"));
+    Parent root = loader.load();
+    AjouterReclamation controller = loader.getController();
+   // controller.setProftoGet(ep);
     id1.getScene().setRoot(root);
     }
 }

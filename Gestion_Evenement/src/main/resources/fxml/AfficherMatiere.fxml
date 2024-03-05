@@ -16,33 +16,32 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" opacity="0.85" prefHeight="750.0" prefWidth="1200.0" style="-fx-background-color: #FAFEFC;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controller.AffichageMatiereController">
    <children>
-      <VBox layoutY="-6.0" prefHeight="757.0" prefWidth="243.0" styleClass="sidebar" stylesheets="@../css/StyleDashboardUser.css">
+      <VBox layoutY="-6.0" prefHeight="757.0" prefWidth="243.0" styleClass="sidebar" stylesheets="/css/StyleDashboardUser.css">
          <children>
             <ImageView fitHeight="208.0" fitWidth="208.0">
                <image>
-                  <Image url="@../images/78520233 - Copy.png" />
+                  <Image url="@images/78520233 - Copy.png" />
                </image>
             </ImageView>
             <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="47.0" prefWidth="237.0">
                <children>
-                  <ProgressBar maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="6.0" prefWidth="30.0" progress="0.0" rotate="90.0" styleClass="pbpr" stylesheets="@../css/StyleFormProf.css" translateX="128.0" translateY="9.0" />
+                  <ProgressBar maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="6.0" prefWidth="30.0" progress="0.0" rotate="90.0" styleClass="pbpr" stylesheets="/css/StyleFormProf.css" translateX="128.0" translateY="9.0" />
                </children>
             </HBox>
             <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="38.0" prefWidth="238.0">
                <children>
                   <ImageView translateX="63.0" translateY="2.0">
                      <image>
-                        <Image url="@../images/IconProfile.png" />
+                        <Image url="@images/IconProfile.png" />
                      </image>
                   </ImageView>
-                  <Button fx:id="toprofile" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#tohisprofile" prefHeight="30.0" prefWidth="60.0" styleClass="bprof" text="Profile" translateX="60.0" />
                </children>
             </HBox>
             <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="48.0" prefWidth="243.0">
                <children>
                   <ImageView fitHeight="24.0" fitWidth="28.0" translateX="63.0" translateY="8.0">
                      <image>
-                        <Image url="@../images/IconDoc.png" />
+                        <Image url="@images/IconDoc.png" />
                      </image>
                   </ImageView>
                   <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#toMatiere" prefHeight="46.0" prefWidth="86.0" styleClass="bdoc" text="Matiers" translateX="60.0" />
@@ -52,18 +51,28 @@
                <children>
                   <ImageView translateX="60.0" translateY="8.0">
                      <image>
-                        <Image url="@../images/test.png" />
+                        <Image url="@images/test.png" />
                      </image>
                   </ImageView>
                   <Button fx:id="evaluation1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="40.0" prefWidth="78.0" styleClass="bev" text="Evaluation" translateX="60.0" />
                </children>
             </HBox>
+            <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="47.0" prefWidth="242.0">
+               <children>
+                  <ImageView translateX="60.0" translateY="8.0">
+                     <image>
+                        <Image url="@images/test.png" />
+                     </image>
+                  </ImageView>
+                  <Button fx:id="message" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#tomessage" prefHeight="40.0" prefWidth="78.0" styleClass="bev" text="message" translateX="60.0" />
+               </children>
+            </HBox>
             <HBox prefHeight="51.0" prefWidth="243.0">
                <children>
-                  <Button fx:id="dcxn" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#deconnexion" prefHeight="58.0" prefWidth="181.0" styleClass="dcxn" stylesheets="@../css/StyleDashboardAd.css" text="Déconnexion" />
+                  <Button fx:id="dcxn" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#deconnexion" prefHeight="58.0" prefWidth="181.0" styleClass="dcxn" stylesheets="/css/StyleDashboardAd.css" text="Déconnexion" />
                   <ImageView fitHeight="57.0" fitWidth="24.0">
                      <image>
-                        <Image url="@../images/Logout 2.png" />
+                        <Image url="@images/Logout_2.png" />
                      </image>
                   </ImageView>
                </children>
@@ -121,7 +130,7 @@
       <Button layoutX="284.0" layoutY="701.0" mnemonicParsing="false" onAction="#affichertout" prefHeight="18.0" prefWidth="32.0" style="-fx-background-color: transparent;" text="#" textFill="#a3aed0" />
       <TextField fx:id="idrecherche" layoutX="656.0" layoutY="23.0" onAction="#chercherMatiers" prefHeight="26.0" prefWidth="175.0" promptText="recherche" style="-fx-background-radius: 10; -fx-border-radius: 10;" />
       <Label layoutX="587.0" layoutY="28.0" text="Recherche" textFill="#a3aed0" />
-      <Button fx:id="idstate" layoutX="896.0" layoutY="24.0" mnemonicParsing="false" onAction="#showState" stylesheets="@../css/style.css" text="Statistique" textFill="#2b3674">
+      <Button fx:id="idstate" layoutX="896.0" layoutY="24.0" mnemonicParsing="false" onAction="#showState" stylesheets="/css/style.css" text="Statistique" textFill="#2b3674">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>

@@ -51,12 +51,11 @@ public class UploadBasic {
             throw e;
         }
     }
-    public static String uploadVideo(String filePathString, String videoType) throws IOException {
-        // Set the path to the service account key file.
-        System.setProperty("GOOGLE_APPLICATION_CREDENTIALS", "C:\\Users\\benmr\\IdeaProjects\\test3\\src\\main\\resources\\credentials.json");
 
-        // Load pre-authorized user credentials from the environment.
-        GoogleCredentials credentials = GoogleCredentials.getApplicationDefault()
+    public static String uploadVideo(String filePathString, String videoType) throws IOException {
+        // Load pre-authorized user credentials from the project resources.
+        InputStream credentialsStream = UploadBasic.class.getResourceAsStream("/credentials.json");
+        GoogleCredentials credentials = GoogleCredentials.fromStream(credentialsStream)
                 .createScoped(Arrays.asList(DriveScopes.DRIVE_FILE));
         HttpRequestInitializer requestInitializer = new HttpCredentialsAdapter(credentials);
 
@@ -88,12 +87,13 @@ public class UploadBasic {
             throw e;
         }
     }
-    public static Drive getDriveService() throws IOException {
-        // Set the path to the service account key file.
-        System.setProperty("GOOGLE_APPLICATION_CREDENTIALS", "C:\\Users\\benmr\\IdeaProjects\\test3\\src\\main\\resources\\credentials.json");
 
-        // Load pre-authorized user credentials from the environment.
-        GoogleCredentials credentials = GoogleCredentials.getApplicationDefault()
+
+    // Set the path to the service account key file.
+    public static Drive getDriveService() throws IOException {
+        // Load pre-authorized user credentials from the project resources.
+        InputStream credentialsStream = UploadBasic.class.getResourceAsStream("/credentials.json");
+        GoogleCredentials credentials = GoogleCredentials.fromStream(credentialsStream)
                 .createScoped(Arrays.asList(DriveScopes.DRIVE_FILE));
         HttpRequestInitializer requestInitializer = new HttpCredentialsAdapter(credentials);
 

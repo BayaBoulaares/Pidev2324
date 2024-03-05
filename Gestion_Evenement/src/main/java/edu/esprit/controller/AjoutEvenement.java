@@ -222,6 +222,19 @@ public class AjoutEvenement {
         // Utilisez getRoot() au lieu de getScene()
         ((Node) actionEvent.getSource()).getScene().setRoot(root);
     }
+    @FXML
 
+    public void toReclamation(ActionEvent actionEvent) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/AfficherReclamation.fxml"));
+        Parent root = loader.load();
+
+        ((Node) actionEvent.getSource()).getScene().setRoot(root);
+    }
+@FXML
+    public void toProfe(ActionEvent actionEvent) throws IOException {
+    FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/CrudAdmins.fxml"));
+    Parent root = loader.load();
+    ((Node) actionEvent.getSource()).getScene().setRoot(root);
+    }
 }
 

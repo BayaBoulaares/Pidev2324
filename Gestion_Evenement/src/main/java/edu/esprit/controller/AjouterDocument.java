@@ -391,4 +391,10 @@ public class AjouterDocument  implements Initializable {
     Parent root = loader.load();
     idc.getScene().setRoot(root);
     }
+@FXML
+    public void tomessage(ActionEvent actionEvent) throws IOException {
+    FXMLLoader loader= new FXMLLoader(getClass().getResource("/fxml/AfficherMessage.fxml"));
+    Parent root=loader.load();
+    idc.getScene().setRoot(root);
+    }
 }
