@@ -89,11 +89,11 @@
     -fx-background-color: #27DEC1; /* Couleur de fond */
 }
 .pbpr{
-    -fx-accent: #FFFFFF; /* Couleur de remplissage */
+    -fx-accent: #27DEC1; /* Couleur de remplissage */
 
 }
 .pbpr .track {
-    -fx-background-color: #FFFFFF;
+    -fx-background-color: #27DEC1;
 }
 .pbpr2{
     -fx-accent: #27DEC1; /* Couleur de remplissage */

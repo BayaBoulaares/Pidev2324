@@ -14,6 +14,10 @@ module edu.esprit.crudoff{
     requires google.api.client;
     requires com.google.api.client;
     requires com.google.api.client.json.jackson2;
+    requires com.google.api.client.auth;
+    requires java.desktop;
+    requires com.google.gson;
+    requires org.json;
     //requires java.mail;
 
 

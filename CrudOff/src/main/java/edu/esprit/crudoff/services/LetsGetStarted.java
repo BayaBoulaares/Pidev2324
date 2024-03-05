@@ -102,8 +102,8 @@ public class LetsGetStarted {
         } else if (utilisateur instanceof ParentE) {
             resource = "/fxml/DasboardUser.fxml";
         } else {
-            // Handle other user types if needed
-            return;
+            resource = "/fxml/DasboardUser.fxml";
+            //return;
         }
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource(resource));

@@ -2,6 +2,7 @@ package edu.esprit.crudoff.services;
 
 import edu.esprit.crudoff.entities.Administrateur;
 import edu.esprit.crudoff.entities.ParentE;
+import edu.esprit.crudoff.entities.Professeur;
 import edu.esprit.crudoff.entities.Utilisateur;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -9,10 +10,14 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 
+import java.awt.*;
 import java.io.IOException;
+import java.net.URI;
 import java.security.GeneralSecurityException;
 
 public class Login {
@@ -41,6 +46,10 @@ public class Login {
         //loginuser.setPromptText("Entrez votre nom d'utilisateur");
         @FXML
         private Button mdpoublier;
+
+    private static final String CLIENT_ID = "YOUR_CLIENT_ID";
+    private static final String CLIENT_SECRET = "YOUR_CLIENT_SECRET";
+    private static final String REDIRECT_URI = "YOUR_REDIRECT_URI";
 
 
 
@@ -148,7 +157,7 @@ public class Login {
 
         if (utilisateur != null) {
             // Vérification du mot de passe uniquement si l'utilisateur est trouvé dans la base de données
-            if (utilisateur.getMdp().equals(motDePasse)) {
+            if (utilisateur.getMdp().equals(motDePasse))  {
                 // Vérification du rôle de l'utilisateur
                 if (utilisateur instanceof Administrateur) {
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -175,6 +184,21 @@ public class Login {
                     FXMLLoader loader2 = new FXMLLoader(getClass().getResource("/fxml/DasboardUser.fxml"));
                     Parent root2 = loader2.load();
                     loginuser.getScene().setRoot(root2);
+                    CredentialsManager.clearCredentials();
+                    CredentialsManager.saveCredentials(String.valueOf(utilisateur.getId()),loginuser.getText(), mdpuser.getText(),String.valueOf(rememberCheckBox.isSelected()));
+
+                }
+                else  {
+                    Professeur pp = (Professeur) utilisateur;
+                    // Redirection vers l'interface utilisateur normale
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Succès");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Connexion réussie !");
+                    alert.showAndWait();
+                    FXMLLoader loader3 = new FXMLLoader(getClass().getResource("/fxml/DasboardUser.fxml"));
+                    Parent root3 = loader3.load();
+                    mdpuser.getScene().setRoot(root3);
                     CredentialsManager.clearCredentials();
                     CredentialsManager.saveCredentials(String.valueOf(utilisateur.getId()),loginuser.getText(), mdpuser.getText(),String.valueOf(rememberCheckBox.isSelected()));
 
@@ -214,13 +238,33 @@ public class Login {
 
     @FXML
     void seconnecteravecgoogle(ActionEvent event) throws GeneralSecurityException, IOException {
-       String ss = GoogleConnection.buildAuthorizationUrl();
-        System.out.println(ss);
+       /* try {
+            // Obtenez l'URL d'authentification Google
+            String authUrl = GoogleConnection.getAuthorizationUrl();
 
+            // Ouvrez cette URL dans un navigateur Web pour que l'utilisateur puisse se connecter
+            Desktop.getDesktop().browse(new URI(authUrl));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }*/
+        /*String ss = GoogleConnection.buildAuthorizationUrl();
+        System.out.println(ss);*/
+        String gClientId = "452055391469-0iqs7dmg959d7ro34t967b799b335406.apps.googleusercontent.com";
+        String gRedir = "http://localhost:8080";
+        String gScope = "https://www.googleapis.com/auth/userinfo.profile";
+        String gSecret = "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";
+        OAuthAuthenticator auth = new OAuthGoogleAuthenticator(gClientId, gRedir, gSecret, gScope);
+        auth.startLogin();
 
 
 
     }
-
-
 }
+
+
+
+
+
+
+
+

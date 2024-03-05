@@ -37,14 +37,14 @@ public class ServiceUtilisateur implements IService<Utilisateur>{
         statement.setString(7, u.getMdp());
 
         if (u instanceof Administrateur) {
-            statement.setString(8, "administrateur");
+            statement.setString(8, "Administrateur");
             statement.setNull(9, java.sql.Types.VARCHAR);
             statement.setNull(10, java.sql.Types.VARCHAR);
             statement.setNull(11, java.sql.Types.DATE);
             statement.setNull(12, java.sql.Types.DATE);
             statement.setNull(13, java.sql.Types.INTEGER);
         } else if (u instanceof Professeur) {
-            statement.setString(7, "professeur");
+            statement.setString(7, "Professeur");
             statement.setString(9, ((Professeur) u).getDiscpline());
             statement.setNull(8, java.sql.Types.VARCHAR);
             statement.setNull(10, java.sql.Types.VARCHAR);
@@ -52,7 +52,7 @@ public class ServiceUtilisateur implements IService<Utilisateur>{
             statement.setNull(12, java.sql.Types.DATE);
             statement.setNull(13, java.sql.Types.INTEGER);
         } else if (u instanceof ParentE) {
-            statement.setString(7, "parent");
+            statement.setString(7, "Parent");
             statement.setNull(8, java.sql.Types.VARCHAR);
             statement.setNull(9, java.sql.Types.VARCHAR);
             statement.setNull(13, java.sql.Types.INTEGER);
@@ -266,6 +266,7 @@ public class ServiceUtilisateur implements IService<Utilisateur>{
                     case "Professeur":
                         String discipline = resultSet.getString("discipline");
                         utilisateur = new Professeur(id,nom, prenom, adresse, dateNaissance, tel, login, mdp, discipline);
+                        System.out.println("hedha prof");
                         break;
 
                     case "Administrateur":
