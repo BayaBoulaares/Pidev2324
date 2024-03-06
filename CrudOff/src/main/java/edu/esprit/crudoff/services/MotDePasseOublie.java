@@ -6,6 +6,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -147,7 +149,14 @@ public class MotDePasseOublie {
     private boolean updatePasswordInDatabase(String email, String newPassword) {
         try {
             PreparedStatement statement = cnx.prepareStatement("UPDATE utilisateurs SET mdp = ? WHERE login = ?");
-            statement.setString(1, newPassword);
+            String hashedPassword = newPassword;
+            try {
+                hashedPassword = hashString("password");
+            } catch (NoSuchAlgorithmException e) {
+                throw new RuntimeException(e);
+            }
+
+            statement.setString(1, hashedPassword);
             statement.setString(2, email);
             int rowsAffected = statement.executeUpdate();
             return rowsAffected > 0; // Vérifiez si au moins une ligne a été modifiée
@@ -155,6 +164,17 @@ public class MotDePasseOublie {
             e.printStackTrace();
         }
         return false; // Renvoyer false en cas d'erreur lors de la mise à jour
+    }
+    public static String hashString(String input) throws NoSuchAlgorithmException {
+        MessageDigest digest = MessageDigest.getInstance("SHA-256");
+        byte[] hash = digest.digest(input.getBytes());
+        StringBuilder hexString = new StringBuilder();
+        for (byte b : hash) {
+            String hex = Integer.toHexString(0xff & b);
+            if (hex.length() == 1) hexString.append('0');
+            hexString.append(hex);
+        }
+        return hexString.toString();
     }
 
 
