@@ -3,9 +3,12 @@ package edu.esprit.crudoff.services;
 import edu.esprit.crudoff.utilis.DataSource;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
 
+import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
@@ -108,7 +111,7 @@ public class MotDePasseOublie {
     }
 
     @FXML
-    void confirmernvmdp(ActionEvent event) {
+    void confirmernvmdp(ActionEvent event) throws IOException {
         CredentialsManager crd = new CredentialsManager();
         String[] crds = SendSms.loadCredentials();
       String nouvmdp =nvmdp.getText();
@@ -125,6 +128,9 @@ public class MotDePasseOublie {
                     alert.setTitle("Validation");
                     alert.setContentText("Votre mot de passe a été changé avec succès.");
                     alert.showAndWait();
+                    FXMLLoader loader= new FXMLLoader(getClass().getResource("/fxml/Login.fxml"));
+                    Parent root=loader.load();
+                    cnvmdp.getScene().setRoot(root);
                 } else {
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setTitle("Validation");
