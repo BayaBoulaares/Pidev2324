@@ -5,6 +5,7 @@ import edu.esprit.entities.ExistanteException;
 import edu.esprit.entities.Matiere;
 import edu.esprit.entities.Professeur;
 import edu.esprit.services.CredentialsManager;
+import edu.esprit.services.ServiceProfesseur;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -35,7 +36,9 @@ public class MatiereController {
     @FXML
     private TextField idnom;
     private final SeviceMatiere MS = new SeviceMatiere();
-    private Professeur prof;
+    String idP=CredentialsManager.loadCredentials()[0];
+    ServiceProfesseur serviceProfesseur = new ServiceProfesseur();
+    private Professeur prof= serviceProfesseur.getByLogin(idP);
     private int currentStep = 0;
     @FXML
     public void initialize() {
@@ -45,12 +48,12 @@ public class MatiereController {
         afficherGuideUtilisation();
     }
 
-public void professGet(Professeur prof)
+/*public void professGet(Professeur prof)
 {
     System.out.println("//////////////////");
     System.out.println(prof);
     this.prof=prof;
-}
+}*/
     public  MatiereController(){
 
     }
@@ -72,6 +75,7 @@ public void professGet(Professeur prof)
     @FXML
     public void ajouterMatiere(javafx.event.ActionEvent actionEvent) {
         String validationError = validateInput();
+        System.out.println(prof);
         if (validationError.isEmpty()) {
             try {
                 this.MS.ajouter(new Matiere(this.idnom.getText(), this.iddesc.getText(),this.idannee.getValue(),this.idcat.getValue(),prof));
@@ -227,5 +231,11 @@ public void professGet(Professeur prof)
         alert.setHeaderText(null);
         alert.setContentText(content);
         return alert;
+    }
+@FXML
+    public void tomessage(ActionEvent actionEvent) throws IOException {
+    FXMLLoader loader= new FXMLLoader(getClass().getResource("/fxml/AfficherMessage.fxml"));
+    Parent root=loader.load();
+    idc.getScene().setRoot(root);
     }
 }

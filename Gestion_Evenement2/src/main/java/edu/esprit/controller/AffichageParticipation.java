@@ -87,17 +87,17 @@ public class AffichageParticipation {
         lieuIcon.setFitHeight(20);
         Label lieuLabel = new Label(evenement.getLieu_Event());
         lieuLabel.getStyleClass().add("lieu");
-        lieuBox.getChildren().addAll(new Label("Lieu: "), lieuIcon, lieuLabel);
+        lieuBox.getChildren().addAll(new Label(), lieuIcon, lieuLabel);
         eventBox.getChildren().add(lieuBox);
 
         SimpleDateFormat formatter = new SimpleDateFormat("EEE, dd MMM", Locale.FRENCH);
         String dateDebutStr = formatter.format(evenement.getDate_Debut());
         String dateFinStr = formatter.format(evenement.getDate_Fin());
-        Label dateLabel = new Label("Date: " + dateDebutStr + " / " + dateFinStr);
+        Label dateLabel = new Label( dateDebutStr + " / " + dateFinStr);
         dateLabel.getStyleClass().add("date");
         eventBox.getChildren().add(dateLabel);
 
-        Label descriptionLabel = new Label("Description: " + evenement.getDescription());
+        Label descriptionLabel = new Label( evenement.getDescription());
         descriptionLabel.getStyleClass().add("description");
         descriptionLabel.setStyle("-fx-text-fill: gray; -fx-wrap-text: true; -fx-font-size: 14;"); // Set font size and color
         descriptionLabel.setWrapText(true);

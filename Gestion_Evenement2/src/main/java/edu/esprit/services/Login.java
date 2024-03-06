@@ -1,6 +1,6 @@
 package edu.esprit.services;
 
-import edu.esprit.controller.AffichageMatiereController;
+
 import edu.esprit.entities.Administrateur;
 import edu.esprit.entities.ParentE;
 import edu.esprit.entities.Professeur;
@@ -14,16 +14,19 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.security.GeneralSecurityException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class Login {
     private final ServiceUtilisateur PS = new ServiceUtilisateur();
+    Connection cnx = DataSource.getInstance().getCnx();
+    private final ServiceParent sp =new ServiceParent();
+
 
     @FXML
     private TextField loginuser;
@@ -45,9 +48,13 @@ public class Login {
     private Button creercompte;
     // Définition des placeholders
 
-        //loginuser.setPromptText("Entrez votre nom d'utilisateur");
-        @FXML
-        private Button mdpoublier;
+    //loginuser.setPromptText("Entrez votre nom d'utilisateur");
+    @FXML
+    private Button mdpoublier;
+
+    private static final String CLIENT_ID = "YOUR_CLIENT_ID";
+    private static final String CLIENT_SECRET = "YOUR_CLIENT_SECRET";
+    private static final String REDIRECT_URI = "YOUR_REDIRECT_URI";
 
 
 
@@ -152,9 +159,10 @@ public class Login {
         String motDePasse = mdpuser.getText();
         Utilisateur utilisateur = PS.getByLogin(login);
 
+
         if (utilisateur != null) {
             // Vérification du mot de passe uniquement si l'utilisateur est trouvé dans la base de données
-            if (utilisateur.getMdp().equals(motDePasse)) {
+            if (utilisateur.getMdp().equals(motDePasse))  {
                 // Vérification du rôle de l'utilisateur
                 if (utilisateur instanceof Administrateur) {
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -170,9 +178,10 @@ public class Login {
                     stage.show();
                     CredentialsManager.clearCredentials();
                     CredentialsManager.saveCredentials(String.valueOf(utilisateur.getId()),loginuser.getText(), mdpuser.getText(),String.valueOf(rememberCheckBox.isSelected()));
+
                 } else if (utilisateur instanceof ParentE) {
                     ParentE pp = (ParentE) utilisateur;
-
+                    // Redirection vers l'interface utilisateur normale
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setTitle("Succès");
                     alert.setHeaderText(null);
@@ -180,15 +189,15 @@ public class Login {
                     alert.showAndWait();
                     FXMLLoader loader2 = new FXMLLoader(getClass().getResource("/fxml/DasboardUser.fxml"));
                     Parent root2 = loader2.load();
-                    DashboardUser du=loader2.getController();
-                    du.getPe(pp);
-                    du.setUserId(pp.getId()); // Pass the user ID to the DashboardUser controller
-
+                    DashboardUser udm=loader2.getController();
+                    udm.getPe(pp);
+                    udm.setUserId(pp.getId());
                     loginuser.getScene().setRoot(root2);
                     CredentialsManager.clearCredentials();
                     CredentialsManager.saveCredentials(String.valueOf(utilisateur.getId()),loginuser.getText(), mdpuser.getText(),String.valueOf(rememberCheckBox.isSelected()));
 
-                } else  if (utilisateur instanceof Professeur) {
+                }
+                else  {
                     Professeur pp = (Professeur) utilisateur;
                     // Redirection vers l'interface utilisateur normale
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -198,16 +207,12 @@ public class Login {
                     alert.showAndWait();
                     FXMLLoader loader3 = new FXMLLoader(getClass().getResource("/fxml/AfficherMatiere.fxml"));
                     Parent root3 = loader3.load();
-                    AffichageMatiereController afm=loader3.getController();
-                    afm.setProftoGet(pp);
-                    Scene scene = new Scene(root3);
-                    Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                    stage.setScene(scene);
-                    stage.show();
+                    mdpuser.getScene().setRoot(root3);
                     CredentialsManager.clearCredentials();
                     CredentialsManager.saveCredentials(String.valueOf(utilisateur.getId()),loginuser.getText(), mdpuser.getText(),String.valueOf(rememberCheckBox.isSelected()));
+
                 }
-             } else {
+            } else {
                 // Mot de passe incorrect
                 showAlertAndWait("Mot de passe incorrect !", "Erreur de connexion");
             }
@@ -242,14 +247,85 @@ public class Login {
 
     @FXML
     void seconnecteravecgoogle(ActionEvent event) throws GeneralSecurityException, IOException {
-       String ss = GoogleConnection.buildAuthorizationUrl();
-        System.out.println(ss);
+
+        String gClientId = "452055391469-0iqs7dmg959d7ro34t967b799b335406.apps.googleusercontent.com";
+        String gRedir = "http://localhost:8080";
+        String gScope = "https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email";
+        String gSecret = "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";
+        OAuthAuthenticator auth = new OAuthGoogleAuthenticator(gClientId, gRedir, gSecret, gScope);
+        auth.startLogin(new AuthCallback() {
+            @Override
+            public void onLoginSuccess(JSONObject js) {
+                try {
+
+                    // Handle successful login
+                    System.out.println("Login successful. JSON data: " + js.toString());
+                    String userName = js.getString("given_name");
+                    String userFamilyName = js.getString("family_name");
+                    String userEmail = js.getString("email");
+                    System.out.println("User Name: " + userName);
+                    System.out.println("User email: " + userEmail);
+                    ParentE parentE = sp.getByLogin(userEmail);
+                    if (parentE != null) {
+
+                        CredentialsManager.clearCredentials();
+                        CredentialsManager.saveCredentials(String.valueOf(parentE.getId()), userEmail, "", "true");
+                        FXMLLoader loader2 = new FXMLLoader(getClass().getResource("/fxml/DasboardUser.fxml"));
+                        Parent root2 = loader2.load();
+                        loginuser.getScene().setRoot(root2);
+
+                    } else {
+                        // Construction de la requête d'insertion
+                        String sql = "INSERT INTO utilisateurs (nom,prenom,login,role) VALUES (?,?,?,?)";
+
+                        // Création de la déclaration PreparedStatement avec la requête SQL
+                        PreparedStatement statement = null;
+
+                        statement = cnx.prepareStatement(sql);
+                        statement.setString(1, userName);
+                        statement.setString(2, userFamilyName);
+                        statement.setString(3, userEmail);
+                        statement.setString(4, "Parent");
+                        System.out.println("linaaaaaaaaa");
+                        int rowsInserted = statement.executeUpdate();
+
+                        //sp.ajouter(pp);
 
 
+                        FXMLLoader loader2 = new FXMLLoader(getClass().getResource("/fxml/DasboardUser.fxml"));
+                        Parent root2 = loader2.load();
+                        loginuser.getScene().setRoot(root2);
+                        CredentialsManager.clearCredentials();
+
+                        CredentialsManager.saveCredentials(String.valueOf(5), userEmail, "", "true");
+
+
+
+
+                    }
+                }catch (SQLException | IOException e) {
+                    throw new RuntimeException(e);
+                }
+
+
+            }
+
+            @Override
+            public void onLoginFailure(Exception e) {
+                // Handle login failure
+                e.printStackTrace();
+            }
+        });
 
 
 
     }
-
-
 }
+
+
+
+
+
+
+
+

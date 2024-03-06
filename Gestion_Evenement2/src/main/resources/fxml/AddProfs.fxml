@@ -16,7 +16,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="750.0" prefWidth="1200.0" styleClass="parent" stylesheets="@css/StyleFormProf.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.services.AddProfs">
+<AnchorPane prefHeight="750.0" prefWidth="1200.0" styleClass="parent" stylesheets="@/css/StyleFormProf.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.services.AddProfs">
    <children>
       <TextField fx:id="addpnomfield" layoutX="442.0" layoutY="330.0" prefHeight="32.0" prefWidth="200.0" />
       <Text fill="#2b3674" layoutX="448.0" layoutY="317.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nom*">
@@ -33,7 +33,7 @@
          <font>
             <Font size="14.0" />
          </font></Text>
-      <Button fx:id="breturn" layoutX="822.0" layoutY="745.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="141.0" styleClass="breturn" text="Retourner" textFill="#27dec1">
+      <Button fx:id="breturn" layoutX="822.0" layoutY="745.0" mnemonicParsing="false" onAction="#retutnToTableProf" prefHeight="37.0" prefWidth="141.0" styleClass="breturn" text="Retourner" textFill="#27dec1">
          <cursor>
             <Cursor fx:constant="DEFAULT" />
          </cursor>
@@ -71,7 +71,7 @@
          <children>
             <ImageView fitHeight="220.0" fitWidth="195.0" translateY="30.0">
                <image>
-                  <Image url="@images/785202333.png" />
+                  <Image url="@images/78520233 - Copy.png" />
                </image>
             </ImageView>
             <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="713.0" prefWidth="229.0" spacing="10.0" translateX="-10.0">
@@ -93,7 +93,7 @@
                               <Image url="@images/IconDoc.png" />
                            </image>
                         </ImageView>
-                        <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="46.0" prefWidth="90.0" styleClass="bdoc" text="Documents" translateX="60.0" />
+                        <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onDragDetected="#toMatiere" prefHeight="46.0" prefWidth="90.0" styleClass="bdoc" text="Document" translateX="60.0" />
                      </children>
                   </HBox>
                   <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="45.0" prefWidth="200.0">
@@ -113,7 +113,7 @@
                               <Image url="@images/IconCalendar.png" />
                            </image>
                         </ImageView>
-                        <Button fx:id="evenements1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="45.0" prefWidth="86.0" styleClass="bee" text="Evenements" translateX="60.0" />
+                        <Button fx:id="evenements1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#toevent" prefHeight="45.0" prefWidth="86.0" styleClass="bee" text="Evenements" translateX="60.0" />
                      </children>
                   </HBox>
                   <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="45.0" prefWidth="200.0">
@@ -123,7 +123,7 @@
                               <Image url="@images/Iconrec.png" />
                            </image>
                         </ImageView>
-                        <Button fx:id="reclamation1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="37.0" prefWidth="84.0" styleClass="brec" text="Réclamation" translateX="60.0" translateY="5.0" />
+                        <Button fx:id="reclamation1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#toReclamation" prefHeight="37.0" prefWidth="84.0" styleClass="brec" text="Réclamation" translateX="60.0" translateY="5.0" />
                      </children>
                   </HBox>
                   <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="45.0" prefWidth="200.0">

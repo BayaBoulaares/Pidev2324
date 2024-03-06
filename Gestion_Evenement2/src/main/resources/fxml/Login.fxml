@@ -55,7 +55,7 @@
          <children>
             <ImageView fitHeight="322.0" fitWidth="335.0" layoutX="97.0" layoutY="279.0">
                <image>
-                  <Image url="@images/785202333.png" />
+                  <Image url="@images/78520233 - Copy.png" />
                </image>
             </ImageView>
             <Text fill="WHITE" layoutX="90.0" layoutY="171.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="seconnecter" text="Bienvenue de nouveau !" wrappingWidth="387.5113525390625">

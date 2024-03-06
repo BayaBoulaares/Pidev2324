@@ -253,7 +253,7 @@ public class AfficherDocumentM {
             System.out.println("fffrtt");
             System.out.println(matiere.getAnnee());
              affichermatier.afficherSeulentAnnee(matiere.getAnnee());
-             affichermatier.getPe(ep);
+            // affichermatier.getPe(ep);
             idret.getScene().setRoot(root);
         } catch (IOException e) {
             e.printStackTrace();
@@ -318,6 +318,24 @@ public class AfficherDocumentM {
     CredentialsManager.clearCredentials();
     FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Login.fxml"));
     Parent root = loader.load();
+    idret.getScene().setRoot(root);
+    }
+@FXML
+    public void ToEvent(ActionEvent actionEvent) throws IOException {
+    FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Liste_Evenement.fxml"));
+    Parent root = loader.load();
+    AfficherEvents controller = loader.getController();
+
+    controller.initialize();
+    idret.getScene().setRoot(root);
+    }
+@FXML
+    public void toReclamation(ActionEvent actionEvent) throws IOException {
+    FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/AjouterReclamation.fxml"));
+    Parent root = loader.load();
+    AjouterReclamation controller = loader.getController();
+
+   // controller.setProftoGet(ep);
     idret.getScene().setRoot(root);
     }
 }

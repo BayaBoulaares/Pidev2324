@@ -3,7 +3,7 @@ package edu.esprit.services;
 import java.io.*;
 
 public class CredentialsManager {
-    private static final String FILENAME = "C:\\Users\\benmr\\IdeaProjects\\integration (2)\\integration\\integration\\Gestion_Evenement2\\credentials.txt";
+    private static final String FILENAME = "C:\\Users\\omarh\\Downloads\\integration\\Gestion_Evenement2\\Gestion_Evenement2\\credentials.txt";
 
 
     public static void saveCredentials(String id, String username, String password, String state) throws IOException {

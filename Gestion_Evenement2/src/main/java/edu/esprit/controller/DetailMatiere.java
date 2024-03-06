@@ -98,4 +98,12 @@ public class DetailMatiere {
     Parent root = loader.load();
     idret.getScene().setRoot(root);
     }
+@FXML
+    public void tomessage(ActionEvent actionEvent) throws IOException {
+    FXMLLoader loader= new FXMLLoader(getClass().getResource("/fxml/AfficherMessage.fxml"));
+    Parent root=loader.load();
+    idret.getScene().setRoot(root);
+
+
+}
 }

@@ -1,9 +1,6 @@
 package edu.esprit.services;
 
-import edu.esprit.controller.AcceuilMatiereC;
-import edu.esprit.controller.AfficherEvents;
-import edu.esprit.controller.AfficherReclamation;
-import edu.esprit.controller.AjouterReclamation;
+import edu.esprit.controller.*;
 import edu.esprit.entities.ParentE;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -30,7 +27,7 @@ public class DashboardUser {
 
     @FXML
     private Button toprofile;
-    private ParentE ep;
+    public static ParentE ep;
     public static int userId;
     public void getPe(ParentE ep)
     {
@@ -71,6 +68,13 @@ public class DashboardUser {
      reclamation1.getScene().setRoot(root);
     }
     @FXML
+    public void toEvaluation(ActionEvent actionEvent) throws IOException {
+        FXMLLoader loader= new FXMLLoader(getClass().getResource("/gui/Quiz/user/homePage.fxml"));
+        Parent root=loader.load();
+
+        reclamation1.getScene().setRoot(root);
+    }
+    @FXML
     public void ListEvents(ActionEvent actionEvent) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Liste_Evenement.fxml"));
         Parent root = loader.load();
@@ -91,9 +95,22 @@ public class DashboardUser {
         Parent root = loader.load();
         AjouterReclamation controller = loader.getController();
 
-        controller.setProftoGet(ep);
+       // controller.setProftoGet(ep);
         reclamation1.getScene().setRoot(root);
 
     }
+
+
+    @FXML
+    void chatbot(ActionEvent event) throws IOException, SQLException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ChatBot.fxml"));
+        Parent root = loader.load();
+        ChatBotController controller = loader.getController();
+
+        // controller.setProftoGet(ep);
+        reclamation1.getScene().setRoot(root);
+
+    }
+
 
 }

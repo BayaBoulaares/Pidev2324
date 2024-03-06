@@ -25,7 +25,7 @@
         <VBox fx:id="navBar" prefHeight="650.0" prefWidth="162.0" spacing="10" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
             <ImageView fitHeight="143.0" fitWidth="149.0">
                 <image>
-                    <Image url="@images/785202333.png" />
+                    <Image url="@images/78520233 - Copy.png" />
                 </image>
             </ImageView>
             <Label prefHeight="22.0" prefWidth="126.0" styleClass="navTitle" text="   Auti+Learn">
@@ -33,14 +33,14 @@
                     <Font name="DM sans" size="18.0" />
                 </font>
             </Label>
-            <Button onAction="#toacceuiel" fx:id="firstButton" prefHeight="34.0" prefWidth="101.0" style="-fx-background-color: transparent;" text="Acceuil" textFill="#ece7e7">
+            <Button fx:id="firstButton" onAction="#toacceuiel" prefHeight="34.0" prefWidth="101.0" style="-fx-background-color: transparent;" text="Acceuil" textFill="#ece7e7">
                 <graphic>
                     <ImageView fitHeight="24" fitWidth="24" pickOnBounds="true" preserveRatio="true" smooth="true">
                         <Image url="@images/IconAccueil.png" />
                     </ImageView>
                 </graphic>
             </Button>
-            <Button onAction="#tohisprofile"  prefHeight="34.0" prefWidth="101.0" style="-fx-background-color: transparent;" text="profil" textFill="#ece7e7">
+            <Button onAction="#tohisprofile" prefHeight="34.0" prefWidth="101.0" style="-fx-background-color: transparent;" text="profil" textFill="#ece7e7">
                 <graphic>
                     <ImageView fitHeight="24" fitWidth="24" pickOnBounds="true" preserveRatio="true" smooth="true">
                         <Image url="@images/IconProfile.png" />
@@ -72,7 +72,7 @@
                 </graphic>
             </Button>
 
-            <Button prefHeight="34.0" prefWidth="119.0" style="-fx-background-color: transparent;" text="Réclamation" textFill="WHITE">
+            <Button onAction="#toRdclamation" prefHeight="34.0" prefWidth="119.0" style="-fx-background-color: transparent;" text="Réclamation" textFill="WHITE">
                 <graphic>
                     <ImageView fitHeight="24" fitWidth="24" pickOnBounds="true" preserveRatio="true" smooth="true">
                         <Image url="@images/Iconrec.png" />

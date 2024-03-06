@@ -2,6 +2,7 @@ package edu.esprit.controller;
 
 import edu.esprit.entities.Messagerie;
 import edu.esprit.entities.ParentE;
+import edu.esprit.services.CredentialsManager;
 import edu.esprit.services.ServiceMessagerie;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -213,7 +214,7 @@ public class AfficherMessage {
 
                     // Assuming messagerie is already initialized
                     // Modify only the message, leaving the name unchanged
-                    messagerie = new Messagerie(messagerie.getId(), messagerie.getNom(), MeesageID.getText(), userId );
+                    messagerie = new Messagerie(messagerie.getId(), messagerie.getNom(), MeesageID.getText() );
 
                     // Automatically capitalize the first letter of the message
                     String capitalizedMessage = capitalizeFirstLetter(messagerie.getMessage());
@@ -449,5 +450,30 @@ public class AfficherMessage {
     }
 
 
+@FXML
+    public void toMatiere(ActionEvent actionEvent) throws IOException {
+    FXMLLoader loader= new FXMLLoader(getClass().getResource("/fxml/AfficherMatiere.fxml"));
+    Parent root=loader.load();
+    /*AffichageMatiereController acm=loader.getController();
+    acm.setProftoGet(matiere.getProf());*/
+    DateID.getScene().setRoot(root);
+    }
+@FXML
+    public void tomessage(ActionEvent actionEvent) {
+
+    }
+@FXML
+    public void deconnexion(ActionEvent actionEvent) throws IOException {
+    CredentialsManager.clearCredentials();
+    FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Login.fxml"));
+    Parent root = loader.load();
+    DateID.getScene().setRoot(root);
+    }
+    @FXML
+    public void toEvaluation(ActionEvent actionEvent) throws IOException {
+        FXMLLoader loader= new FXMLLoader(getClass().getResource("/gui/Quiz/admin/homePage.fxml"));
+        Parent root=loader.load();
+        DateID.getScene().setRoot(root);
+    }
 }
 

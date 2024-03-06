@@ -45,7 +45,7 @@
          <children>
             <ImageView fitHeight="185.0" fitWidth="194.0" translateY="-134.0">
                <image>
-                  <Image url="@images/785202333.png" />
+                  <Image url="@images/78520233 - Copy.png" />
                </image>
             </ImageView>
             <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="442.0" prefWidth="235.0" spacing="10.0" translateX="-15.0" translateY="30.0">
@@ -97,7 +97,7 @@
                               <Image url="@images/IconCalendar.png" />
                            </image>
                         </ImageView>
-                        <Button fx:id="evenements1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="45.0" prefWidth="86.0" styleClass="bee" text="Evenements" translateX="60.0" />
+                        <Button fx:id="evenements1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#toEvent" prefHeight="45.0" prefWidth="86.0" styleClass="bee" text="Evenements" translateX="60.0" />
                      </children>
                   </HBox>
                   <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="45.0" prefWidth="200.0">
@@ -107,7 +107,7 @@
                               <Image url="@images/Iconrec.png" />
                            </image>
                         </ImageView>
-                        <Button fx:id="reclamation1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="37.0" prefWidth="91.0" styleClass="brec" text="Réclamation" translateX="60.0" translateY="5.0" />
+                        <Button fx:id="reclamation1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#toReclamation" prefHeight="37.0" prefWidth="91.0" styleClass="brec" text="Réclamation" translateX="60.0" translateY="5.0" />
                      </children>
                   </HBox>
                   <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="45.0" prefWidth="200.0">

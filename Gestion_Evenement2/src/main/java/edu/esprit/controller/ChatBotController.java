@@ -92,7 +92,7 @@ public class ChatBotController {
     void Goback(ActionEvent event) {
         try {
             // Load the Ajouter interface FXML file
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/AjouterMessage.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/DasboardUser.fxml"));
             Parent ajouterInterface = loader.load();
 
             // Create a new scene

@@ -3,6 +3,8 @@ package edu.esprit.services;
 import edu.esprit.entities.Professeur;
 import edu.esprit.utils.DataSource;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -17,6 +19,12 @@ public class ServiceProfesseur implements IService<Professeur> {
     @Override
     public void ajouter(Professeur u) throws SQLException {
         String sql = "INSERT INTO utilisateurs (nom, prenom, adresse, dob, tel, login, mdp,role,discipline,nomenfant,prenomenfant,dobenfant,niveau) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?,?,?,?,?)";
+        String hashedPassword = u.getMdp();
+        try {
+            hashedPassword = hashString("password");
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        }
         PreparedStatement statement = cnx.prepareStatement(sql);
         statement.setString(1, u.getNom());
         statement.setString(2, u.getPrenom());
@@ -24,7 +32,7 @@ public class ServiceProfesseur implements IService<Professeur> {
         statement.setDate(4, new java.sql.Date(u.getDateNaissance().getTime()));
         statement.setInt(5, u.getTel());
         statement.setString(6, u.getLogin());
-        statement.setString(7, u.getMdp());
+        statement.setString(7, hashedPassword);
         statement.setString(8, "Professeur");
         statement.setString(9, u.getDiscpline());
         statement.setString(10, "null");
@@ -43,7 +51,12 @@ public class ServiceProfesseur implements IService<Professeur> {
     public void modifier(Professeur p) throws SQLException {
         int userId =  p.getId();
         String req = "UPDATE utilisateurs SET nom=?, prenom=?, adresse=?, tel=?, login=?, mdp=?, dob=?, discipline=? WHERE idu=? and role='Professeur'";
-
+        String hashedPassword = p.getMdp();
+        try {
+            hashedPassword = hashString("password");
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        }
         try {
             PreparedStatement ps = cnx.prepareStatement(req);
             ps.setString(1, p.getNom());
@@ -60,7 +73,7 @@ public class ServiceProfesseur implements IService<Professeur> {
             //ps.setDate(4, new java.sql.Date(ps.getDateNaissance().getTime()));*/
 
             ps.setString(5, p.getLogin());
-            ps.setString(6, p.getMdp());
+            ps.setString(6, hashedPassword);
             ps.setInt(4, p.getTel());
             //ps.setString(5, p.getMdp());
             ps.setString(8, p.getDiscpline());
@@ -256,6 +269,18 @@ public class ServiceProfesseur implements IService<Professeur> {
         }
 
         return util;
+    }
+
+    public static String hashString(String input) throws NoSuchAlgorithmException {
+        MessageDigest digest = MessageDigest.getInstance("SHA-256");
+        byte[] hash = digest.digest(input.getBytes());
+        StringBuilder hexString = new StringBuilder();
+        for (byte b : hash) {
+            String hex = Integer.toHexString(0xff & b);
+            if (hex.length() == 1) hexString.append('0');
+            hexString.append(hex);
+        }
+        return hexString.toString();
     }
 
 }

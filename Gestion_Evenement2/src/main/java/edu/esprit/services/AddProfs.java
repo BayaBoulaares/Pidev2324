@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -265,6 +266,31 @@ public class AddProfs {
         return false; // En cas d'erreur ou de problème de connexion, retourner false par défaut
     }
 
+@FXML
+    public void toMatiere(MouseEvent mouseEvent) throws IOException {
+    FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/AfficherMatierAdmin.fxml"));
+    Parent root = loader.load();
+    reclamation1.getScene().setRoot(root);
 
+    }
+@FXML
+    public void toevent(ActionEvent actionEvent) throws IOException {
+    FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Ajout_Evenement.fxml"));
+    Parent root = loader.load();
+    reclamation1.getScene().setRoot(root);
+    }
+@FXML
+    public void toReclamation(ActionEvent actionEvent) throws IOException {
+    FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/AfficherReclamation.fxml"));
+    Parent root = loader.load();
+
+    reclamation1.getScene().setRoot(root);
+    }
+
+    public void retutnToTableProf(ActionEvent actionEvent) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/CrudAdmins.fxml"));
+        Parent root = loader.load();
+        reclamation1.getScene().setRoot(root);
+    }
 }
 

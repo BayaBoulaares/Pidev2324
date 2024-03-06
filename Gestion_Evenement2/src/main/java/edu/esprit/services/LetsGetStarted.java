@@ -1,8 +1,10 @@
 package edu.esprit.services;
 
 
+import edu.esprit.controller.AffichageMatiereController;
 import edu.esprit.entities.Administrateur;
 import edu.esprit.entities.ParentE;
+import edu.esprit.entities.Professeur;
 import edu.esprit.entities.Utilisateur;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -20,6 +22,7 @@ public class LetsGetStarted {
     @FXML
     private Button rejoindre;
     private final ServiceUtilisateur PS = new ServiceUtilisateur();
+    private Utilisateur utilisateur ;
 
     /*@FXML
     void tologin(ActionEvent event) throws IOException {
@@ -81,7 +84,7 @@ public class LetsGetStarted {
             return;
         }
 
-        Utilisateur utilisateur = PS.getByLogin(mm[0]);
+         utilisateur = PS.getByLogin(mm[0]);
         if (utilisateur != null) {
             redirectToDashboard(utilisateur, event);
         } else {
@@ -97,17 +100,29 @@ public class LetsGetStarted {
 
     private void redirectToDashboard(Utilisateur utilisateur, ActionEvent event) throws IOException {
         String resource;
+        int a = 0;
         if (utilisateur instanceof Administrateur) {
             resource = "/fxml/DashobardAdmin.fxml";
         } else if (utilisateur instanceof ParentE) {
             resource = "/fxml/DasboardUser.fxml";
+            a=2;
         } else {
-            resource = "/fxml/DasboardUser.fxml";
-
+            resource = "/fxml/AfficherMatiere.fxml";
+            a=3;
         }
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource(resource));
         Parent root = loader.load();
+        if(a==2) {
+            DashboardUser acm=loader.getController();
+            ParentE pt= (ParentE) utilisateur;
+            acm.getPe(pt);
+            acm.setUserId(pt.getId());
+        } else if (a==3) {
+            AffichageMatiereController acm=loader.getController();
+            Professeur pt= (Professeur) utilisateur;
+            acm.setProftoGet(pt);
+        }
         Scene scene = new Scene(root);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(scene);

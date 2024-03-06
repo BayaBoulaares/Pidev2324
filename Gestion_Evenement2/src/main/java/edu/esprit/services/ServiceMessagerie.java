@@ -35,14 +35,13 @@ public class ServiceMessagerie implements IService<Messagerie> {
     @Override
     public void modifier(Messagerie m) {
         if (m != null && m.getNom() != null && m.getMessage() != null) {
-            String req = "UPDATE messagerie SET nom=?, message=?, date=?, idu=? WHERE id=?";
+            String req = "UPDATE messagerie SET nom=?, message=?, date=? WHERE id=?";
             try (PreparedStatement ps = cnx.prepareStatement(req)) {
                 ps.setString(1, m.getNom());
                 ps.setString(2, m.getMessage());
                 ps.setTimestamp(3, new Timestamp(System.currentTimeMillis()));
                 // Assuming idu is available in Messagerie class
-                ps.setInt(4, m.getIdu());
-                ps.setInt(5, m.getId());
+                ps.setInt(4, m.getId());
 
                 ps.executeUpdate();
                 System.out.println("Messagerie updated!");

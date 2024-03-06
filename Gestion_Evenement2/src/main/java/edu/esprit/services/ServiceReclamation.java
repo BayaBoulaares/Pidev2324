@@ -51,15 +51,14 @@ public class ServiceReclamation implements IService<Reclamation> {
 
     @Override
     public void modifier(Reclamation r) throws SQLException {
-        String req = "UPDATE reclamation SET nom=?, reclamation=?, date=?, rating=?,idu=? WHERE id=?";
+        String req = "UPDATE reclamation SET nom=?, reclamation=?, date=?, rating=? WHERE id=?";
 
         try (PreparedStatement ps = cnx.prepareStatement(req)) {
             ps.setString(1, r.getNom());
             ps.setString(2, r.getReclamation());
             ps.setTimestamp(3, Timestamp.valueOf(LocalDateTime.now()));
             ps.setString(4, r.getRating());
-            ps.setInt(5, r.getIdu());
-            ps.setInt(6, r.getId());
+            ps.setInt(5, r.getId());
 
             ps.executeUpdate();
             System.out.println("Reclamation updated!");

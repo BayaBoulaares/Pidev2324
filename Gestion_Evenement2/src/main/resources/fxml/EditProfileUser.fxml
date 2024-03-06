@@ -27,7 +27,7 @@
                      <children>
                         <ImageView fitHeight="250.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@images/785202333.png" />
+                              <Image url="@images/78520233 - Copy.png" />
                            </image>
                         </ImageView>
                         <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="442.0" prefWidth="235.0" spacing="10.0" styleClass="sidebar" translateY="20.0">

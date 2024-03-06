@@ -54,7 +54,7 @@ public class AffichageMatiereController {
 
     private SeviceMatiere serviceMatiere = new SeviceMatiere();
     private final PauseTransition pause = new PauseTransition(Duration.seconds(1));
-    private Professeur prod;
+    public static  Professeur prod;
     public void setProftoGet(Professeur prof)
     {
         System.out.println("bbbbbbbbbbbbbbbbbbbbbbbbbbbb");
@@ -238,7 +238,7 @@ public void handleAfficherDocumentButtonClick(Matiere matiere){
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/AjouterMatiere.fxml"));
             Parent root = loader.load();
             MatiereController mc=loader.getController();
-            mc.professGet(prod);
+           // mc.professGet(prod);
             idaj.getScene().setRoot(root);
         } catch (IOException e) {
             e.printStackTrace();
@@ -357,9 +357,7 @@ public void handleAfficherDocumentButtonClick(Matiere matiere){
         stage.show();
     }
 
-@FXML
-    public void tohisprofile(ActionEvent actionEvent) {
-    }
+
 @FXML
     public void toMatiere(ActionEvent actionEvent) throws IOException {
     FXMLLoader loader= new FXMLLoader(getClass().getResource("/fxml/AfficherMatiere.fxml"));
@@ -374,5 +372,17 @@ public void handleAfficherDocumentButtonClick(Matiere matiere){
     FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Login.fxml"));
     Parent root = loader.load();
     idaj.getScene().setRoot(root);
+    }
+@FXML
+    public void tomessage(ActionEvent actionEvent) throws IOException {
+    FXMLLoader loader= new FXMLLoader(getClass().getResource("/fxml/AfficherMessage.fxml"));
+    Parent root=loader.load();
+    idaj.getScene().setRoot(root);
+    }
+    @FXML
+    public void toEvaluation(ActionEvent actionEvent) throws IOException {
+        FXMLLoader loader= new FXMLLoader(getClass().getResource("/gui/Quiz/admin/homePage.fxml"));
+        Parent root=loader.load();
+        idaj.getScene().setRoot(root);
     }
 }

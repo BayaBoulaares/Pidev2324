@@ -18,9 +18,9 @@
     <children>
         <VBox alignment="CENTER" layoutX="-9.0" maxWidth="-Infinity" prefHeight="814.0" prefWidth="203.0" styleClass="sidebar" stylesheets="/css/StyleDashboardAd.css">
             <children>
-                <ImageView fitHeight="193.0" fitWidth="199.0" translateX="10.0" translateY="-134.0">
+                <ImageView fitHeight="144.0" fitWidth="190.0" translateX="10.0" translateY="-134.0">
                     <image>
-                        <Image url="@images/785202333.png" />
+                        <Image url="@images/78520233 - Copy.png" />
                     </image>
                 </ImageView>
                 <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="442.0" prefWidth="235.0" spacing="10.0" translateX="-10.0" translateY="30.0">
@@ -52,7 +52,7 @@
                                         <Image url="@images/IconDoc.png" />
                                     </image>
                                 </ImageView>
-                                <Button fx:id="idcm" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#ConsulterMatiere" prefHeight="46.0" prefWidth="86.0" styleClass="bdoc" text="Documents" translateX="60.0" />
+                                <Button fx:id="idcm" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#ConsulterMatiere" prefHeight="33.0" prefWidth="86.0" styleClass="bdoc" text="Documents" translateX="60.0" />
                             </children>
                         </HBox>
                         <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="45.0" prefWidth="200.0">
@@ -62,7 +62,7 @@
                                         <Image url="@images/test.png" />
                                     </image>
                                 </ImageView>
-                                <Button fx:id="evaluation1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="40.0" prefWidth="78.0" styleClass="bev" text="Evaluation" translateX="60.0" />
+                                <Button fx:id="evaluation1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="33.0" prefWidth="94.0" styleClass="bev" text="Evaluation" translateX="60.0" />
                             </children>
                         </HBox>
                         <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="45.0" prefWidth="200.0">
@@ -72,7 +72,7 @@
                                         <Image url="@images/IconCalendar.png" />
                                     </image>
                                 </ImageView>
-                                <Button fx:id="evenements1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="45.0" prefWidth="86.0" styleClass="bee" text="Evenements" translateX="60.0" />
+                                <Button fx:id="evenements1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#toEvent" prefHeight="45.0" prefWidth="86.0" styleClass="bee" text="Evenements" translateX="60.0" />
                             </children>
                         </HBox>
                         <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="45.0" prefWidth="200.0">
@@ -82,7 +82,7 @@
                                         <Image url="@images/Iconrec.png" />
                                     </image>
                                 </ImageView>
-                                <Button fx:id="reclamation1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="37.0" prefWidth="85.0" styleClass="brec" text="Réclamation" translateX="60.0" translateY="5.0" />
+                                <Button fx:id="reclamation1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#toReclamation" prefHeight="37.0" prefWidth="85.0" styleClass="brec" text="Réclamation" translateX="60.0" translateY="5.0" />
                             </children>
                         </HBox>
                         <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="45.0" prefWidth="200.0">
@@ -100,10 +100,10 @@
                                 <Image url="@images/Logout_2.png" />
                             </image>
                         </ImageView>
-                        <Button fx:id="dcxn" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#deconnexion" prefHeight="35.0" prefWidth="84.0" styleClass="dcxn" stylesheets="/css/StyleDashboardAd.css" text="Déconnexion" translateX="28.0" translateY="50.0" />
                     </children>
                 </VBox>
                 <ProgressBar maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="6.0" prefWidth="30.0" progress="0.0" rotate="90.0" styleClass="pbpr" stylesheets="/css/StyleFormProf.css" translateX="116.0" translateY="-407.0" />
+                  <Button fx:id="dcxn" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#deconnexion" prefHeight="35.0" prefWidth="84.0" styleClass="dcxn" stylesheets="/css/StyleDashboardAd.css" text="Déconnexion" />
             </children>
         </VBox>
         <Label layoutX="275.0" layoutY="35.0" text="Pages / Acceuil" textFill="#a3aed0">

@@ -294,7 +294,7 @@ public class AfficherReclamation {
     void goback(ActionEvent event) {
         try {
             // Load the Ajouter interface FXML file
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/AjouterReclamation.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/DashobardAdmin.fxml"));
             Parent ajouterInterface = loader.load();
 
             // Create a new scene
@@ -319,7 +319,7 @@ public class AfficherReclamation {
 
                 // Assuming reclamation is already initialized
                 // Modify only the reclamation details, leaving the name unchanged
-                reclamation = new Reclamation(reclamation.getId(), reclamation.getNom(), ReclamationID.getText(), DateID.getValue(), ratingID.getText(), 1);
+                reclamation = new Reclamation(reclamation.getId(), reclamation.getNom(), ReclamationID.getText(), DateID.getValue(), ratingID.getText());
 
                 // Automatically capitalize the first letter of the message
                 String capitalizedMessage = capitalizeFirstLetter(reclamation.getReclamation());
@@ -434,7 +434,7 @@ public class AfficherReclamation {
             rating.ratingProperty().addListener(new ChangeListener<Number>() {
                 @Override
                 public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
-                    ratingID.setText("Rate us " + t1 + "/5");
+                    ratingID.setText("Rate us "  + t1 + "/5");
                     processRatingStatistics(t1);
 
                     // Call loadStatistics with the current rating value (t1)
@@ -549,9 +549,10 @@ public class AfficherReclamation {
                 String title = ratingValue.isEmpty() ? "No Rating" : ratingValue;
                 title += " (" + String.format("%.2f", percentage) + "%)";
 
-                // Use PieChart.Data constructor with explicit title
+// Use PieChart.Data constructor with explicit title
                 PieChart.Data data = new PieChart.Data(title, count);
                 pieChartData.add(data);
+
             }
 
             // Print the titles and counts for verification
@@ -590,11 +591,53 @@ public class AfficherReclamation {
         }
     }
 
+    private static String toRGBCode(Color color) {
+        return String.format("#%02X%02X%02X",
+                (int) (color.getRed() * 255),
+                (int) (color.getGreen() * 255),
+                (int) (color.getBlue() * 255));
+    }
 
+@FXML
+    public void toacceuiel(ActionEvent actionEvent) throws IOException {
+    FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/DashobardAdmin.fxml"));
+    Parent root = loader.load();
+    DateID.getScene().setRoot(root);
+    }
+@FXML
+    public void tohisprofile(ActionEvent actionEvent) throws IOException {
+    FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/AffichageParent.fxml"));
+    Parent root = loader.load();
+    DateID.getScene().setRoot(root);
+    }
+@FXML
+    public void toMatiere(ActionEvent actionEvent) throws IOException {
 
+    FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/AfficherMatierAdmin.fxml"));
+    Parent root = loader.load();
+    DateID.getScene().setRoot(root);
 
+    }
+@FXML
+    public void toProfe(ActionEvent actionEvent) throws IOException {
+    FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/CrudAdmins.fxml"));
+    Parent root = loader.load();
+    DateID.getScene().setRoot(root);
 
-
-
-
+}
+@FXML
+    public void toReclamation(ActionEvent actionEvent) {
+    }
+@FXML
+    public void deconnexion(ActionEvent actionEvent) throws IOException {
+    FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Login.fxml"));
+    Parent root = loader.load();
+    DateID.getScene().setRoot(root);
+    }
+@FXML
+    public void toEvente(ActionEvent actionEvent) throws IOException {
+    FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Ajout_Evenement.fxml"));
+    Parent root = loader.load();
+    DateID.getScene().setRoot(root);
+    }
 }

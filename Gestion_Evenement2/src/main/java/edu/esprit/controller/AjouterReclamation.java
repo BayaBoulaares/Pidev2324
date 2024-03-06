@@ -1,10 +1,12 @@
 package edu.esprit.controller;
 
 import edu.esprit.entities.ParentE;
+import edu.esprit.services.ServiceProfesseur;
+
+import edu.esprit.entities.Professeur;
 import edu.esprit.entities.Reclamation;
 import edu.esprit.entities.User;
-import edu.esprit.services.ServiceReclamation;
-import edu.esprit.services.ServiceUser;
+import edu.esprit.services.*;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -58,6 +60,14 @@ public class AjouterReclamation {
     @FXML
     private Rating rating;
 
+    String idP=CredentialsManager.loadCredentials()[0];
+    ServiceParent serviceProfesseur = new ServiceParent();
+
+
+    private ParentE prod= serviceProfesseur.getByLogin(idP);
+
+
+
     @FXML
     private TextField ratingID;
     Label ratingStatusLabel = new Label();
@@ -92,7 +102,7 @@ public class AjouterReclamation {
     void Goback(ActionEvent event) {
         try {
             // Load the Ajouter interface FXML file
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/AjouterMessage.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/DasboardUser.fxml"));
             Parent ajouterInterface = loader.load();
 
             // Create a new scene
@@ -147,15 +157,15 @@ public class AjouterReclamation {
                 .show();
     }
 
-    private ParentE prod;
-    public void setProftoGet(ParentE prof)
+    //private ParentE prod=DashboardUser.ep;
+ /*   public void setProftoGet(ParentE prof)
     {
         System.out.println("bbbbbbbbbbbbbbbbbbbbbbbbbbbb");
 
         prod=prof;
         System.out.println(prod);
 
-    }
+    }*/
     @FXML
     void Ajouter(ActionEvent event) {
         try {
@@ -202,7 +212,7 @@ public class AjouterReclamation {
                 alert.setContentText("Réclamation ajoutée avec succès.\nOption sélectionnée : " + reclamation);
                 alert.showAndWait();
 
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherReclamation.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/AjouterReclamation.fxml"));
                 Parent root = loader.load();
 
                 Scene currentScene = NomId.getScene();
@@ -370,5 +380,61 @@ public class AjouterReclamation {
         return text;
     }
 
+@FXML
+    public void toacceuiel(ActionEvent actionEvent) throws IOException {
+    FXMLLoader loader= new FXMLLoader(getClass().getResource("/fxml/DasboardUser.fxml"));
+    Parent root=loader.load();
+   /* DashboardUser ash=loader.getController();
+    ash.getPe(ep);*/
+    DateId.getScene().setRoot(root);
+    }
 
+
+
+
+    @FXML
+
+    public void tohisprofile(ActionEvent actionEvent) throws IOException {
+        FXMLLoader loader= new FXMLLoader(getClass().getResource("/fxml/ProfileUser.fxml"));
+        Parent root=loader.load();
+      /*  ProfileUser pf=loader.getController();
+        pf.getPe(ep);*/
+        DateId.getScene().setRoot(root);
+    }
+@FXML
+    public void toMatiere(ActionEvent actionEvent) throws IOException {
+    FXMLLoader loader= new FXMLLoader(getClass().getResource("/fxml/acceuilMatiere.fxml"));
+    Parent root=loader.load();
+   /* AcceuilMatiereC acm=loader.getController();
+    acm.getPe(ep);*/
+    DateId.getScene().setRoot(root);
+    }
+
+ @FXML
+
+    public void toReclamation(ActionEvent actionEvent) {
+    }
+
+ @FXML
+    public void deconnexion(ActionEvent actionEvent) throws IOException {
+     CredentialsManager.clearCredentials();
+     FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Login.fxml"));
+     Parent root = loader.load();
+     DateId.getScene().setRoot(root);
+    }
+@FXML
+    public void toEvent(ActionEvent actionEvent) throws IOException {
+    FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Liste_Evenement.fxml"));
+    Parent root = loader.load();
+    AfficherEvents controller = loader.getController();
+
+    controller.initialize();
+    DateId.getScene().setRoot(root);
+    }
+    @FXML
+    public void toEvaluation(ActionEvent actionEvent) throws IOException {
+        FXMLLoader loader= new FXMLLoader(getClass().getResource("/gui/Quiz/user/homePage.fxml"));
+        Parent root=loader.load();
+        DateId.getScene().setRoot(root);
+    }
 }

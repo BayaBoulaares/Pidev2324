@@ -383,15 +383,7 @@ public class AfficherDocument {
     showStatistics(statistiques);
     }
 
-@FXML
-    public void tohisprofile(ActionEvent actionEvent) throws IOException {
 
-    /*FXMLLoader loader= new FXMLLoader(getClass().getResource("/fxml/ProfileUser.fxml"));
-    Parent root=loader.load();
-    ProfileUser pf=loader.getController();
-    pf.getPe(matiere.getProf());
-    idaj.getScene().setRoot(root);*/
-    }
 @FXML
     public void toMatiere(ActionEvent actionEvent) throws IOException {
     FXMLLoader loader= new FXMLLoader(getClass().getResource("/fxml/AfficherMatiere.fxml"));
@@ -407,5 +399,12 @@ public class AfficherDocument {
     FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Login.fxml"));
     Parent root = loader.load();
     idaj.getScene().setRoot(root);
+    }
+@FXML
+    public void tomessage(ActionEvent actionEvent) throws IOException {
+    FXMLLoader loader= new FXMLLoader(getClass().getResource("/fxml/AfficherMessage.fxml"));
+    Parent root=loader.load();
+    idaj.getScene().setRoot(root);
+
     }
 }

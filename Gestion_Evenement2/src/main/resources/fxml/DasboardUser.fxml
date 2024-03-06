@@ -17,7 +17,7 @@
                <children>
                   <ImageView fitHeight="193.0" fitWidth="196.0" translateY="-134.0">
                      <image>
-                        <Image url="@images/785202333.png" />
+                        <Image url="@images/78520233 - Copy.png" />
                      </image>
                   </ImageView>
                   <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="442.0" prefWidth="235.0" spacing="10.0" translateX="-10.0" translateY="-50.0">
@@ -60,7 +60,7 @@
                                     <Image url="@images/test.png" />
                                  </image>
                               </ImageView>
-                              <Button fx:id="evaluation1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="40.0" prefWidth="78.0" styleClass="bev" text="Evaluation" translateX="60.0" />
+                              <Button fx:id="evaluation1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#toEvaluation" prefHeight="40.0" prefWidth="78.0" styleClass="bev" text="Evaluation" translateX="60.0" />
                            </children>
                         </HBox>
                         <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="45.0" prefWidth="200.0">
@@ -83,7 +83,10 @@
                               <Button fx:id="reclamation1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#AfficherReclamation" prefHeight="37.0" prefWidth="85.0" styleClass="brec" text="Réclamation" translateX="60.0" translateY="5.0" />
                            </children>
                         </HBox>
-                        <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="45.0" prefWidth="200.0" />
+                        <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="45.0" prefWidth="200.0">
+                           <children>
+                              <Button fx:id="chatbot" layoutX="60.0" layoutY="50.0" maxHeight="-Infinity" maxWidth="-Infinity" onAction="#chatbot" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="37.0" prefWidth="85.0" styleClass="brec" text="Réclamation" />
+                           </children></HBox>
                         <ImageView translateX="-27.0" translateY="140.0">
                            <image>
                               <Image url="@images/Logout_2.png" />
@@ -101,7 +104,7 @@
             </HBox>
             <HBox layoutX="264.0" layoutY="241.0" prefHeight="259.0" prefWidth="398.0" styleClass="hboxstat" />
             <HBox layoutX="501.0" layoutY="66.0" prefHeight="100.0" prefWidth="200.0" styleClass="hbox2" />
-            <HBox layoutX="755.0" layoutY="241.0" prefHeight="240.0" prefWidth="235.0" styleClass="hboxcal" />
+            <HBox layoutX="749.0" layoutY="241.0" prefHeight="240.0" prefWidth="235.0" styleClass="hboxcal" />
             <ImageView fitHeight="306.0" fitWidth="433.0" layoutX="1209.0" layoutY="647.0">
                <image>
                   <Image url="@images/website, webpage, confirm, layout, performance, man, people.png" />

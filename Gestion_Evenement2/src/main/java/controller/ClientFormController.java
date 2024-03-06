@@ -4,6 +4,8 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import edu.esprit.entities.ParentE;
 import edu.esprit.entities.User;
+import edu.esprit.services.CredentialsManager;
+import edu.esprit.services.ServiceParent;
 import edu.esprit.services.ServiceUser;
 import edu.esprit.utils.DataSource;
 import emoji.EmojiPicker;
@@ -26,6 +28,7 @@ import javafx.scene.text.TextFlow;
 import java.awt.*;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.net.Socket;
 import java.sql.*;
@@ -50,6 +53,12 @@ public class ClientFormController {
     private static boolean adminConnected = false;
     private DataSource dataSource;
 
+    String idP= CredentialsManager.loadCredentials()[0];
+    ServiceParent serviceProfesseur = new ServiceParent();
+
+
+    private ParentE prod= serviceProfesseur.getByLogin(idP);
+
 
 
     public void initialize() {
@@ -64,7 +73,7 @@ public class ClientFormController {
                 System.out.println("Client connected");
 
                 // Fetch user data from the database and set clientName
-                int userId = 5; // You may need to adjust this based on your user identification mechanism
+                int userId = prod.getId(); // You may need to adjust this based on your user identification mechanism
                 ServiceUser serviceUser = new ServiceUser();
                 User user = serviceUser.getUserById(userId);
                 setClientName(user.getNom());
@@ -73,7 +82,7 @@ public class ClientFormController {
                 isAdminClient = !adminConnected; // If admin is not connected, this client becomes admin
                 adminConnected = true;
 
-                ServerFormController.receiveMessage(isAdminClient ? "Admin joined." : clientName + " joined.");
+                ServerFormController.receiveMessage(isAdminClient ? "professeur joined." : clientName + " joined.");
 
                 while (socket.isConnected()) {
                     String receivingMsg = dataInputStream.readUTF();
@@ -100,7 +109,7 @@ public class ClientFormController {
     }
 
     public void shutdown() {
-        ServerFormController.receiveMessage(clientName + (isAdminClient ? " (Admin)" : "") + " left.");
+        ServerFormController.receiveMessage(clientName + (isAdminClient ? " (User)" : "") + " left.");
     }
 
     private void emoji() {
@@ -140,15 +149,7 @@ public class ClientFormController {
     public void sendButtonOnAction(ActionEvent actionEvent) {
         sendMsg(txtMsg.getText());
     }
-    private ParentE prod;
-    public void setProftoGet(ParentE prof)
-    {
-        System.out.println("bbbbbbbbbbbbbbbbbbbbbbbbbbbb");
 
-        prod=prof;
-        System.out.println(prod);
-
-    }
     private void sendMsg(String msgToSend) {
         if (!msgToSend.isEmpty()) {
             HBox hBox = new HBox();
@@ -185,7 +186,7 @@ public class ClientFormController {
                     String insertQuery = "INSERT INTO messagerie (nom, date, message, idu) VALUES (?, ?, ?, ?)";
 
                     try (PreparedStatement preparedStatement = dataSource.getCnx().prepareStatement(insertQuery)) {
-                        preparedStatement.setString(1, isAdminClient() ? "Admin" : clientName);
+                        preparedStatement.setString(1, isAdminClient() ? "User" : clientName);
                         preparedStatement.setTimestamp(2, new Timestamp(System.currentTimeMillis()));
                         preparedStatement.setString(3, msgToSend);
                         preparedStatement.setInt(4,prod.getId() );  // Replace with the actual value for 'idu'
@@ -197,7 +198,7 @@ public class ClientFormController {
                 }
 
 
-                dataOutputStream.writeUTF((isAdminClient() ? "Admin" : clientName) + "-" + msgToSend);
+                dataOutputStream.writeUTF((isAdminClient() ? "User" : clientName) + "-" + msgToSend);
                 dataOutputStream.flush();
             } catch (IOException | SQLException e) {
                 e.printStackTrace();
@@ -230,86 +231,103 @@ public class ClientFormController {
                     receiveMessage(fullMessage, vBox);
                 }
             }
-        } catch (SQLException | IOException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    private void sendImage(String msgToSend) {
-        Image image = new Image(msgToSend);
-        ImageView imageView = new ImageView(image);
-        imageView.setFitHeight(200);
-        imageView.setFitWidth(200);
-        HBox hBox = new HBox();
-        hBox.setPadding(new Insets(5, 5, 5, 10));
-        hBox.getChildren().add(imageView);
-        hBox.setAlignment(Pos.CENTER_RIGHT);
-
-        vBox.getChildren().add(hBox);
-
+    private void sendImage(String imagePath) {
         try {
+            // Load image from file path
+            Image image = new Image(new File(imagePath).toURI().toString());
+            ImageView imageView = new ImageView(image);
+            imageView.setFitHeight(200);
+            imageView.setFitWidth(200);
+            HBox hBox = new HBox();
+            hBox.setPadding(new Insets(5, 5, 5, 10));
+            hBox.getChildren().add(imageView);
+            hBox.setAlignment(Pos.CENTER_RIGHT);
+
+            vBox.getChildren().add(hBox);
+
             // Insert the image path into the database
             try (Statement statement = dataSource.getCnx().createStatement()) {
                 String insertQuery = "INSERT INTO messagerie (nom, message) VALUES ('" +
-                        (isAdminClient() ? "Admin" : clientName) +
-                        "', '" + msgToSend + "')";
+                        (isAdminClient() ? "User" : clientName) +
+                        "', '" + imagePath + "')";
                 statement.executeUpdate(insertQuery);
             }
 
-            dataOutputStream.writeUTF(clientName + "-" + msgToSend);
+            dataOutputStream.writeUTF(clientName + "-" + imagePath);
             dataOutputStream.flush();
         } catch (IOException | SQLException e) {
             e.printStackTrace();
         }
     }
 
-    public static void receiveMessage(String msg, VBox vBox) throws IOException {
+
+    public static void receiveMessage(String msg, VBox vBox) {
         if (msg.matches(".*\\.(png|jpe?g|gif)$")) {
-            HBox hBoxName = new HBox();
-            hBoxName.setAlignment(Pos.CENTER_LEFT);
-            Text textName = new Text(msg.split("[-]")[0]);
-            TextFlow textFlowName = new TextFlow(textName);
-            hBoxName.getChildren().add(textFlowName);
-
-            Image image = new Image(msg.split("[-]")[1]);
-            ImageView imageView = new ImageView(image);
-            imageView.setFitHeight(200);
-            imageView.setFitWidth(200);
-            HBox hBox = new HBox();
-            hBox.setAlignment(Pos.CENTER_LEFT);
-            hBox.setPadding(new Insets(5, 5, 5, 10));
-            hBox.getChildren().add(imageView);
-            Platform.runLater(() -> {
-                vBox.getChildren().add(hBoxName);
-                vBox.getChildren().add(hBox);
-            });
-
+            String[] parts = msg.split("-");
+            if (parts.length == 2) {
+                String senderName = parts[0].trim();
+                String imageUrl = parts[1].trim();
+                Platform.runLater(() -> {
+                    try {
+                        displayImage(senderName, imageUrl, vBox);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                });
+            }
         } else {
-            String name = msg.split("-")[0];
-            String msgFromServer = msg.split("-")[1];
+            Platform.runLater(() -> displayTextMessage(msg, vBox));
+        }
+    }
 
-            HBox hBox = new HBox();
-            hBox.setAlignment(Pos.CENTER_LEFT);
-            hBox.setPadding(new Insets(5, 5, 5, 10));
+    private static void displayImage(String senderName, String imageUrl, VBox vBox) throws IOException {
+        Image image = new Image(new File(imageUrl).toURI().toString());
+        ImageView imageView = new ImageView(image);
+        imageView.setFitHeight(200);
+        imageView.setFitWidth(200);
+
+        HBox hBoxName = new HBox();
+        hBoxName.setAlignment(Pos.CENTER_LEFT);
+        Text textName = new Text(senderName);
+        TextFlow textFlowName = new TextFlow(textName);
+        hBoxName.getChildren().add(textFlowName);
+
+        HBox hBox = new HBox();
+        hBox.setAlignment(Pos.CENTER_LEFT);
+        hBox.setPadding(new Insets(5, 5, 5, 10));
+        hBox.getChildren().add(imageView);
+
+        vBox.getChildren().addAll(hBoxName, hBox);
+    }
+
+    private static void displayTextMessage(String msg, VBox vBox) {
+        String[] parts = msg.split("-");
+        if (parts.length == 2) {
+            String senderName = parts[0].trim();
+            String messageContent = parts[1].trim();
 
             HBox hBoxName = new HBox();
             hBoxName.setAlignment(Pos.CENTER_LEFT);
-            Text textName = new Text(name);
+            Text textName = new Text(senderName);
             TextFlow textFlowName = new TextFlow(textName);
             hBoxName.getChildren().add(textFlowName);
 
-            Text text = new Text(msgFromServer);
+            Text text = new Text(messageContent);
             TextFlow textFlow = new TextFlow(text);
             textFlow.setStyle("-fx-background-color: #abb8c3; -fx-font-weight: bold; -fx-background-radius: 20px");
             textFlow.setPadding(new Insets(5, 10, 5, 10));
-            text.setFill(Color.color(0, 0, 0));
 
+            HBox hBox = new HBox();
+            hBox.setAlignment(Pos.CENTER_LEFT);
+            hBox.setPadding(new Insets(5, 5, 5, 10));
             hBox.getChildren().add(textFlow);
 
-            Platform.runLater(() -> {
-                vBox.getChildren().add(hBoxName);
-                vBox.getChildren().add(hBox);
-            });
+            vBox.getChildren().addAll(hBoxName, hBox);
         }
     }
 

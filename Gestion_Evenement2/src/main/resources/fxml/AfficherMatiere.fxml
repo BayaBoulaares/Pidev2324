@@ -20,7 +20,7 @@
          <children>
             <ImageView fitHeight="208.0" fitWidth="208.0">
                <image>
-                  <Image url="@images/785202333.png" />
+                  <Image url="@images/78520233 - Copy.png" />
                </image>
             </ImageView>
             <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="47.0" prefWidth="237.0">
@@ -35,7 +35,6 @@
                         <Image url="@images/IconProfile.png" />
                      </image>
                   </ImageView>
-                  <Button fx:id="toprofile" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#tohisprofile" prefHeight="30.0" prefWidth="60.0" styleClass="bprof" text="Profile" translateX="60.0" />
                </children>
             </HBox>
             <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="48.0" prefWidth="243.0">
@@ -55,7 +54,17 @@
                         <Image url="@images/test.png" />
                      </image>
                   </ImageView>
-                  <Button fx:id="evaluation1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="40.0" prefWidth="78.0" styleClass="bev" text="Evaluation" translateX="60.0" />
+                  <Button fx:id="evaluation1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#toEvaluation" prefHeight="40.0" prefWidth="78.0" styleClass="bev" text="Evaluation" translateX="60.0" />
+               </children>
+            </HBox>
+            <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="47.0" prefWidth="242.0">
+               <children>
+                  <ImageView translateX="60.0" translateY="8.0">
+                     <image>
+                        <Image url="@images/test.png" />
+                     </image>
+                  </ImageView>
+                  <Button fx:id="message" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#tomessage" prefHeight="40.0" prefWidth="78.0" styleClass="bev" text="message" translateX="60.0" />
                </children>
             </HBox>
             <HBox prefHeight="51.0" prefWidth="243.0">

@@ -435,6 +435,21 @@ public class AfficherEvents {
         // Utilisez getRoot() au lieu de getScene()
         ((Node) actionEvent.getSource()).getScene().setRoot(root);
     }
+@FXML
+    public void toReclamation(ActionEvent actionEvent) throws IOException {
+    FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/AjouterReclamation.fxml"));
+    Parent root = loader.load();
+   /* AjouterReclamation controller = loader.getController();
+
+    controller.setProftoGet(ep);*/
+    ((Node) actionEvent.getSource()).getScene().setRoot(root);
+    }
+    @FXML
+    public void toEvaluation(ActionEvent actionEvent) throws IOException {
+        FXMLLoader loader= new FXMLLoader(getClass().getResource("/gui/Quiz/user/homePage.fxml"));
+        Parent root=loader.load();
+        eventBox.getScene().setRoot(root);
+    }
 }
 
 

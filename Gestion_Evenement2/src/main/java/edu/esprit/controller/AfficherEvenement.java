@@ -120,7 +120,7 @@ public class AfficherEvenement {
         eventBox.getChildren().add(descriptionLabel);
 
 
-     Label maxLabel = new Label("Nombre Restant :" + evenement.getNb_Max());
+     Label maxLabel = new Label("Nombre Max :" + evenement.getNb_Max());
         maxLabel.getStyleClass().add("max");
         eventBox.getChildren().add(maxLabel);
 
@@ -328,5 +328,11 @@ public class AfficherEvenement {
         ((Node) actionEvent.getSource()).getScene().setRoot(root);
     }
 
+@FXML
+    public void AfficherReclamation(ActionEvent actionEvent) throws IOException {
+    FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/AfficherReclamation.fxml"));
+    Parent root = loader.load();
 
-   }
+    ((Node) actionEvent.getSource()).getScene().setRoot(root);
+    }
+}

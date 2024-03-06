@@ -36,7 +36,7 @@
                 <Font name="Harlow Solid Italic" size="14.0" />
             </font>
         </Text>
-        <Text fx:id="txtLabel" fill="#2b50c9" layoutX="248.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Client">
+        <Text fx:id="txtLabel" fill="#2b50c9" layoutX="248.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ChatBox">
             <font>
                 <Font name="Bell MT Bold" size="20.0" />
             </font>

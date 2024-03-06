@@ -3,6 +3,8 @@ package edu.esprit.services;
 import edu.esprit.entities.ParentE;
 import edu.esprit.utils.DataSource;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -15,6 +17,12 @@ public class ServiceParent implements IService<ParentE> {
     @Override
     public void ajouter(ParentE parent) throws SQLException {
         String sql = "INSERT INTO utilisateurs (nom, prenom, adresse, dob, tel, login, mdp, nomenfant, prenomenfant, dobenfant,role,discipline,niveau,image) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?,?,?)";
+        String hashedPassword = parent.getMdp();
+        try {
+            hashedPassword = hashString("password");
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        }
         PreparedStatement statement = cnx.prepareStatement(sql);
         statement.setString(1, parent.getNom());
         statement.setString(2, parent.getPrenom());
@@ -22,7 +30,7 @@ public class ServiceParent implements IService<ParentE> {
         statement.setDate(4, new java.sql.Date(parent.getDateNaissance().getTime()));
         statement.setInt(5, parent.getTel());
         statement.setString(6, parent.getLogin());
-        statement.setString(7, parent.getMdp());
+        statement.setString(7, hashedPassword);
         statement.setString(8, parent.getNomE());
         statement.setString(9, parent.getPrenomE());
         statement.setDate(10, new java.sql.Date(parent.getDateNaissanceE().getTime()));
@@ -247,6 +255,16 @@ public class ServiceParent implements IService<ParentE> {
 
         return util;
     }
-
+    public static String hashString(String input) throws NoSuchAlgorithmException {
+        MessageDigest digest = MessageDigest.getInstance("SHA-256");
+        byte[] hash = digest.digest(input.getBytes());
+        StringBuilder hexString = new StringBuilder();
+        for (byte b : hash) {
+            String hex = Integer.toHexString(0xff & b);
+            if (hex.length() == 1) hexString.append('0');
+            hexString.append(hex);
+        }
+        return hexString.toString();
+    }
 
 }

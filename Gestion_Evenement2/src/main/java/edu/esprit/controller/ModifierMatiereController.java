@@ -70,7 +70,7 @@ public class ModifierMatiereController implements Initializable {
                     alert.setTitle("Validation");
                     alert.setContentText("Matiere updated successfully");
                     alert.showAndWait();
-                    FXMLLoader loader = new FXMLLoader(this.getClass().getResource("/AfficherMatiere.fxml"));
+                    FXMLLoader loader = new FXMLLoader(this.getClass().getResource("/fxml/AfficherMatiere.fxml"));
                     Parent root = (Parent) loader.load();
                     this.idnom.getScene().setRoot(root);
 
@@ -160,6 +160,12 @@ public class ModifierMatiereController implements Initializable {
     CredentialsManager.clearCredentials();
     FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Login.fxml"));
     Parent root = loader.load();
+    idretour.getScene().setRoot(root);
+    }
+@FXML
+    public void tomessage(ActionEvent actionEvent) throws IOException {
+    FXMLLoader loader= new FXMLLoader(getClass().getResource("/fxml/AfficherMessage.fxml"));
+    Parent root=loader.load();
     idretour.getScene().setRoot(root);
     }
 }

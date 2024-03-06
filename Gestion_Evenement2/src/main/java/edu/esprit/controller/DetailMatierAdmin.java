@@ -123,6 +123,22 @@ public class DetailMatierAdmin {
     toprofesseur.getScene().setRoot(root);
     }
 @FXML
-    public void toProfesseurs(ActionEvent actionEvent) {
+    public void toProfesseurs(ActionEvent actionEvent) throws IOException {
+    FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/CrudAdmins.fxml"));
+    Parent root = loader.load();
+    toprofesseur.getScene().setRoot(root);
+    }
+@FXML
+    public void toEvent(ActionEvent actionEvent) throws IOException {
+    FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Ajout_Evenement.fxml"));
+    Parent root = loader.load();
+    toprofesseur.getScene().setRoot(root);
+    }
+    @FXML
+    public void toReclamation(ActionEvent actionEvent) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/AfficherReclamation.fxml"));
+        Parent root = loader.load();
+
+        reclamation1.getScene().setRoot(root);
     }
 }

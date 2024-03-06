@@ -13,7 +13,7 @@
          <children>
             <ImageView fitHeight="193.0" fitWidth="171.0" translateY="-30.0">
                <image>
-                  <Image url="@images/785202333.png" />
+                  <Image url="@images/78520233 - Copy.png" />
                </image>
             </ImageView>
             <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="412.0" prefWidth="235.0" spacing="10.0" translateY="30.0">
