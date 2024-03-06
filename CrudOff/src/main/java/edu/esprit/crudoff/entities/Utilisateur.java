@@ -16,6 +16,12 @@ public abstract class Utilisateur {
 
     public Utilisateur()
     {}
+    public Utilisateur(String nom, String prenom, String login)
+    {
+        this.nom =  nom;
+        this.prenom = prenom;
+        this.login = login;
+    }
     public Utilisateur(String nom, String prenom, String adresse,int tel, String login)
     {
         this.nom =  nom;

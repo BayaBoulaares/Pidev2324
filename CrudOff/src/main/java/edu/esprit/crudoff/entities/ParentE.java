@@ -17,6 +17,10 @@ public class ParentE extends Utilisateur{
         this.dateNaissanceE = dateNaissance2;
         this.image=image;
     }
+    public ParentE(String nom, String prenom, String login) {
+        super(nom, prenom,login);
+
+    }
 
 
     public String getImage() {

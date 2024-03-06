@@ -1,5 +1,10 @@
 package edu.esprit.crudoff.services;
+
+import edu.esprit.crudoff.utilis.DataSource;
 import javafx.event.EventHandler;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebEvent;
@@ -14,8 +19,13 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
 public abstract class OAuthAuthenticator {
     private JSONObject accessedJsonData;
+    Connection cnx = DataSource.getInsatnce().getConnection();
 
     private boolean gotData = false;
     private boolean attemptRecieved = false;
@@ -49,50 +59,50 @@ public abstract class OAuthAuthenticator {
         return redirectUri;
     }
 
-    public void startLogin() {
-
-        if(loginAttempted) {
-            System.out.println("login attempted 55");
+    public void startLogin(AuthCallback authCallback) {
+        if (loginAttempted) {
+            System.out.println("Login attempted 55");
+            authCallback.onLoginFailure(new RuntimeException("Login attempted already"));
             return;
         }
+
         loginAttempted = true;
         stage = new Stage();
         WebView root = new WebView();
         WebEngine engine = root.getEngine();
 
         engine.load(getWebUrl());
-        System.out.println("engine load 64");
+        System.out.println("Engine load 64");
 
-        engine.setOnStatusChanged(new EventHandler<WebEvent<String>>() {
-            @Override
-            public void handle(WebEvent<String> event) {
-                System.out.println("Status changed event received.");
+        engine.setOnStatusChanged(event -> {
+            System.out.println("Status changed event received.");
 
-                if(gotData || attemptRecieved) {
-                    System.out.println("* Already got data or attempt received. Skipping.");
-                    return;
-                }
+            if (gotData || attemptRecieved) {
+                System.out.println("* Already got data or attempt received. Skipping.");
+                return;
+            }
 
-                System.out.println("* Handling status change event...");
+            System.out.println("* Handling status change event...");
 
-                if (event.getSource() instanceof WebEngine) {
-                    WebEngine we = (WebEngine) event.getSource();
-                    System.out.println("* WebEngine instance obtained.");
-                    String location = we.getLocation();
-                    System.out.println("* Location: " + location);
+            if (event.getSource() instanceof WebEngine) {
+                WebEngine we = (WebEngine) event.getSource();
+                System.out.println("* WebEngine instance obtained.");
+                String location = we.getLocation();
+                System.out.println("* Location: " + location);
 
-                    if (location.contains("code") && location.startsWith(getRedirectUri())) {
-                        System.out.println("* Attempt received. Processing...");
+                if (location.contains("code") && location.startsWith(getRedirectUri())) {
+                    System.out.println("* Attempt received. Processing...");
 
-                        attemptRecieved = true;
-                        System.out.println("* Attempt received flag set to true.");
+                    attemptRecieved = true;
+                    System.out.println("* Attempt received flag set to true.");
 
-                        closeStage();
-                        System.out.println("* Stage closed.");
+                    closeStage();
+                    System.out.println("* Stage closed.");
 
-                        accessCode = location.substring(location.indexOf("code=") + 5);
-                        System.out.println("* Access code extracted: " + accessCode);
+                    accessCode = location.substring(location.indexOf("code=") + 5);
+                    System.out.println("* Access code extracted: " + accessCode);
 
+                    try {
                         accessToken = doGetAccessTokenRequest(accessCode);
                         System.out.println("* Access token acquired.");
 
@@ -100,23 +110,23 @@ public abstract class OAuthAuthenticator {
                         System.out.println("* Account info retrieved: " + returnedJson);
 
                         accessedJsonData = new JSONObject(returnedJson);
+
                         System.out.println("* JSON data processed.");
 
                         gotData = true;
                         System.out.println("* Got data flag set to true.");
 
-                        notifyLoginViewCompleted();
-                        System.out.println("* Notified login view.");
+                        authCallback.onLoginSuccess(accessedJsonData);
+                    } catch (Exception e) {
+                        authCallback.onLoginFailure(e);
                     }
                 }
             }
         });
 
-
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
-
     }
 
     abstract String getWebUrl();
@@ -260,4 +270,33 @@ public abstract class OAuthAuthenticator {
         }
         return null;
     }
+   /* private void insertDataIntoDatabase(String accessToken, JSONObject jsonData) {
+        // Connexion à la base de données
+        try  {
+            // Construction de la requête d'insertion
+            String sql = "INSERT INTO utilisateurs (nom,prenom,login) VALUES (?,?,?)";
+
+            // Création de la déclaration PreparedStatement avec la requête SQL
+            PreparedStatement statement = cnx.prepareStatement(sql);
+            //statement.setString(1, accessToken);
+            // Ajoutez d'autres paramètres selon votre structure de données
+            statement.setString(1, jsonData.getString("nom"));
+            statement.setString(2, jsonData.getString("prenom"));
+            statement.setString(3, jsonData.getString("login"));
+            // Ajoutez d'autres attributs si nécessaire
+
+            // Exécution de la requête
+            int rowsInserted = statement.executeUpdate();
+            if (rowsInserted > 0) {
+                System.out.println("Les données ont été insérées avec succès dans la base de données !");
+            }
+        } catch (SQLException e) {
+            System.err.println("Erreur lors de l'insertion des données dans la base de données : " + e.getMessage());
+        }
+    }
+    private void handleAuthentication(String accessToken, JSONObject jsonData) {
+        // Insérer les données dans la base de données
+        insertDataIntoDatabase(accessToken, jsonData);
+        // Autres actions à effectuer après l'insertion dans la base de données
+    }*/
 }

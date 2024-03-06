@@ -4,24 +4,28 @@ import edu.esprit.crudoff.entities.Administrateur;
 import edu.esprit.crudoff.entities.ParentE;
 import edu.esprit.crudoff.entities.Professeur;
 import edu.esprit.crudoff.entities.Utilisateur;
+import edu.esprit.crudoff.utilis.DataSource;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import org.json.JSONObject;
 
-import java.awt.*;
 import java.io.IOException;
-import java.net.URI;
 import java.security.GeneralSecurityException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 public class Login {
     private final ServiceUtilisateur PS = new ServiceUtilisateur();
+    Connection cnx = DataSource.getInsatnce().getConnection();
+    private final ServiceParent sp =new ServiceParent();
+
 
     @FXML
     private TextField loginuser;
@@ -238,23 +242,80 @@ public class Login {
 
     @FXML
     void seconnecteravecgoogle(ActionEvent event) throws GeneralSecurityException, IOException {
-       /* try {
-            // Obtenez l'URL d'authentification Google
-            String authUrl = GoogleConnection.getAuthorizationUrl();
 
-            // Ouvrez cette URL dans un navigateur Web pour que l'utilisateur puisse se connecter
-            Desktop.getDesktop().browse(new URI(authUrl));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }*/
-        /*String ss = GoogleConnection.buildAuthorizationUrl();
-        System.out.println(ss);*/
         String gClientId = "452055391469-0iqs7dmg959d7ro34t967b799b335406.apps.googleusercontent.com";
         String gRedir = "http://localhost:8080";
-        String gScope = "https://www.googleapis.com/auth/userinfo.profile";
+        String gScope = "https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email";
         String gSecret = "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";
         OAuthAuthenticator auth = new OAuthGoogleAuthenticator(gClientId, gRedir, gSecret, gScope);
-        auth.startLogin();
+        auth.startLogin(new AuthCallback() {
+            @Override
+            public void onLoginSuccess(JSONObject js) {
+                try {
+
+                    // Handle successful login
+                    System.out.println("Login successful. JSON data: " + js.toString());
+                    String userName = js.getString("given_name");
+                    String userFamilyName = js.getString("family_name");
+                    String userEmail = js.getString("email");
+                    System.out.println("User Name: " + userName);
+                    System.out.println("User email: " + userEmail);
+                    ParentE parentE = sp.getByLogin(userEmail);
+                    if (parentE != null) {
+
+                        CredentialsManager.clearCredentials();
+                        CredentialsManager.saveCredentials(String.valueOf(parentE.getId()), userEmail, "", "true");
+                        FXMLLoader loader2 = new FXMLLoader(getClass().getResource("/fxml/DasboardUser.fxml"));
+                        Parent root2 = loader2.load();
+                        loginuser.getScene().setRoot(root2);
+
+                    } else {
+                        // Construction de la requête d'insertion
+                        String sql = "INSERT INTO utilisateurs (nom,prenom,login,role) VALUES (?,?,?,?)";
+
+                        // Création de la déclaration PreparedStatement avec la requête SQL
+                        PreparedStatement statement = null;
+
+                            statement = cnx.prepareStatement(sql);
+                            statement.setString(1, userName);
+                            statement.setString(2, userFamilyName);
+                            statement.setString(3, userEmail);
+                            statement.setString(4, "Parent");
+                            System.out.println("linaaaaaaaaa");
+                            int rowsInserted = statement.executeUpdate();
+
+                        //sp.ajouter(pp);
+
+
+                            FXMLLoader loader2 = new FXMLLoader(getClass().getResource("/fxml/DasboardUser.fxml"));
+                            Parent root2 = loader2.load();
+                            loginuser.getScene().setRoot(root2);
+                            CredentialsManager.clearCredentials();
+
+                            CredentialsManager.saveCredentials(String.valueOf(5), userEmail, "", "true");
+
+
+
+
+                    }
+                }catch (SQLException | IOException e) {
+                    throw new RuntimeException(e);
+                }
+
+
+            }
+
+            @Override
+            public void onLoginFailure(Exception e) {
+                // Handle login failure
+                e.printStackTrace();
+            }
+        });
+
+
+
+
+
 
 
 
