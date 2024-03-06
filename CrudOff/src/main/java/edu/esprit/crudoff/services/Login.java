@@ -284,15 +284,12 @@ public class Login {
                             System.out.println("linaaaaaaaaa");
                             int rowsInserted = statement.executeUpdate();
 
-                        //sp.ajouter(pp);
+
 
 
                             FXMLLoader loader2 = new FXMLLoader(getClass().getResource("/fxml/DasboardUser.fxml"));
                             Parent root2 = loader2.load();
                             loginuser.getScene().setRoot(root2);
-                            CredentialsManager.clearCredentials();
-
-                            CredentialsManager.saveCredentials(String.valueOf(5), userEmail, "", "true");
 
 
 
