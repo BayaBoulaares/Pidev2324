@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxWidth="-Infinity" prefHeight="100.0" prefWidth="700.0" styleClass="quiz-card-admin" stylesheets="@../../../style/QuizTest.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controller.Quiz.admin.QuizTestCardController">
+   <children>
+      <Circle fx:id="imgQuizContainer" fill="DODGERBLUE" layoutX="58.0" layoutY="50.0" radius="40.0" stroke="TRANSPARENT" strokeType="INSIDE" />
+      <Text fx:id="quizNameTxt" layoutX="119.0" layoutY="59.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="card-text-admin" text="Name of quiz" />
+      <Text fx:id="quizTypeTxt" layoutX="266.0" layoutY="59.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="card-text-admin" text="Type : This is Test" />
+      <Button layoutX="600.0" layoutY="33.0" mnemonicParsing="false" onMouseClicked="#deleteBtnClicked" prefWidth="40.0" styleClass="delete-btn" stylesheets="@../../../style/QuizTest.css">
+         <graphic>
+            <ImageView fitHeight="32.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../icons/delete-bin-2-fill.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button layoutX="553.0" layoutY="33.0" mnemonicParsing="false" onMouseClicked="#editBtnClicked" styleClass="edit-btn" stylesheets="@../../../style/QuizTest.css">
+         <graphic>
+            <ImageView fitHeight="32.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../icons/edit-box-line.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button layoutX="506.0" layoutY="33.0" mnemonicParsing="false" onMouseClicked="#showQuestions" styleClass="edit-btn" stylesheets="@../../../style/QuizTest.css">
+         <graphic>
+            <ImageView fitHeight="32.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../icons/eye-line.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button fx:id="QrCodeBtn" layoutX="646.0" layoutY="33.0" mnemonicParsing="false" onMouseClicked="#deleteBtnClicked" prefWidth="40.0" styleClass="QrCodeBtn" stylesheets="@../../../style/QuizTest.css" textFill="#2f2f2f">
+         <graphic>
+            <ImageView fitHeight="32.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../icons/qr-code.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+   </children>
+</AnchorPane>

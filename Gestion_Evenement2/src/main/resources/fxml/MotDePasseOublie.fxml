@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" styleClass="parent" stylesheets="/css/StyleMdpOublie.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.services.MotDePasseOublie">
+   <children>
+      <Button fx:id="cnvmdp" alignment="CENTER" contentDisplay="CENTER" layoutX="238.0" layoutY="346.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#confirmernvmdp" prefHeight="27.0" prefWidth="125.0" styleClass="bconfirm" text="Changer" textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS" />
+      <PasswordField fx:id="nvmdp" layoutX="198.0" layoutY="166.0" onKeyTyped="#forcemdp" prefHeight="27.0" prefWidth="229.0" styleClass="nvmdp" stylesheets="/css/StyleMdpOublie.css" />
+      <PasswordField fx:id="confirmermdp" layoutX="198.0" layoutY="282.0" prefHeight="27.0" prefWidth="229.0" styleClass="confimermdp" stylesheets="/css/StyleMdpOublie.css" />
+      <Label layoutX="198.0" layoutY="130.0" text="Nouveau mot de passe* " textFill="#2b3674">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="197.0" layoutY="251.0" text="Confirmer mot de passe*" textFill="#2b3674">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="41.0" layoutY="37.0" text="Changer Mote de passe !" textFill="#2b3674">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="192.0" fitWidth="184.0" layoutY="115.0">
+         <image>
+            <Image url="@images/Anatomy scene builder.png" />
+         </image>
+      </ImageView>
+      <Label fx:id="fmdp" layoutX="210.0" layoutY="211.0" prefHeight="17.0" prefWidth="98.0" text="Label" />
+   </children>
+</AnchorPane>

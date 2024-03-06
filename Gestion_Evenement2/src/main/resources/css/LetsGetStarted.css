@@ -1,0 +1,15 @@
+.surface{
+    -fx-background-color: #27DEC1;
+    -fx-background-radius: 0px;
+}
+.lgs{
+    -fx-background-color: #ffffff; /* Couleur de fond */
+    -fx-text-fill: #27DEC1; /* Couleur du texte */
+    -fx-font-size: 14px; /* Taille de police */
+    -fx-font-family: "dm-sans"; /* Famille de police */
+    -fx-border-width: 0.5px;
+    -fx-padding: 5;
+    -fx-background-radius:1em;
+
+
+}

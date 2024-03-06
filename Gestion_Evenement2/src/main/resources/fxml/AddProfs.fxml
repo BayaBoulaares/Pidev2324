@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="750.0" prefWidth="1200.0" styleClass="parent" stylesheets="@/css/StyleFormProf.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.services.AddProfs">
+   <children>
+      <TextField fx:id="addpnomfield" layoutX="442.0" layoutY="330.0" prefHeight="32.0" prefWidth="200.0" />
+      <Text fill="#2b3674" layoutX="448.0" layoutY="317.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nom*">
+         <font>
+            <Font size="14.0" />
+         </font></Text>
+      <TextField fx:id="addpprenomfield" layoutX="442.0" layoutY="446.0" prefHeight="32.0" prefWidth="200.0" />
+      <Text fill="#2b3674" layoutX="448.0" layoutY="433.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Prénom*">
+         <font>
+            <Font size="14.0" />
+         </font></Text>
+      <TextField fx:id="addpdiscfield" layoutX="442.0" layoutY="559.0" prefHeight="32.0" prefWidth="200.0" />
+      <Text fill="#2b3674" layoutX="450.0" layoutY="546.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Discipline*">
+         <font>
+            <Font size="14.0" />
+         </font></Text>
+      <Button fx:id="breturn" layoutX="822.0" layoutY="745.0" mnemonicParsing="false" onAction="#retutnToTableProf" prefHeight="37.0" prefWidth="141.0" styleClass="breturn" text="Retourner" textFill="#27dec1">
+         <cursor>
+            <Cursor fx:constant="DEFAULT" />
+         </cursor>
+      </Button>
+      <Button fx:id="bconfirm" layoutX="981.0" layoutY="745.0" mnemonicParsing="false" onAction="#confirmer" prefHeight="37.0" prefWidth="141.0" styleClass="bconfirm" text="Confirmer" />
+      <TextField fx:id="addpemailfield" layoutX="766.0" layoutY="410.0" prefHeight="32.0" prefWidth="200.0" />
+      <Text fill="#2b3674" layoutX="772.0" layoutY="397.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email*">
+         <font>
+            <Font size="14.0" />
+         </font></Text>
+      <TextField fx:id="addpadressefield" layoutX="766.0" layoutY="340.0" prefHeight="32.0" prefWidth="200.0" />
+      <Text fill="#2b3674" layoutX="766.0" layoutY="314.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Adresse*">
+         <font>
+            <Font size="14.0" />
+         </font></Text>
+      <TextField fx:id="addptelfield" layoutX="766.0" layoutY="487.0" prefHeight="32.0" prefWidth="200.0" />
+      <Text fill="#2b3674" layoutX="772.0" layoutY="474.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Numéro de téléphone*">
+         <font>
+            <Font size="14.0" />
+         </font></Text>
+      <Text fill="#2b3674" layoutX="257.0" layoutY="81.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nouveaux !">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Text>
+      <Text fill="#707eae" layoutX="257.0" layoutY="55.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Pages / Accueil" />
+      <ProgressBar layoutX="442.0" layoutY="231.0" prefHeight="1.5" prefWidth="533.0" progress="0.0" styleClass="pbpr" />
+      <Button fx:id="proform1" layoutX="449.0" layoutY="189.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="129.0" styleClass="bpr" text="Professeur" textFill="#27dec1" />
+      <ImageView fitHeight="288.0" fitWidth="290.0" layoutX="1267.0" layoutY="619.0">
+         <image>
+            <Image url="@images/environment, planet, earth, world, man, people, climate.png" />
+         </image>
+      </ImageView>
+      <VBox alignment="CENTER" layoutX="-8.0" maxWidth="-Infinity" prefHeight="933.0" prefWidth="218.0" styleClass="sidebar">
+         <children>
+            <ImageView fitHeight="220.0" fitWidth="195.0" translateY="30.0">
+               <image>
+                  <Image url="@images/78520233 - Copy.png" />
+               </image>
+            </ImageView>
+            <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="713.0" prefWidth="229.0" spacing="10.0" translateX="-10.0">
+               <children>
+                  <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="45.0" prefWidth="200.0">
+                     <children>
+                        <ImageView translateX="60.0" translateY="3.5">
+                           <image>
+                              <Image url="@images/Users Group Two Rounded.png" />
+                           </image>
+                        </ImageView>
+                        <Button fx:id="tousers" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#toUsers" prefHeight="30.0" prefWidth="90.0" styleClass="users" text="Utilisateurs" translateX="60.0" />
+                     </children>
+                  </HBox>
+                  <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="45.0" prefWidth="200.0">
+                     <children>
+                        <ImageView translateX="63.0" translateY="8.0">
+                           <image>
+                              <Image url="@images/IconDoc.png" />
+                           </image>
+                        </ImageView>
+                        <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onDragDetected="#toMatiere" prefHeight="46.0" prefWidth="90.0" styleClass="bdoc" text="Document" translateX="60.0" />
+                     </children>
+                  </HBox>
+                  <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="45.0" prefWidth="200.0">
+                     <children>
+                        <ImageView translateX="60.0" translateY="8.0">
+                           <image>
+                              <Image url="@images/test.png" />
+                           </image>
+                        </ImageView>
+                        <Button fx:id="evaluation1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="40.0" prefWidth="85.0" styleClass="bev" text="Evaluation" translateX="60.0" />
+                     </children>
+                  </HBox>
+                  <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="45.0" prefWidth="200.0">
+                     <children>
+                        <ImageView translateX="60.0" translateY="10.0">
+                           <image>
+                              <Image url="@images/IconCalendar.png" />
+                           </image>
+                        </ImageView>
+                        <Button fx:id="evenements1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#toevent" prefHeight="45.0" prefWidth="86.0" styleClass="bee" text="Evenements" translateX="60.0" />
+                     </children>
+                  </HBox>
+                  <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="45.0" prefWidth="200.0">
+                     <children>
+                        <ImageView translateX="60.0" translateY="10.0">
+                           <image>
+                              <Image url="@images/Iconrec.png" />
+                           </image>
+                        </ImageView>
+                        <Button fx:id="reclamation1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#toReclamation" prefHeight="37.0" prefWidth="84.0" styleClass="brec" text="Réclamation" translateX="60.0" translateY="5.0" />
+                     </children>
+                  </HBox>
+                  <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="45.0" prefWidth="200.0">
+                     <children>
+                        <ImageView translateX="60.0" translateY="8.0">
+                           <image>
+                              <Image url="@images/Glasses.png" />
+                           </image>
+                        </ImageView>
+                        <Button fx:id="totableprof" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#totableprof" prefHeight="46.0" prefWidth="78.0" styleClass="bdoc" text="Professeurs" translateX="60.0" />
+                     </children>
+                  </HBox>
+                  <ProgressBar maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="6.0" prefWidth="30.0" progress="0.0" rotate="-89.4" styleClass="pbpr" translateX="125.0" translateY="-34.0" />
+                  <ImageView translateX="-30.0" translateY="40.0">
+                     <image>
+                        <Image url="@images/Logout_2.png" />
+                     </image>
+                  </ImageView>
+                  <Button fx:id="dcxn" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#deconnexion" prefHeight="35.0" prefWidth="79.0" styleClass="dcxn" text="Déconnexion" translateX="25.0" />
+               </children>
+            </VBox>
+         </children>
+      </VBox>
+      <Text fill="#2b3674" layoutX="451.0" layoutY="661.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date De Naissance*" translateX="-3.0">
+         <font>
+            <Font size="14.0" />
+         </font></Text>
+      <DatePicker fx:id="adddobfield" layoutX="438.0" layoutY="673.0" prefHeight="32.0" prefWidth="207.0" styleClass="date">
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </DatePicker>
+      <PasswordField fx:id="pfmdp" layoutX="763.0" layoutY="566.0" prefHeight="32.0" prefWidth="207.0" />
+      <Text fill="#2b3674" layoutX="773.0" layoutY="557.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Mot de passe*" wrappingWidth="141.0">
+         <font>
+            <Font size="14.0" />
+         </font></Text>
+      <Label layoutX="450.0" layoutY="373.0" prefWidth="142.0" />
+   </children>
+</AnchorPane>
