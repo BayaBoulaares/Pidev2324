@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  {% block css1 %}
+  <link rel="apple-touch-icon" sizes="76x76" href="{{ asset('backOff/assets/img/apple-icon.png') }}">
+  <link rel="icon" type="image/png" href="{{ asset('backOff/assets/img/favicon.png') }}">
+  {% endblock %}
+  <title>
+    {% block title %}
+    Auti-Learn
+    {% endblock %}
+  </title>
+  <!-- Fonts and icons -->
+  {% block css2 %}
+  <link href="{{ asset('https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700') }}" rel="stylesheet" />
+  <!-- Nucleo Icons -->
+  <link href="{{ asset('backOff/assets/css/nucleo-icons.css') }}" rel="stylesheet" />
+  <link href="{{ asset('backOff/assets/css/nucleo-svg.css') }}" rel="stylesheet" />
+  {% endblock %}
+  <!-- Font Awesome Icons -->
+  {% block js2 %}
+  <script src="{{ asset('https://kit.fontawesome.com/42d5adcbca.js') }}" crossorigin="anonymous"></script>
+  {% endblock %}
+  {% block css3 %}
+  <link href="{{ asset('backOff/assets/css/nucleo-svg.css') }}" rel="stylesheet" />
+  <!-- CSS Files -->
+  <link id="pagestyle" href="{{ asset('backOff/assets/css/argon-dashboard.css?v=2.0.4') }}" rel="stylesheet" />
+  {% endblock  %}
+</head>
+
+<body class="g-sidenav-show bg-gray-100">
+  {% block body %}
+  <div class="min-height-300 bg-primary position-absolute w-100"></div>
+  <aside class="sidenav bg-white navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-4 " id="sidenav-main">
+    <div class="sidenav-header">
+      <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
+      <a class="navbar-brand m-0" href="{{ asset('https://demos.creative-tim.com/argon-dashboard/pages/dashboard.html') }} " target="_blank">
+        <img src="{{ asset('backOff/assets/img/78520233 1.png') }}"  alt="main_logo">
+        <span class="ms-1 font-weight-bold">Auti-Learn</span>
+      </a>
+    </div>
+    <hr class="horizontal dark mt-0">
+    <div class="collapse navbar-collapse  w-auto " id="sidenav-collapse-main">
+      <ul class="navbar-nav">
+        <!-- Navigation items -->
+      </ul>
+    </div>
+  </aside>
+  <main class="main-content position-relative border-radius-lg ">
+    <!-- Navbar -->
+    <!-- Navbar content -->
+    <!-- Main content goes here -->
+    <!-- Form to edit an event -->
+    <div class="container mt-11"> <!-- Added margin top to create space below navigation bar -->
+      <div class="row">
+        <div class="col-md-6 offset-md-3">
+          <h1>Edit Evenement</h1>
+          {{ form_start(form) }}
+          <div class="row">
+            <div class="col-md-6 form-group">
+              {{ form_label(form.nomEvent, 'Nom de l\'événement') }}
+              {{ form_widget(form.nomEvent, {'attr': {'class': 'form-control', 'style': 'height: 36px; border: 1px solid gray;', 'placeholder': 'Entrez le nom de l\'événement'}}) }}
+            </div>
+            <div class="col-md-6 form-group">
+              {{ form_label(form.dateDebut, 'Date de début') }}
+              {{ form_widget(form.dateDebut, {'attr': {'class': 'form-control', 'style': 'height: 36px; border: 1px solid gray;', 'placeholder': 'Entrez la date de début'}}) }}
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6 form-group">
+              {{ form_label(form.dateFin, 'Date de fin') }}
+              {{ form_widget(form.dateFin, {'attr': {'class': 'form-control', 'style': 'height: 36px; border: 1px solid gray;', 'placeholder': 'Entrez la date de fin'}}) }}
+            </div>
+            <div class="col-md-6 form-group">
+              {{ form_label(form.lieuEvent, 'Lieu de l\'événement') }}
+              {{ form_widget(form.lieuEvent, {'attr': {'class': 'form-control', 'style': 'height: 36px; border: 1px solid gray;', 'placeholder': 'Entrez le lieu de l\'événement'}}) }}
+            </div>
+          </div>
+          <div class="form-group">
+            {{ form_label(form.description, 'Description') }}
+            {{ form_widget(form.description, {'attr': {'class': 'form-control', 'style': 'height: 60px; border: 1px solid gray;', 'placeholder': 'Entrez la description de l\'événement'}}) }}
+          </div>
+          <div class="row">
+            <div class="col-md-6 form-group">
+              {{ form_label(form.nbMax, 'Nombre maximum de participants') }}
+              {{ form_widget(form.nbMax, {'attr': {'class': 'form-control', 'style': 'height: 36px; border: 1px solid gray;', 'placeholder': 'Entrez le nombre maximum de participants'}}) }}
+            </div>
+            <div class="col-md-6 form-group">
+              {{ form_label(form.image, 'Image') }}
+              {{ form_widget(form.image, {'attr': {'class': 'form-control', 'style': 'height: 35px; border: 1px solid gray;'}}) }}
+            </div>
+          </div>
+          <div class="text-center"> <!-- Center the button -->
+            <button type="submit" class="btn btn-primary btn-block btn-animation">Enregistrer les modifications</button> <!-- Added btn-animation class for animation -->
+          </div>
+          {{ form_end(form) }}
+        </div>
+      </div>
+    </div>
+  </main>
+  {% endblock %}
+</body>
+
+</html>

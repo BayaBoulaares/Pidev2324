@@ -1,0 +1,15 @@
+/* CSS pour les boutons Modifier et Supprimer */
+.btn-Modifier.custom-button {
+    background-color: #008080; /* Couleur de fond du bouton Modifier */
+    color: white; /* Couleur du texte du bouton Modifier */
+    border: none; /* Pas de bordure pour le bouton Modifier */
+}
+
+.btn-Supprimer.custom-button {
+    background-color: #ADD8E6; /* Couleur de fond du bouton Supprimer */
+    color: white; /* Couleur du texte du bouton Supprimer */
+    border: #008080; 
+}
+.turquoise-border {
+    border-color: turquoise !important;
+}
